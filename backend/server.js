@@ -4,23 +4,21 @@
  * para ello podeis sacar funciones a otros archivos e improtarlos en este.
  */
 
-
 // Importaciones de librerias
 
-require('dotenv').config({
-    path: '../.env'
-});
+import dotenv from 'dotenv';
+dotenv.config();
 
-const express = require('express');
+import express from 'express';
+import db from './db/conn.js';
 
 // Importaciones de archivos
 
 // Constantes
-const PORT = process.env.PORT;
+const PORT  = process.env.PORT;
+const app = express();
 
 // Codigo
-
-const app = express();
 
 app.get("/api", (req, res) => { 
     res.json({
