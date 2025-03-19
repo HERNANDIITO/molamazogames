@@ -2,7 +2,16 @@ import logo from './assets/images/logo.png';
 import './App.css';
 import { useEffect, useState } from 'react';
 
+import Button from './components/Button/Button';
+import { FaArrowRight } from 'react-icons/fa';  
+
 function App() {
+
+  // Funncion de ejemplo, estaria mejor en un archivo separado
+  const handleClick = () => {
+    alert('¡Botón clicado!');
+  };
+
 
   return (
     <div className="App">
@@ -20,6 +29,15 @@ function App() {
         >
           Learn React
         </a>
+
+
+        <Button
+          label="Siguiente"
+          icon={<FaArrowRight />}
+          iconPosition="left"
+          onClick={handleClick}
+          className="primary-btn"
+        />
     
       </header>
     </div>
