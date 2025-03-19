@@ -1,0 +1,116 @@
+/* src/styles/Button.scss */
+
+@import '../../styles/themes/_colors.scss';
+@import '../../styles/themes/_fonts.scss';
+@import '../../styles/themes/_dimensiones.scss';
+
+
+.btn{
+    display: inline-flex;             
+    justify-content: center;       
+    align-items: center;           
+    gap:  $espacio-icono-texto-boton;    
+    border-radius: $radio-borde-botones;
+    width: $ancho-boton-peque;
+    height: $alto-boton-peque;
+    border: none;
+    background-color: $color-secundario;
+    transition: background-color 0.5s ease, box-shadow 0.3s ease;
+    color: $color-textoAlt;
+    cursor: pointer;
+    margin: $margen-botones;
+    font-family: $fuente-secundaria;
+    font-size: $tamano-texto-boton;
+    text-decoration: none;
+
+    > span {
+        display: inline-flex;             
+        justify-content: center;       
+        align-items: center; 
+    }
+
+    &.active-btn{
+        background-color: $color-active-secundario;
+        color: $color-texto;
+    }
+
+    &:hover{
+        background-color: $color-hover-secundario;
+        transition: width 0.3s ease, left 0.3s ease;
+        box-shadow: 0 0 0 $extra-box-botones $color-hover-extra-secundario;
+        transition: background-color 0.5s ease, box-shadow 0.3s ease;
+        color: $color-textoAlt;
+    }
+
+    &.active-btn:hover{
+        background-color: $color-active-secundario;
+        box-shadow: 0 0 0 $extra-box-botones $color-active-extra-secundario;
+        color: $color-texto;
+    }
+
+    &.seleccionable-btn{
+        > span {
+            display: none;
+        }
+    }
+
+    &.seleccionable-btn.active-btn{
+        > span {
+            display: inline;
+        }
+    }
+
+    &:disabled{
+        background-color: $color-disabled;
+
+        &:hover{
+            box-shadow: none;
+        }
+    }
+
+    &.secondary-btn{
+        background-color: transparent;
+        color: $color-secundario;
+        border: $borde-botones solid $color-secundario;
+
+        &:hover{
+            border-color: $color-hover-secundario;
+            color: $color-hover-secundario;
+        }
+
+        &.active-btn{
+            border-color: $color-active-secundario;
+            color: $color-texto;
+
+            &:hover{
+                background-color: transparent;
+                border-color: $color-hover-secundario;
+                color: $color-hover-secundario;
+            }
+        }
+    }
+
+    &.enano-btn{
+        width: $ancho-boton-enano;
+        height: $alto-boton-enano;
+    }
+
+    &.mediano-btn{
+        width: $ancho-boton-mediano;
+        height: $alto-boton-mediano;
+    }
+
+    &.grande-btn{
+        width: $ancho-boton-grande;
+        height: $alto-boton-grande;
+    }
+ 
+    &.enorme-btn{
+        width: $ancho-boton-enorme;
+        height: $alto-boton-enorme;
+    }
+}
+
+
+          
+

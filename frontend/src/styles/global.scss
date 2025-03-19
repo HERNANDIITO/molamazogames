@@ -52,7 +52,7 @@ p{
     }
 }
 
-a {
+a:not(.btn) {
     font-family: $fuente-secundaria;
     font-size: $tamano-texto;
     color: $color-secundario;
@@ -89,7 +89,7 @@ a {
     }
 }
 
-nav a{
+nav a:not(.btn){
     font-size: $tamano-texto-grande;
     color: $color-texto;
     font-weight: $peso-medio;

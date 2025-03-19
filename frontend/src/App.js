@@ -32,11 +32,74 @@ function App() {
 
 
         <Button
-          label="Siguiente"
+          label="Next"
           icon={<FaArrowRight />}
           iconPosition="left"
           onClick={handleClick}
-          className="primary-btn"
+          className="seleccionable-btn"
+          href="#"
+        />
+
+        <Button
+          label="Next"
+          icon={<FaArrowRight />}
+          iconPosition="alone"
+          onClick={handleClick}
+          className="enano-btn"
+          href="#"
+        />
+
+        <Button
+          label="Next"
+          icon={<FaArrowRight />}
+          iconPosition="left"
+          onClick={handleClick}
+          className="mediano-btn"
+          href="#"
+        />
+
+        <Button
+          label="Next"
+          icon={<FaArrowRight />}
+          iconPosition="left"
+          onClick={handleClick}
+          className="grande-btn"
+          href="#"
+        />
+
+        <Button
+          label="Next"
+          icon={<FaArrowRight />}
+          iconPosition="left"
+          onClick={handleClick}
+          className="enorme-btn secondary-btn"
+          href="#"
+        />
+
+        <Button
+          label="Next"
+          icon={<FaArrowRight />}
+          iconPosition="left"
+          onClick={handleClick}
+          className="secondary-btn active-btn"
+        />
+
+        <Button
+          label="Next"
+          icon={<FaArrowRight />}
+          iconPosition="right"
+          onClick={handleClick}
+          className="active-btn"
+        />
+
+        
+        <Button
+          label="Next"
+          icon={<FaArrowRight />}
+          iconPosition="left"
+          onClick={handleClick}
+          disabled="true"
+          className="seleccionable-btn"
         />
     
       </header>
