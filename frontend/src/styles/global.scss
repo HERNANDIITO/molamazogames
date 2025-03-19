@@ -1,0 +1,103 @@
+/* src/styles/global.scss */
+
+@import './themes/_colors.scss';
+@import './themes/_fonts.scss';
+
+h1{
+    font-family: $fuente-principal;
+    font-size: $tamano-h1;
+    color: $color-secundario;
+    font-weight: $peso-negrita;
+}
+  
+h2{
+    font-family: $fuente-secundaria;
+    font-size: $tamano-h2;
+    color: $color-secundario;
+    font-weight: $peso-negrita;
+}
+  
+h3{
+    font-family: $fuente-secundaria;
+    font-size: $tamano-h3;
+    color: $color-texto;
+    font-weight: $peso-negrita;
+}
+
+h4{
+    font-family: $fuente-secundaria;
+    font-size: $tamano-h4;
+    color: $color-texto;
+    font-weight: $peso-negrita;
+}
+
+p{
+    font-family: $fuente-secundaria;
+    font-size: $tamano-texto;
+    color: $color-texto;
+    font-weight: $peso-normal;
+
+    &.secundario{
+        font-size: $tamano-texto-peque;
+    }
+
+    &.negrita{
+        font-weight: $peso-negrita;
+    }
+}
+
+a {
+    font-family: $fuente-secundaria;
+    font-size: $tamano-texto;
+    color: $color-secundario;
+    font-weight: $peso-negrita;
+    font-style: italic;
+    display: inline-block;
+    position: relative;
+    text-decoration: none;
+    transition: color 0.3s ease;
+
+    &:visited{
+        color: $color-visited;
+    }
+
+    &:hover{
+        color: $color-hover-secundario;
+    }
+
+    &::before{
+        content: "";
+        position: absolute;
+        width: 0%;
+        height: 2px;
+        bottom: -1px;
+        left: 50%;
+        background-color: $color-hover-secundario;
+        transition: width 0.3s ease, left 0.3s ease;
+    }
+
+    &:hover::before{
+        width: 100%;
+        left: 0;
+    }
+}
+
+nav a{
+    font-size: $tamano-texto-grande;
+    color: $color-texto;
+    font-weight: $peso-medio;
+    font-style: normal;
+
+    &:visited{
+        color: $color-texto;
+    }
+
+    &.currentSection{
+        font-weight: $peso-pesado;
+    }
+
+    &:hover{
+        color: $color-hover-secundario;
+        font-weight: $peso-semi-negrita;
+    }
+}
