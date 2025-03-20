@@ -7,65 +7,141 @@ import { FaArrowRight } from 'react-icons/fa';
 
 const Registrar = () => {
   const [formData, setFormData] = useState({
-      name: "",
-      email: "",
-      phone: "",
-      password: "",
-      reppass: "",
-    });
-  
-    const handleChange = (e) => {
-      setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-  
-    const handleSubmit = (e) => {
-      e.preventDefault();
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
+    reppass: "",
+  });
+
+  const [errors, setErrors] = useState({});
+  const [showInfo, setShowInfo] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const validate = () => {
+    let newErrors = {};
+
+    if (!formData.name.trim()) {
+      newErrors.name = "El nombre de usuario no puede quedar vacío.";
+    }
+    if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email)) {
+      newErrors.email = "El formato de correo electrónico no es válido.";
+    }
+    if (!/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{7,15}$/.test(formData.password)) {
+      newErrors.password = "La contraseña no cumple los requisitos.";
+    }
+    if (formData.password !== formData.reppass) {
+      newErrors.reppass = "Las contraseñas no coinciden.";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (validate()) {
       console.log("Datos enviados:", formData);
-    };
+    }
+  };
 
   return (
     <div className="register-page">
-      <form onSubmit={handleSubmit} className="register-form">
-            <p className="title">
-              Registrarse
-            </p>
-            <hr />
-            <p className="aviso">
-              Los campos obligatorios están marcados con *
-            </p>
-            <label>
-              Nombre de usuario*<br/>
-              <input type="text" name="name" value={formData.name} onChange={handleChange} required />
-            </label>
-            <label>
-              Email*<br/>
-              <input type="email" name="email" value={formData.email} onChange={handleChange} required />
-            </label>
-            <label>
-              Teléfono<br/>
-              <input type="tel" name="phone" value={formData.phone} onChange={handleChange} />
-            </label>
-            <label>
-              Contraseña*  
-              <div className="input-container">
-                <input type="password" name="password" value={formData.password} onChange={handleChange} required />
-                <FontAwesomeIcon icon={faCircleInfo} className="info-icon" />
-              </div>
-            </label>
-      
-            <label>
-              Confirmar contraseña*<br/>
-              <input type="password" name="reppass" value={formData.reppass} onChange={handleChange} required />
-            </label>
+      <div className="form-container">
+        <form onSubmit={handleSubmit} className="register-form">
+          <h2 className="title">Registrarse</h2>
+          <hr />
+          <p className="aviso">Los campos obligatorios están marcados con *</p>
+
+          <label>
+            Nombre de usuario*<br/>
+            <input 
+              type="text" 
+              name="name" 
+              value={formData.name} 
+              onChange={handleChange} 
+              autoFocus
+              placeholder="Manolo1234"
+              className={errors.name ? "error-input" : ""}
+            />
+            {errors.name && <p className="error">{errors.name}</p>}
+          </label>
+
+          <label>
+            Email*<br/>
+            <input 
+              type="email" 
+              name="email" 
+              value={formData.email} 
+              onChange={handleChange} 
+              placeholder="usuario@email.com"
+              className={errors.email ? "error-input" : ""}
+            />
+            {errors.email && <p className="error">{errors.email}</p>}
+          </label>
+
+          <label>
+            Teléfono<br/>
+            <input 
+              type="tel" 
+              name="phone" 
+              value={formData.phone} 
+              onChange={handleChange} 
+            />
+          </label>
+
+          <label>
+            Contraseña*  
+            <div className="input-container">
+              <input 
+                type="password" 
+                name="password" 
+                value={formData.password} 
+                onChange={handleChange} 
+                placeholder="Contraseña_123"
+                className={errors.password ? "error-input" : ""}
+              />
+              <FontAwesomeIcon icon={faCircleInfo} className="info-icon" onClick={() => setShowInfo(!showInfo)} />
+            </div>
+            {errors.password && <p className="error">{errors.password}</p>} 
+          </label>
+
+          <label>
+            Confirmar contraseña*<br/>
+            <input 
+              type="password" 
+              name="reppass" 
+              value={formData.reppass} 
+              onChange={handleChange} 
+              placeholder="Contraseña_123"
+              className={errors.reppass ? "error-input" : ""}
+            />
+            {errors.reppass && <p className="error">{errors.reppass}</p>}
+          </label>
+          
+          <div className="btn-container">
             <Button
               label="Registrarse"
               icon={<FaArrowRight />}
-              iconPosition=""
-              onClick=''
-              className="seleccionable-btn"
-              href="#"
+              className="seleccionable-btn mediano-btn"
+              type="submit"
             />
-          </form>
+          </div>
+
+          <a>¿Ya tienes una cuenta? Inicia sesión</a>
+        </form>
+      </div>
+
+      {showInfo && (
+        <div className={`info-text-container ${showInfo ? "show" : ""}`}>
+          <p className="info-text">
+            La contraseña debe tener al menos un número, una mayúscula, una minúscula y un símbolo. Además, debe contener entre 7 y 15 caracteres.
+          </p>
+        </div>
+      )}
     </div>
   );
 };

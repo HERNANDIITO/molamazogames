@@ -1,10 +1,27 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import '../../styles/global.scss';
 
 body{
-    background-color: #1F1D2B;
-    font-family: 'Inter', sans-serif;
+    opacity: 0.97;
+    background-image: radial-gradient(circle at center center, $color-active-extra-secundario, white), 
+    repeating-radial-gradient(circle at center center, $color-active-extra-secundario, $color-active-extra-secundario, 40px, transparent 80px, transparent 40px);
+    background-blend-mode: multiply;
 }
+
+.register-page{
+    display: grid;
+    grid-template-columns: minmax(30em, 75%) 1fr;
+}
+
+.error {
+    color: $color-danger;
+    font-size: 12px;
+    margin-top: 5px;
+    display: block;
+}
+
+.error-input {
+    border: 2px solid $color-danger !important;
+  }
 
 .register-form {
     display: flex;
@@ -23,6 +40,7 @@ body{
         margin: 0;
         font-size: $tamano-h2;
         font-weight: bold;
+        font-family: $fuente-principal;
     }
     
     hr{
@@ -46,7 +64,7 @@ body{
         text-align: left;
         margin-left: 10px;
         margin-bottom: 25px;
-        color: #ffffff;
+        color: white;
     }
 
     .input-container {
@@ -68,7 +86,7 @@ body{
             width: 83%;
         
             &:focus {
-              border-color: #88BBFE;
+              border-color: $color-secundario;
               outline: none;
             }
           }
@@ -78,13 +96,52 @@ body{
         right: 10px;
         margin-top: 10px;
         font-size: 22px;
-        color: #88BBFE;
+        color: $color-secundario;
         cursor: pointer;
       }
     
-        .info-icon:hover {
-            color: #007bff;
-        }
+    .info-icon:hover {
+        color: $color-hover-secundario;
+    }    
+
+    .btn-container{
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+
+    a{
+        margin: auto;
+
+    }
   }
+
+.info-text-container {
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out;
+    width: 25em;
+    position: absolute;
+    margin-left: 50em;
+    margin-top: 31.5em;
+    padding: 2px;
+    font-size: 14px;
+}
+
+.info-text-container.show {
+    visibility: visible;
+    padding: 15px;
+    background: $color-fondo2;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 20em;
+}
+  
+.info-text {
+    padding: 10px;
+    font-size: 14px;
+    color: white;
+    width: 90%;
+}
 
   
