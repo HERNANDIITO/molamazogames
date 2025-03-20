@@ -1,8 +1,9 @@
 /* src/styles/themes/_dimensiones.scss */
 
+$tamano-tablet: 48rem;
+
 $margen-elementos: 1.2rem;
 $margen-botones: .5rem;
-
 
 $radio-borde-botones: 0.5rem;
 $espacio-icono-texto-boton: 0.375rem;
@@ -20,3 +21,10 @@ $alto-boton-enorme: 4rem;
 
 $extra-box-botones: 0.188rem;
 $borde-botones: 0.125rem;
+
+$espacio-elementos-logo: .75rem;
+$ancho-logo: 4rem;
+$margen-logo: 1rem;
+
+$fuera-pantalla: -100vw;
+$resetear-fuera-pantalla: 0vw;

@@ -87,6 +87,12 @@ a:not(.btn) {
         width: 100%;
         left: 0;
     }
+
+    &.logo{
+        &::before{
+            background-color: $color-texto;
+        }
+    }
 }
 
 nav a:not(.btn){
