@@ -1,16 +1,19 @@
 import { encryptPassword } from '../helpers/pass.helper.js'
 import { generateToken } from '../helpers/token.helper.js'
-import { asyncHandler } from 'express-async-handler'
+import asyncHandler from 'express-async-handler'
+
+import moment from 'moment'
 
 import db from '../db/conn.js';
 import mongoose from 'mongoose';
 import userSchema from '../schemas/user.schema.js';
 
+
 const User = mongoose.model('users', userSchema);
 
 const getAllUsersAdmin = asyncHandler( async (req, res, next) => {
     try {
-        usuarios = await User.find();
+        const usuarios = await User.find();
         res.json(usuarios);
     }
     catch (err) {
@@ -22,7 +25,7 @@ const getUserByID = asyncHandler(async (req, res, next) => {
 
     try {
         const elementoID = req.params.id;
-        user = await User.findById(elementoID)
+        const user = await User.findById(elementoID)
     
         if ( user === null) {
             res.status(401).json({ result: "Solicitud erronea.", msg: "No existe dicho usuario." });
@@ -48,9 +51,18 @@ const newUser = asyncHandler(async (req, res, next) => {
             msg: `Faltan campos obligatorios: ${!email ? 'email ' : ''}${!pass ? 'pass ' : ''}${!name ? 'name ' : ''}`
         });
     }
-
+    
     try {
-        const encryptedPass = encryptPassword(req.body.pass);
+        const alreadyUser = await User.findOne({ email }, 'email')
+
+        if ( alreadyUser ) {
+            return res.status(400).json({
+                result: "Solicitud errónea.",
+                msg: `Email en uso`
+            });
+        }
+
+        const encryptedPass = await encryptPassword(req.body.pass);
 
         const nuevoUsuario = new User({
             email,
@@ -87,7 +99,7 @@ const modifyUserByID = asyncHandler(async (req, res, next) => {
     }
 
     try {
-        const result = User.findByIdAndUpdate( elementoId, { $set: nuevosRegistros }, { new: true, runValidators: true } );
+        const result = await User.findByIdAndUpdate( elementoId, { $set: nuevosRegistros }, { new: true, runValidators: true } );
         if (!result) {
             return res.status(404).json({ result: "Error", msg: "Usuario no encontrado" });
         }
@@ -109,7 +121,7 @@ const deleteUserByID = asyncHandler(async (req, res, next) => {
     }
 
     try {
-        const resultado = User.findByIdAndDelete(elementoId);
+        const resultado = await User.findByIdAndDelete(elementoId);
         res.json(resultado);
     }
     catch (err) {

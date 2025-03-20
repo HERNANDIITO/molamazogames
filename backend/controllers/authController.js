@@ -1,7 +1,8 @@
 import { encryptPassword, checkPassword } from '../helpers/pass.helper.js'
 import { generateToken } from '../helpers/token.helper.js'
 
-import { asyncHandler } from 'express-async-handler'
+import asyncHandler from 'express-async-handler'
+import moment from 'moment'
 
 import db from '../db/conn.js'
 import mongoose from 'mongoose'
@@ -11,7 +12,7 @@ const User = mongoose.model('users', userSchema);
 
 const getAllUsers = asyncHandler(async(req, res, next) => {
     try {
-        const users = User.find( {}, 'displayName email');
+        const users = await User.find( {}, 'displayName email');
         res.json(users);
     }
     catch (err) {
@@ -30,7 +31,7 @@ const getUserByToken = asyncHandler(async(req, res, next) => {
     }
 
     try {
-        const user = User.findById(req.user.id)
+        const user = await User.findById(req.user.id)
         res.json(user)
     }
     catch (err) {
@@ -62,7 +63,7 @@ const login = asyncHandler(async(req, res, next) => {
 
     try {
 
-        const user = User.findOne({email: email});
+        const user = await User.findOne({email: email});
 
         if (!user) {
             res.status(400).json({ result: "Solicitud erronea.", msg: "Dicho email no está registrado" });
@@ -107,13 +108,15 @@ const register = asyncHandler(async(req, res, next) => {
     }
 
     try {
-        const user = User.findOne({email: req.body.email});
+        const user = await User.findOne({email: req.body.email});
         if ( user ) {
             res.status(400).json({ result: "Error. Solicitud erronea", msg: "Este email ya está registrado" });
             return;
         }
 
-        const encryptedPass = encryptPassword(req.body.pass)
+        const encryptedPass = await encryptPassword(req.body.pass)
+
+        console.log(encryptedPass)
         
         const nuevoUsuario = new User({
             password: encryptedPass,
@@ -127,8 +130,8 @@ const register = asyncHandler(async(req, res, next) => {
 
         const returnValue = {
             "result": "OK",
-            "token": generateToken(user._id),
-            "usuario": user
+            "token": generateToken(nuevoUsuario._id),
+            "usuario": nuevoUsuario
         }
 
         res.json(returnValue);
