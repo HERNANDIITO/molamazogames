@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+body{
+    background-color: #1F1D2B;
+    font-family: 'Inter', sans-serif;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: #2D303E;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 20em;
+    
+    .title{
+        color: #88BBFE;
+        margin: 0;
+        font-size: 32px;
+        font-weight: bold;
+    }
+    
+    hr{
+        height: 2px;
+        background-color: #88BBFE;
+        margin: 25px 0;
+        border: none;
+    }
+
+    .aviso{
+        display: block;
+        text-align: left;
+        margin-bottom: 30px;
+        margin-top: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 16px;
+        text-align: left;
+        margin-left: 10px;
+        margin-bottom: 25px;
+        color: #ffffff;
+    }
+
+    .input-container {
+        display: flex;
+        align-items: center;
+        position: relative;
+      
+        }
+  
+        input {
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid white;
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: #2D303E;
+            color: white;
+            transition: border-color 0.3s;
+            width: 83%;
+        
+            &:focus {
+              border-color: #88BBFE;
+              outline: none;
+            }
+          }
+  
+    button {
+        display: block;
+        margin-top: 15px;
+        margin-left: 135px;
+        padding: 10px;
+        background: #88BBFE;
+        color: 06050A;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.3s;
+        width: 10em;
+    
+        &:hover {
+            background: rgb(16, 85, 159);
+        }
+    }
+
+    .info-icon {
+        position: absolute;
+        right: 10px;
+        margin-top: 10px;
+        font-size: 22px;
+        color: #88BBFE;
+        cursor: pointer;
+      }
+    
+        .info-icon:hover {
+            color: #007bff;
+        }
+  }
+
+  
