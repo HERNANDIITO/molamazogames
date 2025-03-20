@@ -19,7 +19,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:5000/api/user",
+					"raw": "http://localhost:5000/user",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -46,7 +46,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:5000/api/auth",
+					"raw": "http://localhost:5000/auth",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -85,7 +85,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/api/auth/me",
+					"raw": "http://localhost:5000/auth/me",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -113,7 +113,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:5000/api/user/:id",
+					"raw": "http://localhost:5000/user/:id",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -156,7 +156,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/api/user",
+					"raw": "http://localhost:5000/user",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -185,7 +185,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/api/auth/reg",
+					"raw": "http://localhost:5000/auth/reg",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -222,7 +222,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/api/auth",
+					"raw": "http://localhost:5000/auth",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -258,7 +258,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/api/user/:id",
+					"raw": "http://localhost:5000/user/:id",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -301,7 +301,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/api/user/:id",
+					"raw": "http://localhost:5000/user/:id",
 					"protocol": "http",
 					"host": [
 						"localhost"
