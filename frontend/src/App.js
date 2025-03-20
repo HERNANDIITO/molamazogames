@@ -7,6 +7,7 @@ import { FaArrowRight } from 'react-icons/fa';
 
 import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import Registrar from "./pages/Registrar/Registrar";
+import Login from "./pages/Login/Login";
 
 function AppContent() {
   const location = useLocation(); // Obtiene la ruta actual
@@ -25,8 +26,12 @@ function AppContent() {
           <Route path="/registrar" element={<Registrar />} />
         </Routes>
 
-        {/* Mostrar los botones solo si NO estamos en "/registrar" */}
-        {location.pathname !== "/registrar" && (   
+        <Routes>
+          <Route path="/login" element={<Login />} />
+        </Routes>
+
+
+        {location.pathname !== "/registrar" && location.pathname !== "/login" &&(   
           <>
             <img src={logo} className="App-logo" alt="logo" />
             <p>

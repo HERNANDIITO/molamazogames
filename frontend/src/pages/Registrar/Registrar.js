@@ -3,7 +3,9 @@ import { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import Button from '../../components/Button/Button.js';
+import Input from '../../components/Input/Input.js';
 import { FaArrowRight } from 'react-icons/fa'; 
+import { Link } from 'react-router-dom';
 
 const Registrar = () => {
   const [formData, setFormData] = useState({
@@ -65,7 +67,7 @@ const Registrar = () => {
               onChange={handleChange} 
               autoFocus
               placeholder="Manolo1234"
-              className={errors.name ? "error-input" : ""}
+              className="error"
             />
             {errors.name && <p className="error">{errors.name}</p>}
           </label>
@@ -78,7 +80,7 @@ const Registrar = () => {
               value={formData.email} 
               onChange={handleChange} 
               placeholder="usuario@email.com"
-              className={errors.email ? "error-input" : ""}
+              className="error"
             />
             {errors.email && <p className="error">{errors.email}</p>}
           </label>
@@ -91,7 +93,7 @@ const Registrar = () => {
               value={formData.phone} 
               onChange={handleChange} 
             />
-          </label>
+          </label><br/>
 
           <label>
             Contraseña*  
@@ -102,7 +104,7 @@ const Registrar = () => {
                 value={formData.password} 
                 onChange={handleChange} 
                 placeholder="Contraseña_123"
-                className={errors.password ? "error-input" : ""}
+                className="error"
               />
               <FontAwesomeIcon icon={faCircleInfo} className="info-icon" onClick={() => setShowInfo(!showInfo)} />
             </div>
@@ -117,7 +119,7 @@ const Registrar = () => {
               value={formData.reppass} 
               onChange={handleChange} 
               placeholder="Contraseña_123"
-              className={errors.reppass ? "error-input" : ""}
+              className="error"
             />
             {errors.reppass && <p className="error">{errors.reppass}</p>}
           </label>
@@ -131,7 +133,7 @@ const Registrar = () => {
             />
           </div>
 
-          <a>¿Ya tienes una cuenta? Inicia sesión</a>
+          <a href="/login">¿Ya tienes una cuenta? Inicia sesión</a>
         </form>
       </div>
 

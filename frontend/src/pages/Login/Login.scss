@@ -1,0 +1,113 @@
+@import '../../styles/global.scss';
+
+body{
+    opacity: 0.97;
+    background-image: radial-gradient(circle at center center, $color-active-extra-secundario, white), 
+    repeating-radial-gradient(circle at center center, $color-active-extra-secundario, $color-active-extra-secundario, 40px, transparent 80px, transparent 40px);
+    background-blend-mode: multiply;
+}
+
+.register-page{
+    display: grid;
+    grid-template-columns: minmax(30em, 75%) 1fr;
+}
+
+.error {
+    color: $color-danger;
+    font-size: $tamano-texto;
+    margin-top: 5px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: left;
+}
+
+.error-input {
+    border: 2px solid $color-danger !important;
+  }
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: $color-fondo2;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 20em;
+    
+    .title{
+        color: $color-secundario;
+        margin: 0;
+        font-size: $tamano-h2;
+        font-weight: bold;
+        font-family: $fuente-principal;
+    }
+    
+    hr{
+        height: 2px;
+        background-color: $color-secundario;
+        margin: 25px 0;
+        border: none;
+    }
+
+    .aviso{
+        display: block;
+        text-align: left;
+        font-size: $tamano-texto;
+        margin-bottom: 30px;
+        margin-top: 0;
+    }
+
+    .aviso-error {
+        margin-bottom: 10px;
+    }
+      
+
+    label {
+        display: block;
+        font-size: $tamano-texto;
+        text-align: left;
+        margin-left: 10px;
+        margin-bottom: 0;
+        color: white;
+    }
+
+    .input-container {
+        display: flex;
+        align-items: center;
+        position: relative;
+      
+        }
+  
+        input {
+            padding: 10px;
+            border: 1px solid white;
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: $color-fondo2;
+            color: white;
+            transition: border-color 0.3s;
+            width: 83%;
+        
+            &:focus {
+              border-color: $color-secundario;
+              outline: none;
+            }
+          }
+
+    .btn-container{
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+
+    a{
+        margin: auto;
+
+    }
+  }
+
+  

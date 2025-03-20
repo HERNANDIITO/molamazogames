@@ -1,0 +1,30 @@
+@import '../../styles/global.scss';
+
+.input{
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid white;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: $color-fondo2;
+    color: white;
+    transition: border-color 0.3s;
+    width: 83%;
+
+    &:focus{
+        border-color: $color-secundario;
+        outline: none;
+    }
+    
+    &:disabled{
+        background-color: $color-disabled;
+
+        &:hover{
+            box-shadow: none;
+        }
+    }
+
+    &.error{
+        border: 2px solid $color-danger !important;
+    }
+}
