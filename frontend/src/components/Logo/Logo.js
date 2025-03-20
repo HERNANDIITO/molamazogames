@@ -8,10 +8,10 @@ import logo from '../../assets/images/logo.png';
 
 function Logo() {
     return (
-      <>
+      <a className='logo'>
         <img src={logo} alt="logo de molamazogames, un mando de consola de videojuegos retro." />
         <h1>MoLaMaZoGAMES</h1>
-      </>
+      </a>
     );
   }
   

@@ -59,7 +59,7 @@ function AppContent() {
               icon={<FaArrowRight />}
               iconPosition="alone"
               onClick={handleClick}
-              className="enano-btn"
+              className="enano-btn danger-btn"
               href="#"
             />
 
@@ -68,7 +68,7 @@ function AppContent() {
               icon={<FaArrowRight />}
               iconPosition="left"
               onClick={handleClick}
-              className="mediano-btn"
+              className="mediano-btn warning-btn"
               href="#"
             />
 

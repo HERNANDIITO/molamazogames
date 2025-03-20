@@ -107,6 +107,25 @@
         width: $ancho-boton-enorme;
         height: $alto-boton-enorme;
     }
+
+    &.warning-btn{
+        background-color: $color-warning;
+
+        &:hover{
+            background-color: $color-hover-warning;
+            box-shadow: 0 0 0 $extra-box-botones $color-hover-extra-warning;
+        }
+    }
+
+    &.danger-btn{
+        background-color: $color-danger;
+
+        &:hover{
+            background-color: $color-hover-danger;
+            box-shadow: 0 0 0 $extra-box-botones $color-hover-extra-danger;
+            color: $color-texto;
+        }
+    }
 }
 
 
