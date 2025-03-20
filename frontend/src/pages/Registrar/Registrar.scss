@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import '../../styles/global.scss';
+
+body{
+    background-color: #1F1D2B;
+    font-family: 'Inter', sans-serif;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: $color-fondo2;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 20em;
+    
+    .title{
+        color: $color-secundario;
+        margin: 0;
+        font-size: $tamano-h2;
+        font-weight: bold;
+    }
+    
+    hr{
+        height: 2px;
+        background-color: $color-secundario;
+        margin: 25px 0;
+        border: none;
+    }
+
+    .aviso{
+        display: block;
+        text-align: left;
+        font-size: $tamano-texto;
+        margin-bottom: 30px;
+        margin-top: 0;
+    }
+
+    label {
+        display: block;
+        font-size: $tamano-texto;
+        text-align: left;
+        margin-left: 10px;
+        margin-bottom: 25px;
+        color: #ffffff;
+    }
+
+    .input-container {
+        display: flex;
+        align-items: center;
+        position: relative;
+      
+        }
+  
+        input {
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid white;
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: $color-fondo2;
+            color: white;
+            transition: border-color 0.3s;
+            width: 83%;
+        
+            &:focus {
+              border-color: #88BBFE;
+              outline: none;
+            }
+          }
+
+    .info-icon {
+        position: absolute;
+        right: 10px;
+        margin-top: 10px;
+        font-size: 22px;
+        color: #88BBFE;
+        cursor: pointer;
+      }
+    
+        .info-icon:hover {
+            color: #007bff;
+        }
+  }
+
+  
