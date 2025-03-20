@@ -3,6 +3,8 @@ import './App.css';
 import { useEffect, useState } from 'react';
 
 import Button from './components/Button/Button';
+import Logo from './components/Logo/Logo';
+
 import { FaArrowRight } from 'react-icons/fa';  
 
 import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
@@ -32,6 +34,8 @@ function AppContent() {
             <p>
               Edit <code>src/App.js</code> and save to reload.
             </p>
+
+        <Logo></Logo>
 
         <a
           className=""
