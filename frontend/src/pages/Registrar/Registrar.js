@@ -2,7 +2,8 @@ import './Registrar.scss';
 import { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
-import Button from './components/Button/Button';
+import Button from '../../components/Button/Button.js';
+import { FaArrowRight } from 'react-icons/fa'; 
 
 const Registrar = () => {
   const [formData, setFormData] = useState({
@@ -56,7 +57,14 @@ const Registrar = () => {
               Confirmar contraseña*<br/>
               <input type="password" name="reppass" value={formData.reppass} onChange={handleChange} required />
             </label>
-            <button type="submit">Registrarse</button>
+            <Button
+              label="Registrarse"
+              icon={<FaArrowRight />}
+              iconPosition=""
+              onClick=''
+              className="seleccionable-btn"
+              href="#"
+            />
           </form>
     </div>
   );

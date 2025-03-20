@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import '../../styles/global.scss';
 
 body{
     background-color: #1F1D2B;
@@ -12,21 +13,21 @@ body{
     margin-top: 30px;
     margin-bottom: 30px;
     padding: 20px;
-    background: #2D303E;
+    background: $color-fondo2;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     width: 20em;
     
     .title{
-        color: #88BBFE;
+        color: $color-secundario;
         margin: 0;
-        font-size: 32px;
+        font-size: $tamano-h2;
         font-weight: bold;
     }
     
     hr{
         height: 2px;
-        background-color: #88BBFE;
+        background-color: $color-secundario;
         margin: 25px 0;
         border: none;
     }
@@ -34,13 +35,14 @@ body{
     .aviso{
         display: block;
         text-align: left;
+        font-size: $tamano-texto;
         margin-bottom: 30px;
         margin-top: 0;
     }
 
     label {
         display: block;
-        font-size: 16px;
+        font-size: $tamano-texto;
         text-align: left;
         margin-left: 10px;
         margin-bottom: 25px;
@@ -60,7 +62,7 @@ body{
             border: 1px solid white;
             border-radius: 5px;
             font-size: 16px;
-            background-color: #2D303E;
+            background-color: $color-fondo2;
             color: white;
             transition: border-color 0.3s;
             width: 83%;
@@ -70,25 +72,6 @@ body{
               outline: none;
             }
           }
-  
-    button {
-        display: block;
-        margin-top: 15px;
-        margin-left: 135px;
-        padding: 10px;
-        background: #88BBFE;
-        color: 06050A;
-        border: none;
-        border-radius: 5px;
-        font-size: 16px;
-        cursor: pointer;
-        transition: background 0.3s;
-        width: 10em;
-    
-        &:hover {
-            background: rgb(16, 85, 159);
-        }
-    }
 
     .info-icon {
         position: absolute;
