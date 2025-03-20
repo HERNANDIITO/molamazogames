@@ -33,8 +33,8 @@ Proyecto para Usabilidad y Accesiblidad de Ingeniería Multimedia en la Universi
 ## Lanzar backend
 
 El backend se puede lanzar de dos formas, para cualquiera de las dos se debe ejecutar el comando desde la carpeta `backend`:
-- `node run dev`: es la manera pensada para el desarrollo de la apliación ya que los cambios se actualizan automáticamente y no hace falta relanzar el servidor.
-- `node run start`: lanzamiendo de producción, es decir, ejecutaremos esto cuando la aplicación esté lista para entregar o para hacer pruebas y simulaciones.
+- `npm run dev`: es la manera pensada para el desarrollo de la apliación ya que los cambios se actualizan automáticamente y no hace falta relanzar el servidor.
+- `npm run start`: lanzamiendo de producción, es decir, ejecutaremos esto cuando la aplicación esté lista para entregar o para hacer pruebas y simulaciones.
 
 ## Lanzar frontend
 
