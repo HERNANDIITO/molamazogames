@@ -1,6 +1,5 @@
 // src/components/SearchBar/SearchBar.js
 
-//import React from 'react';
 import React, { useState } from 'react';
 import './SearchBar.scss';
 import { FaSearch } from 'react-icons/fa';

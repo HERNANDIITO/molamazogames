@@ -1,0 +1,54 @@
+/* src/componenents/Profile/Profile.scss */
+
+@import '../../styles/global.scss';
+
+.profile-card{
+    background-color: $color-fondo2;
+    width: 6.5rem;
+    height: 6.5rem;
+    border-radius: $radio-foto-perfil;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-direction: column;
+    border: 2px solid $color-fondo2;
+    border: 2px solid $color-fondo2; 
+    z-index: 999; 
+    transition: border-color 0.5s ease; 
+    
+    &:hover {
+      border-color: $color-hover-secundario; 
+    }
+
+    h2 {
+        font-family: $fuente-secundaria;
+        font-size: $tamano-texto;
+        font-weight: $peso-normal;
+        color: $color-texto;
+        z-index: inherit;
+    }
+
+    > header > img {
+        border-radius: $radio-foto-perfil;
+        height: $ancho-alto-foto-perfil;
+        width: $ancho-alto-foto-perfil;
+        margin-top: 1rem;
+        z-index: inherit;
+
+    }
+
+    > header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: inherit;
+
+    }
+
+    button, a{
+        height: $alto-boton-peque;
+        z-index: inherit;
+    }
+}
+
+  

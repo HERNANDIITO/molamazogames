@@ -10,6 +10,8 @@ import { FaArrowRight } from 'react-icons/fa';
 import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import Registrar from "./pages/Registrar/Registrar";
 import SearchBar from './components/SearchBar/SearchBar';
+import Profile from './components/Profile/Profile';
+
 
 function AppContent() {
   const location = useLocation(); // Obtiene la ruta actual
@@ -48,6 +50,7 @@ function AppContent() {
         </a>
           <SearchBar general="true"></SearchBar>
           <SearchBar></SearchBar>
+          <Profile></Profile>
 
             <Button
               label="Next"
