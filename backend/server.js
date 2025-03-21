@@ -12,6 +12,7 @@ dotenv.config();
 import express from 'express';
 import userRouter from './routes/userRoutes.js';
 import authRouter from './routes/authRoutes.js';
+import assetRouter from './routes/assetRoutes.js';
 
 // Constantes --------------------------
 const PORT  = process.env.PORT;
@@ -24,6 +25,7 @@ app.use(express.json());
 // Routers -----------------------------
 app.use('/user', userRouter);
 app.use('/auth', authRouter);
+app.use('/assets', assetRouter);
 
 // Servidor ----------------------------
 app.listen(PORT, () => {
