@@ -15,6 +15,7 @@ import cors from 'cors';
 // Importar routers --------------------
 import userRouter from './routes/userRoutes.js';
 import authRouter from './routes/authRoutes.js';
+import assetRouter from './routes/assetRoutes.js';
 
 
 // Constantes --------------------------
@@ -29,6 +30,7 @@ app.use(cors());
 // Routers -----------------------------
 app.use('/user', userRouter);
 app.use('/auth', authRouter);
+app.use('/assets', assetRouter);
 
 // Servidor ----------------------------
 app.listen(PORT, () => {
