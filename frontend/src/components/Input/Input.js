@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import './Input.scss';  
 
 const Input = ({
-  type = 'input',                    
+  type = 'text',                    
   value,
   onChange,           
   disabled = false,         
@@ -19,7 +19,7 @@ const Input = ({
         type = {type}
         value = {value}
         onChange = {onChange}
-        disabled = {Boolean(disabled)}
+        disabled = {disabled}
         autofocus = {autofocus}
         placeholder = {placeholder}
         className = {className}
