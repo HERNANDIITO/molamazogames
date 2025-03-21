@@ -9,6 +9,7 @@ import { FaArrowRight } from 'react-icons/fa';
 
 import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import Registrar from "./pages/Registrar/Registrar";
+import SearchBar from './components/SearchBar/SearchBar';
 
 function AppContent() {
   const location = useLocation(); // Obtiene la ruta actual
@@ -45,6 +46,9 @@ function AppContent() {
         >
           Learn React
         </a>
+          <SearchBar general="true"></SearchBar>
+          <SearchBar></SearchBar>
+
             <Button
               label="Next"
               icon={<FaArrowRight />}
