@@ -8,6 +8,8 @@ import db from '../db/conn.js'
 import mongoose from 'mongoose'
 import userSchema from '../schemas/user.schema.js'
 
+import {validateEmail, validatePass} from '../helpers/validator.helper.js'
+
 const User = mongoose.model('users', userSchema);
 
 const getAllUsers = asyncHandler(async(req, res, next) => {
@@ -84,7 +86,6 @@ const login = asyncHandler(async(req, res, next) => {
         const returnValue = {
             result: "OK",
             token: token,
-            usuario: user
         }
 
         res.status(202).json(returnValue);
@@ -108,22 +109,33 @@ const register = asyncHandler(async(req, res, next) => {
     }
 
     try {
-        const user = await User.findOne({email: req.body.email});
+        const { email, pass, name, phone } = req.body;
+
+        if ( !email || !validateEmail(email) ) {
+            res.status(400).json({ result: "Error. Solicitud erronea", msg: "Email inválido" });
+            return;
+        }
+
+        const user = await User.findOne({email: email});
         if ( user ) {
             res.status(400).json({ result: "Error. Solicitud erronea", msg: "Este email ya está registrado" });
             return;
         }
 
-        const encryptedPass = await encryptPassword(req.body.pass)
+        if ( !pass || !validatePass(pass) ) {
+            res.status(400).json({ result: "Error. Solicitud erronea", msg: "Esta contraseña no cumple los requisitos necesarios" });
+            return;
+        }
 
-        console.log(encryptedPass)
-        
+        const encryptedPass = await encryptPassword(pass)
+
         const nuevoUsuario = new User({
             password: encryptedPass,
-            email: req.body.email,
+            email: email,
             displayName: req.body.name,
-            signupDate: moment().unix(),
-            lastLogin: moment().unix()
+            phone: phone,
+            signupDate: moment(),
+            lastLogin: moment()
         })
 
         nuevoUsuario.save()
@@ -131,7 +143,6 @@ const register = asyncHandler(async(req, res, next) => {
         const returnValue = {
             "result": "OK",
             "token": generateToken(nuevoUsuario._id),
-            "usuario": nuevoUsuario
         }
 
         res.json(returnValue);

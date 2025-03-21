@@ -1,11 +1,38 @@
 import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
-    displayName:    { type: String, required: true },
-    email:          { type: String, required: true, unique: true },
-    password:       { type: String, required: true }, // [7-15 chars], 1 simbolo, 1 minuscula, 1 mayuscula, 1 numero
-    signupDate:     { type: Date,   required: true },
-    lastLogin:      { type: Date,   required: true }
+    displayName:    {
+        type: String,
+        required: true,
+        unique: true
+    },
+
+    email:          {
+        type: String,
+        required: true,
+        unique: true,
+        match: [/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, 'Email no válido']
+    },
+
+    password:       {
+        type: String,
+        required: true,
+    },
+
+    signupDate:     {
+        type: Date,
+        required: true 
+    },
+
+    lastLogin:      {
+        type: Date,
+        required: true 
+    },
+
+    phone:          {
+        type: String,
+        required: false
+    }
     
 });
 

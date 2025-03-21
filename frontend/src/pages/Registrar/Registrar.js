@@ -6,6 +6,7 @@ import Button from '../../components/Button/Button.js';
 import Input from '../../components/Input/Input.js';
 import { FaArrowRight } from 'react-icons/fa'; 
 import { Link } from 'react-router-dom';
+import { register } from '../../services/authServices.js';
 
 const Registrar = () => {
   const [formData, setFormData] = useState({
@@ -43,10 +44,29 @@ const Registrar = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validate()) {
       console.log("Datos enviados:", formData);
+      const { email, password: pass, name, phone } = formData;
+
+      try {
+        const result = await register({ email, pass, name, phone });
+
+        if ( result.token ) {
+          localStorage.setItem('token', result.token);
+          window.location.replace('/')
+
+        }
+        else {
+          throw new Error("Un error ha ocurrido.")
+        }
+      }
+      catch (error) {
+        console.error(error.message)
+      }
+
+      
     }
   };
 
