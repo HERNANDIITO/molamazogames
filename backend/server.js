@@ -10,9 +10,13 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import express from 'express';
+import cors from 'cors';
+
+// Importar routers --------------------
 import userRouter from './routes/userRoutes.js';
 import authRouter from './routes/authRoutes.js';
 import assetRouter from './routes/assetRoutes.js';
+
 
 // Constantes --------------------------
 const PORT  = process.env.PORT;
@@ -21,6 +25,7 @@ const app = express();
 // Configuración -----------------------
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cors());
 
 // Routers -----------------------------
 app.use('/user', userRouter);

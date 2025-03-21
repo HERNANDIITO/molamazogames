@@ -7,6 +7,8 @@ import Input from '../../components/Input/Input.js';
 import { FaArrowRight } from 'react-icons/fa'; 
 import { Link } from 'react-router-dom';
 
+import { login } from '../../services/authServices.js';
+
 const Login = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -41,10 +43,26 @@ const Login = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validate()) {
-      console.log("Datos enviados:", formData);
+    try {
+      if (validate()) {
+        console.log("Datos enviados:", formData);
+        const {name: email, password: pass} = formData;
+  
+        const result = await login({ email, pass });
+        
+        if ( result.token ) {
+          localStorage.setItem('token', result.token)
+          window.location.replace('/')
+        }
+        else {
+          throw new Error("Un error ha ocurrido");
+        }
+      }
+      
+    } catch (error) {
+      console.error("ERROR LOGIN", error.message);
     }
   };
 
