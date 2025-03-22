@@ -48,8 +48,8 @@ const Profile = () => {
     }, []);
 
     return (
-        <section className="profile-container" tabIndex="-1" ref={profileCardRef}> {/* Se agrega tabIndex para permitir que el contenedor tenga el foco */}
-        <article
+        <div className="profile-container" tabIndex="-1" ref={profileCardRef}> {/* Se agrega tabIndex para permitir que el contenedor tenga el foco */}
+        <div
             className="profile-card"
             ref={profileCardRef} // Asignar la referencia al contenedor del perfil
         >
@@ -76,12 +76,6 @@ const Profile = () => {
                     href="h"
                 />
                 <Button
-                    label="Subir Asset"
-                    iconPosition="left"
-                    className=""
-                    href="h"
-                />
-                <Button
                     label="Cerrar Sesión"
                     iconPosition="left"
                     className="danger-btn"
@@ -89,8 +83,8 @@ const Profile = () => {
                 />
             </>
             )}
-        </article>
-        </section>
+        </div>
+        </div>
     );
 };
 
