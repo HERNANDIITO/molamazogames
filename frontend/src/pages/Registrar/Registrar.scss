@@ -10,6 +10,7 @@
     background: $color-fondo2;
     border-radius: 10px;
     width: 32%;
+    min-width: fit-content;
 
     .title{
         color: $color-secundario;
@@ -18,16 +19,7 @@
         font-weight: bold;
         font-family: $fuente-principal;
     }
-
-    .title::after {
-        content: "";
-        display: block;
-        width: 100%; 
-        height: 2px;  
-        background-color: $color-secundario; 
-        margin: 10px 0; 
-      }
-
+    
     .aviso {
         display: block;
         text-align: left;

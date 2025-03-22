@@ -8,22 +8,21 @@ import Logo from '../Logo/Logo'
 const Footer = ({}) => {
 	return(
 	<footer className='App-footer'>
-		<div className='footer-col-1'>
+		<article className='footer-col-1'>
 			<div className='footer-logo-wrapper'>
 				<Logo></Logo>
 			</div>
-			<div className='footer-rrss'>
+			<nav className='footer-rrss'>
 				<FontAwesomeIcon icon={faTwitter}   size='3x' className='faIcon'/>
 				<FontAwesomeIcon icon={faInstagram} size='3x' className='faIcon'/>
 				<FontAwesomeIcon icon={faLinkedin}  size='3x' className='faIcon'/>
 				<FontAwesomeIcon icon={faYoutube}   size='3x' className='faIcon'/>
-			</div>
-		</div>
+			</nav>
+		</article>
 
-		<div className='footer-col-2'>
+		<article className='footer-col-2'>
 			<div className='footer-link-col'>
-				<p>Categorías</p>
-				<hr className='decorator'></hr>
+				<p className='decorator'>Categorías</p>
 				<ul className='footer-link-list'>
 					<li><a>2D 		</a></li>
 					<li><a>3D 		</a></li>
@@ -35,15 +34,14 @@ const Footer = ({}) => {
 			</div>
 
 			<div className='footer-link-col'>
-				<p>Usuario</p>
-				<hr className='decorator'></hr>
+				<p className='decorator'>Usuario</p>
 				<ul className='footer-link-list'>
 					<li><a>Iniciar sesión 	</a></li>
 					<li><a>Registrarse 		</a></li>
 					<li><a>Mi perfil 		</a></li>
 				</ul>
 			</div>
-		</div>
+		</article>
 	</footer>
 	);
 };
