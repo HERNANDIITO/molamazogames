@@ -46,11 +46,18 @@
     .faIcon {
         color: $color-texto
     }
+
+    .footer-logo-wrapper .logo h2{
+        margin-bottom: 0;
+        margin-top: 1rem;
+        color: $color-texto;
+    }
 }
 
 @media (max-width: $tamano-tablet) {
     .App-footer {
         flex-flow: column;
+        gap: 1rem;
 
         .footer-col-1 {
             .footer-logo-wrapper {
@@ -61,6 +68,16 @@
 
         .footer-col-2 {
             justify-content: center;
+        }
+    }
+}
+
+@media (max-width: $tamano-telefono) {
+    .App-footer {
+        gap: 1rem;
+
+        .footer-logo-wrapper .logo h2{
+            display: none;
         }
     }
 }

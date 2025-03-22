@@ -52,7 +52,7 @@ const SearchBar = ({
                     onChange={handleInputChange}
                     required
                 />
-                <button type="button" id="searchButton" onClick={handleSearch}>
+                <button type="button" id="searchButton" onClick={handleSearch} aria-label="Confirmar búsqueda">
                     <FaSearch /> 
                 </button>
             </div>
