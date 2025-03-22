@@ -12,6 +12,7 @@ html, body, #root, div.App, main.App-content {
 .App {
     display: flex;
     flex-flow: column;
+    min-height: 100vh;
 
     main.App-content {
         flex-grow: 1;
@@ -139,8 +140,6 @@ nav a:not(.btn){
         font-weight: $peso-semi-negrita;
     }
 }
-
-
 
 .sr-only {
     position: absolute;

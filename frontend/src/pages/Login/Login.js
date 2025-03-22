@@ -6,11 +6,18 @@ import Button from '../../components/Button/Button.js';
 import Input from '../../components/Input/Input.js';
 import { FaArrowRight } from 'react-icons/fa'; 
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
+// import { Helmet } from 'react-helmet';
+import React, { useEffect } from 'react';
 
 import { login } from '../../services/authServices.js';
 
 const Login = () => {
+  function SetTitle() {
+    useEffect(() => {
+      document.title = 'Iniciar Sesión - MoLAMaZoGAMES';
+    }, []);
+  }
+
   const [formData, setFormData] = useState({
     name: "",
     password: "",
@@ -66,10 +73,7 @@ const Login = () => {
 
   return (
     <>
-    <Helmet>
-      <title>Iniciar Sesión - MoLaMaZoGAMES</title>
-    </Helmet>
-
+      {SetTitle}
       <div className="register-page">
         <div className="login-form-container">
           <form onSubmit={handleSubmit} className="register-form">
