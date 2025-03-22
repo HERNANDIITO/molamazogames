@@ -26,12 +26,12 @@ body{
 h1{
     font-family: $fuente-principal;
     font-size: $tamano-h1;
-    color: $color-secundario;
+    color: $color-texto;
     font-weight: $peso-negrita;
 }
   
 h2{
-    font-family: $fuente-secundaria;
+    font-family: $fuente-principal;
     font-size: $tamano-h2;
     color: $color-secundario;
     font-weight: $peso-negrita;
@@ -102,6 +102,12 @@ a:not(.btn) {
         width: 100%;
         left: 0;
     }
+
+    &.logo{
+        &::before{
+            background-color: $color-texto;
+        }
+    }
 }
 
 nav a:not(.btn){
@@ -132,4 +138,15 @@ nav a:not(.btn){
     background-color: $color-fondo2;
 
     height: auto;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+    overflow: hidden;
 }

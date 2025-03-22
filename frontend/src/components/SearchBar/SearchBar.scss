@@ -1,0 +1,68 @@
+/* src/componenents/SearchBar/SearchBar.scss */
+
+@import '../../styles/global.scss';
+
+.searchBar {
+    height: $alto-campo-formulario;
+    background-color: $color-fondo2;
+    // padding: 0 $padding-campo-busqueda;
+    padding-left: $padding-campo-busqueda;
+    margin: $margen-elementos;
+    border: $ancho-borde-campo-formulario $color-texto solid;
+    border-radius: $radio-campo-formurio;
+    transition: border-color 0.5s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+
+    > input, button{
+        height: 100%;
+        background-color: transparent;
+        border-color: transparent;
+        color: $color-texto;
+        font-size: $tamano-texto-mediano;
+    }
+
+    > input::placeholder {
+        color: inherit;
+        font-size: $tamano-texto-mediano;
+    }
+
+    > button {
+        cursor: pointer;
+        transition: color 0.5s ease;
+        padding-right: $padding-campo-busqueda;
+        transition: background-color 0.5s ease, color 0.5s ease, border-radius 0.5s ease;
+
+        svg {
+            font-size: $tamano-icono;
+        }
+    }
+
+    &:hover{
+        border-color: $color-hover-secundario;
+        > button {
+            color: $color-hover-secundario;
+        }
+    }
+
+    &:focus-within {
+        border-color: $color-secundario;
+        > button {
+            color: $color-secundario;
+            &:hover, &:focus{
+                outline: none;
+                background-color: $color-secundario;
+                color: $color-textoAlt;
+                border-radius: $radio-campo-formurio;
+                width: 3rem;
+                padding-right: .5rem;
+            }
+        }
+    }
+
+    > input:focus {
+        outline: none;  
+    }
+}

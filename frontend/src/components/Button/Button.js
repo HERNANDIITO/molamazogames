@@ -1,4 +1,4 @@
-// src/components/Button.js
+// src/components/Button/Button.js
 
 import React from 'react';
 import classNames from 'classnames'; 

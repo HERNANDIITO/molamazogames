@@ -4,11 +4,16 @@ import { useEffect, useState } from 'react';
 
 import Button from './components/Button/Button';
 import Footer from './components/Footer/Footer';
+import Logo from './components/Logo/Logo';
+
 import { FaArrowRight } from 'react-icons/fa';  
 
 import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import Registrar from "./pages/Registrar/Registrar";
 import Login from "./pages/Login/Login";
+import SearchBar from './components/SearchBar/SearchBar';
+import Profile from './components/Profile/Profile';
+
 
 function AppContent() {
   const location = useLocation(); // Obtiene la ruta actual
@@ -36,40 +41,46 @@ function AppContent() {
                 Edit <code>src/App.js</code> and save to reload.
               </p>
 
-          <a
-            className=""
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-              <Button
-                label="Next"
-                icon={<FaArrowRight />}
-                iconPosition="left"
-                onClick={handleClick}
-                className="seleccionable-btn"
-                href="#"
-              />
-              
-              <Button
-                label="Next"
-                icon={<FaArrowRight />}
-                iconPosition="alone"
-                onClick={handleClick}
-                className="enano-btn"
-                href="#"
-              />
+        <Logo></Logo>
 
-              <Button
-                label="Next"
-                icon={<FaArrowRight />}
-                iconPosition="left"
-                onClick={handleClick}
-                className="mediano-btn"
-                href="#"
-              />
+        <a
+          className=""
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+          <SearchBar general="true"></SearchBar>
+          <SearchBar></SearchBar>
+          <Profile></Profile>
+
+            <Button
+              label="Next"
+              icon={<FaArrowRight />}
+              iconPosition="left"
+              onClick={handleClick}
+              className="seleccionable-btn"
+              href="#"
+            />
+            
+            <Button
+              label="Next"
+              icon={<FaArrowRight />}
+              iconPosition="alone"
+              onClick={handleClick}
+              className="enano-btn danger-btn"
+              href="#"
+            />
+
+            <Button
+              label="Next"
+              icon={<FaArrowRight />}
+              iconPosition="left"
+              onClick={handleClick}
+              className="mediano-btn warning-btn"
+              href="#"
+            />
 
               <Button
                 label="Next"

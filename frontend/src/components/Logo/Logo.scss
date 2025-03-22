@@ -1,0 +1,42 @@
+/* src/componenents/Logo/Logo.scss */
+
+@import '../../styles/global.scss';
+
+.logo {
+    display: flex;
+    align-items: center;
+    margin: $margen-logo;
+}
+
+.logo img {
+    width: $ancho-logo; 
+}
+
+.saltar-contenido-principal-btn{
+    position: absolute;
+    left: $fuera-pantalla;
+    margin: $margen-logo;
+
+    &:focus{
+        position: relative;
+        left: $resetear-fuera-pantalla;
+
+        ~ .logo { 
+            position: absolute;
+            left: $fuera-pantalla; 
+        }
+    }
+}
+
+h1{ 
+    display: inline;
+    transition: display .3s ease allow-discrete; 
+    margin-left: $espacio-elementos-logo;
+}
+
+@media (max-width: $tamano-tablet) {
+    .logo h1{
+        display: none;
+    } 
+}
+
