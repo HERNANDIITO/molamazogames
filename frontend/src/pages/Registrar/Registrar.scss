@@ -1,12 +1,5 @@
 @import '../../styles/global.scss';
 
-.error {
-    color: $color-danger;
-    font-size: 12px;
-    margin-top: 5px;
-    display: block;
-}
-
 .form-container {
     display: flex;
     flex-direction: column;
@@ -16,8 +9,7 @@
     padding: 20px;
     background: $color-fondo2;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 20em;
+    width: 32%;
 
     .title{
         color: $color-secundario;
@@ -27,89 +19,82 @@
         font-family: $fuente-principal;
     }
 
-    .register-form {
+    .title::after {
+        content: "";
+        display: block;
+        width: 100%; 
+        height: 2px;  
+        background-color: $color-secundario; 
+        margin: 10px 0; 
+      }
 
-        .aviso {
-            display: block;
-            text-align: left;
-            font-size: $tamano-texto;
-            margin-bottom: 30px;
-            margin-top: 0;
-        }
-    
-        label {
-            display: block;
-            font-size: $tamano-texto;
-            text-align: left;
-            margin-left: 10px;
-            margin-bottom: 25px;
-            color: white;
-        }
+    .aviso {
+        display: block;
+        text-align: left;
+        font-size: $tamano-texto;
+        margin-bottom: 15px;
+        margin-top: 10px;
+        margin-left: 10px;
+    }
+
+    .register-form{
     
         .input-container {
             display: flex;
-            align-items: center;
-            position: relative;
-          
-            }
-      
-            input {
-                padding: 10px;
-                margin-top: 10px;
-                border: 1px solid white;
-                border-radius: 5px;
-                font-size: 16px;
-                background-color: $color-fondo2;
-                color: white;
-                transition: border-color 0.3s;
-                width: 83%;
-            
-                &:focus {
-                  border-color: $color-secundario;
-                  outline: none;
-                }
-              }
-    
+            flex-direction: row;
+            align-items: left;
+        }
+
+        .pass{
+            width: 92%;
+        }
+        
         .info-icon {
-            position: absolute;
-            right: 10px;
-            margin-top: 10px;
+            margin-top: 55px;
+            margin-left: 15px;
             font-size: 22px;
             color: $color-secundario;
             cursor: pointer;
-          }
+        }
         
         .info-icon:hover {
             color: $color-hover-secundario;
         }    
     
         .btn-container{
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-            margin-top: 20px;
+            display: block;
+            margin: auto;
+            margin-top: 15px;
+            margin-bottom: 10px;
         }
     
         a{
             margin: auto;
-    
         }
-      }
+    }
+        
 }
 
 .error-input {
     border: 2px solid $color-danger !important;
 }
 
+.register-error{
+    color:$color-danger;
+    display: block;
+    text-align: left;
+    margin-left: 15px;
+}
+
 .info-text-container {
     visibility: hidden;
     transition: opacity 0.3s ease-in-out;
-    width: 25em;
     position: absolute;
-    margin-left: 50em;
-    margin-top: 31.5em;
+    margin-left: 70%;
+    margin-top: 33em;
     padding: 2px;
-    font-size: 14px;
+    font-size: $tamano-texto;
+    min-width: 15em;
 }
 
 .info-text-container.show {
@@ -118,14 +103,24 @@
     background: $color-fondo2;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 20em;
+    width: 15%;
 }
   
 .info-text {
+    display: flex;
     padding: 10px;
-    font-size: 14px;
+    font-size: $tamano-texto;
     color: white;
     width: 90%;
 }
+
+.password-rules {
+    padding: 15px;
+    font-size: $tamano-texto;
+    color: white;
+    text-align: left;
+    list-style-position: inside;
+}
+  
 
   

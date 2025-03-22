@@ -33,8 +33,6 @@ const Login = () => {
       newErrors.password = "La contraseña no puede quedar vacía.";
     }
 
-    //FALTA UN IF PARA COMPROBAR QUE LA CONTRASEÑA Y EL USUARIO SON CORRECTOS, LO HARÉ CUNADO CONECTE CON LA BD
-  
     if (Object.keys(newErrors).length > 0) {
       newErrors.global = "El usuario o la contraseña es incorrecta.";
     }
@@ -68,38 +66,36 @@ const Login = () => {
 
   return (
     <div className="register-page">
-      <div className="form-container">
+      <div className="login-form-container">
         <form onSubmit={handleSubmit} className="register-form">
           <h2 className="title">Iniciar sesión</h2>
-          <hr className='decorator'></hr>
             <p className={`aviso ${Object.keys(errors).length > 0 ? "aviso-error" : ""}`}>
             Los campos obligatorios están marcados con *
             </p>
-            {errors.global && <p className="error"><FontAwesomeIcon icon={faTriangleExclamation} /> &nbsp; {errors.global}</p>}
-          <label>
-            Nombre de usuario*<br/>
-            <input 
-              type="text" 
-              name="name" 
-              value={formData.name} 
-              onChange={handleChange} 
-              autoFocus
-              placeholder="Manolo1234"
-              className="error"
-            />
-          </label>
+            {errors.global && <p className="login-error"><FontAwesomeIcon icon={faTriangleExclamation} /> &nbsp; {errors.global}</p>}
+          
+          <Input 
+            type="text" 
+            name="name" 
+            id="name"
+            label="Nombre*"
+            value={formData.name} 
+            onChange={handleChange} 
+            autoFocus
+            placeholder="Manolo1234"
+            className="login"
+          />
 
-          <label>
-            Contraseña*  
-              <input 
-                type="password" 
-                name="password" 
-                value={formData.password} 
-                onChange={handleChange} 
-                placeholder="Contraseña_123"
-                className="error"
-              />
-          </label>
+          <Input 
+              type="password" 
+              name="password" 
+              id="password"
+              label="Contraseña*"
+              value={formData.password} 
+              onChange={handleChange} 
+              placeholder="Contraseña_123"
+              className="login pass"
+            />
  
           <div className="btn-container">
             <Button

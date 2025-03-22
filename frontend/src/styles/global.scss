@@ -21,6 +21,14 @@ html, body, #root, div.App, main.App-content {
 body{
     margin: 0;
     font-family: $fuente-secundaria;
+
+    opacity: 0.97;
+    background-image: radial-gradient(circle at center center, $color-active-extra-secundario, white), 
+    repeating-radial-gradient(circle at center center, $color-active-extra-secundario, $color-active-extra-secundario, 40px, transparent 80px, transparent 40px);
+    background-blend-mode: multiply;
+    background-color: $color-fondo2;
+
+    background-attachment: fixed;
 }
 
 h1{
@@ -130,12 +138,7 @@ nav a:not(.btn){
     }
 }
 
-.App-content {
-    background-image: radial-gradient(circle at center center, $color-active-extra-secundario, white), 
-    repeating-radial-gradient(circle at center center, $color-active-extra-secundario, $color-active-extra-secundario, 40px, transparent 80px, transparent 40px);
-    background-blend-mode: multiply;
-    background-color: $color-fondo2;
-}
+
 
 .sr-only {
     position: absolute;

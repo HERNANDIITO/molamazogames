@@ -70,104 +70,100 @@ const Registrar = () => {
     }
   };
 
-// QUITAR BRS Y HACER CON CSS
-// SACAR LOS INPUTS DE DENTRO DE LOS LABELS
-
   return (
     <>
+      {showInfo && (
+        <div className={`info-text-container ${showInfo ? "show" : ""}`}>
+          <p className="info-text">La contraseña debe cumplir los siguientes requisitos:</p>
+            <ul className="password-rules">
+              <li>Al menos un número.</li>
+              <li>Al menos una mayúscula.</li>
+              <li>Al menos una minúscula.</li>
+              <li>Al menos un símbolo.</li>
+              <li>Entre 7 y 15 caracteres.</li>
+            </ul>
+        </div>
+      )}
+
       <section className="form-container">
           <h2 className="title">Registrarse</h2>
-          <hr className='decorator'></hr> {/* sustituir por linea normal en css ¿after? */}
           <p className="aviso">Los campos obligatorios están marcados con *</p>
         <form onSubmit={handleSubmit} className="register-form">
+          
+          <Input 
+            type="text" 
+            name="name" 
+            id="name"
+            label="Nombre*"
+            value={formData.name} 
+            onChange={handleChange} 
+            autoFocus
+            placeholder="Manolo1234"
+            className={`login ${errors.name ? "error" : ""}`}
+          />
+          {errors.name && <p className="register-error">{errors.name}</p>}
 
-          <label>
-            Nombre de usuario*<br/>
-            <input 
-              type="text" 
-              name="name" 
-              value={formData.name} 
-              onChange={handleChange} 
-              autoFocus
-              placeholder="Manolo1234"
-              className="error"
-            />
-            {errors.name && <p className="error">{errors.name}</p>}
-          </label>
-
-          <label>
-            Email*<br/>
-            <input 
+            <Input 
               type="email" 
               name="email" 
+              id="email"
+              label="Email*"
               value={formData.email} 
               onChange={handleChange} 
               placeholder="usuario@email.com"
-              className="error"
+              className={`login ${errors.email ? "error" : ""}`}
             />
-            {errors.email && <p className="error">{errors.email}</p>}
-          </label>
+            {errors.email && <p className="register-error">{errors.email}</p>}
 
-          <label>
-            Teléfono<br/>
-            <input 
+            <Input 
               type="tel" 
               name="phone" 
+              id="phone"
+              label="Teléfono"
               value={formData.phone} 
-              onChange={handleChange} 
+              onChange={handleChange}
+              className="login"
             />
-          </label><br/>
 
-          <label>
-            Contraseña*  
             <div className="input-container">
-              <input 
+              <Input 
                 type="password" 
                 name="password" 
+                id="password"
+                label="Contraseña*"
                 value={formData.password} 
                 onChange={handleChange} 
                 placeholder="Contraseña_123"
-                className="error"
+                className={`login pass ${errors.password ? "error" : ""}`}
               />
               <FontAwesomeIcon icon={faCircleInfo} className="info-icon" onClick={() => setShowInfo(!showInfo)} />
             </div>
-            {errors.password && <p className="error">{errors.password}</p>} 
-          </label>
+            {errors.password && <p className="register-error">{errors.password}</p>} 
 
-          <label>
-            Confirmar contraseña*<br/>
-            <input 
+            <Input 
               type="password" 
               name="reppass" 
+              id="reppass"
+              label="Repetir contraseña*"
               value={formData.reppass} 
               onChange={handleChange} 
               placeholder="Contraseña_123"
-              className="error"
+              className={`login ${errors.reppass ? "error" : ""}`}
             />
-            {errors.reppass && <p className="error">{errors.reppass}</p>}
-          </label>
+            {errors.reppass && <p className="register-error">{errors.reppass}</p>}
           
-          <div className="btn-container"> {/* suspendido un div para una unidad de elemento */}
             <Button
               label="Registrarse"
               icon={<FaArrowRight />} 
-              className="seleccionable-btn mediano-btn"
+              className="seleccionable-btn mediano-btn btn-container"
               type="submit"
             />
-            {/* aniadir clase de mi css para centrar */}
-          </div>
 
           <a href="/login">¿Ya tienes una cuenta? Inicia sesión</a>
         </form>
       </section>
 
-      {showInfo && (
-        <div className={`info-text-container ${showInfo ? "show" : ""}`}>
-          <p className="info-text">
-            La contraseña debe tener al menos un número, una mayúscula, una minúscula y un símbolo. Además, debe contener entre 7 y 15 caracteres.
-          </p>
-        </div>
-      )}
+      
     </>
   );
 };
