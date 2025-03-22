@@ -41,7 +41,7 @@ function AppContent() {
                 Edit <code>src/App.js</code> and save to reload.
               </p>
 
-        <Logo></Logo>
+        <Logo isInNav={true}></Logo>
 
         <a
           className=""
