@@ -5,6 +5,8 @@ import './Input.scss';
 const Input = ({
   type = 'text',                    
   value,
+  id,
+  label,
   onChange,           
   disabled = false,         
   autofocus,                     
@@ -15,15 +17,19 @@ const Input = ({
   const inputClasses = classNames('input', className);
 
   return(
-    <input
-        type = {type}
-        value = {value}
-        onChange = {onChange}
-        disabled = {disabled}
-        autofocus = {autofocus}
-        placeholder = {placeholder}
-        className = {className}
-    ></input>
+    <>
+      <label htmlFor={id}>{label}</label>
+      <input
+          type = {type}
+          value = {value}
+          id = {id}
+          onChange = {onChange}
+          disabled = {disabled}
+          autofocus = {autofocus}
+          placeholder = {placeholder}
+          className = {inputClasses}
+      ></input>
+    </>
 
   );
 };

@@ -1,4 +1,4 @@
-import './Registrar.scss';
+import './Registrar.scss'
 import { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
@@ -70,13 +70,16 @@ const Registrar = () => {
     }
   };
 
+// QUITAR BRS Y HACER CON CSS
+// SACAR LOS INPUTS DE DENTRO DE LOS LABELS
+
   return (
-    <div className="register-page">
-      <div className="form-container">
-        <form onSubmit={handleSubmit} className="register-form">
+    <main className="register-page">
+      <section className="form-container">
           <h2 className="title">Registrarse</h2>
-          <hr />
+          <hr /> {/* sustituir por linea normal en css ¿after? */}
           <p className="aviso">Los campos obligatorios están marcados con *</p>
+        <form onSubmit={handleSubmit} className="register-form">
 
           <label>
             Nombre de usuario*<br/>
@@ -144,18 +147,19 @@ const Registrar = () => {
             {errors.reppass && <p className="error">{errors.reppass}</p>}
           </label>
           
-          <div className="btn-container">
+          <div className="btn-container"> {/* suspendido un div para una unidad de elemento */}
             <Button
               label="Registrarse"
-              icon={<FaArrowRight />}
+              icon={<FaArrowRight />} 
               className="seleccionable-btn mediano-btn"
               type="submit"
             />
+            {/* aniadir clase de mi css para centrar */}
           </div>
 
           <a href="/login">¿Ya tienes una cuenta? Inicia sesión</a>
         </form>
-      </div>
+      </section>
 
       {showInfo && (
         <div className={`info-text-container ${showInfo ? "show" : ""}`}>
@@ -164,7 +168,7 @@ const Registrar = () => {
           </p>
         </div>
       )}
-    </div>
+    </main>
   );
 };
 
