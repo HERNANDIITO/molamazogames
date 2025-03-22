@@ -45,10 +45,9 @@ const Login = () => {
     e.preventDefault();
     try {
       if (validate()) {
-        console.log("Datos enviados:", formData);
-        const {name: email, password: pass} = formData;
+        const {name, password: pass} = formData;
   
-        const result = await login({ email, pass });
+        const result = await login({ name, pass });
         
         if ( result.token ) {
           localStorage.setItem('token', result.token)
@@ -97,14 +96,12 @@ const Login = () => {
               className="login pass"
             />
  
-          <div className="btn-container">
             <Button
               label="Iniciar sesión"
               icon={<FaArrowRight />}
-              className="seleccionable-btn mediano-btn"
+              className="seleccionable-btn mediano-btn btn-container"
               type="submit"
             />
-          </div>
 
           <a href="/registrar">¿No tienes cuenta? Crea una</a>
         </form>

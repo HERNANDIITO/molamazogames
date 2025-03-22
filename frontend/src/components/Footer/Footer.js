@@ -1,5 +1,4 @@
 import React from 'react';
-import classNames from 'classnames'; 
 import './Footer.scss';  
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLinkedin, faTwitter, faYoutube, faInstagram } from '@fortawesome/free-brands-svg-icons';
@@ -36,8 +35,8 @@ const Footer = ({}) => {
 			<div className='footer-link-col'>
 				<p className='decorator'>Usuario</p>
 				<ul className='footer-link-list'>
-					<li><a>Iniciar sesión 	</a></li>
-					<li><a>Registrarse 		</a></li>
+					<li><a href="/login">Iniciar sesión 	</a></li>
+					<li><a href="/registrar">Registrarse 		</a></li>
 					<li><a href="#">Mi perfil 		</a></li>
 				</ul>
 			</div>

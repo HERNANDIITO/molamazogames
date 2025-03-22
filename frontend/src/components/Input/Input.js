@@ -10,7 +10,7 @@ const Input = ({
   label,
   onChange,           
   disabled = false,         
-  autofocus,                     
+  autoFocus,                     
   placeholder,    
   className,                     
 }) => {
@@ -30,7 +30,7 @@ const Input = ({
           id = {id}
           onChange = {onChange}
           disabled = {disabled}
-          autofocus = {autofocus}
+          autoFocus = {autoFocus}
           placeholder = {placeholder}
           className = {inputClasses}
       ></input>

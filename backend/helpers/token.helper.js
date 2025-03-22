@@ -35,7 +35,6 @@ function generateToken(ID) {
     iat: moment().unix(),
     exp: moment().add(EXP_TIME, "minutes").unix(),
   };
-  // console.log( { payload: payload });
   return jwt.encode(payload, SECRET);
 }
 

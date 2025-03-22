@@ -12,6 +12,7 @@
     flex-direction: column;
     margin: 0 auto;
     margin-top: 10em;
+    margin-bottom: 10em;
     padding: 20px;
     background: $color-fondo2;
     border-radius: 10px;
@@ -75,34 +76,6 @@
 
 .error-input {
     border: 2px solid $color-danger !important;
-}
-
-.info-text-container {
-    visibility: hidden;
-    transition: opacity 0.3s ease-in-out;
-    position: absolute;
-    margin-left: 70%;
-    margin-top: 33em;
-    padding: 2px;
-    font-size: $tamano-texto;
-    min-width: 15em;
-}
-
-.info-text-container.show {
-    visibility: visible;
-    padding: 15px;
-    background: $color-fondo2;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 15%;
-}
-  
-.info-text {
-    display: flex;
-    padding: 10px;
-    font-size: $tamano-texto;
-    color: white;
-    width: 90%;
 }
 
 .password-rules {

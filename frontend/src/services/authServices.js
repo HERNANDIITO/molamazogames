@@ -24,7 +24,7 @@ const register = async (data, headers = {}) => {
 
         if ( !response.ok ) {
             const errorData = await response.json();
-            throw new Error(errorData.message || 'Something went wrong');
+            throw new Error(errorData.message || 'Algo ha ido mal :C');
         }
 
         const result = await response.json();
@@ -58,7 +58,7 @@ const login = async (data, headers = {}) => {
 
         if ( !response.ok ) {
             const errorData = await response.json();
-            throw new Error(errorData.message || 'Something went wrong');
+            throw new Error(errorData.message || 'Algo ha ido mal :C');
         }
 
         const result = await response.json();
@@ -69,9 +69,42 @@ const login = async (data, headers = {}) => {
     }
 }
 
+/**
+ * LOG IN
+ * @param {Object} data - Debe contener los siguientes parametros:
+ *    - token
 
+ * @param {Object} [headers={}] - Optional headers (e.g., auth tokens)
+ * @returns {Promise<Object>} - Respuesta de la API en formato JSON
+    - result: Resultado,
+    - token: JWT Token
+ */
+const getUserByToken = async (data, headers = {}) => {
+
+    try {
+        const response = await fetch(`${BASE_URL}/me`,{
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json',
+                "Authorization": `Bearer ${data}`
+            }
+        })
+
+        if ( !response.ok ) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || "Algo ha ido mal :C");
+        }
+
+        const result = await response.json();
+        return result;
+
+    } catch (error) {
+        console.error("Error", error.message);
+    }
+}
 
 export {
     register,
-    login
+    login,
+    getUserByToken
 }
