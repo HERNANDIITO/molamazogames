@@ -2,6 +2,12 @@
 
 @import '../../styles/global.scss';
 
+.profile-container {
+    position: absolute; 
+    top: 1.5rem;
+    right: 1.5rem;
+}
+
 .profile-card{
     background-color: $color-fondo2;
     width: 6.5rem;
@@ -56,7 +62,7 @@
         padding-bottom: .3rem;
         border-bottom-left-radius: 60px;
         border-bottom-right-radius: 60px;
-        // background-color: yellow; para que veas que el selector esta bien
+        // background-color: yellow; para que veas que el selector esta bienç
     }
 }
 
