@@ -6,6 +6,7 @@ import Button from '../../components/Button/Button.js';
 import Input from '../../components/Input/Input.js';
 import { FaArrowRight } from 'react-icons/fa'; 
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 import { login } from '../../services/authServices.js';
 
@@ -64,49 +65,55 @@ const Login = () => {
   };
 
   return (
-    <div className="register-page">
-      <div className="login-form-container">
-        <form onSubmit={handleSubmit} className="register-form">
-          <h2 className="title decorator">Iniciar sesión</h2>
-            <p className={`aviso ${Object.keys(errors).length > 0 ? "aviso-error" : ""}`}>
-            Los campos obligatorios están marcados con *
-            </p>
-            {errors.global && <p className="login-error"><FontAwesomeIcon icon={faTriangleExclamation} /> &nbsp; {errors.global}</p>}
-          
-          <Input 
-            type="text" 
-            name="name" 
-            id="name"
-            label="Nombre*"
-            value={formData.name} 
-            onChange={handleChange} 
-            autoFocus
-            placeholder="Manolo1234"
-            className="login"
-          />
+    <>
+    <Helmet>
+      <title>Iniciar Sesión - MoLaMaZoGAMES</title>
+    </Helmet>
 
-          <Input 
-              type="password" 
-              name="password" 
-              id="password"
-              label="Contraseña*"
-              value={formData.password} 
+      <div className="register-page">
+        <div className="login-form-container">
+          <form onSubmit={handleSubmit} className="register-form">
+            <h2 className="title decorator">Iniciar sesión</h2>
+              <p className={`aviso ${Object.keys(errors).length > 0 ? "aviso-error" : ""}`}>
+              Los campos obligatorios están marcados con *
+              </p>
+              {errors.global && <p className="login-error"><FontAwesomeIcon icon={faTriangleExclamation} /> &nbsp; {errors.global}</p>}
+            
+            <Input 
+              type="text" 
+              name="name" 
+              id="name"
+              label="Nombre*"
+              value={formData.name} 
               onChange={handleChange} 
-              placeholder="Contraseña_123"
-              className="login pass"
-            />
- 
-            <Button
-              label="Iniciar sesión"
-              icon={<FaArrowRight />}
-              className="seleccionable-btn mediano-btn btn-container"
-              type="submit"
+              autoFocus
+              placeholder="Manolo1234"
+              className="login"
             />
 
-          <a href="/registrar">¿No tienes cuenta? Crea una</a>
-        </form>
+            <Input 
+                type="password" 
+                name="password" 
+                id="password"
+                label="Contraseña*"
+                value={formData.password} 
+                onChange={handleChange} 
+                placeholder="Contraseña_123"
+                className="login pass"
+              />
+  
+              <Button
+                label="Iniciar sesión"
+                icon={<FaArrowRight />}
+                className="seleccionable-btn mediano-btn btn-container"
+                type="submit"
+              />
+
+            <a href="/registrar">¿No tienes cuenta? Crea una</a>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

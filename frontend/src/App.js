@@ -1,6 +1,7 @@
 import logo from './assets/images/logo.png';
 import './App.css';
 import { useEffect, useState } from 'react';
+import { Helmet } from "react-helmet";
 
 import Button from './components/Button/Button';
 import Footer from './components/Footer/Footer';
@@ -25,6 +26,10 @@ function AppContent() {
 
   return (
     <div className="App">
+      <Helmet>
+        <title>Inicio - MoLaMaZoGAMES</title>
+      </Helmet>
+
       <header className="App-header">
         {/* AQUÍ IRÁ LA NAVBAR */}
       </header>
@@ -36,10 +41,7 @@ function AppContent() {
 
         {location.pathname !== "/registrar" && location.pathname !== "/login" &&(   
             <>
-              <img src={logo} className="App-logo" alt="logo" />
-              <p>
-                Edit <code>src/App.js</code> and save to reload.
-              </p>
+          
 
         <Logo isInNav={true}></Logo>
 

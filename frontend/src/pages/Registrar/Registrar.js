@@ -7,6 +7,7 @@ import Input from '../../components/Input/Input.js';
 import Profile from '../../components/Profile/Profile.js';
 import { FaArrowRight } from 'react-icons/fa'; 
 import { register } from '../../services/authServices.js';
+import { Helmet } from 'react-helmet';
 
 const Registrar = () => {
   const [formData, setFormData] = useState({
@@ -74,6 +75,10 @@ const Registrar = () => {
 
   return (
     <>
+    <Helmet>
+      <title>Registrarse - MoLaMaZoGAMES</title>
+    </Helmet>
+
     {isRegistered ? (
       <Profile />
     ) : (
