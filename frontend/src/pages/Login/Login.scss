@@ -1,18 +1,11 @@
 @import '../../styles/global.scss';
 
-body{
-    opacity: 0.97;
-    background-image: radial-gradient(circle at center center, $color-active-extra-secundario, white), 
-    repeating-radial-gradient(circle at center center, $color-active-extra-secundario, $color-active-extra-secundario, 40px, transparent 80px, transparent 40px);
-    background-blend-mode: multiply;
-}
-
-.register-page{
+.login-register-page {
     display: grid;
     grid-template-columns: minmax(30em, 75%) 1fr;
 }
 
-.error {
+.login-error {
     color: $color-danger;
     font-size: $tamano-texto;
     margin-top: 5px;
@@ -21,11 +14,11 @@ body{
     justify-content: left;
 }
 
-.error-input {
+.login-error-input {
     border: 2px solid $color-danger !important;
   }
 
-.register-form {
+.login-login-form {
     display: flex;
     flex-direction: column;
     margin: 0 auto;
@@ -37,7 +30,7 @@ body{
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     width: 20em;
     
-    .title{
+    .login-title{
         color: $color-secundario;
         margin: 0;
         font-size: $tamano-h2;
@@ -45,14 +38,14 @@ body{
         font-family: $fuente-principal;
     }
     
-    hr{
+    hr {
         height: 2px;
         background-color: $color-secundario;
         margin: 25px 0;
         border: none;
     }
 
-    .aviso{
+    .login-aviso{
         display: block;
         text-align: left;
         font-size: $tamano-texto;
@@ -60,7 +53,7 @@ body{
         margin-top: 0;
     }
 
-    .aviso-error {
+    .login-aviso-error {
         margin-bottom: 10px;
     }
       
@@ -74,7 +67,7 @@ body{
         color: white;
     }
 
-    .input-container {
+    .login-input-container {
         display: flex;
         align-items: center;
         position: relative;
@@ -91,20 +84,20 @@ body{
             transition: border-color 0.3s;
             width: 83%;
         
-            &:focus {
+            &login-:focus {
               border-color: $color-secundario;
               outline: none;
             }
           }
 
-    .btn-container{
+    .login-btn-container{
         display: flex;
         justify-content: center;
         margin-bottom: 20px;
         margin-top: 20px;
     }
 
-    a{
+    a {
         margin: auto;
 
     }

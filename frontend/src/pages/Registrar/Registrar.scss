@@ -1,17 +1,5 @@
 @import '../../styles/global.scss';
 
-body{
-    opacity: 0.97;
-    background-image: radial-gradient(circle at center center, $color-active-extra-secundario, white), 
-    repeating-radial-gradient(circle at center center, $color-active-extra-secundario, $color-active-extra-secundario, 40px, transparent 80px, transparent 40px);
-    background-blend-mode: multiply;
-}
-
-.register-page{
-    display: grid;
-    grid-template-columns: minmax(30em, 75%) 1fr;
-}
-
 .error {
     color: $color-danger;
     font-size: 12px;
@@ -19,11 +7,7 @@ body{
     display: block;
 }
 
-.error-input {
-    border: 2px solid $color-danger !important;
-  }
-
-.register-form {
+.form-container {
     display: flex;
     flex-direction: column;
     margin: 0 auto;
@@ -34,7 +18,7 @@ body{
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     width: 20em;
-    
+
     .title{
         color: $color-secundario;
         margin: 0;
@@ -42,7 +26,7 @@ body{
         font-weight: bold;
         font-family: $fuente-principal;
     }
-    
+
     hr{
         height: 2px;
         background-color: $color-secundario;
@@ -50,72 +34,79 @@ body{
         border: none;
     }
 
-    .aviso{
-        display: block;
-        text-align: left;
-        font-size: $tamano-texto;
-        margin-bottom: 30px;
-        margin-top: 0;
-    }
+    .register-form {
 
-    label {
-        display: block;
-        font-size: $tamano-texto;
-        text-align: left;
-        margin-left: 10px;
-        margin-bottom: 25px;
-        color: white;
-    }
-
-    .input-container {
-        display: flex;
-        align-items: center;
-        position: relative;
-      
+        .aviso {
+            display: block;
+            text-align: left;
+            font-size: $tamano-texto;
+            margin-bottom: 30px;
+            margin-top: 0;
         }
-  
-        input {
-            padding: 10px;
-            margin-top: 10px;
-            border: 1px solid white;
-            border-radius: 5px;
-            font-size: 16px;
-            background-color: $color-fondo2;
-            color: white;
-            transition: border-color 0.3s;
-            width: 83%;
-        
-            &:focus {
-              border-color: $color-secundario;
-              outline: none;
-            }
-          }
-
-    .info-icon {
-        position: absolute;
-        right: 10px;
-        margin-top: 10px;
-        font-size: 22px;
-        color: $color-secundario;
-        cursor: pointer;
-      }
     
-    .info-icon:hover {
-        color: $color-hover-secundario;
-    }    
+        label {
+            display: block;
+            font-size: $tamano-texto;
+            text-align: left;
+            margin-left: 10px;
+            margin-bottom: 25px;
+            color: white;
+        }
+    
+        .input-container {
+            display: flex;
+            align-items: center;
+            position: relative;
+          
+            }
+      
+            input {
+                padding: 10px;
+                margin-top: 10px;
+                border: 1px solid white;
+                border-radius: 5px;
+                font-size: 16px;
+                background-color: $color-fondo2;
+                color: white;
+                transition: border-color 0.3s;
+                width: 83%;
+            
+                &:focus {
+                  border-color: $color-secundario;
+                  outline: none;
+                }
+              }
+    
+        .info-icon {
+            position: absolute;
+            right: 10px;
+            margin-top: 10px;
+            font-size: 22px;
+            color: $color-secundario;
+            cursor: pointer;
+          }
+        
+        .info-icon:hover {
+            color: $color-hover-secundario;
+        }    
+    
+        .btn-container{
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+    
+        a{
+            margin: auto;
+    
+        }
+      }
+}
 
-    .btn-container{
-        display: flex;
-        justify-content: center;
-        margin-bottom: 20px;
-        margin-top: 20px;
-    }
-
-    a{
-        margin: auto;
-
-    }
-  }
+.error-input {
+    border: 2px solid $color-danger !important;
+}
 
 .info-text-container {
     visibility: hidden;

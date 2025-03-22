@@ -74,7 +74,7 @@ const Registrar = () => {
 // SACAR LOS INPUTS DE DENTRO DE LOS LABELS
 
   return (
-    <main className="register-page">
+    <>
       <section className="form-container">
           <h2 className="title">Registrarse</h2>
           <hr /> {/* sustituir por linea normal en css ¿after? */}
@@ -168,7 +168,7 @@ const Registrar = () => {
           </p>
         </div>
       )}
-    </main>
+    </>
   );
 };
 

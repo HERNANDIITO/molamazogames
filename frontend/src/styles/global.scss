@@ -5,6 +5,19 @@
 @import './themes/_dimensiones.scss';
 
 
+html, body, #root, div.App, main.App-content {
+    height: 100%;
+}
+
+.App {
+    display: flex;
+    flex-flow: column;
+
+    main.App-content {
+        flex-grow: 1;
+    }
+}
+
 body{
     margin: 0;
     font-family: $fuente-secundaria;
@@ -109,4 +122,14 @@ nav a:not(.btn){
         color: $color-hover-secundario;
         font-weight: $peso-semi-negrita;
     }
+}
+
+.App-content {
+    opacity: 0.97;
+    background-image: radial-gradient(circle at center center, $color-active-extra-secundario, white), 
+    repeating-radial-gradient(circle at center center, $color-active-extra-secundario, $color-active-extra-secundario, 40px, transparent 80px, transparent 40px);
+    background-blend-mode: multiply;
+    background-color: $color-fondo2;
+
+    height: auto;
 }
