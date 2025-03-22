@@ -18,13 +18,13 @@ const Logo = ({
             className="grande-btn saltar-contenido-principal-btn"
             href=".contenido-principal"
           />
-          <a className="logo" href="index.html">
+          <a className="logo" href="./">
             <img src={logo} alt="Ir al menú principal de Molamazogames" />
             <h1 aria-hidden="true">MoLaMaZoGAMES</h1>
           </a>
         </>
       ) : (
-        <a className="logo" href="index.html">
+        <a className="logo" href="./">
           <img src={logo} alt="Ir al menú principal de Molamazogames" />
           <h2 aria-hidden="true">MoLaMaZoGAMES</h2>
         </a>
