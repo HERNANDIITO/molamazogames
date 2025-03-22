@@ -3,12 +3,14 @@ import './App.css';
 import { useEffect, useState } from 'react';
 
 import Button from './components/Button/Button';
+import Footer from './components/Footer/Footer';
 import Logo from './components/Logo/Logo';
 
 import { FaArrowRight } from 'react-icons/fa';  
 
 import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import Registrar from "./pages/Registrar/Registrar";
+import Login from "./pages/Login/Login";
 import SearchBar from './components/SearchBar/SearchBar';
 import Profile from './components/Profile/Profile';
 
@@ -24,21 +26,22 @@ function AppContent() {
   return (
     <div className="App">
       <header className="App-header">
-        
-
+        {/* AQUÍ IRÁ LA NAVBAR */}
+      </header>
+      <main className="App-content">
         <Routes>
-          <Route path="/registrar" element={<Registrar />} />
+          <Route path="/registrar"  element={<Registrar />} />
+          <Route path="/login"      element={<Login />}     />
         </Routes>
 
-        {/* Mostrar los botones solo si NO estamos en "/registrar" */}
-        {location.pathname !== "/registrar" && (   
-          <>
-            <img src={logo} className="App-logo" alt="logo" />
-            <p>
-              Edit <code>src/App.js</code> and save to reload.
-            </p>
+        {location.pathname !== "/registrar" && location.pathname !== "/login" &&(   
+            <>
+              <img src={logo} className="App-logo" alt="logo" />
+              <p>
+                Edit <code>src/App.js</code> and save to reload.
+              </p>
 
-        <Logo></Logo>
+        <Logo isInNav={true}></Logo>
 
         <a
           className=""
@@ -79,51 +82,54 @@ function AppContent() {
               href="#"
             />
 
-            <Button
-              label="Next"
-              icon={<FaArrowRight />}
-              iconPosition="left"
-              onClick={handleClick}
-              className="grande-btn"
-              href="#"
-            />
+              <Button
+                label="Next"
+                icon={<FaArrowRight />}
+                iconPosition="left"
+                onClick={handleClick}
+                className="grande-btn"
+                href="#"
+              />
 
-            <Button
-              label="Next"
-              icon={<FaArrowRight />}
-              iconPosition="left"
-              onClick={handleClick}
-              className="enorme-btn secondary-btn"
-              href="#"
-            />
+              <Button
+                label="Next"
+                icon={<FaArrowRight />}
+                iconPosition="left"
+                onClick={handleClick}
+                className="enorme-btn secondary-btn"
+                href="#"
+              />
 
-            <Button
-              label="Next"
-              icon={<FaArrowRight />}
-              iconPosition="left"
-              onClick={handleClick}
-              className="secondary-btn active-btn"
-            />
+              <Button
+                label="Next"
+                icon={<FaArrowRight />}
+                iconPosition="left"
+                onClick={handleClick}
+                className="secondary-btn active-btn"
+              />
 
-            <Button
-              label="Next"
-              icon={<FaArrowRight />}
-              iconPosition="right"
-              onClick={handleClick}
-              className="active-btn"
-            />
+              <Button
+                label="Next"
+                icon={<FaArrowRight />}
+                iconPosition="right"
+                onClick={handleClick}
+                className="active-btn"
+              />
 
-            <Button
-              label="Next"
-              icon={<FaArrowRight />}
-              iconPosition="left"
-              onClick={handleClick}
-              disabled={true}
-              className="seleccionable-btn"
-            />
-          </>
-        )}
-      </header>
+              <Button
+                label="Next"
+                icon={<FaArrowRight />}
+                iconPosition="left"
+                onClick={handleClick}
+                disabled={true}
+                className="seleccionable-btn"
+              />
+            </>
+          )}
+      </main>
+      <Footer>
+        
+      </Footer>
     </div>
   );
 }

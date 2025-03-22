@@ -1,11 +1,17 @@
 @import '../../styles/global.scss';
 
-.form-container {
+.login-error {
+    display: block;
+    text-align: left;
+    color: $color-danger;
+    margin-left: 10px;
+}
+
+.login-form-container {
     display: flex;
     flex-direction: column;
     margin: 0 auto;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    margin-top: 10em;
     padding: 20px;
     background: $color-fondo2;
     border-radius: 10px;
@@ -77,13 +83,6 @@
 
 .error-input {
     border: 2px solid $color-danger !important;
-}
-
-.register-error{
-    color:$color-danger;
-    display: block;
-    text-align: left;
-    margin-left: 15px;
 }
 
 .info-text-container {

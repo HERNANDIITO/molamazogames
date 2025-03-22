@@ -1,0 +1,66 @@
+@import '../../styles/global.scss';
+
+.App-footer {
+
+    background-color: $color-fondo;
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    gap: 5rem;
+    padding: 3rem 0;
+
+    .footer-col-1 {
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+
+        .footer-rrss {
+            display: flex;
+            flex-flow: row;
+            gap: 2rem;
+            justify-content: center;
+        }
+    }
+
+    .footer-col-2 {
+        display: flex;
+        flex-flow: row;
+        gap: 2rem;
+
+        .footer-link-col {
+            text-align: left;
+            min-width: 5rem;
+
+            .footer-link-list {
+                padding: 0;
+                list-style: none;
+
+                a {
+                    cursor: pointer;
+                    margin-left: 0;
+                }
+            }
+        }
+    }
+
+    .faIcon {
+        color: $color-texto
+    }
+}
+
+@media (max-width: $tamano-tablet) {
+    .App-footer {
+        flex-flow: column;
+
+        .footer-col-1 {
+            .footer-logo-wrapper {
+                margin: auto;
+            }
+            justify-content: center;
+        }
+
+        .footer-col-2 {
+            justify-content: center;
+        }
+    }
+}

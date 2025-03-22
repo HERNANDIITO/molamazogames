@@ -19,14 +19,13 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:5000/api/user",
+					"raw": "http://localhost:5000/user",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
-						"api",
 						"user"
 					]
 				}
@@ -46,14 +45,13 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:5000/api/auth",
+					"raw": "http://localhost:5000/auth",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
-						"api",
 						"auth"
 					]
 				}
@@ -85,14 +83,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/api/auth/me",
+					"raw": "http://localhost:5000/auth/me",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
-						"api",
 						"auth",
 						"me"
 					]
@@ -113,21 +110,20 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:5000/api/user/:id",
+					"raw": "http://localhost:5000/user/:id",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
-						"api",
 						"user",
 						":id"
 					],
 					"variable": [
 						{
 							"key": "id",
-							"value": "65f45af3a5b9b90874977e83"
+							"value": "67dab54640d71f7711e1d4e5"
 						}
 					]
 				}
@@ -148,7 +144,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"usuarioPruebaPostman\",\r\n    \"pass\": \"pruebacotnraseña\",\r\n    \"email\": \"email3\"\r\n}",
+					"raw": "{\r\n    \"name\": \"usuarioPruebaPostman\",\r\n    \"pass\": \"pruebacotnraseña\",\r\n    \"email\": \"email4\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -156,14 +152,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/api/user",
+					"raw": "http://localhost:5000/user",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
-						"api",
 						"user"
 					]
 				}
@@ -177,7 +172,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"pablo@gmail.com\",\r\n    \"pass\": \"pass\",\r\n    \"name\": \"Pablo\"\r\n}",
+					"raw": "{\r\n    \"email\": \"pablo22@gm2ail.com\",\r\n    \"pass\": \"pass\",\r\n    \"name\": \"Pablo\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -185,14 +180,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/api/auth/reg",
+					"raw": "http://localhost:5000/auth/reg",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
-						"api",
 						"auth",
 						"reg"
 					]
@@ -222,14 +216,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/api/auth",
+					"raw": "http://localhost:5000/auth",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
-						"api",
 						"auth"
 					]
 				}
@@ -258,21 +251,20 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/api/user/:id",
+					"raw": "http://localhost:5000/user/:id",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
-						"api",
 						"user",
 						":id"
 					],
 					"variable": [
 						{
 							"key": "id",
-							"value": "65e766991629fc0bd72537c6"
+							"value": "67dab54640d71f7711e1d4e5"
 						}
 					]
 				}
@@ -301,21 +293,20 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/api/user/:id",
+					"raw": "http://localhost:5000/user/:id",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
-						"api",
 						"user",
 						":id"
 					],
 					"variable": [
 						{
 							"key": "id",
-							"value": "65e766991629fc0bd72537c6"
+							"value": "67dab54640d71f7711e1d4e5"
 						}
 					]
 				}

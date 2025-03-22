@@ -5,8 +5,30 @@
 @import './themes/_dimensiones.scss';
 
 
+html, body, #root, div.App, main.App-content {
+    height: 100%;
+}
+
+.App {
+    display: flex;
+    flex-flow: column;
+
+    main.App-content {
+        flex-grow: 1;
+    }
+}
+
 body{
     margin: 0;
+    font-family: $fuente-secundaria;
+
+    opacity: 0.97;
+    background-image: radial-gradient(circle at center center, $color-active-extra-secundario, white), 
+    repeating-radial-gradient(circle at center center, $color-active-extra-secundario, $color-active-extra-secundario, 40px, transparent 80px, transparent 40px);
+    background-blend-mode: multiply;
+    background-color: $color-fondo2;
+
+    background-attachment: fixed;
 }
 
 h1{
@@ -63,6 +85,7 @@ a:not(.btn) {
     text-decoration: none;
     transition: color 0.3s ease;
     margin: $margen-elementos;
+    width: fit-content;
 
     &:visited{
         color: $color-visited;
@@ -115,6 +138,8 @@ nav a:not(.btn){
     }
 }
 
+
+
 .sr-only {
     position: absolute;
     width: 1px;
@@ -124,4 +149,11 @@ nav a:not(.btn){
     border: 0;
     clip: rect(0, 0, 0, 0);
     overflow: hidden;
+}
+
+
+hr.decorator {
+    height: 2px;
+    background-color: $color-secundario;
+    border: none;
 }
