@@ -28,7 +28,7 @@
     }
 }
 
-h1{ 
+.logo > h1{ 
     display: inline;
     transition: display .3s ease allow-discrete; 
     margin-left: $espacio-elementos-logo;
