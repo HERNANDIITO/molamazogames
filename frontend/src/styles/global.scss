@@ -131,13 +131,10 @@ nav a:not(.btn){
 }
 
 .App-content {
-    opacity: 0.97;
     background-image: radial-gradient(circle at center center, $color-active-extra-secundario, white), 
     repeating-radial-gradient(circle at center center, $color-active-extra-secundario, $color-active-extra-secundario, 40px, transparent 80px, transparent 40px);
     background-blend-mode: multiply;
     background-color: $color-fondo2;
-
-    height: auto;
 }
 
 .sr-only {
@@ -149,4 +146,11 @@ nav a:not(.btn){
     border: 0;
     clip: rect(0, 0, 0, 0);
     overflow: hidden;
+}
+
+
+hr.decorator {
+    height: 2px;
+    background-color: $color-secundario;
+    border: none;
 }

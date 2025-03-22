@@ -77,7 +77,7 @@ const Registrar = () => {
     <>
       <section className="form-container">
           <h2 className="title">Registrarse</h2>
-          <hr /> {/* sustituir por linea normal en css ¿after? */}
+          <hr className='decorator'></hr> {/* sustituir por linea normal en css ¿after? */}
           <p className="aviso">Los campos obligatorios están marcados con *</p>
         <form onSubmit={handleSubmit} className="register-form">
 

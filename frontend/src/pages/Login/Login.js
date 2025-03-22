@@ -71,7 +71,7 @@ const Login = () => {
       <div className="form-container">
         <form onSubmit={handleSubmit} className="register-form">
           <h2 className="title">Iniciar sesión</h2>
-          <hr />
+          <hr className='decorator'></hr>
             <p className={`aviso ${Object.keys(errors).length > 0 ? "aviso-error" : ""}`}>
             Los campos obligatorios están marcados con *
             </p>
