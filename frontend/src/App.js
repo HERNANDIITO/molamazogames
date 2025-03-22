@@ -26,10 +26,6 @@ function AppContent() {
 
   return (
     <div className="App">
-      <Helmet>
-        <title>Inicio - MoLaMaZoGAMES</title>
-      </Helmet>
-
       <header className="App-header">
         {/* AQUÍ IRÁ LA NAVBAR */}
       </header>

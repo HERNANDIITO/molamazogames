@@ -7,9 +7,13 @@ import Input from '../../components/Input/Input.js';
 import Profile from '../../components/Profile/Profile.js';
 import { FaArrowRight } from 'react-icons/fa'; 
 import { register } from '../../services/authServices.js';
-import { Helmet } from 'react-helmet';
+
 
 const Registrar = () => {
+  useEffect(() => {
+    document.title = 'Registrarse - MoLAMaZoGAMES';
+  }, []);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -75,10 +79,6 @@ const Registrar = () => {
 
   return (
     <>
-    <Helmet>
-      <title>Registrarse - MoLaMaZoGAMES</title>
-    </Helmet>
-
     {isRegistered ? (
       <Profile />
     ) : (
