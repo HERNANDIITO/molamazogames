@@ -37,17 +37,20 @@
             align-items: left;
         }
 
-        .pass{
-            width: 92%;
-        }
-        
         .info-icon {
-            margin-top: 55px;
-            margin-left: 15px;
             font-size: 22px;
             color: $color-secundario;
             cursor: pointer;
+
+            position: absolute;
+
+            top: 50%;
+            left: 100%;
+
+            transform: translateX(-50%);
+
         }
+
         
         .info-icon:hover {
             color: $color-hover-secundario;
@@ -59,16 +62,19 @@
             margin-top: 15px;
             margin-bottom: 10px;
         }
-    
-        a{
-            margin: auto;
-        }
     }
-        
+    .enlaceLogin{
+        margin: auto;
+        margin-top: 10px;
+    }  
 }
 
 .error-input {
     border: 2px solid $color-danger !important;
+}
+
+.register-pass-container {
+    position: relative;
 }
 
 .register-error{
@@ -80,13 +86,21 @@
 
 .info-text-container {
     visibility: hidden;
-    transition: opacity 0.3s ease-in-out;
     position: absolute;
-    margin-left: 70%;
-    margin-top: 33em;
     padding: 2px;
     font-size: $tamano-texto;
     min-width: 15em;
+
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+
+    right: 0;
+    top: -75px;
+}
+
+.pass-container {
+    width: 100%;
+    position: relative;
 }
 
 .info-text-container.show {
@@ -96,6 +110,11 @@
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     width: 15%;
+
+    left: calc(100% + 3rem);
+
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
 }
   
 .info-text {
@@ -115,4 +134,16 @@
 }
   
 
-  
+@media (max-width: $tamano-tablet) {
+    .info-text-container.show {
+        position: relative;
+        top: 0;
+        left: 0;
+        margin: auto;
+        box-shadow: none;
+    }
+
+    .register-pass-container {
+        flex-direction: column !important; 
+    }
+}

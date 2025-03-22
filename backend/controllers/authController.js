@@ -44,17 +44,17 @@ const getUserByToken = asyncHandler(async(req, res, next) => {
 
 const login = asyncHandler(async(req, res, next) => {
 
-    const { email, pass } = req.body;
+    const { name, pass } = req.body;
 
-    if ( !email || !pass ) {
+    if ( !name || !pass ) {
         return res.status(400).json({
             result: "Solicitud errónea.",
-            msg: `Faltan campos obligatorios: ${!email ? 'email ' : ''}${!pass ? 'pass ' : ''}`
+            msg: `Faltan campos obligatorios: ${!name ? 'name ' : ''}${!pass ? 'pass ' : ''}`
         });
     }
 
-    if ( !email ) { 
-        res.status(400).json({ result: "Solicitud erronea.", msg: "No has adjuntado un email" });
+    if ( !name ) { 
+        res.status(400).json({ result: "Solicitud erronea.", msg: "No has adjuntado un name" });
         return;
     }
 
@@ -65,10 +65,10 @@ const login = asyncHandler(async(req, res, next) => {
 
     try {
 
-        const user = await User.findOne({email: email});
+        const user = await User.findOne({displayName: name});
 
         if (!user) {
-            res.status(400).json({ result: "Solicitud erronea.", msg: "Dicho email no está registrado" });
+            res.status(400).json({ result: "Solicitud erronea.", msg: "Dicho name no está registrado" });
             return; 
         }
 
