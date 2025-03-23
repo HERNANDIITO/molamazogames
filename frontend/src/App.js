@@ -14,6 +14,8 @@ import Registrar from "./pages/Registrar/Registrar";
 import Login from "./pages/Login/Login";
 import SearchBar from './components/SearchBar/SearchBar';
 import Profile from './components/Profile/Profile';
+import NavBar from './components/NavBar/NavBar';
+import Header from './components/Header/Header';
 
 
 function AppContent() {
@@ -28,6 +30,7 @@ function AppContent() {
     <div className="App">
       <header className="App-header">
         {/* AQUÍ IRÁ LA NAVBAR */}
+        <Header></Header>
       </header>
       <main className="App-content">
         <Routes>
@@ -51,7 +54,7 @@ function AppContent() {
         </a>
           <SearchBar general="true"></SearchBar>
           <SearchBar></SearchBar>
-          <Profile></Profile>
+          {/*<Profile></Profile>*/}
 
             <Button
               label="Next"
@@ -122,6 +125,8 @@ function AppContent() {
                 disabled={true}
                 className="seleccionable-btn"
               />
+
+              <NavBar></NavBar>
             </>
           )}
       </main>

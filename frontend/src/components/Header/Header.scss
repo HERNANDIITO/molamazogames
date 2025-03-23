@@ -1,0 +1,21 @@
+@import '../../styles/global.scss';
+
+header{
+    display: block;
+    background-color: $color-fondo;
+
+    .header_h{
+        /*width: 100%;*/
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+@media all and (width<$tamano-tablet){
+    header>.header_h{
+        display: flex;
+        flex-direction: column;
+    }
+}

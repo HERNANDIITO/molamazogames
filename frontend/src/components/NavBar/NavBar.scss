@@ -1,0 +1,43 @@
+@import '../../styles/global.scss';
+
+nav{
+    >ul{
+        display: flex;
+        flex-direction: row;
+    }
+
+    >ul>li{
+        list-style: none;
+
+        >a{
+            color: $color-texto;
+        }
+        >a:hover{
+            cursor: pointer;
+        }
+    }
+}
+
+/*@media all and (width<570px){
+    .nav_element{
+        display: none;
+    }
+}*/
+
+@media all and (width<$tamano-tablet){
+    .nav_element{
+        display: none;
+    }
+    .nav_active{
+        display: block;
+    }
+    nav>ul{
+        display: block;
+    }
+}
+
+@media all and (width>$tamano-tablet){
+    .faIconDown{
+        display: none;
+    }
+}
