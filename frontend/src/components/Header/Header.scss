@@ -1,6 +1,6 @@
 @import '../../styles/global.scss';
 
-header{
+.App_header {
     display: block;
     background-color: $color-fondo;
     padding-top: 1em;
@@ -31,7 +31,7 @@ header{
 }
 
 @media all and (width<1245px){
-    header>.header_h{
+    .App_header>.header_h{
         display: flex;
         flex-direction: column;
         /*justify-content: center;*/
@@ -55,7 +55,7 @@ header{
 
 /*@media all and (width<$tamano-tablet){*/
 @media all and (width<770px) {
-    header>.header_h{
+    .App_header>.header_h{
         align-items: center;
         margin-left: 0;
     }

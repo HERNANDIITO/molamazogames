@@ -17,7 +17,7 @@ const anyadirAsset = () => {
 
 const Header = () =>{
     return(
-        <header>
+        <header className='App_header'>
             <div class="header_h">
                 <Logo isInNav={true}></Logo>
                 <SearchBar></SearchBar>
