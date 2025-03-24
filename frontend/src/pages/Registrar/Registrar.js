@@ -24,14 +24,6 @@ const Registrar = () => {
 
   const [errors, setErrors] = useState({});
   const [showInfo, setShowInfo] = useState(false);
-  const [isRegistered, setIsRegistered] = useState(false);
-
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      setIsRegistered(true);
-    }
-  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -67,7 +59,7 @@ const Registrar = () => {
 
         if (result.token) {
           localStorage.setItem('token', result.token);
-          setIsRegistered(true);
+          window.location.replace('/')
         } else {
           throw new Error("Un error ha ocurrido.");
         }
