@@ -3,19 +3,84 @@
 header{
     display: block;
     background-color: $color-fondo;
+    padding-top: 1em;
 
     .header_h{
         /*width: 100%;*/
         display: flex;
         flex-direction: row;
-        align-items: center;
-        justify-content: center;
+        align-items: left;
+        justify-content: left;
+    }
+    .h_but_anadir{
+        position: absolute;
+        top: 3rem;
+        right: 9rem;
+        padding-left: 4em;
+        padding-right: 4em;
+    }
+
+    .profile-container {
+        /*position: relative;*/
+       /* position: inherit;*/
+    }
+
+    .searchBar{
+        width: 45%;
     }
 }
 
-@media all and (width<$tamano-tablet){
+@media all and (width<1245px){
     header>.header_h{
         display: flex;
         flex-direction: column;
+        /*justify-content: center;*/
+        /*align-items: center;*/
+        margin-left: 5rem;
+        >.searchBar{
+            width: 60%;
+        }
+    }
+}
+
+@media all and (width<1300px){
+    .h_but_anadir{
+        font-size: 0;
+        >span{
+            font-size: $tamano-texto-boton;
+        }
+        width: 3.5rem;
+    }
+}
+
+/*@media all and (width<$tamano-tablet){*/
+@media all and (width<770px) {
+    header>.header_h{
+        align-items: center;
+        margin-left: 0;
+    }
+
+    .profile-container {
+        position: relative;
+        //margin-left:10em;
+        //margin-bottom: 2em;
+    }
+
+    .h_but_anadir{
+        position: relative !important;
+        top: 0 !important;
+        right:0 !important;
+        padding-left:0 !important;
+        padding-right:0 !important;
+        margin-top: 3rem !important;
+    }
+
+    .but_profile{
+        display: flex;
+        flex-direction: row;
+        gap: 2rem;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 2rem;
     }
 }

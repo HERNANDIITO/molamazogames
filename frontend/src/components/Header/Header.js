@@ -11,21 +11,27 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FaPlus } from 'react-icons/fa';
 
+const anyadirAsset = () => {
+    window.location.href = "#new";
+}
+
 const Header = () =>{
     return(
         <header>
             <div class="header_h">
                 <Logo isInNav={true}></Logo>
                 <SearchBar></SearchBar>
-                <Button
-                    label="Añadir asset"
-                    icon={<FaPlus />}
-                    iconPosition="left"
-                    //onClick={handleClick}
-                    //disabled={true}
-                    className="seleccionable-btn"
-                />
-                <Profile></Profile>
+                <div class="but_profile">
+                    <Button
+                        label="Añadir asset"
+                        icon={<FaPlus />}
+                        iconPosition="left"
+                        onClick={anyadirAsset}
+                        //disabled={true}
+                        className="h_but_anadir"
+                    />
+                    <Profile></Profile>
+                </div>
             </div>
             <div>
                 <NavBar></NavBar>
