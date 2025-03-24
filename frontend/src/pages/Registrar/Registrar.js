@@ -78,12 +78,6 @@ const Registrar = () => {
   };
 
   return (
-    <>
-    {isRegistered ? (
-      <Profile />
-    ) : (
-
-        <>
 
         <section className="form-container">
           <h2 className="title decorator">Registrarse</h2>
@@ -165,12 +159,6 @@ const Registrar = () => {
           </form>
           <a href="/login" className='enlaceLogin'>¿Ya tienes una cuenta? Inicia sesión</a>
         </section>
-
-        </>
-
-      )}
-
-    </>
     
   );
 };

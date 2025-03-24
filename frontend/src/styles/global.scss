@@ -9,6 +9,10 @@ html, body, #root, div.App, main.App-content {
     height: 100%;
 }
 
+html {
+    background-color: $color-fondo;
+}
+
 .App {
     display: flex;
     flex-flow: column;

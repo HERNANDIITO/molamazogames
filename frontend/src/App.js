@@ -29,7 +29,6 @@ function AppContent() {
   return (
     <div className="App">
       <header className="App-header">
-        {/* AQUÍ IRÁ LA NAVBAR */}
         <Header></Header>
       </header>
       <main className="App-content">
@@ -54,7 +53,6 @@ function AppContent() {
         </a>
           <SearchBar general="true"></SearchBar>
           <SearchBar></SearchBar>
-          {/*<Profile></Profile>*/}
 
             <Button
               label="Next"

@@ -9,9 +9,12 @@
         /*width: 100%;*/
         display: flex;
         flex-direction: row;
-        align-items: left;
-        justify-content: left;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 3rem;
+        
     }
+    
     .h_but_anadir{
         position: absolute;
         top: 3rem;
@@ -27,6 +30,20 @@
 
     .searchBar{
         width: 45%;
+    }
+
+    .header-buttons {
+        display: flex;
+        flex-flow: row;
+        justify-content: center;
+        height: 100%;
+        align-items: center;
+        margin: $margen-elementos;
+        gap: 1rem;
+
+        > a {
+            margin: 0;
+        }
     }
 }
 

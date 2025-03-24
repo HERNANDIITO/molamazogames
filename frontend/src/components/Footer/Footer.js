@@ -1,7 +1,5 @@
 import React from 'react';
 import './Footer.scss';  
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLinkedin, faTwitter, faYoutube, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import Logo from '../Logo/Logo'
 
 const Footer = ({}) => {
