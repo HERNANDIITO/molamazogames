@@ -1,16 +1,60 @@
 import React, { act, useState } from 'react';
 import './NavBar.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretDown, faImage, faCube, faVideo, faMusic, faCode, faEllipsis } from '@fortawesome/free-solid-svg-icons';
+import { faCaretDown, faBars, faImage, faCube, faVideo, faMusic, faCode, faEllipsis } from '@fortawesome/free-solid-svg-icons';
 
-//<FontAwesomeIcon icon="fa-solid fa-image" />
-//<FontAwesomeIcon icon="fa-solid fa-cube" />
-//<FontAwesomeIcon icon="fa-solid fa-video" />
-//<FontAwesomeIcon icon="fa-solid fa-music" />
-//<FontAwesomeIcon icon="fa-solid fa-code" />
-//other?
 
 const NavBar = () => {
+    var cont = 1;
+
+    const mostrarOpciones = (button) =>{
+        var nav = document.querySelector('nav');
+        var elements = document.querySelectorAll('.nav_content li');
+        var chk = nav.querySelector('#chkMenu');
+        //var textElement = button.querySelector('.button-text');
+        chk.checked = !chk.checked;
+        if(cont===1){
+            //var textElement='Ocultar enlaces';*/
+            elements.forEach(item => {
+                item.setAttribute('aria-hidden', 'false');
+                item.querySelector('a').setAttribute('tabindex', '0');
+            });
+            cont++;
+        }
+        else{
+            elements.forEach(item => {
+                item.setAttribute('aria-hidden', 'true');
+                item.querySelector('a').setAttribute('tabindex', '-1');
+            });
+            //var textElement='Mostrar enlaces';
+            cont--;
+        }
+        //button.innerHTML=`<span><i class="fa-solid fa-bars"></i></span>${textElement}`;*/
+    }
+
+    return(
+        <nav>
+            <button class="nav_but" onClick={(event) => mostrarOpciones(event.target)}><span><FontAwesomeIcon icon={faBars}/></span>Mostrar enlaces</button>
+            {/*<label for="chkMenu" class="nav_label">
+                Mostrar enlaces
+                <span><FontAwesomeIcon icon={faBars}/></span>
+            </label>*/}
+            <input id="chkMenu" type='checkbox' value='Mostrar enlaces'></input>
+            
+            
+            <ul class='nav_content'>
+                <li><a href='#1'><span><FontAwesomeIcon icon={faImage} /></span>2D</a></li>
+                <li><a href='#2'><span><FontAwesomeIcon icon={faCube} /></span>3D</a></li>
+                <li><a href='#3'><span><FontAwesomeIcon icon={faMusic} /></span>Audio</a></li>
+                <li><a href='#4'><span><FontAwesomeIcon icon={faVideo} /></span>Video</a></li>
+                <li><a href='#5'><span><FontAwesomeIcon icon={faCode} /></span>Código</a></li>
+                <li><a href='#6'><span><FontAwesomeIcon icon={faEllipsis} /></span>Otros</a></li>
+            </ul>
+        </nav>
+    );
+}
+
+/*const NavBar = () => {
     var state=1;
     var active = 1;
     const navItems = [
@@ -172,6 +216,6 @@ const NavBar = () => {
             </ul>
         </nav>
     );
-}
+}*/
 
 export default NavBar;

@@ -2,42 +2,101 @@
 
 nav{
     >ul{
+        
         display: flex;
         flex-direction: row;
     }
 
     >ul>li{
         list-style: none;
-
+        margin-right: $margen-elementos/2;
         >a{
             color: $color-texto;
+            font: $fuente-secundaria;
+            >span{
+                margin-right: $margen-elementos/2;
+            }
         }
         >a:hover{
             cursor: pointer;
         }
     }
+
+    .nav_but{
+        padding: 1rem;
+        display: flex;
+        width: fit-content;
+        color: $color-texto;
+        background-color: transparent;
+        border: none;
+        font-size: 0;
+
+        >span{
+            font-size: 2rem !important;
+        }
+
+        &:hover{
+            cursor: pointer;
+            color: $color-hover-secundario;
+            transition: all 0.3s ease;
+        }
+
+        &:active{
+            color: $color-active-secundario;
+            transition: none;
+        }
+    }
+
+    #chkMenu{
+        display: none;
+    }
+    
+    #chkMenu:checked ~ ul {
+        max-height: 30em;
+    }
 }
 
-/*@media all and (width<570px){
-    .nav_element{
-        display: none;
+@media all and (width>=$tamano-tablet) {
+    .nav_but {
+        display: none !important;
+    }
+}
+
+@media all and (width<$tamano-tablet) {
+    nav{
+        >ul{
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+        .nav_but{
+            display: block;
+        }
+    }
+}
+
+/*@media (min-width: $tamano-tablet) {
+    .nav_but {
+        display: none !important;
+    }
+}
+
+@media (max-width: calc($tamano-tablet - 1px)) {
+    nav{
+        >ul{
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+        .nav_but{
+            display: block;
+        }
     }
 }*/
 
-@media all and (width<$tamano-tablet){
-    .nav_element{
-        display: none;
-    }
-    .nav_active{
-        display: block;
-    }
-    nav>ul{
-        display: block;
-    }
-}
-
-@media all and (width>$tamano-tablet){
-    .faIconDown{
-        display: none;
-    }
-}

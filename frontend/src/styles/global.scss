@@ -141,7 +141,7 @@ nav a:not(.btn){
 
     &:hover{
         color: $color-hover-secundario;
-        font-weight: $peso-semi-negrita;
+        /*font-weight: $peso-semi-negrita;*/ /*Esta es la razón por qué se mueven los enlaces de navbar*/
     }
 }
 

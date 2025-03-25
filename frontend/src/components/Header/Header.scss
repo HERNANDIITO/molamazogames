@@ -6,7 +6,6 @@
     padding-top: 1em;
 
     .header_h{
-        /*width: 100%;*/
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -22,11 +21,6 @@
         right: 9rem;
         padding-left: 4em;
         padding-right: 4em;
-    }
-
-    .profile-container {
-        /*position: relative;*/
-       /* position: inherit;*/
     }
 
     .searchBar{
