@@ -54,12 +54,12 @@ const login = asyncHandler(async(req, res, next) => {
     }
 
     if ( !name ) { 
-        res.status(400).json({ result: "Solicitud erronea.", msg: "No has adjuntado un nombre" });
+        res.status(400).json({ result: "Solicitud erronea.", msg: "El nombre de usuario no puede quedar vacío." });
         return;
     }
 
     if ( !pass ) { 
-        res.status(400).json({ result: "Solicitud erronea.", msg: "No has adjuntado un contraseña" });
+        res.status(400).json({ result: "Solicitud erronea.", msg: "La contraseña no puede quedar vacía." });
         return;
     }
 
@@ -68,13 +68,13 @@ const login = asyncHandler(async(req, res, next) => {
         const user = await User.findOne({displayName: name});
 
         if (!user) {
-            res.status(400).json({ result: "Solicitud erronea.", msg: "Dicho nombre no está registrado" });
+            res.status(400).json({ result: "Solicitud erronea.", msg: "El nombre de usuario o la contraseña son incorrectos." });
             return; 
         }
 
         const check = checkPassword(pass, user.password);
         if (!check) {
-            res.status(401).json({ result: "Solicitud erronea.", msg: "No autorizado" });
+            res.status(401).json({ result: "Solicitud erronea.", msg: "El nombre de usuario o la contraseña son incorrectos." });
             return;
         }
 
@@ -112,18 +112,18 @@ const register = asyncHandler(async(req, res, next) => {
         const { email, pass, name, phone } = req.body;
 
         if ( !email || !validateEmail(email) ) {
-            res.status(400).json({ result: "Error. Solicitud erronea", msg: "Email inválido" });
+            res.status(400).json({ result: "Error. Solicitud erronea", msg: "El formato de correo electrónico no es válido." });
             return;
         }
 
         const user = await User.findOne({email: email});
         if ( user ) {
-            res.status(400).json({ result: "Error. Solicitud erronea", msg: "Este email ya está registrado" });
+            res.status(400).json({ result: "Error. Solicitud erronea", msg: "Este email ya está registrado." });
             return;
         }
 
         if ( !pass || !validatePass(pass) ) {
-            res.status(400).json({ result: "Error. Solicitud erronea", msg: "Esta contraseña no cumple los requisitos necesarios" });
+            res.status(400).json({ result: "Error. Solicitud erronea", msg: "La contraseña no cumple los requisitos." });
             return;
         }
 

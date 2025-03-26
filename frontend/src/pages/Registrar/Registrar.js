@@ -121,10 +121,25 @@ const Registrar = () => {
                   placeholder="Contraseña_123"
                   className={`login pass ${errors.password ? "error" : ""}`} />
                 {errors.password && <p className="register-error">{errors.password}</p>} 
-              <FontAwesomeIcon icon={faCircleInfo} className="info-icon" onClick={() => setShowInfo(!showInfo)} />
+              <FontAwesomeIcon 
+                icon={faCircleInfo} 
+                className="info-icon"
+                aria-label="Información sobre los requisitos de la contraseña" 
+                tabIndex="0" 
+                onClick={() => setShowInfo(!showInfo)} 
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    setShowInfo(!showInfo);
+                  }
+                  const info = document.querySelector('.info-icon');
+                  if (info) {
+                    info.focus();
+                  }
+                }}
+              />
               </div>
               {showInfo && (
-                  <div className={`info-text-container ${showInfo ? "show" : ""}`}>
+                  <div  tabIndex="0" className={`info-text-container ${showInfo ? "show" : ""}`}>
                     <ul className="password-rules">La contraseña debe contener: </ul>
                     <li className="password-rules">Entre 7 y 15 caracteres.</li>
                     <li className="password-rules">Al menos una letra mayúscula.</li>

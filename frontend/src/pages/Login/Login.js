@@ -40,7 +40,7 @@ const Login = () => {
     }
 
     if (Object.keys(newErrors).length > 0) {
-      newErrors.global = "El usuario o la contraseña es incorrecta.";
+      newErrors.global = "El nombre de usuario o la contraseña son incorrectos.";
     }
   
     setErrors(newErrors);
