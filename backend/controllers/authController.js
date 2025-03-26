@@ -54,12 +54,12 @@ const login = asyncHandler(async(req, res, next) => {
     }
 
     if ( !name ) { 
-        res.status(400).json({ result: "Solicitud erronea.", msg: "No has adjuntado un name" });
+        res.status(400).json({ result: "Solicitud erronea.", msg: "No has adjuntado un nombre" });
         return;
     }
 
     if ( !pass ) { 
-        res.status(400).json({ result: "Solicitud erronea.", msg: "No has adjuntado un pass" });
+        res.status(400).json({ result: "Solicitud erronea.", msg: "No has adjuntado un contraseña" });
         return;
     }
 
@@ -68,7 +68,7 @@ const login = asyncHandler(async(req, res, next) => {
         const user = await User.findOne({displayName: name});
 
         if (!user) {
-            res.status(400).json({ result: "Solicitud erronea.", msg: "Dicho name no está registrado" });
+            res.status(400).json({ result: "Solicitud erronea.", msg: "Dicho nombre no está registrado" });
             return; 
         }
 
