@@ -30,6 +30,31 @@ const Registrar = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleChangePassword = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+   
+    let passwordError = null;
+
+    if (!/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{7,15}$/.test(e.target.value)) {
+      passwordError =  "La contraseña no cumple los requisitos.";
+    }
+    setErrors({ ...errors, password: passwordError });
+  };
+
+  const handleChangeRePassword = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+   
+    let passwordError = null;
+
+    const password = document.querySelector('#password').value;
+
+    if (password !== e.target.value) {
+      passwordError = "Las contraseñas no coinciden.";
+    }
+
+    setErrors({ ...errors, reppass: passwordError });
+  };
+
   const validate = () => {
     let newErrors = {};
 
@@ -43,7 +68,7 @@ const Registrar = () => {
       newErrors.password = "La contraseña no cumple los requisitos.";
     }
     if (!/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/.test(formData.phone)) {
-      newErrors.phone = "El formato del teléfono no es correcto.";
+      newErrors.phone = "El teléfono debe seguir el formato: +34678564738";
     }
     if (formData.password !== formData.reppass) {
       newErrors.reppass = "Las contraseñas no coinciden.";
@@ -79,7 +104,7 @@ const Registrar = () => {
         <section className="form-container">
           <form onSubmit={handleSubmit} className="register-form">
           <h2 className="title decorator">Registrarse</h2>
-          <p className="aviso">Los campos obligatorios están marcados con *</p>
+          <p className="aviso contenido-principal" tabIndex="-1">Los campos obligatorios están marcados con *</p>
           {errors.global && <p className="login-error"><FontAwesomeIcon icon={faTriangleExclamation} /> &nbsp; {errors.global}</p>}
             <Input
               type="text"
@@ -88,7 +113,8 @@ const Registrar = () => {
               label="Nombre*"
               value={formData.name}
               onChange={handleChange}
-              autoFocus placeholder="Manolo1234"
+              autoFocus 
+              placeholder="Manolo1234"
               className={`login ${errors.name ? "error" : ""}`} />
             {errors.name && <p className="register-error">{errors.name}</p>}
 
@@ -111,7 +137,7 @@ const Registrar = () => {
               placeholder="+34694783456"
               value={formData.phone}
               onChange={handleChange}
-              className="login" />
+              className={`login ${errors.phone ? "error" : ""}`} />
               {errors.phone && <p className="register-error">{errors.phone}</p>}
 
             <div className="input-container register-pass-container">
@@ -122,7 +148,7 @@ const Registrar = () => {
                   id="password"
                   label="Contraseña*"
                   value={formData.password}
-                  onChange={handleChange}
+                  onChange={handleChangePassword}
                   placeholder="Contraseña_123"
                   className={`login pass ${errors.password ? "error" : ""}`} />
                 {errors.password && <p className="register-error">{errors.password}</p>} 
@@ -161,7 +187,7 @@ const Registrar = () => {
               id="reppass"
               label="Repetir contraseña*"
               value={formData.reppass}
-              onChange={handleChange}
+              onChange={handleChangeRePassword}
               placeholder="Contraseña_123"
               className={`login ${errors.reppass ? "error" : ""}`} />
             {errors.reppass && <p className="register-error">{errors.reppass}</p>}

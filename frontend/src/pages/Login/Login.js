@@ -75,7 +75,7 @@ const Login = () => {
         <div className="login-form-container">
           <form onSubmit={handleSubmit} className="register-form">
             <h2 className="title decorator">Iniciar sesión</h2>
-              <p className={`aviso ${Object.keys(errors).length > 0 ? "aviso-error" : ""}`}>
+              <p className={`contenido-principal aviso ${Object.keys(errors).length > 0 ? "aviso-error" : ""}`} tabIndex="-1">
               Los campos obligatorios están marcados con *
               </p>
               {errors.global && <p className="login-error"><FontAwesomeIcon icon={faTriangleExclamation} /> &nbsp; {errors.global}</p>}

@@ -16,7 +16,14 @@ const Logo = ({
             label="Saltar al contenido principal"
             iconPosition="left"
             className="grande-btn saltar-contenido-principal-btn"
-            href=".contenido-principal"
+            // href=".contenido-principal"
+            onClick={() => {
+              const contenido = document.querySelector('.contenido-principal');
+              if (contenido) {
+                contenido.focus();
+                contenido.scrollIntoView({ behavior: 'smooth' }); 
+              }
+            }}
           />
           <a className="logo" href="./">
             <img src={logo} alt="Ir al menú principal de Molamazogames" />
