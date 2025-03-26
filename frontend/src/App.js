@@ -38,7 +38,7 @@ function AppContent() {
         {location.pathname !== "/registrar" && location.pathname !== "/login" &&(   
             <>
           
-
+{/* 
         <Logo isInNav={true}></Logo>
 
         <a
@@ -122,7 +122,8 @@ function AppContent() {
                 className="seleccionable-btn"
               />
 
-              <NavBar></NavBar>
+              <NavBar></NavBar> */}
+          
             </>
           )}
       </main>
