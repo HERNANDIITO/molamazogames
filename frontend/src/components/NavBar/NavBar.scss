@@ -22,7 +22,7 @@ nav{
         }
     }
 
-    .nav_but{
+    .nav_but {
         padding: 1rem;
         display: flex;
         width: fit-content;
@@ -61,6 +61,22 @@ nav{
         display: none !important;
     }
 }
+
+@media all and ( width<$tamano-tablet ) {
+    .navbar {
+        width: fit-content;
+        margin: auto;
+
+        .nav_but {
+            margin: auto;
+        }
+
+        .navbar-hidden {
+            pointer-events: none;
+            visibility: hidden;
+        }
+    }
+} 
 
 @media all and (width< 52rem) {
     nav{

@@ -5,35 +5,33 @@ import { faCaretDown, faBars, faImage, faCube, faVideo, faMusic, faCode, faEllip
 
 
 const NavBar = () => {
-    var cont = 1;
+    var show = true;
 
     const mostrarOpciones = (button) =>{
         var nav = document.querySelector('nav');
         var elements = document.querySelectorAll('.nav_content li');
         var chk = nav.querySelector('#chkMenu');
-        //var textElement = button.querySelector('.button-text');
         chk.checked = !chk.checked;
-        if(cont===1){
-            //var textElement='Ocultar enlaces';*/
+        if(show) {
             elements.forEach(item => {
                 item.setAttribute('aria-hidden', 'false');
+                item.classList.remove("navbar-hidden")
                 item.querySelector('a').setAttribute('tabindex', '0');
             });
-            cont++;
+            show = !show
         }
-        else{
+        else {
             elements.forEach(item => {
                 item.setAttribute('aria-hidden', 'true');
+                item.classList.add("navbar-hidden")
                 item.querySelector('a').setAttribute('tabindex', '-1');
             });
-            //var textElement='Mostrar enlaces';
-            cont--;
+            show = !show
         }
-        //button.innerHTML=`<span><i class="fa-solid fa-bars"></i></span>${textElement}`;*/
     }
 
     return(
-        <nav>
+        <nav class="navbar">
             <button class="nav_but" onClick={(event) => mostrarOpciones(event.target)}><span><FontAwesomeIcon icon={faBars}/></span>Mostrar enlaces</button>
             {/*<label for="chkMenu" class="nav_label">
                 Mostrar enlaces
@@ -43,12 +41,12 @@ const NavBar = () => {
             
             
             <ul class='nav_content'>
-                <li><a href='#1'><span><FontAwesomeIcon icon={faImage} /></span>2D</a></li>
-                <li><a href='#2'><span><FontAwesomeIcon icon={faCube} /></span>3D</a></li>
-                <li><a href='#3'><span><FontAwesomeIcon icon={faMusic} /></span>Audio</a></li>
-                <li><a href='#4'><span><FontAwesomeIcon icon={faVideo} /></span>Video</a></li>
-                <li><a href='#5'><span><FontAwesomeIcon icon={faCode} /></span>Código</a></li>
-                <li><a href='#6'><span><FontAwesomeIcon icon={faEllipsis} /></span>Otros</a></li>
+                <li className='navbar-hidden' ><a href='#1'><span><FontAwesomeIcon icon={faImage} /></span>2D</a></li>
+                <li className='navbar-hidden' ><a href='#2'><span><FontAwesomeIcon icon={faCube} /></span>3D</a></li>
+                <li className='navbar-hidden' ><a href='#3'><span><FontAwesomeIcon icon={faMusic} /></span>Audio</a></li>
+                <li className='navbar-hidden' ><a href='#4'><span><FontAwesomeIcon icon={faVideo} /></span>Video</a></li>
+                <li className='navbar-hidden' ><a href='#5'><span><FontAwesomeIcon icon={faCode} /></span>Código</a></li>
+                <li className='navbar-hidden' ><a href='#6'><span><FontAwesomeIcon icon={faEllipsis} /></span>Otros</a></li>
             </ul>
         </nav>
     );
