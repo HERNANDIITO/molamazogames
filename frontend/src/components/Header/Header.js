@@ -27,9 +27,10 @@ const Header = () =>{
 
     return(
         <header className='App_header'>
-            <div class="header_h">
+            <div className={isLogged ? "header_h h_logged" : "header_h"}>
                 <Logo isInNav={true}></Logo>
                 <SearchBar></SearchBar>
+                {/*{isLogged ? (<SearchBar class="search_logged"></SearchBar>) : (<SearchBar></SearchBar>)}*/}
                 { isLogged ? (
                     <div class="but_profile">
                         <Button
@@ -57,9 +58,7 @@ const Header = () =>{
                     </div>
                 )}
             </div>
-            <div>
-                <NavBar></NavBar>
-            </div>
+            <NavBar></NavBar>
         </header>
     );
 }

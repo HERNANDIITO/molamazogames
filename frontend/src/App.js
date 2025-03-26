@@ -28,9 +28,7 @@ function AppContent() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <Header></Header>
-      </header>
+      <Header></Header>
       <main className="App-content">
         <Routes>
           <Route path="/registrar"  element={<Registrar />} />

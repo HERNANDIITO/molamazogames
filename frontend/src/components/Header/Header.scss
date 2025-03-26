@@ -1,6 +1,98 @@
 @import '../../styles/global.scss';
 
-.App_header:not(.loggedIn) {
+
+.App_header{
+    display: block;
+    background-color: $color-fondo;
+
+    .header_h{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        justify-content: space-between;
+        padding-top: 2rem;
+    }
+
+    .header-buttons{
+        display: flex;
+        margin-top: .5rem;
+        margin-right: 1rem;
+    }
+
+    .searchBar{
+        width: 50%;
+        margin-right: 2rem;
+    }
+
+    .h_but_anadir{
+        position: absolute;
+        top: 3rem;
+        right: 9rem;
+        padding-left: 4em;
+        padding-right: 4em;
+    }
+
+    .h_logged{
+       justify-content: left;
+       >.searchBar{
+            width: 40%;
+            margin-left: 3rem;
+        }
+    }
+}
+
+@media all and (width<930px){
+    .header_h{
+        flex-direction: column !important;
+        align-items: left;
+    }
+
+    .searchBar{
+        align-self: center !important;
+    }
+
+    .header-buttons{
+        position: absolute;
+        top: 2rem;
+        right: 0.1rem;
+    }
+}
+
+@media all and (width<890px){
+    .searchBar{
+        width: 80% !important;
+    }
+}
+
+@media all and (width<1300px){
+    .h_but_anadir{
+        font-size: 0;
+        >span{
+            font-size: $tamano-texto-boton;
+        }
+        width: 3.5rem;
+    }
+}
+
+@media all and (width<1235px){
+    .h_logged>.searchBar{
+        width: 30% !important;
+    }
+
+}
+
+@media all and (width<1065px){
+    .h_logged{
+        flex-direction: column !important;
+        >.searchBar{
+            align-self: center;
+            margin-top: 3rem;
+            width: 80% !important;
+        }
+    }
+}
+
+/*.App_header:not(.loggedIn) {
     display: block;
     background-color: $color-fondo;
     padding-top: 1em;
@@ -101,4 +193,4 @@
         align-items: center;
         margin-bottom: 2rem;
     }
-}
+}*/
