@@ -62,7 +62,7 @@ nav{
     }
 }
 
-@media all and (width<$tamano-tablet) {
+@media all and (width< 52rem) {
     nav{
         >ul{
             display: flex;

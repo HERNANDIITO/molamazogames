@@ -17,11 +17,18 @@
         display: flex;
         margin-top: .5rem;
         margin-right: 1rem;
+        flex-shrink: 0; 
+        white-space: nowrap;
+    }
+
+    .regLog{
+        width: $ancho-boton-mediano;
+        height: $alto-boton-mediano;
     }
 
     .searchBar{
         width: 50%;
-        margin-right: 2rem;
+        margin-right: 3rem;
     }
 
     .h_but_anadir{
@@ -49,6 +56,7 @@
 
     .searchBar{
         align-self: center !important;
+        width: 80% !important;
     }
 
     .header-buttons{
@@ -58,11 +66,11 @@
     }
 }
 
-@media all and (width<890px){
-    .searchBar{
-        width: 80% !important;
-    }
-}
+// @media all and (width<890px){
+//     .searchBar{
+//         width: 80% !important;
+//     }
+// }
 
 @media all and (width<1300px){
     .h_but_anadir{
@@ -75,13 +83,6 @@
 }
 
 @media all and (width<1235px){
-    .h_logged>.searchBar{
-        width: 30% !important;
-    }
-
-}
-
-@media all and (width<1065px){
     .h_logged{
         flex-direction: column !important;
         >.searchBar{
@@ -91,6 +92,19 @@
         }
     }
 }
+
+// @media all and (width<1065px){
+//     .h_logged{
+//         flex-direction: column !important;
+//         >.searchBar{
+//             align-self: center;
+//             margin-top: 3rem;
+//             width: 80% !important;
+//         }
+//     }
+// }
+
+
 
 /*.App_header:not(.loggedIn) {
     display: block;

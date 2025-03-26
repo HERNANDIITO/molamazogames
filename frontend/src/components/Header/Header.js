@@ -36,9 +36,8 @@ const Header = () =>{
                         <Button
                             label="Añadir asset"
                             icon={<FaPlus />}
-                            iconPosition="left"
+                            iconPosition="alone"
                             onClick={anyadirAsset}
-                            //disabled={true}
                             className="h_but_anadir"
                         />
                         <Profile></Profile>
@@ -47,11 +46,12 @@ const Header = () =>{
                     <div className='header-buttons'>
                         <Button
                             label={"Registrarse"}
-                            className={"secondary-btn"}
+                            className={"secondary-btn mediano-btn"}
                             href={"/registrar"}
                         ></Button>
                         <Button
                             label={"Iniciar sesión"}
+                            className={"mediano-btn"}
                             href={"/login"}
                         >
                         </Button>
