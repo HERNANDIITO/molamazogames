@@ -128,7 +128,7 @@ const register = asyncHandler(async(req, res, next) => {
         }
 
         if ( phone && !validatePhone(phone) ) {
-            res.status(400).json({ result: "Error. Solicitud erronea", msg: "Este número de teléfono no es válido." });
+            res.status(400).json({ result: "Error. Solicitud erronea", msg: "Este número de teléfono no es válido. ej: +34784987645" });
             return;
         }
 

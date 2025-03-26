@@ -104,6 +104,7 @@ const Registrar = () => {
               name="phone"
               id="phone"
               label="Teléfono"
+              placeholder="+34694783456"
               value={formData.phone}
               onChange={handleChange}
               className="login" />
