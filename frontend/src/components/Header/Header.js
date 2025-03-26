@@ -29,7 +29,7 @@ const Header = () =>{
         <header className='App_header'>
             <div className={isLogged ? "header_h h_logged" : "header_h"}>
                 <Logo isInNav={true}></Logo>
-                <SearchBar></SearchBar>
+                <SearchBar general={true} />
                 {/*{isLogged ? (<SearchBar class="search_logged"></SearchBar>) : (<SearchBar></SearchBar>)}*/}
                 { isLogged ? (
                     <div class="but_profile">

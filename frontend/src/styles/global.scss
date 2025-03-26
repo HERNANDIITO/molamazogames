@@ -5,6 +5,10 @@
 @import './themes/_dimensiones.scss';
 
 
+body{
+    min-width: 340px;
+}
+
 html, body, #root, div.App, main.App-content {
     height: 100%;
 }
