@@ -13,13 +13,14 @@
     height: $alto-boton-peque;
     border: none;
     background-color: $color-secundario;
-    transition: background-color 0.5s ease, box-shadow 0.3s ease;
+    transition: background-color 0.5s ease, box-shadow 0.3s ease, border-color 0.5s ease,;
     color: $color-textoAlt;
     cursor: pointer;
     margin: $margen-botones;
     font-family: $fuente-secundaria;
     font-size: $tamano-texto-boton;
     text-decoration: none;
+    border: $borde-botones solid $color-secundario;
 
     > span {
         display: inline-flex;             
@@ -29,6 +30,7 @@
 
     &.active-btn{
         background-color: $color-active-secundario;
+        border-color: $color-active-secundario;
         color: $color-texto;
     }
 
@@ -38,6 +40,7 @@
         box-shadow: 0 0 0 $extra-box-botones $color-hover-extra-secundario;
         transition: background-color 0.5s ease, box-shadow 0.3s ease;
         color: $color-textoAlt;
+        border-color: $color-hover-secundario;
     }
 
     &.active-btn:hover{
@@ -60,6 +63,7 @@
 
     &:disabled{
         background-color: $color-disabled;
+        border-color: $color-disabled;
 
         &:hover{
             box-shadow: none;
@@ -110,18 +114,22 @@
 
     &.warning-btn{
         background-color: $color-warning;
+        border-color: $color-warning;
 
         &:hover{
             background-color: $color-hover-warning;
+            border-color: $color-hover-warning;
             box-shadow: 0 0 0 $extra-box-botones $color-hover-extra-warning;
         }
     }
 
     &.danger-btn{
         background-color: $color-danger;
+        border-color: $color-danger;
 
         &:hover{
             background-color: $color-hover-danger;
+            border-color: $color-hover-danger;
             box-shadow: 0 0 0 $extra-box-botones $color-hover-extra-danger;
             color: $color-texto;
         }
