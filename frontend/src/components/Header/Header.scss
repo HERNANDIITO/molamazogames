@@ -77,6 +77,9 @@
 @media all and (width<1300px){
     .h_but_anadir{
         font-size: 0;
+        height: $alto-boton-enano;
+        width: $ancho-boton-enano;
+        gap: 0;
         >span{
             font-size: $tamano-texto-boton;
         }
