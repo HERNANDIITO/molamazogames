@@ -65,7 +65,6 @@ const Login = () => {
       }
       
     } catch (error) {
-      console.error("ERROR LOGIN", error.message);
       setErrors({global:error.message});
     }
   };

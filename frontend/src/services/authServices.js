@@ -31,7 +31,6 @@ const register = async (data, headers = {}) => {
         return result;
 
     } catch (error) {
-        console.error('Error haciendo login', error.message);
         throw new Error(error.message || 'Algo ha ido mal');
     }
 }

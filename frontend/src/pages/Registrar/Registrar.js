@@ -65,7 +65,6 @@ const Registrar = () => {
           throw new Error(result.message);
         }
       } catch (error) {
-        console.error(error.message);
         setErrors({global: error.message});
       }
     }
@@ -110,7 +109,7 @@ const Registrar = () => {
               className="login" />
 
             <div className="input-container register-pass-container">
-              <div className="pass-container">
+              <div  className="pass-container">
                 <Input
                   type="password"
                   name="password"

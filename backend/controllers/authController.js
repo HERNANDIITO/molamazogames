@@ -8,7 +8,7 @@ import db from '../db/conn.js'
 import mongoose from 'mongoose'
 import userSchema from '../schemas/user.schema.js'
 
-import {validateEmail, validatePass} from '../helpers/validator.helper.js'
+import { validateEmail, validatePass, validatePhone } from '../helpers/validator.helper.js'
 
 const User = mongoose.model('users', userSchema);
 
@@ -72,7 +72,7 @@ const login = asyncHandler(async(req, res, next) => {
             return; 
         }
 
-        const check = checkPassword(pass, user.password);
+        const check = await checkPassword(pass, user.password);
         if (!check) {
             res.status(401).json({ result: "Solicitud erronea.", msg: "El nombre de usuario o la contraseña son incorrectos." });
             return;
@@ -124,6 +124,11 @@ const register = asyncHandler(async(req, res, next) => {
 
         if ( !pass || !validatePass(pass) ) {
             res.status(400).json({ result: "Error. Solicitud erronea", msg: "La contraseña no cumple los requisitos." });
+            return;
+        }
+
+        if ( phone && !validatePhone(phone) ) {
+            res.status(400).json({ result: "Error. Solicitud erronea", msg: "Este número de teléfono no es válido." });
             return;
         }
 
