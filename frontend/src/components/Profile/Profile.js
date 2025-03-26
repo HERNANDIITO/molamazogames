@@ -53,7 +53,7 @@ const Profile = () => {
 
     getUserByToken(token).then(user => {
         if (user) {
-            setUserName(user.displayName);
+            setUserName(user.name);
         }
     });
 

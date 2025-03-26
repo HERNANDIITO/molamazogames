@@ -14,7 +14,7 @@ const User = mongoose.model('users', userSchema);
 
 const getAllUsers = asyncHandler(async(req, res, next) => {
     try {
-        const users = await User.find( {}, 'displayName email');
+        const users = await User.find( {}, 'name email');
         res.json(users);
     }
     catch (err) {
@@ -65,7 +65,7 @@ const login = asyncHandler(async(req, res, next) => {
 
     try {
 
-        const user = await User.findOne({displayName: name});
+        const user = await User.findOne({name: name});
 
         if (!user) {
             res.status(400).json({ result: "Solicitud erronea.", msg: "El nombre de usuario o la contraseña son incorrectos." });
@@ -116,8 +116,16 @@ const register = asyncHandler(async(req, res, next) => {
             return;
         }
 
-        const user = await User.findOne({email: email});
-        if ( user ) {
+        const alreadyName = await User.findOne({name: name});
+        if ( alreadyName && alreadyName.name == name ) {
+            console.log(alreadyName);
+            res.status(400).json({ result: "Error. Solicitud erronea", msg: "Este nombre ya está registrado." });
+            return;
+        }
+        
+        const alreadyEmail = await User.findOne({email: email});
+        if ( alreadyEmail && alreadyEmail.email == email ) {
+            console.log(alreadyEmail);
             res.status(400).json({ result: "Error. Solicitud erronea", msg: "Este email ya está registrado." });
             return;
         }
@@ -137,7 +145,7 @@ const register = asyncHandler(async(req, res, next) => {
         const nuevoUsuario = new User({
             password: encryptedPass,
             email: email,
-            displayName: req.body.name,
+            name: req.body.name,
             phone: phone,
             signupDate: moment(),
             lastLogin: moment()

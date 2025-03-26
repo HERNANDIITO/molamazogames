@@ -66,7 +66,7 @@ const newUser = asyncHandler(async (req, res, next) => {
 
         const nuevoUsuario = new User({
             email,
-            displayName: name,
+            name: name,
             password: encryptedPass,
             signupDate: moment().unix(),
             lastLogin: moment().unix()
