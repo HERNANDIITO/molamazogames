@@ -55,17 +55,18 @@ const Login = () => {
   
         const result = await login({ name, pass });
         
-        if ( result.token ) {
+        if ( result && result.token ) {
           localStorage.setItem('token', result.token)
           window.location.replace('/')
         }
         else {
-          throw new Error("Un error ha ocurrido");
+          throw new Error(result.message);
         }
       }
       
     } catch (error) {
       console.error("ERROR LOGIN", error.message);
+      setErrors({global:error.message});
     }
   };
 

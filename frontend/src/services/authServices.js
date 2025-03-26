@@ -24,7 +24,7 @@ const register = async (data, headers = {}) => {
 
         if ( !response.ok ) {
             const errorData = await response.json();
-            throw new Error(errorData.message || 'Algo ha ido mal :C');
+            throw new Error(errorData.msg || 'Algo ha ido mal');
         }
 
         const result = await response.json();
@@ -32,6 +32,7 @@ const register = async (data, headers = {}) => {
 
     } catch (error) {
         console.error('Error haciendo login', error.message);
+        throw new Error(error.message || 'Algo ha ido mal');
     }
 }
 
@@ -58,14 +59,14 @@ const login = async (data, headers = {}) => {
 
         if ( !response.ok ) {
             const errorData = await response.json();
-            throw new Error(errorData.message || 'Algo ha ido mal :C');
+            throw new Error(errorData.msg || 'Algo ha ido mal');
         }
 
         const result = await response.json();
         return result;
 
     } catch (error) {
-        console.error('Error haciendo login', error.message);
+        throw new Error(error.message || 'Algo ha ido mal');
     }
 }
 
@@ -92,14 +93,14 @@ const getUserByToken = async (data, headers = {}) => {
 
         if ( !response.ok ) {
             const errorData = await response.json();
-            throw new Error(errorData.message || "Algo ha ido mal :C");
+            throw new Error(errorData.msg || "Algo ha ido mal");
         }
 
         const result = await response.json();
         return result;
 
     } catch (error) {
-        console.error("Error", error.message);
+        throw new Error(error.message || 'Algo ha ido mal');
     }
 }
 

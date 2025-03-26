@@ -6,6 +6,7 @@ import Button from '../../components/Button/Button.js';
 import Input from '../../components/Input/Input.js';
 import Profile from '../../components/Profile/Profile.js';
 import { FaArrowRight } from 'react-icons/fa'; 
+import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons"; 
 import { register } from '../../services/authServices.js';
 
 
@@ -57,14 +58,15 @@ const Registrar = () => {
       try {
         const result = await register({ email, pass, name, phone });
 
-        if (result.token) {
+        if ( result && result.token ) {
           localStorage.setItem('token', result.token);
           window.location.replace('/')
         } else {
-          throw new Error("Un error ha ocurrido.");
+          throw new Error(result.message);
         }
       } catch (error) {
         console.error(error.message);
+        setErrors({global: error.message});
       }
     }
   };
@@ -72,9 +74,10 @@ const Registrar = () => {
   return (
 
         <section className="form-container">
+          <form onSubmit={handleSubmit} className="register-form">
           <h2 className="title decorator">Registrarse</h2>
           <p className="aviso">Los campos obligatorios están marcados con *</p>
-          <form onSubmit={handleSubmit} className="register-form">
+          {errors.global && <p className="login-error"><FontAwesomeIcon icon={faTriangleExclamation} /> &nbsp; {errors.global}</p>}
             <Input
               type="text"
               name="name"
