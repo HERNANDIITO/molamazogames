@@ -78,7 +78,7 @@ const login = asyncHandler(async(req, res, next) => {
             return;
         }
 
-        user.lastLogin = moment().unix();
+        user.lastLogin = moment();
         user.save();
 
         const token = generateToken(user._id);
