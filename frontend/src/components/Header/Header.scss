@@ -83,8 +83,15 @@
 }
 
 @media all and (width<1235px){
+    .get-small {
+        width: $ancho-boton-peque !important;
+        height: $alto-boton-peque !important;
+        text-wrap: wrap;
+    }
+
     .h_logged{
         flex-direction: column !important;
+
         >.searchBar{
             align-self: center;
             margin-top: 3rem;

@@ -46,12 +46,12 @@ const Header = () =>{
                     <div className='header-buttons'>
                         <Button
                             label={"Registrarse"}
-                            className={"secondary-btn mediano-btn"}
+                            className={"secondary-btn mediano-btn get-small"}
                             href={"/registrar"}
                         ></Button>
                         <Button
                             label={"Iniciar sesión"}
-                            className={"mediano-btn"}
+                            className={"mediano-btn get-small"}
                             href={"/login"}
                         >
                         </Button>
