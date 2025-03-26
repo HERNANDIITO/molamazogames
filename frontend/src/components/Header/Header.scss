@@ -91,6 +91,13 @@
         text-wrap: wrap;
     }
 
+    .searchBar{
+        width: 80% !important;
+        display: flex;
+        align-items: center;
+        margin-left: 10%;
+    }
+
     .h_logged{
         flex-direction: column !important;
 
