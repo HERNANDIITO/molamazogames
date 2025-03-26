@@ -42,6 +42,9 @@ const Registrar = () => {
     if (!/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{7,15}$/.test(formData.password)) {
       newErrors.password = "La contraseña no cumple los requisitos.";
     }
+    if (!/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/.test(formData.phone)) {
+      newErrors.phone = "El formato del teléfono no es correcto.";
+    }
     if (formData.password !== formData.reppass) {
       newErrors.reppass = "Las contraseñas no coinciden.";
     }
@@ -52,7 +55,9 @@ const Registrar = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (validate()) {
+      console.log("PATATA.");
       const { email, password: pass, name, phone } = formData;
 
       try {
@@ -61,7 +66,9 @@ const Registrar = () => {
         if ( result && result.token ) {
           localStorage.setItem('token', result.token);
           window.location.replace('/')
+          console.log("Registrado correctamente.");
         } else {
+          console.log("Error al registrarse.");
           throw new Error(result.message);
         }
       } catch (error) {
@@ -108,6 +115,7 @@ const Registrar = () => {
               value={formData.phone}
               onChange={handleChange}
               className="login" />
+              {errors.phone && <p className="register-error">{errors.phone}</p>}
 
             <div className="input-container register-pass-container">
               <div  className="pass-container">
