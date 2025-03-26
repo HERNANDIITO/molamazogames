@@ -37,8 +37,10 @@
         position: absolute;
         top: 3rem;
         right: 9rem;
-        padding-left: 4em;
-        padding-right: 4em;
+        width: $ancho-boton-mediano;
+        height: $alto-boton-mediano;
+        // padding-left: 4em;
+        // padding-right: 4em;
     }
 
     .h_logged{
@@ -77,8 +79,8 @@
 @media all and (width<1300px){
     .h_but_anadir{
         font-size: 0;
-        height: $alto-boton-enano;
-        width: $ancho-boton-enano;
+        height: $alto-boton-enano !important;
+        width: $ancho-boton-enano !important;
         gap: 0;
         >span{
             font-size: $tamano-texto-boton;

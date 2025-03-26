@@ -11,9 +11,9 @@ import { useState, useEffect } from "react";
 import { FaPlus } from 'react-icons/fa';
 
 
-const anyadirAsset = () => {
-    window.location.href = "#new";
-}
+// const anyadirAsset = () => {
+//     window.location.href = "#new";
+// }
 
 const Header = () =>{
     
@@ -37,8 +37,7 @@ const Header = () =>{
                             label="Añadir asset"
                             icon={<FaPlus />}
                             iconPosition="left"
-                            /*iconPosition="left"*/
-                            onClick={anyadirAsset}
+                            href="#"
                             className="h_but_anadir"
                         />
                         <Profile></Profile>
