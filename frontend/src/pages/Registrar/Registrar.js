@@ -57,7 +57,6 @@ const Registrar = () => {
     e.preventDefault();
 
     if (validate()) {
-      console.log("PATATA.");
       const { email, password: pass, name, phone } = formData;
 
       try {
@@ -66,9 +65,7 @@ const Registrar = () => {
         if ( result && result.token ) {
           localStorage.setItem('token', result.token);
           window.location.replace('/')
-          console.log("Registrado correctamente.");
         } else {
-          console.log("Error al registrarse.");
           throw new Error(result.message);
         }
       } catch (error) {
