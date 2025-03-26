@@ -36,7 +36,8 @@ const Header = () =>{
                         <Button
                             label="Añadir asset"
                             icon={<FaPlus />}
-                            iconPosition="alone"
+                            iconPosition="left"
+                            /*iconPosition="left"*/
                             onClick={anyadirAsset}
                             className="h_but_anadir"
                         />
