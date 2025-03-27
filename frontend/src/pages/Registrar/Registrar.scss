@@ -45,7 +45,7 @@
             position: absolute;
 
             top: 50%;
-            left: 100%;
+            left: 97%;
 
             transform: translateX(-50%);
 
@@ -146,5 +146,16 @@
 
     .register-pass-container {
         flex-direction: column !important; 
+    }
+
+    .info-icon {
+        left: 100% !important;
+    }
+}
+
+// Para que el icono de informacion se mantenga centrado
+@media (max-width: 1250px) {
+    .info-icon {
+        left: 100% !important;
     }
 }
