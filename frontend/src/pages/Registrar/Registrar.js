@@ -67,8 +67,13 @@ const Registrar = () => {
     if (!/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{7,15}$/.test(formData.password)) {
       newErrors.password = "La contraseña no cumple los requisitos.";
     }
-    if (!/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/.test(formData.phone)) {
-      newErrors.phone = "El teléfono debe seguir el formato: +34678564738";
+
+    console.log("tlf: ", formData.phone.trim())
+
+    if (formData.phone != "") {
+      if (!/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/.test(formData.phone)) {
+        newErrors.phone = "El teléfono debe seguir el formato: +34678564738";
+      }
     }
     if (formData.password !== formData.reppass) {
       newErrors.reppass = "Las contraseñas no coinciden.";
