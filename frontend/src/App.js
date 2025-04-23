@@ -16,10 +16,16 @@ import SearchBar from './components/SearchBar/SearchBar';
 import Profile from './components/Profile/Profile';
 import NavBar from './components/NavBar/NavBar';
 import Header from './components/Header/Header';
+import Textarea from './components/Textarea/Textarea';
+import Select from './components/Select/Select';
+import CarousselController from './components/CarousselController/CarousselController';
 
 
 function AppContent() {
   const location = useLocation(); // Obtiene la ruta actual
+
+  //Cosa pal select
+  const [opcionSeleccionada, setOpcionSeleccionada] = useState('');
 
   // Función de ejemplo
   const handleClick = () => {
@@ -39,9 +45,49 @@ function AppContent() {
             <>
           
 {/* 
-        <Logo isInNav={true}></Logo>
+        <Logo isInNav={true}></Logo>*/
 
-        <a
+        <>
+        <Textarea 
+              type="text" 
+              name="textarea" 
+              id="textarea"
+              label="Textarea*"
+              autoFocus
+              placeholder="Escribe aquí tu texto"
+              className="texto"
+        />
+
+        <Select
+          id="select"
+          name="select"
+          label="Selecciona una opción"
+          value={opcionSeleccionada}
+          onChange={(e) => setOpcionSeleccionada(e.target.value)}
+          placeholder="Selecciona una opción"
+          options={[
+            { value: 'opcion1', label: 'Opción 1' },
+            { value: 'opcion2', label: 'Opción 2' },
+            { value: 'opcion3', label: 'Opción 3' },
+          ]}
+          className="texto"
+        />
+
+        <CarousselController
+          id="carousselController"
+          label="Control del carrusel"
+          onClick={() => console.log("Botón del carrusel presionado")}
+        />
+
+        <CarousselController
+          id="carousselController"
+          label="Control del carrusel"
+          onClick={() => console.log("Botón del carrusel presionado")}
+          direction='right'
+        />
+        </>
+
+        /*<a
           className=""
           href="https://reactjs.org"
           target="_blank"
@@ -141,5 +187,6 @@ function App() {
     </Router>
   );
 }
+
 
 export default App;

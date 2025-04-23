@@ -1,0 +1,29 @@
+@import '../../styles/global.scss';
+
+.arrow{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $color-fondo2;
+    color: $color-texto;
+    height: $alto-boton-enorme;
+    width: $ancho-boton-peque;
+    font-size: $tamano-h1;
+    border-radius: 1rem; /* es igual a margen-elementos */
+    overflow: hidden;
+    transition: width 0.3s ease;
+    margin: $margen-botones;
+    border: none;
+      
+    &:hover {
+        transition: width 0.3s ease;
+    }
+    
+    &:disabled{
+        color: $color-disabled;
+
+        &:hover{
+            box-shadow: none;
+        }
+    }
+}

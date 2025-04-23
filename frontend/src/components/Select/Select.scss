@@ -1,0 +1,53 @@
+@import '../../styles/global.scss';
+
+.slct{
+    padding: 10px;
+    border: 1px solid white;
+    border-radius: 5px;
+    background-color: $color-fondo2;
+    color: white;
+    transition: border-color 0.3s;
+    
+    &.texto{
+        display: block;
+        margin-left: 10px;
+        margin-bottom: 20px;
+        font-size: $tamano-texto;
+        width: 85%;
+    }
+
+    &:focus{
+       border-color: $color-secundario;
+       outline: none;
+    }
+    
+    &:disabled{
+        background-color: $color-disabled;
+
+        &:hover{
+            box-shadow: none;
+        }
+    }
+
+    &.error{
+        border: 2px solid $color-danger !important;
+        margin-bottom: 5px;
+    }
+}
+
+
+.lbl{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: block;
+    font-size: $tamano-texto;
+    text-align: left;
+    margin-left: 10px;
+    color: white;
+}
+
+.dv{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
