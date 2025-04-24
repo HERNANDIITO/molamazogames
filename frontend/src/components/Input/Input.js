@@ -15,8 +15,8 @@ const Input = ({
   className,                     
 }) => {
 
-  const inputClasses = classNames('inpt', className);
-  const labelClasses = classNames('lbl', className);
+  const inputClasses = classNames('inpt');
+  const labelClasses = classNames('lbl');
   const divClasses = classNames('dv', className);
 
   return(

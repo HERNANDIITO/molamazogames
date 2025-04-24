@@ -1,0 +1,83 @@
+@import '../../styles/global.scss';
+
+.dv {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: $color-texto;
+    margin: $margen-elementos;
+
+    .slider-track {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 6px;
+        background: $color-texto;
+        width: 100%;
+        z-index: 1;
+        border-radius: 3px;
+        z-index: 2;
+      }
+      
+      .slider-range {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 6px;
+        background: $color-secundario;
+        border-radius: 3px;
+        z-index: 3;
+      }
+
+      .slider-container {
+        position: relative;
+        width: 50%;
+        height: 30px;
+        margin-left: $margen-elementos;
+        z-index: 1;
+    }
+}
+
+.lbl {
+    color: $color-texto;
+}
+
+.tmb{
+    -webkit-appearance: none;
+    position: relative;
+    width: 100%;
+    height: 1px;
+    background: transparent;
+    pointer-events: none;
+    z-index: 5; //SIRVE PARA MOSTRARLO POR ENCIMA DE LA RASHITA
+
+    &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: $color-secundario;
+        cursor: pointer;
+        pointer-events: all;
+        border: none;
+
+        &:hover{
+            background: $color-hover-secundario;
+        }
+    }
+    
+    &::-moz-range-thumb {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: $color-secundario;
+        cursor: pointer;
+        pointer-events: all;
+        border: none;
+    }
+}
+
+.desc{
+    margin-bottom: $margen-elementos;
+}

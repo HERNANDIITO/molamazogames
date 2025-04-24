@@ -24,6 +24,8 @@ import Header from './components/Header/Header';
 import Textarea from './components/Textarea/Textarea';
 import Select from './components/Select/Select';
 import CarousselController from './components/CarousselController/CarousselController';
+import SliderField from './components/SliderField/SliderField';
+import InputField from './components/InputField/InputField';
 
 
 function AppContent() {
@@ -31,6 +33,10 @@ function AppContent() {
 
   //Cosa pal select
   const [opcionSeleccionada, setOpcionSeleccionada] = useState('');
+
+  //Cosas pal SliderField
+  const [minValue, setMinValue] = useState(0);
+  const [maxValue, setMaxValue] = useState(100);
 
   // Función de ejemplo
   const handleClick = () => {
@@ -57,7 +63,7 @@ function AppContent() {
               type="text" 
               name="textarea" 
               id="textarea"
-              label="Textarea*"
+              label="Textarea"
               autoFocus
               placeholder="Escribe aquí tu texto"
               className="texto"
@@ -132,6 +138,19 @@ function AppContent() {
               onClick={handleClick}
               className="enano-btn round-btn"
             />
+        <SliderField
+          label="Slider Field"
+          min={0}
+          max={100}
+          minValue={minValue}
+          maxValue={maxValue}
+          onMinChange={(e) => setMinValue(Number(e.target.value))}
+          onMaxChange={(e) => setMaxValue(Number(e.target.value))}
+          texto = 'tera'
+        />
+
+        <InputField/>
+
         </>
 
         

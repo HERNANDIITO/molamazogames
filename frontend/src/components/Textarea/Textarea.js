@@ -15,14 +15,14 @@ const Textarea = ({
   className,                     
 }) => {
 
-  const textareaClasses = classNames('txta', className);
-  const labelClasses = classNames('lbl', className);
+  const textareaClasses = classNames('txta');
+  const labelClasses = classNames('lbl');
   const divClasses = classNames('dv', className);
 
   return(
     <>
     <div className={divClasses}>
-    <label htmlFor={id} className={labelClasses}>{label}</label>
+    {label && <label htmlFor={id} className={labelClasses}>{label}</label>}
       <textarea
           type = {type}
           value = {value}
