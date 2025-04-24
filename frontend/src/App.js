@@ -11,6 +11,8 @@ import { FaArrowRight } from 'react-icons/fa';
 import { LuTag } from "react-icons/lu";
 import { LuCirclePlus } from "react-icons/lu";
 import { FiDelete } from "react-icons/fi";
+import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowForward } from "react-icons/io";
 
 import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import Registrar from "./pages/Registrar/Registrar";
@@ -94,7 +96,6 @@ function AppContent() {
               label="Next"
               icon={<LuTag />}
               iconPosition="left"
-              onClick={handleClick}
               className="tag"
               href="#"
             />
@@ -103,7 +104,6 @@ function AppContent() {
               label="Caracolaaa"
               icon={<FiDelete />}
               iconPosition="left"
-              onClick={handleClick}
               className="tag tag-delete"
               href="#"
             />
@@ -112,9 +112,25 @@ function AppContent() {
               label="Bonito"
               icon={<LuCirclePlus />}
               iconPosition="left"
-              onClick={handleClick}
               className="tag"
               href="#"
+            />
+
+
+            <Button
+              label="Ver assets anteriores"
+              icon={<IoIosArrowBack />}
+              iconPosition="alone"
+              onClick={handleClick}
+              className="enano-btn round-btn"
+            />
+
+            <Button
+              label="Ver próximos assets"
+              icon={<IoIosArrowForward />}
+              iconPosition="alone"
+              onClick={handleClick}
+              className="enano-btn round-btn"
             />
         </>
 

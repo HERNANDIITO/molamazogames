@@ -148,6 +148,8 @@
         &:hover{
             border-color: $color-hover-secundario;
             color: $color-hover-secundario;
+            transform: scale(1.05); 
+
 
             &.tag-delete{
                 border-color: $color-hover-danger;
@@ -155,5 +157,26 @@
             }
         }
     }
-}
 
+    &.round-btn {
+        border-radius: 999rem;
+        transition: transform 0.5s ease;  
+        gap: 0;
+
+        .icon {
+            display: inline-flex;              
+            justify-content: center;           
+            align-items: center; 
+
+            > svg {
+                font-size: 2rem;
+                width: 2rem;
+                height: 2rem;
+            }
+        }
+
+        &:hover{
+            transform: scale(1.1); 
+        }
+    }
+}
