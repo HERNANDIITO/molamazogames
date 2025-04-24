@@ -8,6 +8,9 @@ import Footer from './components/Footer/Footer';
 import Logo from './components/Logo/Logo';
 
 import { FaArrowRight } from 'react-icons/fa';  
+import { LuTag } from "react-icons/lu";
+import { LuCirclePlus } from "react-icons/lu";
+import { FiDelete } from "react-icons/fi";
 
 import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import Registrar from "./pages/Registrar/Registrar";
@@ -85,7 +88,37 @@ function AppContent() {
           onClick={() => console.log("Botón del carrusel presionado")}
           direction='right'
         />
+
+        
+            <Button
+              label="Next"
+              icon={<LuTag />}
+              iconPosition="left"
+              onClick={handleClick}
+              className="tag"
+              href="#"
+            />
+
+            <Button
+              label="Caracolaaa"
+              icon={<FiDelete />}
+              iconPosition="left"
+              onClick={handleClick}
+              className="tag tag-delete"
+              href="#"
+            />
+
+            <Button
+              label="Bonito"
+              icon={<LuCirclePlus />}
+              iconPosition="left"
+              onClick={handleClick}
+              className="tag"
+              href="#"
+            />
         </>
+
+        
 
         /*<a
           className=""

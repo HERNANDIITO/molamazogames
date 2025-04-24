@@ -134,8 +134,26 @@
             color: $color-texto;
         }
     }
+
+    &.tag{
+        background-color: transparent;
+        color: $color-secundario;
+        border: $borde-botones solid $color-secundario;
+        box-shadow: none;
+        transition: all 0.5s ease;
+        width: auto;
+        height: auto;
+        padding: .5rem;
+      
+        &:hover{
+            border-color: $color-hover-secundario;
+            color: $color-hover-secundario;
+
+            &.tag-delete{
+                border-color: $color-hover-danger;
+                color: $color-hover-danger;
+            }
+        }
+    }
 }
-
-
-          
 
