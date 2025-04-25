@@ -6,10 +6,7 @@ import moment from 'moment'
 
 import db from '../db/conn.js';
 import mongoose from 'mongoose';
-import userSchema from '../schemas/user.schema.js';
-
-
-const User = mongoose.model('users', userSchema);
+import User from '../schemas/user.schema.js';
 
 const getAllUsersAdmin = asyncHandler( async (req, res, next) => {
     try {
