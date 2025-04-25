@@ -6,6 +6,8 @@ import { Helmet } from "react-helmet";
 import Button from './components/Button/Button';
 import Footer from './components/Footer/Footer';
 import Checkbox from './components/Checkbox/Checkbox';
+import RadioButtonGroup from './components/RadioButtonGroup/RadioButtonGroup';
+
 import Logo from './components/Logo/Logo';
 
 import { FaArrowRight } from 'react-icons/fa';  
@@ -152,7 +154,9 @@ function AppContent() {
             <Checkbox label="Suscribirse al newsletter" size="normal" showLabel={false} id="subscribe" />
             <Checkbox label="Aceptar cookies" size="big" showLabel={false} id="cookies" />
       
-       
+            {/* <RadioButton label="Aceptar los términos y condiciones"  id="terms5" name="pregunta" /> */}
+
+            <RadioButtonGroup/>
             
 
         <SliderField
