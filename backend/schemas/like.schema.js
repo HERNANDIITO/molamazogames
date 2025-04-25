@@ -2,12 +2,12 @@ import mongoose, { Schema } from 'mongoose';
 
 const likeSchema = new mongoose.Schema({
     author: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
     },
 
     comment: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'comment'
     }
 });

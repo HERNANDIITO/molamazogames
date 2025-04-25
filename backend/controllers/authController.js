@@ -6,11 +6,9 @@ import moment from 'moment'
 
 import db from '../db/conn.js'
 import mongoose from 'mongoose'
-import userSchema from '../schemas/user.schema.js'
+import User from '../schemas/user.schema.js'
 
 import { validateEmail, validatePass, validatePhone } from '../helpers/validator.helper.js'
-
-const User = mongoose.model('users', userSchema);
 
 const getAllUsers = asyncHandler(async(req, res, next) => {
     try {

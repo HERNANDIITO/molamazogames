@@ -2,13 +2,13 @@ import mongoose, { Schema } from 'mongoose';
 
 const commentSchema = new mongoose.Schema({
     author: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
     },
 
     asset: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Asset',
         required: true
     },
@@ -24,7 +24,7 @@ const commentSchema = new mongoose.Schema({
     },
 
     likes: [{
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Likes',
         default: []
     }]
