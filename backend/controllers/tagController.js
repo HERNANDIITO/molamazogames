@@ -1,7 +1,4 @@
 import Tag from '../schemas/tag.schema.js';
-
-import db from '../db/conn.js';
-import mongoose from 'mongoose';
 import asyncHandler from 'express-async-handler'
 
 const getAllTags = asyncHandler( async (req, res, next) => {

@@ -10,7 +10,8 @@ const metaSchema = new mongoose.Schema({
             "Video",
             "Codigo",
             "Otros"
-        ]
+        ],
+        unique: true
     }
 });
 
