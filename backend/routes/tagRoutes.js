@@ -4,10 +4,16 @@ import { auth } from '../middlewares/auth.middleware.js'
 import express from 'express';
 const tagRouter = express.Router();
 
-import { } from '../controllers/tagController.js';
+import { createNewTag, createNewTags, getAllTags } from '../controllers/tagController.js';
 
-// Obetenemos todos los usuarios registrados del sistema
-tagRouter.get("/", auth);
+// Obetenemos todas las tags del sistema
+tagRouter.get("/", auth, getAllTags);
+
+// Obetenemos crea una nueva tag dado el nombre
+tagRouter.post("/", auth, createNewTag);
+
+// Obetenemos crea muchas tags de golpe dada una array de nombres
+tagRouter.post("/bulkTags", auth, createNewTags);
 
 
 export default tagRouter
