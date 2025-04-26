@@ -10,6 +10,13 @@ import User from '../schemas/user.schema.js'
 
 import { validateEmail, validatePass, validatePhone } from '../helpers/validator.helper.js'
 
+const getUserByTokenFunc = async (userID) => {
+
+    const user = User.findById(userID)
+    return user;
+
+}
+
 const getAllUsers = asyncHandler(async(req, res, next) => {
     try {
         const users = await User.find( {}, 'name email');
@@ -31,7 +38,7 @@ const getUserByToken = asyncHandler(async(req, res, next) => {
     }
 
     try {
-        const user = await User.findById(req.user.id)
+        const user = await getUserByTokenFunc(ID);
         res.json(user)
     }
     catch (err) {
@@ -167,5 +174,6 @@ export {
     getAllUsers,
     getUserByToken,
     login,
-    register
+    register,
+    getUserByTokenFunc
 }

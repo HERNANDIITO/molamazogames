@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "79496021-2003-44c8-9472-7a17a5a2e0c3",
-		"name": "Molamazogames",
+		"name": "Users",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "22581983"
 	},
@@ -172,7 +172,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"pablo22@gm2ail.com\",\r\n    \"pass\": \"pass\",\r\n    \"name\": \"Pablo\"\r\n}",
+					"raw": "{\r\n    \"email\": \"pablo22@gm2ail.com\",\r\n    \"pass\": \"P@ss12345678\",\r\n    \"name\": \"Pablo\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -208,7 +208,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"pablo@gmail.com\",\r\n    \"pass\": \"pass\"\r\n}",
+					"raw": "{\r\n    \"name\": \"pablo22@gm2ail.com\",\r\n    \"pass\": \"pass\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -347,7 +347,8 @@
 	"variable": [
 		{
 			"key": "authToken",
-			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1Njc4OTEyMzQ1Njc4OSIsImlhdCI6MTcwOTY2NzExMSwiZXhwIjoxNzEwMjcxOTExfQ.blUQVffDZlEOsh2z40zSwtW0c9BpqjyQrqGH4xSD1Z8"
+			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1Njc4OTEyMzQ1Njc4OSIsImlhdCI6MTcwOTY2NzExMSwiZXhwIjoxNzEwMjcxOTExfQ.blUQVffDZlEOsh2z40zSwtW0c9BpqjyQrqGH4xSD1Z8",
+			"disabled": true
 		}
 	]
 }
