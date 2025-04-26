@@ -10,7 +10,8 @@
     
     &.login{
         display: block;
-        margin: $margen-elementos;
+        margin-left: 10px;
+        margin-bottom: 20px;
         font-size: $tamano-texto;
         width: 85%;
     }
@@ -36,7 +37,8 @@
 
 
 .lbl{
-    margin: $margen-elementos;
+    margin-top: 15px;
+    margin-bottom: 15px;
     display: block;
     font-size: $tamano-texto;
     text-align: left;

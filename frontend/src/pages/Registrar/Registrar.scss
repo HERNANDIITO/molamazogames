@@ -46,6 +46,7 @@
 
             top: 50%;
             left: 97%;
+            margin-top: 11px;
 
             transform: translateX(-50%);
 
@@ -122,14 +123,14 @@
     display: flex;
     padding: 10px;
     font-size: $tamano-texto;
-    color: white;
+    color: $color-texto;
     width: 90%;
 }
 
 .password-rules {
     padding: 15px;
     font-size: $tamano-texto;
-    color: white;
+    color: $color-texto;
     text-align: left;
     list-style-position: inside;
 }

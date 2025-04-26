@@ -29,6 +29,8 @@ import Select from './components/Select/Select';
 import CarousselController from './components/CarousselController/CarousselController';
 import SliderField from './components/SliderField/SliderField';
 import InputField from './components/InputField/InputField';
+import UploadedFile from './components/UploadedFile/UploadedFile';
+import DatePicker from './components/DatePicker/DatePicker';
 
 
 function AppContent() {
@@ -40,6 +42,16 @@ function AppContent() {
   //Cosas pal SliderField
   const [minValue, setMinValue] = useState(0);
   const [maxValue, setMaxValue] = useState(100);
+
+  //Cosa pal uploadedFile
+  const [uploadedFiles, setUploadedFiles] = useState([
+    { id: 1, name: 'script.cpp' },
+    { id: 2, name: 'picture.png' },
+    { id: 3, name: 'audio.mp3' },
+  ]);
+
+// Cosa pal DatePicker
+const [selectedDate, setSelectedDate] = useState(null);
 
   // Función de ejemplo
   const handleClick = () => {
@@ -171,6 +183,19 @@ function AppContent() {
         />
 
         <InputField/>
+
+        {uploadedFiles.map(file => (
+          <UploadedFile
+            key={file.id}
+            name={file.name}
+            onRemove={() => setUploadedFiles(prev => prev.filter(f => f.id !== file.id))}
+          />
+        ))}
+
+        <DatePicker
+          value={selectedDate}
+          onChange={(newDate) => setSelectedDate(newDate)}
+        />
 
         </>
 

@@ -15,14 +15,18 @@ const Input = ({
   className,                     
 }) => {
 
-  const inputClasses = classNames('inpt');
+  const inputClasses = classNames('inpt', className);
   const labelClasses = classNames('lbl');
   const divClasses = classNames('dv', className);
 
   return(
     <>
     <div className={divClasses}>
-    <label htmlFor={id} className={labelClasses}>{label}</label>
+    {label && (
+      <label htmlFor={id} className={labelClasses}>
+        {label}
+      </label>
+    )}
       <input
           type = {type}
           value = {value}
