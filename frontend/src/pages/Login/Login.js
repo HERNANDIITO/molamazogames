@@ -111,6 +111,7 @@ const Login = () => {
               />
 
             <a href="/registrar">¿No tienes cuenta? Crea una</a>
+            
           </form>
         </div>
       </div>

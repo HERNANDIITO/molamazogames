@@ -5,6 +5,9 @@ import { Helmet } from "react-helmet";
 
 import Button from './components/Button/Button';
 import Footer from './components/Footer/Footer';
+import Checkbox from './components/Checkbox/Checkbox';
+import RadioButtonGroup from './components/RadioButtonGroup/RadioButtonGroup';
+
 import Logo from './components/Logo/Logo';
 
 import { FaArrowRight } from 'react-icons/fa';  
@@ -138,6 +141,24 @@ function AppContent() {
               onClick={handleClick}
               className="enano-btn round-btn"
             />
+
+            {/* Checkbox normal con label visible */}
+            {/* <Checkbox label="Aceptar los términos y condiciones" size="normal" showLabel={true} id="terms-conditions" /> */}
+
+            <Checkbox label="Aceptar los términos y condiciones" size="normal" showLabel={true} id="terms" />
+            <Checkbox label="Aceptar los términos y condiciones" size="normal" showLabel={true} id="terms2" />
+
+            <Checkbox label="Aceptar los términos y condiciones" size="normal" showLabel={true} id="terms3" />
+
+            <Checkbox label="Recibir boletines" size="big" showLabel={true} id="newsletter" />
+            <Checkbox label="Suscribirse al newsletter" size="normal" showLabel={false} id="subscribe" />
+            <Checkbox label="Aceptar cookies" size="big" showLabel={false} id="cookies" />
+      
+            {/* <RadioButton label="Aceptar los términos y condiciones"  id="terms5" name="pregunta" /> */}
+
+            <RadioButtonGroup/>
+            
+
         <SliderField
           label="Slider Field"
           min={0}
