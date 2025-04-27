@@ -100,7 +100,7 @@ const Login = () => {
                 value={formData.password} 
                 onChange={handleChange} 
                 placeholder="Contraseña_123"
-                className="login pass"
+                className="login"
               />
   
               <Button
