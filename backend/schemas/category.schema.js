@@ -1,16 +1,27 @@
 import mongoose from 'mongoose';
 
+const categoryChild = new mongoose.Schema({
+    name: { 
+        type: String,
+        required: true
+    },
+
+    children: {
+        type: [this],
+        default: undefined
+    },
+});
+
 const categorySchema = new mongoose.Schema({
     name: { 
         type: String,
         required: true
     },
 
-    children: [{ 
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Category',
-        default: []
-    }],
+    children: {
+        type: [categoryChild],
+        default: undefined
+    },
 
     meta: {
         type: mongoose.Schema.Types.ObjectId,

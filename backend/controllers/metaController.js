@@ -1,15 +1,8 @@
 import Meta from '../schemas/meta.schema.js';
 import asyncHandler from 'express-async-handler'
+import metaCategories from '../db/metaCategoryData.js';
 
 const setupMeta = asyncHandler( async (req, res, next) => {
-    const metaCategories = [
-        "2D",
-        "3D",
-        "Audio",
-        "Video",
-        "Codigo",
-        "Otros"
-    ]
 
     const newMetaCategories = [];
 
