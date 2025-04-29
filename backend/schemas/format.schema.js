@@ -8,7 +8,7 @@ const formatSchema = new mongoose.Schema({
 
     meta: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'meta',
+        ref: 'Meta',
         required: true
     }
 });

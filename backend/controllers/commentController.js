@@ -37,43 +37,84 @@ const getAssetComments = asyncHandler( async (req,res,next) => {
 
 const postComment = asyncHandler(async (req, res, next) => {
     const assetID = req.body.assetID;
-    const userID  = req.body.userID;
+    const userID  = req.user.id;
     const content = req.body.content;
 
-    if ( !userID || !assetID ) {
+    if ( !userID || !assetID || !content ) {
         return res.status(400).json({
             result: "Solicitud errónea.",
             msg: `Faltan campos obligatorios: ${!assetID ? 'assetID ' : ''}${!userID ? 'userID ' : ''}${!content ? 'content ' : ''}`
         });
     }
 
-    const user  = User.findOne({_id: userID})
-    const asset = Asset.findOne({_id: assetID})
+    try {
+        
+        const user  = User.findOne({_id: userID})
+        const asset = Asset.findOne({_id: assetID})
 
-    if ( !user || !asset ) {
+        if ( !user || !asset ) {
+            return res.status(400).json({
+                result: "Solicitud errónea.",
+                msg: `Los siguientes elementos no existen: ${!user ? 'user ' : ''}${!asset ? 'asset ' : ''}`
+            });
+        }
+
+        const newComment = new Comment({
+            asset: assetID,
+            author: userID,
+            content: content,
+            likes: [],
+            publicationDate: moment().unix()
+        })
+
+        const comment = await newComment.save();
+
+        res.json({
+            result: "OK",
+            comment: comment
+        });
+
+    } catch (error) {
+        next(error)
+    }
+
+})
+
+const deleteComment = asyncHandler( async (req, res, next) => {
+    const userID = req.user.id;
+    const commentID = req.body.commentID;
+
+    if ( !userID || !commentID ) {
         return res.status(400).json({
             result: "Solicitud errónea.",
-            msg: `Los siguientes elementos no existen: ${!user ? 'user ' : ''}${!asset ? 'asset ' : ''}`
+            msg: `Faltan campos obligatorios: ${!commentID ? 'commentID ' : ''}${!userID ? 'userID ' : ''}`
         });
     }
 
-    const newComment = new Comment({
-        asset: assetID,
-        author: userID,
-        content: content,
-        likes: [],
-        publicationDate: moment().unix()
-    })
+    try {
 
-    const comment = await newComment.save();
+        const user      = await User.findOne({_id: userID});
+        const comment   = await Comment.findOne({_id:commentID});
 
-    res.json({
-        result: "OK",
-        comment: comment
-    });
-})
+        if ( !user || !comment ) {
+            return res.status(400).json({
+                result: "Solicitud errónea.",
+                msg: `Elemento inexistente: ${!comment ? 'comment ' : ''}${!user ? 'user ' : ''}`
+            });
+        }
+
+        const deletedComment = await comment.deleteOne();
+
+        return res.status(200).json({
+            result: "OK",
+            deletedComment: deletedComment
+        });
+        
+    } catch (error) { next(error) }
+}) 
 
 export {
     getAssetComments,
-    postComment
+    postComment,
+    deleteComment
 }

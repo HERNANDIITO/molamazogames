@@ -21,13 +21,14 @@ const commentSchema = new mongoose.Schema({
     content: {
         type: String,
         required: true
-    },
+    }
+});
 
-    likes: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Likes',
-        default: []
-    }]
+commentSchema.pre('deleteOne', { document: true, query: false }, async function(next) {
+    console.log("DELETION MIDDLEWARE!");
+    const comment = this; 
+    await mongoose.model('Like').deleteMany({ comment: comment._id });
+    next();
 });
 
 const Comment = mongoose.model('Comment', commentSchema);

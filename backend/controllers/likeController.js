@@ -61,7 +61,7 @@ const getCommentLikes = asyncHandler( async (req,res,next) => {
 const postLike = asyncHandler( async (req,res,next) => {
 
     const commentID = req.body.commentID;
-    const userID = req.body.userID;
+    const userID = req.user.id;
 
     if ( !commentID || !userID ) {
         return res.status(400).json({

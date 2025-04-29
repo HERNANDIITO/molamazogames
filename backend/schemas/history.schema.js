@@ -3,13 +3,13 @@ import mongoose from 'mongoose';
 const historySchema = new mongoose.Schema({
     author: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'user',
+        ref: 'User',
         required: true
     },
 
     asset: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'asset',
+        ref: 'Asset',
         required: true
     },
 
