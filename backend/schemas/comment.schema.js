@@ -28,8 +28,6 @@ const commentSchema = new mongoose.Schema({
         ref: 'Likes',
         default: []
     }]
-
-
 });
 
 const Comment = mongoose.model('Comment', commentSchema);
