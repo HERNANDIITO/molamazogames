@@ -10,7 +10,7 @@
 			"name": "Categories",
 			"item": [
 				{
-					"name": "Obtener todas las categorias",
+					"name": "Obtener categorias",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -72,7 +72,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "Funciones relacionadas con la tabla de categorias:\n\n- Obtener todas las cateogrías"
 		},
 		{
 			"name": "Comments",
@@ -119,7 +120,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"assetID\": \"68107d182dc482b4a6ff4e17\",\r\n    \"userID\": \"68107cf8eac6ed1615d97d01\",\r\n    \"content\": \"Muy buen asset!\"\r\n}",
+							"raw": "{\r\n    \"assetID\": \"68107d182dc482b4a6ff4e17\",\r\n    \"content\": \"Muy buen asset 2!\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -136,6 +137,34 @@
 							"path": [
 								"comment",
 								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar comentario",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"commentID\": \"681091366f1b181a27237140\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/comment",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"comment"
 							]
 						}
 					},
@@ -260,7 +289,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"commentID\": \"680d19e0c4ea4f3d6f262de3\"\r\n}",
+							"raw": "{\r\n    \"commentID\": \"68108c1f306847563c511e6b\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -321,7 +350,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"userID\": \"680cf321b4b3a68e46046c47\",\r\n    \"commentID\": \"680d19e0c4ea4f3d6f262de3\"\r\n}",
+							"raw": "{\r\n    \"commentID\": \"681091366f1b181a27237140\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -781,6 +810,165 @@
 									"key": "id",
 									"value": "67dab54640d71f7711e1d4e5"
 								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Formats",
+			"item": [
+				{
+					"name": "Obtener formatos",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"meta\":\"Video\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/format",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"format"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Setup formats",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/format/setup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"format",
+								"setup"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{authToken}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "History",
+			"item": [
+				{
+					"name": "Obtener entradas del historial de un usuario",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/history",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"history"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Añadir entrada del historial de un usuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"assetID\": \"6810a2aa2dc482b4a6ff4e59\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/history",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"history"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Añadir entrada del historial de un usuario Copy",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/history",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"history"
 							]
 						}
 					},
