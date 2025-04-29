@@ -30,10 +30,6 @@ const getAllCategories = asyncHandler( async (req, res, next) => {
     }
 })
 
-const getFatherCategories = asyncHandler( async (req, res, next) => {
-
-})
-
 const setupCategories = asyncHandler( async (req, res, next) => {
 
     try {
@@ -66,6 +62,5 @@ const setupCategories = asyncHandler( async (req, res, next) => {
 
 export {
     getAllCategories,
-    getFatherCategories,
     setupCategories
 }
