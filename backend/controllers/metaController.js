@@ -26,7 +26,7 @@ const setupMeta = asyncHandler( async (req, res, next) => {
         }
     };
 
-    res.json({
+    res.status(200).json({
         result: "OK",
         newMetaCategories: newMetaCategories 
     });

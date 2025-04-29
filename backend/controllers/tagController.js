@@ -48,7 +48,7 @@ const createNewTag = asyncHandler( async (req,res,next) => {
             });
         }
 
-        res.json({
+        res.status(200).json({
             result: "OK",
             tag: tag
         });
@@ -76,7 +76,7 @@ const createNewTags = asyncHandler( async(req,res,next) => {
         }        
     };
 
-    res.json({
+    res.status(200).json({
         result: "OK",
         tags: tagsNuevas
     });

@@ -69,7 +69,7 @@ const postComment = asyncHandler(async (req, res, next) => {
 
         const comment = await newComment.save();
 
-        res.json({
+        res.status(200).json({
             result: "OK",
             comment: comment
         });
@@ -100,6 +100,13 @@ const deleteComment = asyncHandler( async (req, res, next) => {
             return res.status(400).json({
                 result: "Solicitud errónea.",
                 msg: `Elemento inexistente: ${!comment ? 'comment ' : ''}${!user ? 'user ' : ''}`
+            });
+        }
+
+        if ( user._id != comment.author ) {
+            return res.status(400).json({
+                result: "Solicitud errónea.",
+                msg: `Este comentario no le pertenece a dicho usuario`
             });
         }
 

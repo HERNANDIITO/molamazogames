@@ -41,7 +41,7 @@ const setupFormats = asyncHandler( async (req, res, next) => {
     }
 
 
-    res.json({
+    return res.status(200).json({
         result: "OK",
         newFormats: newFormats 
     });

@@ -20,7 +20,7 @@ const getAllCategories = asyncHandler( async (req, res, next) => {
             categories = await Category.find({__v:0, meta:0});
         }
 
-        res.json({
+        res.status(200).json({
             result: 'OK',
             categories: categories
         });
@@ -54,7 +54,7 @@ const setupCategories = asyncHandler( async (req, res, next) => {
         next(error);
     }
 
-    res.json({
+    res.status(200).json({
         result: "OK"
     })
 

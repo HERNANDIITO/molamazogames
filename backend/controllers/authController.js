@@ -163,7 +163,7 @@ const register = asyncHandler(async(req, res, next) => {
             "token": generateToken(nuevoUsuario._id),
         }
 
-        res.json(returnValue);
+        res.status(202).json(returnValue);
     }
     catch (err) {
         next(err);

@@ -71,7 +71,7 @@ const newUser = asyncHandler(async (req, res, next) => {
 
         const user = await nuevoUsuario.save();
 
-        res.json({
+        res.status(200).json({
             result: "OK",
             token: generateToken(user._id),
             usuario: user
