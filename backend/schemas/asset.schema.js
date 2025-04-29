@@ -1,40 +1,50 @@
 import mongoose from 'mongoose';
 
+const fileSchema = mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    description: {
+        type: String,
+        required: false
+    }
+})
+
 const assetSchema = mongoose.Schema(
     {
-        nombre: {
+        name: {
             type: String,
-            required: [true, 'Please, add value for nombre']
+            required: [true, 'Please, add value for name']
         },
-        licencia: {
-            type: String,
-            required: [true, 'Please, value for licencia']
-        },
-        descripcion: {
+        description: {
             type: String,
             required: [false]
         },
-        categorias: { // Array de categorías
+        categories: { // Array de categorías
+            type: [mongoose.Schema.Types.ObjectId],
+            ref: 'Category',
+            required: true
+        },
+        tags: { // Array de etiquetas
+            type: [mongoose.Schema.Types.ObjectId],
+            required: [false],
+            ref: 'Tag',
+        },
+        files: { // Array de enlaces a archivos
             type: [String],
-            required: [true, 'Please, add value for categorias']
+            required: [false, 'Please, add value por erchivos']
         },
-        etiquetas: { // Array de etiquetas
-            type: [String],
-            required: [false]
+        author: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: [true, 'Please, add value for autor'],
+            ref: 'User'
         },
-        archivos: { // Array de enlaces a archivos
-            type: [String],
-            required: [true, 'Please, add value por erchivos']
-        },
-        autor: {
-            type: String,
-            required: [true, 'Please, add value for autor']
-        },
-        fecha_publicacion: {
+        publicationDate: {
             type: Date,
             required: [true, 'Please, add value for fecha_publicacion']
         },
-        fecha_actualizacion: {
+        updateDate: {
             type: Date,
             required: [true, 'Please, add value for fecha_actualizacion']
         },

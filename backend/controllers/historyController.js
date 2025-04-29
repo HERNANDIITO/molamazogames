@@ -64,7 +64,7 @@ const postHistory = asyncHandler( async (req, res, next) => {
         const newEntry = new History({
             author: userID,
             asset: assetID,
-            date: moment().unix()
+            date: moment()
         })
 
         const entry = await newEntry.save();

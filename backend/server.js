@@ -38,7 +38,7 @@ app.use(cors());
 // Routers -----------------------------
 app.use('/user',     userRouter     );
 app.use('/auth',     authRouter     );
-app.use('/assets',   assetRouter    );
+app.use('/asset',    assetRouter    );
 app.use('/category', categoryRouter );
 app.use('/comment',  commentRouter  );
 app.use('/fav',      favRouter      );

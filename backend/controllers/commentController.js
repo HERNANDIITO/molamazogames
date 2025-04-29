@@ -64,7 +64,7 @@ const postComment = asyncHandler(async (req, res, next) => {
             author: userID,
             content: content,
             likes: [],
-            publicationDate: moment().unix()
+            publicationDate: moment()
         })
 
         const comment = await newComment.save();

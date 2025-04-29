@@ -17,7 +17,10 @@ const createNewTagFunc = async (name) => {
     const alreadyTag = await Tag.findOne({ name: nameToLowerCase }, 'name');
     
     if (alreadyTag) {
-        return
+        return {
+            result: "Error",
+            tag: alreadyTag
+        };
     }
 
     const nuevaTag = new Tag({
@@ -25,7 +28,10 @@ const createNewTagFunc = async (name) => {
     });
 
     const tag = await nuevaTag.save();
-    return tag;
+    return {
+        result: "OK",
+        tag: tag
+    };
 
 }
 
@@ -41,7 +47,7 @@ const createNewTag = asyncHandler( async (req,res,next) => {
     try {
         const tag = await createNewTagFunc(name);
 
-        if ( !tag ) {
+        if ( tag.result != "OK" ) {
             return res.status(400).json({
                 result: "Solicitud errónea.",
                 msg: `La etiqueta '${name}' ya existe.`
@@ -67,7 +73,7 @@ const createNewTags = asyncHandler( async(req,res,next) => {
         try {
             const tag = await createNewTagFunc(name);
 
-            if ( tag ) {
+            if ( tag.result != "OK" ) {
                 tagsNuevas.push(tag);
             }
 
@@ -86,5 +92,6 @@ const createNewTags = asyncHandler( async(req,res,next) => {
 export {
     getAllTags,
     createNewTag,
-    createNewTags
+    createNewTags,
+    createNewTagFunc
 }

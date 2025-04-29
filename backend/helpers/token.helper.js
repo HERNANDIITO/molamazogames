@@ -32,8 +32,8 @@ const EXP_TIME  = process.env.EXP_TIME;
 function generateToken(ID) {
   const payload = {
     sub: ID,
-    iat: moment().unix(),
-    exp: moment().add(EXP_TIME, "minutes").unix(),
+    iat: moment(),
+    exp: moment().add(EXP_TIME, "minutes"),
   };
   return jwt.encode(payload, SECRET);
 }
