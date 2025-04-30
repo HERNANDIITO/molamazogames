@@ -1,47 +1,57 @@
 @import '../../styles/global.scss';
 
 .contenedor {
-    position: relative;
-    display: flex;
-    align-items: center;
-  }
-  
-  .fecha {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
 
-    width: $ancho-boton-mediano;
-    background-color: $color-fondo;
+.fecha {
 
-    &::-webkit-calendar-picker-indicator {
-      display: none;
-      -webkit-appearance: none;
-    }
-    &::-moz-calendar-picker-indicator {
-      display: none;
-    }
-    &::-ms-clear {
-      display: none;
-    }
+  width: $ancho-boton-mediano;
+  background-color: $color-fondo;
+
+  &::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
   }
-  
-  .calendarIcon {
-    position: relative;
-    margin-top: $margen-elementos;
-    cursor: pointer;
-    color: $color-texto;
-    left: -20px;
-    top: -7px;
+
+  &::-moz-calendar-picker-indicator {
+    display: none;
   }
-  
-  .calendario {
-    position: relative;
-    top: 100%;
-    left: 0;
-    z-index: 5;
-    margin-top: 8px;
-    background: #2c2c2c;
-    border: 1px solid #444;
-    border-radius: 8px;
-    padding: 10px;
-    box-shadow: 0px 4px 12px rgba(0,0,0,0.3);
+
+  &::-ms-clear {
+    display: none;
   }
-  
+}
+
+.calendarIcon {
+  position: relative;
+  margin-top: $margen-elementos;
+  cursor: pointer;
+  color: $color-texto;
+  left: -20px;
+  top: -7px;
+
+  &.error {
+    top: -10px;
+  }
+}
+
+.calendario {
+  position: relative;
+  top: 100%;
+  left: 0;
+  z-index: 5;
+  margin-top: 8px;
+  background: #2c2c2c;
+  border: 1px solid #444;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.error {
+  color: $color-danger;
+  font-size: $tamano-texto;
+}

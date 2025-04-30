@@ -5,80 +5,88 @@ import Input from '../Input/Input';
 import DatePickerLib from 'react-datepicker';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarDays } from '@fortawesome/free-solid-svg-icons';
-
 import 'react-datepicker/dist/react-datepicker.css';
 
 const DatePicker = ({ value, onChange = () => {} }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [inputValue, setInputValue] = useState(formatDate(value));
+  const [error, setError] = useState(null);
   const inputRef = useRef(null);
 
-  const toggleCalendar = () => setIsOpen(!isOpen);
-
-  const formatDate = (val) => {
+  function formatDate(val) {
     if (!val) return '';
     const date = new Date(val);
     if (isNaN(date)) return '';
-
     const day = String(date.getDate()).padStart(2, '0');
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const year = date.getFullYear();
-
     return `${day}/${month}/${year}`;
-  };
+  }
 
-  const parseDate = (dateStr) => {
-    const [day, month, year] = dateStr.split('/').map((part) => parseInt(part, 10));
-    
+  function parseDate(dateStr) {
+    const [day, month, year] = dateStr.split('/').map(Number);
     if (day > 0 && month > 0 && month <= 12 && year > 0) {
       const date = new Date(year, month - 1, day);
-      date.setHours(0, 0, 0, 0);
-      return date;
+      if (date.getDate() === day && date.getMonth() === month - 1 && date.getFullYear() === year) {
+        date.setHours(0, 0, 0, 0);
+        return date;
+      }
     }
     return null;
-  };
+  }
+
+  const toggleCalendar = () => setIsOpen(!isOpen);
 
   const handleInputChange = (e) => {
-    const inputValue = e.target.value;
-    const selectedDate = parseDate(inputValue);
-
-    if (selectedDate) {
-      if (onChange) onChange(selectedDate);
+    const newValue = e.target.value;
+    setInputValue(newValue);
+    const parsed = parseDate(newValue);
+    if (parsed) {
+      setError(null);
+      onChange(parsed);
     } else {
-      console.log('Fecha no válida');
+      setError('Formato no válido');
     }
   };
 
-  const inputClasses = classNames('fecha');
+  const handleCalendarChange = (date) => {
+    const localDate = new Date(date);
+    localDate.setHours(0, 0, 0, 0);
+    setInputValue(formatDate(localDate));
+    onChange(localDate);
+    setError(null);
+    setIsOpen(false);
+  };
+
+  const inputClasses = classNames('fecha', { error: !!error });
   const contenedorClasses = classNames('contenedor');
-  const iconocalendarioClasses = classNames('calendarIcon');
+  const iconoCalendarioClasses = classNames('calendarIcon', { error: !!error });
   const calendarioClasses = classNames('calendario');
+
+  // Obtener la fecha actual o la introducida por el usuario (si es válida) para marcar en el calendario
+  const calendarDate = parseDate(inputValue) || new Date();
 
   return (
     <div className={contenedorClasses}>
       <Input
         type="text"
-        value={formatDate(value)}
+        value={inputValue}
         onChange={handleInputChange}
         placeholder="DD/MM/AAAA"
         className={inputClasses}
         ref={inputRef}
       />
-      <div className={iconocalendarioClasses} onClick={toggleCalendar}>
+
+      <div className={iconoCalendarioClasses} onClick={toggleCalendar}>
         <FontAwesomeIcon icon={faCalendarDays} />
       </div>
+      {error && <p className="error">{error}</p>}
 
       {isOpen && (
         <div className={calendarioClasses}>
           <DatePickerLib
-            selected={value}
-            onChange={(date) => {
-              if (onChange) {
-                const localDate = new Date(date);
-                localDate.setHours(0, 0, 0, 0); // Asegurar 00:00 local
-                onChange(localDate);
-              }
-              setIsOpen(false);
-            }}
+            selected={calendarDate}
+            onChange={handleCalendarChange}
             inline
             dateFormat="dd/MM/yyyy"
           />
