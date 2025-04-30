@@ -1,0 +1,62 @@
+@import '../../styles/global.scss';
+
+.contain {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    color: $color-texto;
+    width: 100%;
+    max-width: 500px;
+}
+
+.time {
+    color: $color-texto;
+    font-size: $tamano-texto;
+    margin: 1rem;
+    display: block;
+}
+
+
+.section {
+    display: flex;
+    background-color: $color-fondo2;
+    border-radius: 7px;
+    align-items: center;
+    width: 100%;
+    height: $alto-boton-enorme;
+    padding-right: 1rem;
+}
+
+.image {
+    height: auto;
+    max-height: 95%;
+    margin-left: 10px;
+    background-color: $color-fondo;
+}
+
+.assetName {
+    flex-grow: 1;
+    font-size: $tamano-texto;
+    font-weight: bold;
+}
+
+.downloadValue {
+    color: $color-texto;
+    font-size: $tamano-texto-peque;
+}
+
+.downloadIcon {
+    cursor: pointer;
+    margin-left: 10px;
+    color: $color-texto;
+
+    transition: color 0.2s;
+
+    &:hover {
+        color: $color-hover-secundario;
+    }
+
+    &:active {
+        color: $color-active-secundario;
+    }
+}

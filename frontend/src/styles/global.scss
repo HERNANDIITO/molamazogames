@@ -85,7 +85,7 @@ p{
     }
 }
 
-a:not(.btn) {
+a:not(.btn):not(.downloadIcon) {
     font-family: $fuente-secundaria;
     font-size: $tamano-texto;
     color: $color-secundario;
