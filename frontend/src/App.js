@@ -10,7 +10,7 @@ import RadioButtonGroup from './components/RadioButtonGroup/RadioButtonGroup';
 
 import Logo from './components/Logo/Logo';
 
-import { FaArrowRight } from 'react-icons/fa';  
+import { FaArrowRight } from 'react-icons/fa';
 import { LuTag } from "react-icons/lu";
 import { LuCirclePlus } from "react-icons/lu";
 import { FiDelete } from "react-icons/fi";
@@ -31,6 +31,10 @@ import SliderField from './components/SliderField/SliderField';
 import InputField from './components/InputField/InputField';
 import UploadedFile from './components/UploadedFile/UploadedFile';
 import DatePicker from './components/DatePicker/DatePicker';
+import HistoryElement from './components/HistoryElement/HistoryElement';
+
+//USADO PARA COMPROBAR EL HISTORY ELEMENT
+import logo3 from './assets/images/LOGO3.png';
 
 
 function AppContent() {
@@ -50,8 +54,8 @@ function AppContent() {
     { id: 3, name: 'audio.mp3' },
   ]);
 
-// Cosa pal DatePicker
-const [selectedDate, setSelectedDate] = useState(null);
+  // Cosa pal DatePicker
+  const [selectedDate, setSelectedDate] = useState(null);
 
   // Función de ejemplo
   const handleClick = () => {
@@ -63,143 +67,151 @@ const [selectedDate, setSelectedDate] = useState(null);
       <Header></Header>
       <main className="App-content">
         <Routes>
-          <Route path="/registrar"  element={<Registrar />} />
-          <Route path="/login"      element={<Login />}     />
+          <Route path="/registrar" element={<Registrar />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
 
-        {location.pathname !== "/registrar" && location.pathname !== "/login" &&(   
-            <>
-          
-{/* 
+        {location.pathname !== "/registrar" && location.pathname !== "/login" && (
+          <>
+
+            {/* 
         <Logo isInNav={true}></Logo>*/
 
-        <>
-        <Textarea 
-              type="text" 
-              name="textarea" 
-              id="textarea"
-              label="Textarea"
-              autoFocus
-              placeholder="Escribe aquí tu texto"
-              className="texto"
-        />
+              <>
+                <Textarea
+                  type="text"
+                  name="textarea"
+                  id="textarea"
+                  label="Textarea"
+                  autoFocus
+                  placeholder="Escribe aquí tu texto"
+                  className="texto"
+                />
 
-        <Select
-          id="select"
-          name="select"
-          label="Selecciona una opción"
-          value={opcionSeleccionada}
-          onChange={(e) => setOpcionSeleccionada(e.target.value)}
-          placeholder="Selecciona una opción"
-          options={[
-            { value: 'opcion1', label: 'Opción 1' },
-            { value: 'opcion2', label: 'Opción 2' },
-            { value: 'opcion3', label: 'Opción 3' },
-          ]}
-          className="texto"
-        />
+                <Select
+                  id="select"
+                  name="select"
+                  label="Selecciona una opción"
+                  value={opcionSeleccionada}
+                  onChange={(e) => setOpcionSeleccionada(e.target.value)}
+                  placeholder="Selecciona una opción"
+                  options={[
+                    { value: 'opcion1', label: 'Opción 1' },
+                    { value: 'opcion2', label: 'Opción 2' },
+                    { value: 'opcion3', label: 'Opción 3' },
+                  ]}
+                  className="texto"
+                />
 
-        <CarousselController
-          id="carousselController"
-          label="Control del carrusel"
-          onClick={() => console.log("Botón del carrusel presionado")}
-        />
+                <CarousselController
+                  id="carousselController"
+                  label="Control del carrusel"
+                  onClick={() => console.log("Botón del carrusel presionado")}
+                />
 
-        <CarousselController
-          id="carousselController"
-          label="Control del carrusel"
-          onClick={() => console.log("Botón del carrusel presionado")}
-          direction='right'
-        />
-
-        
-            <Button
-              label="Next"
-              icon={<LuTag />}
-              iconPosition="left"
-              className="tag"
-              href="#"
-            />
-
-            <Button
-              label="Caracolaaa"
-              icon={<FiDelete />}
-              iconPosition="left"
-              className="tag tag-delete"
-              href="#"
-            />
-
-            <Button
-              label="Bonito"
-              icon={<LuCirclePlus />}
-              iconPosition="left"
-              className="tag"
-              href="#"
-            />
+                <CarousselController
+                  id="carousselController"
+                  label="Control del carrusel"
+                  onClick={() => console.log("Botón del carrusel presionado")}
+                  direction='right'
+                />
 
 
-            <Button
-              label="Ver assets anteriores"
-              icon={<IoIosArrowBack />}
-              iconPosition="alone"
-              onClick={handleClick}
-              className="enano-btn round-btn"
-            />
+                <Button
+                  label="Next"
+                  icon={<LuTag />}
+                  iconPosition="left"
+                  className="tag"
+                  href="#"
+                />
 
-            <Button
-              label="Ver próximos assets"
-              icon={<IoIosArrowForward />}
-              iconPosition="alone"
-              onClick={handleClick}
-              className="enano-btn round-btn"
-            />
+                <Button
+                  label="Caracolaaa"
+                  icon={<FiDelete />}
+                  iconPosition="left"
+                  className="tag tag-delete"
+                  href="#"
+                />
 
-            {/* Checkbox normal con label visible */}
-            {/* <Checkbox label="Aceptar los términos y condiciones" size="normal" showLabel={true} id="terms-conditions" /> */}
+                <Button
+                  label="Bonito"
+                  icon={<LuCirclePlus />}
+                  iconPosition="left"
+                  className="tag"
+                  href="#"
+                />
 
-            <Checkbox label="Aceptar los términos y condiciones" size="normal" showLabel={true} id="terms" />
-            <Checkbox label="Aceptar los términos y condiciones" size="normal" showLabel={true} id="terms2" />
 
-            <Checkbox label="Aceptar los términos y condiciones" size="normal" showLabel={true} id="terms3" />
+                <Button
+                  label="Ver assets anteriores"
+                  icon={<IoIosArrowBack />}
+                  iconPosition="alone"
+                  onClick={handleClick}
+                  className="enano-btn round-btn"
+                />
 
-            <Checkbox label="Recibir boletines" size="big" showLabel={true} id="newsletter" />
-            <Checkbox label="Suscribirse al newsletter" size="normal" showLabel={false} id="subscribe" />
-            <Checkbox label="Aceptar cookies" size="big" showLabel={false} id="cookies" />
-      
-            {/* <RadioButton label="Aceptar los términos y condiciones"  id="terms5" name="pregunta" /> */}
+                <Button
+                  label="Ver próximos assets"
+                  icon={<IoIosArrowForward />}
+                  iconPosition="alone"
+                  onClick={handleClick}
+                  className="enano-btn round-btn"
+                />
 
-            <RadioButtonGroup/>
-            
+                {/* Checkbox normal con label visible */}
+                {/* <Checkbox label="Aceptar los términos y condiciones" size="normal" showLabel={true} id="terms-conditions" /> */}
 
-        <SliderField
-          label="Slider Field"
-          min={0}
-          max={100}
-          minValue={minValue}
-          maxValue={maxValue}
-          onMinChange={(e) => setMinValue(Number(e.target.value))}
-          onMaxChange={(e) => setMaxValue(Number(e.target.value))}
-          texto = 'tera'
-        />
+                <Checkbox label="Aceptar los términos y condiciones" size="normal" showLabel={true} id="terms" />
+                <Checkbox label="Aceptar los términos y condiciones" size="normal" showLabel={true} id="terms2" />
 
-        <InputField/>
+                <Checkbox label="Aceptar los términos y condiciones" size="normal" showLabel={true} id="terms3" />
 
-        {uploadedFiles.map(file => (
-          <UploadedFile
-            key={file.id}
-            name={file.name}
-            onRemove={() => setUploadedFiles(prev => prev.filter(f => f.id !== file.id))}
-          />
-        ))}
+                <Checkbox label="Recibir boletines" size="big" showLabel={true} id="newsletter" />
+                <Checkbox label="Suscribirse al newsletter" size="normal" showLabel={false} id="subscribe" />
+                <Checkbox label="Aceptar cookies" size="big" showLabel={false} id="cookies" />
 
-        <DatePicker
-          value={selectedDate}
-          onChange={(newDate) => setSelectedDate(newDate)}
-        />
+                {/* <RadioButton label="Aceptar los términos y condiciones"  id="terms5" name="pregunta" /> */}
 
-        </>
+                <RadioButtonGroup />
 
-        
+
+                <SliderField
+                  label="Slider Field"
+                  min={0}
+                  max={100}
+                  minValue={minValue}
+                  maxValue={maxValue}
+                  onMinChange={(e) => setMinValue(Number(e.target.value))}
+                  onMaxChange={(e) => setMaxValue(Number(e.target.value))}
+                  texto='tera'
+                />
+
+                <InputField />
+
+                {uploadedFiles.map(file => (
+                  <UploadedFile
+                    key={file.id}
+                    name={file.name}
+                    onRemove={() => setUploadedFiles(prev => prev.filter(f => f.id !== file.id))}
+                  />
+                ))}
+
+                <DatePicker
+                  value={selectedDate}
+                  onChange={(newDate) => setSelectedDate(newDate)}
+                />
+
+                <HistoryElement
+                  id={1}
+                  name="Logo"
+                  value="34,6 MB"
+                  time= "22:34"
+                  imgAsset={logo3}
+                />
+
+              </>
+
+
 
         /*<a
           className=""
@@ -283,12 +295,12 @@ const [selectedDate, setSelectedDate] = useState(null);
               />
 
               <NavBar></NavBar> */}
-          
-            </>
-          )}
+
+          </>
+        )}
       </main>
       <Footer>
-        
+
       </Footer>
     </div>
   );
