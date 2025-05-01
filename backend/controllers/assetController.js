@@ -6,8 +6,7 @@ import { createNewTagFunc } from './tagController.js';
 
 import asyncHandler from 'express-async-handler'
 import moment from 'moment';
-import mongoose, { model } from 'mongoose';
-import Tag from '../schemas/tag.schema.js';
+import mongoose from 'mongoose';
 
 // Obtener todos los assets
 const getAssets = asyncHandler(async (req, res, next) => {

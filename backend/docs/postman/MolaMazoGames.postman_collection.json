@@ -975,6 +975,351 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Assets",
+			"item": [
+				{
+					"name": "Obtener todos los assets",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/asset/getAssets",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"asset",
+								"getAssets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener asset por ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"assetID\": \"68136f552d85d4cf732b4a47\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/asset/getAssetByID",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"asset",
+								"getAssetByID"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Subir asset",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Asset de prueba\",\r\n    \"description\": \"Asset de prueba chulisimo que sirve para probar cosas\",\r\n    \"categories\": [\"68134733658e6622907bf4c7\", \"68134733658e6622907bf4ca\"],\r\n    \"tags\": [\"olas\", \"cielo\", \"nubes\", \"Nubes\"],\r\n    \"files\": [\"68136f4a2d85d4cf732b4a3d\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/asset",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"asset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar asset",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"assetID\": \"68137b7d03ded2255d878a9a\",\r\n    \"name\": \"Asset turbo remix\",\r\n    \"description\": \"Remixeado hasta la saciedad\",\r\n    \"categories\": [],\r\n    \"tags\": [\"remix\", \"astonishing\", \"turbo\"],\r\n    \"files\": [\"68137b6b03ded2255d878a90\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/asset",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"asset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar archivo de un asset",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"assetID\": \"\",\r\n    \"fileID\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/asset/deleteFileFromAsset",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"asset",
+								"deleteFileFromAsset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar asset",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"assetID\": \"68136be23da91d72f63583ce\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/asset/deleteAssetByID",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"asset",
+								"deleteAssetByID"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Files",
+			"item": [
+				{
+					"name": "Obtener archivo",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fileID\": \"681346f6abc00faaeb46ded3\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/file/getFileByID",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"file",
+								"getFileByID"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener archivos de un asset",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"assetID\": \"681348523abdb46421cf3959\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/file/getFileByAssetID",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"file",
+								"getFileByAssetID"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener todos los archivos",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/file/getAllFiles",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"file",
+								"getAllFiles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Subir archivo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "postman-cloud:///1f02670c-2e0c-4b30-80fd-5c0da3ca1972"
+								},
+								{
+									"key": "description",
+									"value": "Este gato es muy gracioso, mira qué cara de tonto",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Gato gracioso",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/file",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"file"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar archivo",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fileID\": \"681346f6abc00faeab46ded3\",\r\n    \"name\": \"Gatito bonito\",\r\n    \"description\": \"Mira que bonito\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/file",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"file"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"auth": {
