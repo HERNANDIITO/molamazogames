@@ -36,7 +36,7 @@ const Button = ({
         aria-label={iconPosition === 'alone' ? label : ''}
       >
         {iconPosition === 'left' && iconElement}
-        {iconPosition !== 'alone' && label}
+        {iconPosition !== 'alone' && <span className="label-text">{label}</span>}
         {iconPosition === 'right' && iconElement}
         {iconPosition === 'alone' && iconElement}
       </a>

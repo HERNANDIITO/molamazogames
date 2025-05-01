@@ -1,5 +1,15 @@
 @import '../../styles/global.scss';
 
+.mainLogin{
+    opacity: 0.97;
+    background-image: radial-gradient(circle at center center, $color-active-extra-secundario, white), 
+    repeating-radial-gradient(circle at center center, $color-active-extra-secundario, $color-active-extra-secundario, 40px, transparent 80px, transparent 40px);
+    background-blend-mode: multiply;
+    background-color: $color-fondo2;
+
+    background-attachment: fixed;
+}
+
 .login-error {
     display: block;
     text-align: left;
@@ -85,6 +95,7 @@
     text-align: left;
     list-style-position: inside;
 }
+
   
 
   

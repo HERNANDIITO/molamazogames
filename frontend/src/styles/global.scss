@@ -32,14 +32,6 @@ body{
     font-family: $fuente-secundaria;
 
     height: fit-content;
-
-    opacity: 0.97;
-    background-image: radial-gradient(circle at center center, $color-active-extra-secundario, white), 
-    repeating-radial-gradient(circle at center center, $color-active-extra-secundario, $color-active-extra-secundario, 40px, transparent 80px, transparent 40px);
-    background-blend-mode: multiply;
-    background-color: $color-fondo2;
-
-    background-attachment: fixed;
 }
 
 h1{
@@ -129,7 +121,7 @@ a:not(.btn):not(.downloadIcon) {
     }
 }
 
-nav a:not(.btn){
+nav a:not(.btn):not(.downloadIcon){
     font-size: $tamano-texto-grande;
     color: $color-texto;
     font-weight: $peso-medio;

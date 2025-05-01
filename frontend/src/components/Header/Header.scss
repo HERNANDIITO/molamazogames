@@ -1,11 +1,13 @@
 @import '../../styles/global.scss';
 
 
-.App_header{
+.App_header {
     display: block;
     background-color: $color-fondo;
 
-    .header_h{
+    box-shadow: 0 4px 7px rgba(0, 0, 0, 0.3);
+
+    .header_h {
         display: flex;
         flex-direction: row;
         justify-content: space-around;
@@ -13,27 +15,27 @@
         padding-top: 2rem;
     }
 
-    .header-buttons{
+    .header-buttons {
         display: flex;
         margin-top: .5rem;
         margin-right: 1rem;
-        flex-shrink: 0; 
+        flex-shrink: 0;
         white-space: nowrap;
     }
 
-    .regLog{
+    .regLog {
         width: $ancho-boton-mediano;
         height: $alto-boton-mediano;
     }
 
-    .searchBar{
+    .searchBar {
         width: 47%;
         margin-right: 3rem;
         display: flex;
         align-items: center;
     }
 
-    .h_but_anadir{
+    .h_but_anadir {
         position: absolute;
         top: 3rem;
         right: 9rem;
@@ -43,27 +45,28 @@
         // padding-right: 4em;
     }
 
-    .h_logged{
-       justify-content: left;
-       >.searchBar{
+    .h_logged {
+        justify-content: left;
+
+        >.searchBar {
             width: 40%;
             margin-left: 3rem;
         }
     }
 }
 
-@media all and (width<930px){
-    .header_h{
+@media all and (width<930px) {
+    .header_h {
         flex-direction: column !important;
         align-items: left;
     }
 
-    .searchBar{
+    .searchBar {
         align-self: center !important;
         width: 80% !important;
     }
 
-    .header-buttons{
+    .header-buttons {
         position: absolute;
         top: 2rem;
         right: 0.1rem;
@@ -76,37 +79,39 @@
 //     }
 // }
 
-@media all and (width<1300px){
-    .h_but_anadir{
+@media all and (width<1300px) {
+    .h_but_anadir {
         font-size: 0;
         height: $alto-boton-enano !important;
         width: $ancho-boton-enano !important;
         gap: 0;
-        >span{
+
+        >span {
             font-size: $tamano-texto-boton;
         }
+
         width: 3.5rem;
     }
 }
 
-@media all and (width<1235px){
+@media all and (width<1235px) {
     .get-small {
         width: $ancho-boton-peque !important;
         height: $alto-boton-peque !important;
         text-wrap: wrap;
     }
 
-    .searchBar{
+    .searchBar {
         width: 80% !important;
         display: flex;
         align-items: center;
         margin-left: 10%;
     }
 
-    .h_logged{
+    .h_logged {
         flex-direction: column !important;
 
-        >.searchBar{
+        >.searchBar {
             align-self: center;
             margin-top: 3rem;
             width: 80% !important;
