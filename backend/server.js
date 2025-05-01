@@ -11,6 +11,7 @@ dotenv.config();
 
 import express from 'express';
 import cors from 'cors';
+import multer from 'multer';
 
 // Importar routers --------------------
 import userRouter       from './routes/userRoutes.js';
@@ -24,6 +25,7 @@ import historyRouter    from './routes/historyRoutes.js';
 import likeRouter       from './routes/likeRoutes.js';
 import metaRouter       from './routes/metaRoutes.js';
 import tagRouter        from './routes/tagRoutes.js';
+import fileRouter       from './routes/fileRoutes.js';
 
 
 // Constantes --------------------------
@@ -47,6 +49,7 @@ app.use('/history',  historyRouter  );
 app.use('/like',     likeRouter     );
 app.use('/meta',     metaRouter     );
 app.use('/tag',      tagRouter      );
+app.use('/file',     fileRouter     );
 
 // Servidor ----------------------------
 app.listen(PORT, () => {

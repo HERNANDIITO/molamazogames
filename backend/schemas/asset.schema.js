@@ -1,16 +1,5 @@
 import mongoose from 'mongoose';
 
-const fileSchema = mongoose.Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    description: {
-        type: String,
-        required: false
-    }
-})
-
 const assetSchema = mongoose.Schema(
     {
         name: {
@@ -21,19 +10,20 @@ const assetSchema = mongoose.Schema(
             type: String,
             required: [false]
         },
-        categories: { // Array de categorías
+        categories: { 
             type: [mongoose.Schema.Types.ObjectId],
             ref: 'Category',
             required: true
         },
-        tags: { // Array de etiquetas
+        tags: { 
             type: [mongoose.Schema.Types.ObjectId],
             required: [false],
             ref: 'Tag',
         },
-        files: { // Array de enlaces a archivos
-            type: [String],
-            required: [false, 'Please, add value por erchivos']
+        files: { 
+            type: [mongoose.Schema.Types.ObjectId],
+            required: [true],
+            ref: 'File',
         },
         author: {
             type: mongoose.Schema.Types.ObjectId,
@@ -48,10 +38,23 @@ const assetSchema = mongoose.Schema(
             type: Date,
             required: [true, 'Please, add value for fecha_actualizacion']
         },
-        // tamaño (guardar o leer al obtener el archivo???)
+        size: {
+            type: Number,
+            required: true
+        }
     }
 );
 
-const Asset = mongoose.model('Asset', assetSchema);
+assetSchema.pre('deleteOne', { document: true, query: false }, async function(next) {
+    const asset = this; 
+    await mongoose.model('Fav').deleteMany({ asset: asset._id });
 
+    for (const fileID of asset.files) {
+        await mongoose.model('File').findByIdAndDelete(fileID);   
+    }
+    
+    next();
+});
+
+const Asset = mongoose.model('Asset', assetSchema);
 export default Asset;

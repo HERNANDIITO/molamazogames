@@ -22,6 +22,14 @@ const getUserByID = asyncHandler(async (req, res, next) => {
 
     try {
         const elementoID = req.params.id;
+
+        if ( !elementoID || !(mongoose.Types.ObjectId.isValid(elementoID)) ) {
+            return res.status(400).json({
+                result: "Solicitud errónea.",
+                msg: `Faltan campos obligatorios: ${!elementoID ? 'elementoID ' : ''}`
+            });
+        }
+
         const user = await User.findById(elementoID)
     
         if ( user === null) {
@@ -95,6 +103,13 @@ const modifyUserByID = asyncHandler(async (req, res, next) => {
         });
     }
 
+    if ( !elementoId || !(mongoose.Types.ObjectId.isValid(elementoId)) ) {
+        return res.status(400).json({
+            result: "Solicitud errónea.",
+            msg: `Faltan campos obligatorios: ${!elementoId ? 'elementoId ' : ''}`
+        });
+    }
+
     try {
         const result = await User.findByIdAndUpdate( elementoId, { $set: nuevosRegistros }, { new: true, runValidators: true } );
         if (!result) {
@@ -114,6 +129,14 @@ const deleteUserByID = asyncHandler(async (req, res, next) => {
         return res.status(400).json({
             result: "Solicitud errónea.",
             msg: `Faltan campos obligatorios: ${!elementoId ? 'ID ' : ''}`
+        });
+    }
+
+    
+    if ( !elementoId || !(mongoose.Types.ObjectId.isValid(elementoId)) ) {
+        return res.status(400).json({
+            result: "Solicitud errónea.",
+            msg: `Faltan campos obligatorios: ${!elementoId ? 'elementoId ' : ''}`
         });
     }
 

@@ -8,7 +8,7 @@ import Asset from '../schemas/asset.schema.js';
 const getUserHistory = asyncHandler( async (req, res, next) => {
     const userID = req.user.id
 
-    if ( !userID ) {
+    if ( !userID || !(mongoose.Types.ObjectId.isValid(userID)) ) {
         return res.status(400).json({
             result: "Solicitud errónea.",
             msg: `Faltan campos obligatorios: ${!userID ? 'userID ' : ''}`
@@ -42,7 +42,7 @@ const postHistory = asyncHandler( async (req, res, next) => {
     const userID = req.user.id
     const assetID = req.body.assetID
 
-    if ( !userID || !assetID ) {
+    if ( !userID || !assetID || !(mongoose.Types.ObjectId.isValid(userID)) || !(mongoose.Types.ObjectId.isValid(assetID))  ) {
         return res.status(400).json({
             result: "Solicitud errónea.",
             msg: `Faltan campos obligatorios: ${!userID ? 'userID ' : ''}${!assetID ? 'assetID ' : ''}`
@@ -82,7 +82,7 @@ const clearUserHistory = asyncHandler( async(req, res, next) => {
 
     const userID = req.user.id
 
-    if ( !userID ) {
+    if ( !userID || !(mongoose.Types.ObjectId.isValid(userID)) ) {
         return res.status(400).json({
             result: "Solicitud errónea.",
             msg: `Faltan campos obligatorios: ${!userID ? 'userID ' : ''}`

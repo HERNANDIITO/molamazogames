@@ -12,7 +12,14 @@ import { validateEmail, validatePass, validatePhone } from '../helpers/validator
 
 const getUserByTokenFunc = async (userID) => {
 
-    const user = User.findById(userID)
+    if ( !(mongoose.Types.ObjectId.isValid(userID)) ) {
+        return res.status(400).json({
+            result: "Solicitud errónea.",
+            msg: `Dicho usuario no existe`
+        });
+    }
+
+    const user = await User.findById(objectId)
     return user;
 
 }

@@ -1,10 +1,13 @@
 import Asset from '../schemas/asset.schema.js';
+import File from '../schemas/file.schema.js';
 import Category from '../schemas/category.schema.js';
 import User from '../schemas/user.schema.js';
 import { createNewTagFunc } from './tagController.js';
 
 import asyncHandler from 'express-async-handler'
 import moment from 'moment';
+import mongoose, { model } from 'mongoose';
+import Tag from '../schemas/tag.schema.js';
 
 // Obtener todos los assets
 const getAssets = asyncHandler(async (req, res, next) => {
@@ -24,11 +27,16 @@ const getAssets = asyncHandler(async (req, res, next) => {
 const getAssetByID = asyncHandler(async (req, res, next) => {
     try{
 
-        const asset = await Asset.findById(req.params.id);
-
-        if(!asset){
-            return res.status(404).json({ message: 'Asset not found' });
+        const assetID = req.body.assetID
+        
+        if(!assetID || !(mongoose.Types.ObjectId.isValid(assetID))){
+            return res.status(400).json({
+                result:"Solicitud erronea",
+                msg: `Faltan campos obligatorios: ${!assetID ? 'assetID ' : ''}`
+            });
         }
+        
+        const asset = await Asset.findById(assetID);
 
         res.status(200).json({
             result: "OK.",
@@ -46,8 +54,6 @@ const getAssetByID = asyncHandler(async (req, res, next) => {
 const createAsset = asyncHandler(async (req, res, next) => {
     try{
 
-        console.log(req.user)
-
         const userID            = req.user.id;
         const name              = req.body.name;
         const description       = req.body.description;
@@ -56,8 +62,8 @@ const createAsset = asyncHandler(async (req, res, next) => {
         const files             = req.body.files;
         const publicationDate   = moment();
         const updateDate        = moment();
-        
-        if ( !userID || !name || !description || !categoryIDs || !files ) {
+
+        if ( !userID || !(mongoose.Types.ObjectId.isValid(userID)) ||!name || !description || !categoryIDs || !files ) {
             return res.status(400).json({
                 result: "Solicitud errónea.",
                 msg: `Faltan campos obligatorios: ${!userID ? 'userID ' : ''}${!name ? 'name ' : ''}${!description ? 'description ' : ''}${!files ? 'files ' : ''}${!categoryIDs ? 'categories ' : ''}`
@@ -77,6 +83,11 @@ const createAsset = asyncHandler(async (req, res, next) => {
 
         for (const categoryID of categoryIDs) {
 
+            if ( !(mongoose.Types.ObjectId.isValid(categoryID)) ) {
+                falseCategories.push(categoryID);
+                continue;
+            }
+
             const category = await Category.findById(categoryID);
 
             if ( category ) {
@@ -88,7 +99,7 @@ const createAsset = asyncHandler(async (req, res, next) => {
         }
 
         if ( falseCategories.length > 0 ) {
-            errors += `${falseCategories.length} de las ${categoryIDs.length} no existen. `;
+            errors += `${falseCategories.length} categorias de las ${categoryIDs.length} enviadas no existen. `;
         }
 
         const trueTags = [];
@@ -100,6 +111,35 @@ const createAsset = asyncHandler(async (req, res, next) => {
             }
         }
 
+        const falseFileIDs = [];
+        let assetSize = 0;
+        for (const fileID of files) {
+
+            if ( !(mongoose.Types.ObjectId.isValid(fileID)) ){
+                falseFileIDs.push(fileID);
+                continue;
+            }
+
+            const file = await File.findById(fileID);
+
+            if ( !file ) {
+                falseFileIDs.push(fileID);
+            } else {
+                assetSize += file.size;
+            }
+        }
+
+        if ( falseFileIDs.length > 0 ) {
+            errors += `${falseFileIDs.length} archivos de los ${files.length} enviados no existen. `;
+        }
+
+        if ( errors ) {
+            return res.status(400).json({
+                result: "Solicitud errónea.",
+                msg: errors
+            });
+        }
+
         const asset = await Asset.create({
             name: name,
             description: description,
@@ -108,6 +148,8 @@ const createAsset = asyncHandler(async (req, res, next) => {
             categories: trueCategories,
             publicationDate: publicationDate,
             updateDate: updateDate,
+            size: assetSize,
+            files: files
         });
     
         res.status(200).json(asset);
@@ -116,35 +158,216 @@ const createAsset = asyncHandler(async (req, res, next) => {
     }
 })
 
-// Modificar un asset
-const updateAsset = async (req, res, next) => {
-    try{
-        const asset = await Asset.findById(req.params.id);
+const updateAsset = asyncHandler(async (req, res, next) => {
+    try {
 
-        /*if(!asset){
-            return res.status(404).json({ message: 'Asset not found' });
-        }*/
+        const assetID       = req.body.assetID    ;
+        const userID        = req.user.id         ;
+        const newName       = req.body.name       ;
+        const newDesc       = req.body.description;
+        const newCategories = req.body.categories ;
+        const newTags       = req.body.tags       ;
+        const newFiles      = req.body.files      ;
 
-        const update = await Asset.findByIdAndUpdate(req.params.id, req.body, {new: true});
-        res.status(200).json(update);
-    } catch(error){
-        res.status(500).json({ message: 'Server error', error: error.message });
+        if ( !assetID || !(mongoose.Types.ObjectId.isValid(assetID)) ||
+             !userID  || !(mongoose.Types.ObjectId.isValid(userID )) ) {
+                return res.status(400).json({
+                    result:"Solicitud erronea.",
+                    msg: `Faltan campos obligatorios: ${!assetID ? 'assetID ' : ''}${!userID ? 'userID ' : ''}`
+                });
+        }
+
+        if ( !newName && !desc && !categories && !tags && !files ) {
+            return res.status(400).json({
+                result:"Solicitud erronea.",
+                msg: `No hay nada que cambiar`
+            });
+        }
+
+        const asset = await Asset.findById(assetID);
+
+        let error = "";
+
+        if ( newName ) { asset.name = newName; }
+        if ( newDesc ) { asset.desc = newDesc; }
+
+        if ( newCategories ) {
+            let errorCats = 0;
+            for (const categoryID of newCategories) {
+                if ( !(mongoose.Types.ObjectId.isValid(categoryID)) ) {
+                    errorCats++;
+                    continue;
+                }
+
+                const category = await Category.findById(categoryID);
+
+                if ( !category ) {
+                    errorCats++;
+                    continue;
+                }
+            }
+
+            asset.categories = newCategories;
+
+            if ( errorCats > 0 ) { error += `${errorCats} categorias de las ${newCategories.length} solicitadas no existen.` }
+        }
+
+        if ( newTags ) {
+            const tagIDs = [];
+            for (const tag of newTags) {
+                const newTag = await createNewTagFunc(tag);
+                tagIDs.push(newTag._id);
+            }
+
+            asset.tags = tagIDs;
+        }
+
+        if ( newFiles ) {
+            const currentFiles = asset.files;
+            console.log("currentFiles", currentFiles);
+            const removedFiles = currentFiles.filter(file => !newFiles.includes(file));
+            const addedFiles   = newFiles.filter(file => !currentFiles.includes(file));
+
+            let errorFiles = 0;
+
+            for (const removedFile of removedFiles) {
+                if ( !(mongoose.Types.ObjectId.isValid(removedFile)) ) {
+                    errorFiles++;
+                    break;
+                }
+
+                const file = await File.findById(removedFile);
+
+                if ( !file ) {
+                    errorFiles++;
+                    break;
+                }
+
+                await file.deleteOne();
+                asset.files.pull(removedFile);
+            }
+
+            if ( errorFiles > 0 ) { error += `Uno de los archivos a eliminar no existe` }
+
+            errorFiles = 0;
+            for (const addedFile of addedFiles) {
+                if ( !(mongoose.Types.ObjectId.isValid(addedFile)) ) {
+                    errorFiles++;
+                    break;
+                }
+
+                const file = await File.findById(addedFile);
+
+                if ( !file ) {
+                    errorFiles++;
+                    break;
+                }
+
+                asset.files.push(addedFile);
+            }
+        }
+
+        if (error) {
+            return res.status(400).json({
+                result:"Algo ha ido mal.",
+                msg: error
+            });
+        }
+
+        await asset.save();
+        return res.status(200).json({
+            result: "OK.",
+            updatedAsset: asset
+        })
+
+    } catch (error) {
+        next(error)
     }
-}
+})
+
+const deleteFileFromAsset = asyncHandler( async (req,res,next) => {
+    try {
+
+        const assetID = req.body.assetID;
+        const fileID  = req.body.fileID;
+
+        if ( !assetID || !(mongoose.Types.ObjectId.isValid(assetID)) ||
+             !fileID  || !(mongoose.Types.ObjectId.isValid(fileID))) {
+                return res.status(400).json({
+                    result:"Solicitud erronea.",
+                    msg: `Faltan campos obligatorios: ${!assetID ? 'assetID ' : ''}${!fileID ? 'fileID ' : ''}`
+                });
+        }
+
+        const asset = await Asset.findById(assetID);
+        const file  = await File.findById(fileID);
+
+        if ( !asset || !file ) {
+            return res.status(400).json({
+                result:"Solicitud erronea.",
+                msg: `Los siguientes elementos no existen: ${!asset ? 'asset ' : ''}${!file ? 'file ' : ''}`
+            });
+        }
+
+        if ( asset.author != req.user.id ) {
+            return res.status(403).json({
+                result:"Permiso denegado.",
+                msg: `No puedes editar un asset que no te pertenece`
+            });  
+        }
+
+        await file.deleteOne();
+        
+        asset.files.pull(fileID);
+        await asset.save()
+
+        return res.status(400).json({
+            result:"OK.",
+            msg: `${file.name} eliminado con exito de ${asset.name}`
+        });
+
+    } catch (error) {
+        next(error)
+    }
+})
 
 // Borrar un asset
 const deleteAsset = asyncHandler(async (req, res, next) => {
-    try{
-        const asset = await Asset.findById(req.params.id);
 
-        /*if(!asset){
-            return res.status(404).json({ message: 'Asset not found' });
-        }*/
+    try{
+        const assetID = req.body.assetID;
+
+        if(!assetID || !(mongoose.Types.ObjectId.isValid(assetID))){
+            return res.status(404).json({
+                result:"Solicitud erronea.",
+                msg: `Faltan campos obligatorios: ${!assetID ? 'assetID ' : ''}`
+            });
+        }
+
+        const asset = await Asset.findById(assetID);
+
+        if ( !asset ) {
+            return res.status(404).json({
+                result:"Solicitud erronea.",
+                msg: `Dicho asset no existe`
+            });
+        }
+
+        if ( asset.author != req.user.id ) {
+            return res.status(403).json({
+                result:"Permiso denegado.",
+                msg: `No puedes eliminar un asset que no te pertenece`
+            });  
+        }
         
-        await asset.deleteOne();
-        res.status(200).json({message: req.params.id});
+        const deletion = await asset.deleteOne();
+        res.status(200).json({
+            result: "OK.",
+            deletedAsset: deletion
+        });
+
     } catch(error){
-        res.status(500).json({ message: 'Server error', error: error.message });
+        next(error)
     }
 })
 
@@ -154,4 +377,5 @@ export {
     createAsset,
     updateAsset,
     deleteAsset,
+    deleteFileFromAsset
 }
