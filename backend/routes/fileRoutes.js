@@ -1,5 +1,5 @@
 import express from 'express';
-import { getFiles, getFileByID, getFileByAssetID, uploadFile, editFile } from '../controllers/fileController.js';
+import { getFiles, getFileByID, getFileByAssetID, uploadFile, editFile, getPreviewFilesByAssetID } from '../controllers/fileController.js';
 
 import { auth } from '../middlewares/auth.middleware.js';
 import { upload } from '../db/storage.js'
@@ -13,7 +13,10 @@ fileRouter.get('/getAllFiles', getFiles);
 fileRouter.get('/getFileByID', getFileByID);
 
 // Obtener obtener asset dada la ID
-fileRouter.get('/getFileByAssetID', getFileByAssetID);
+fileRouter.get('/getFilesByAssetID', getFileByAssetID);
+
+// Obtener obtener asset dada la ID
+fileRouter.get('/getPreviewFilesByAssetID', getPreviewFilesByAssetID);
 
 // Subir un archivo
 fileRouter.post('/', auth, upload.single('file'), uploadFile);

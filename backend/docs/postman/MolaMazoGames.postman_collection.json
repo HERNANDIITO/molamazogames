@@ -981,12 +981,24 @@
 			"item": [
 				{
 					"name": "Obtener todos los assets",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"auth": {
 							"type": "noauth"
 						},
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orderBy\": { \"size\": 1 },\r\n    \"searchBar\": \"chulisimo\",\r\n    \"tags\": [],\r\n    \"author\": \"\",\r\n    \"category\": \"\",\r\n    \"format\": \"\",\r\n    \"size\": {\r\n        \"min\": 0,\r\n        \"max\": 0\r\n    },\r\n    \"meta\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://localhost:5000/asset/getAssets",
 							"protocol": "http",
@@ -1044,7 +1056,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Asset de prueba\",\r\n    \"description\": \"Asset de prueba chulisimo que sirve para probar cosas\",\r\n    \"categories\": [\"68134733658e6622907bf4c7\", \"68134733658e6622907bf4ca\"],\r\n    \"tags\": [\"olas\", \"cielo\", \"nubes\", \"Nubes\"],\r\n    \"files\": [\"68136f4a2d85d4cf732b4a3d\"]\r\n}",
+							"raw": "{\r\n    \"name\": \"Gato tonto\",\r\n    \"description\": \"Un gato tonto y gracioso, parpadea\",\r\n    \"categories\": [\"68149dbe6f99512c98712805\"],\r\n    \"tags\": [\"gÁtO\"],\r\n    \"files\": [\"68149ebc6f99512c9871280e\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1166,7 +1178,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"fileID\": \"681346f6abc00faaeb46ded3\"\r\n}",
+							"raw": "{\r\n    \"fileID\": \"68147b517a0f1289b59d227c\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1198,7 +1210,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"assetID\": \"681348523abdb46421cf3959\"\r\n}",
+							"raw": "{\r\n    \"assetID\": \"681480f1f2be453274a3acdd\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1206,7 +1218,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/file/getFileByAssetID",
+							"raw": "http://localhost:5000/file/getFilesByAssetID",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1214,7 +1226,39 @@
 							"port": "5000",
 							"path": [
 								"file",
-								"getFileByAssetID"
+								"getFilesByAssetID"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener vistas previas de un asset",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"assetID\": \"681480f1f2be453274a3acdd\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/file/getPreviewFilesByAssetID",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"file",
+								"getPreviewFilesByAssetID"
 							]
 						}
 					},
@@ -1272,7 +1316,12 @@
 								},
 								{
 									"key": "name",
-									"value": "Gato gracioso",
+									"value": "Gato gracioso remix",
+									"type": "text"
+								},
+								{
+									"key": "isPreview",
+									"value": "true",
 									"type": "text"
 								}
 							]
@@ -1298,7 +1347,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"fileID\": \"681346f6abc00faeab46ded3\",\r\n    \"name\": \"Gatito bonito\",\r\n    \"description\": \"Mira que bonito\"\r\n}",
+							"raw": "{\r\n    \"fileID\": \"681346f6abc00faeab46ded3\",\r\n    \"name\": \"Gatito bonito\",\r\n    \"description\": \"Mira que bonito\",\r\n    \"isPreview\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

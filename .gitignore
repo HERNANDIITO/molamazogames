@@ -1,3 +1,6 @@
+# Archivos subidos
+backend/uploads/*
+
 # Logs
 logs
 *.log

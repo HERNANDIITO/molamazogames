@@ -29,6 +29,11 @@ const fileSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
+    },
+    preview: {
+        type: Boolean,
+        required: true,
+        default: false
     }
 })
 

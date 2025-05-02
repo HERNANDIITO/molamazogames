@@ -10,8 +10,59 @@ import mongoose from 'mongoose';
 
 // Obtener todos los assets
 const getAssets = asyncHandler(async (req, res, next) => {
+
+    const orderBy     = req.body.orderBy;
+    const searchBar   = req.body.searchBar;
+    const tags        = req.body.tags;
+    const author      = req.body.author;
+    const category    = req.body.category;
+    const format      = req.body.format;
+    const size        = req.body.size;
+    const meta        = req.body.meta;
+
     try{
-        const assets = await Asset.find();
+
+        const filters = {};
+                
+        if (searchBar) {
+            filters.$or = [
+                { name: { $regex: searchBar, $options: 'i' } },
+                { description: { $regex: searchBar, $options: 'i' } }
+            ];
+        }
+        
+        if (tags && tags.length > 0) { 
+            filters.tags = { $in: tags };    
+        }
+        
+        if (author) { 
+            filters.author = author    
+        }
+        
+        if (category && category.length > 0) { 
+            filters.category = { $in: category };    
+        }
+        
+        if (format) { 
+            filters.format = format    
+        }
+        
+        if (size.max && size.min) { 
+            filters.size = { $gte: size.max, $lte: size.min };      
+        } else if (size.min) {
+            filters.size = { $gte: size.min };
+        } else if (size.max) {
+            filters.size = { $lte: size.max };
+        }
+        
+        if (meta) { 
+            filters.meta = meta      
+        }
+
+        console.log("FILTERS", filters)
+        console.log("ORDER BY", orderBy)
+
+        const assets = await Asset.find(filters).sort(orderBy);
         res.status(200).json({
             result: "OK.",
             assets: assets

@@ -5,9 +5,11 @@ import asyncHandler from 'express-async-handler'
 import mongoose from 'mongoose'
 
 const getFiles = asyncHandler( async(req,res,next) => {
-    try {
 
+    try {
+        
         const files = await File.find();
+        
         return res.status(200).json({
             result: "OK.",
             files: files
@@ -48,6 +50,28 @@ const getFileByID = asyncHandler( async(req,res,next) => {
     }
 })
 
+const getPreviewFilesByAssetID = asyncHandler( async(req, res, next) => {
+    try {
+        const assetID = req.body.assetID;
+
+        if ( !assetID || !(mongoose.Types.ObjectId.isValid(assetID)) ) {
+            return res.status(400).json({
+                result: "Solicitud errónea.",
+                msg: `Faltan campos obligatorios: ${!assetID ? 'assetID ' : ''}`
+            });
+        }
+
+        const files = await Asset.findById(assetID, {files: 1}).populate({path: 'files', match: { preview: true }});
+        return res.status(200).json({
+            result: "OK.",
+            files: files.files
+        });
+
+    } catch (error) {
+        next(error);
+    }
+})
+
 const getFileByAssetID = asyncHandler( async(req,res,next) => {
     try {
         const assetID = req.body.assetID;
@@ -75,6 +99,7 @@ const editFile = asyncHandler( async(req,res,next) => {
     const fileID      = req.body.fileID;
     const name        = req.body.name;
     const description = req.body.description;
+    const isPreview   = req.body.preview;
 
     if ( !fileID || !(mongoose.Types.ObjectId.isValid(fileID)) ) {
         return res.status(400).json({
@@ -83,45 +108,59 @@ const editFile = asyncHandler( async(req,res,next) => {
         });
     }
 
-    if ( !name && !description ) {
+    if ( !name && !description && !isPreview ) {
         return res.status(400).json({
             result: "Solicitud errónea.",
             msg: `Nada que editar. Adjunta un name o una description`
         });
     }
 
-    const file = await File.findById(fileID);
+    try {
+        const file = await File.findById(fileID);
 
-    if ( !file ) {
-        return res.status(400).json({
-            result: "Solicitud errónea.",
-            msg: `Dicho file no existe`
-        });
+        if ( !file ) {
+            return res.status(400).json({
+                result: "Solicitud errónea.",
+                msg: `Dicho file no existe`
+            });
+        }
+
+        if ( name ){
+            file.name = name;
+        }
+
+        if ( description ) {
+            file.description = description;
+        }
+
+        if ( isPreview != undefined ) {
+            file.preview = Boolean(isPreview);
+        }
+
+        await file.save();
+        return res.status(200).json({
+            result: "OK.",
+            file: file
+        });  
+    } catch (error) {
+        next(error)
     }
-
-    if ( name ){
-        file.name = name;
-    }
-
-    if ( description ) {
-        file.description = description;
-    }
-
-    await file.save();
-    return res.status(200).json({
-        result: "OK.",
-        file: file
-    });
 
 })
 
 const uploadFile = asyncHandler(async (req, res, next) => {
     try{
-
-        const { originalname: originalname, mimetype: mimetype, size: size, path: filePath } = req.file;
-        console.log(originalname, mimetype, size, filePath)
-        const description   = req.body.description;
+        
         const author        = req.user.id;
+        
+        const originalname  = req.file.originalname;
+        const mimetype      = req.file.mimetype;
+        const size          = req.file.size;
+        const filePath      = req.file.path;
+        
+        const fileName      = req.body.name;
+        const description   = req.body.description;
+        const isPreview     = req.body.isPreview;
 
         if ( !description || !author || !originalname || !mimetype || !size || !filePath ) {
             return res.status(400).json({
@@ -131,13 +170,14 @@ const uploadFile = asyncHandler(async (req, res, next) => {
         }
 
         const newFile = new File({
-            name: req.file.filename,
+            name: fileName,
             originalName: originalname,
             description: description,
             mimetype: mimetype,
             size: size,
             author: author,
-            path: filePath
+            path: filePath,
+            preview: Boolean(isPreview)
         });
 
         const file = await newFile.save();
@@ -158,6 +198,7 @@ export {
     getFiles,
     getFileByID,
     getFileByAssetID,
+    getPreviewFilesByAssetID,
     uploadFile,
     editFile
 }
