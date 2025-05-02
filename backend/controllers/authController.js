@@ -10,7 +10,22 @@ import userSchema from '../schemas/user.schema.js'
 
 import {validateEmail, validatePass} from '../helpers/validator.helper.js'
 
+<<<<<<< Updated upstream
 const User = mongoose.model('users', userSchema);
+=======
+const getUserByTokenFunc = async (userID) => {
+    if ( !(mongoose.Types.ObjectId.isValid(userID)) ) {
+        return res.status(400).json({
+            result: "Solicitud errónea.",
+            msg: `Dicho usuario no existe`
+        });
+    }
+
+    const user = await User.findById(userID)
+    return user;
+
+}
+>>>>>>> Stashed changes
 
 const getAllUsers = asyncHandler(async(req, res, next) => {
     try {
