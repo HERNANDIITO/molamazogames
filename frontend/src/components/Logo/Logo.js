@@ -25,13 +25,13 @@ const Logo = ({
               }
             }}
           />
-          <a className="logo" href="./">
+          <a className="logo" href="/">
             <img src={logo} alt="Ir al menú principal de Molamazogames" />
             <h1 aria-hidden="true">MoLaMaZoGAMES</h1>
           </a>
         </>
       ) : (
-        <a className="logo" href="./">
+        <a className="logo" href="/">
           <img src={logo} alt="Ir al menú principal de Molamazogames" />
           <h2 aria-hidden="true">MoLaMaZoGAMES</h2>
         </a>
