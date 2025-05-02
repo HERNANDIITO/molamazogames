@@ -7,7 +7,7 @@ import allCats from '../db/categoryData.js';
 
 const getAllCategories = asyncHandler( async (req, res, next) => {
 
-    const metaName = req.body.meta;
+    const metaName = req.query.meta;
 
     try {
 
@@ -26,6 +26,7 @@ const getAllCategories = asyncHandler( async (req, res, next) => {
         });
         
     }
+
     catch (err) {
         next(err);
     }

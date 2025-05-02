@@ -4,13 +4,11 @@ import { generateToken } from '../helpers/token.helper.js'
 import asyncHandler from 'express-async-handler'
 import moment from 'moment'
 
-import db from '../db/conn.js'
 import mongoose from 'mongoose'
 import User from '../schemas/user.schema.js'
 
 import { validateEmail, validatePass, validatePhone } from '../helpers/validator.helper.js'
 
-const User = mongoose.model('users', userSchema);
 const getUserByTokenFunc = async (userID) => {
     if ( !(mongoose.Types.ObjectId.isValid(userID)) ) {
         return res.status(400).json({

@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 const BASE_URL = "http://localhost:5000/category"
 
 /**
@@ -11,26 +13,22 @@ const BASE_URL = "http://localhost:5000/category"
  */
 const getAllCategories = async (data, headers = {}) => {
     try {
-        console.log("estoy dentro");
-        console.log(JSON.stringify(data));
-        const response = await fetch(`${BASE_URL}`, {
-            method: 'GET',
+
+        console.log("stringified data", JSON.stringify(data));
+
+        const response = await axios.get(`${BASE_URL}`, {
+            params: data,
             headers: {
                 'Content-type': 'application/json'
             },
-            body: JSON.stringify(data)
         })
-        console.log("estoy dentro, muy dentro");
-
-        console.log(response);
-
-        if ( !response.ok ) {
+        
+        if ( response.status != 200 ) {
             const errorData = await response.json();
             throw new Error(errorData.msg || 'Algo ha ido mal');
         }
 
-        const result = await response.json();
-        return result;
+        return response.data;
 
     } catch (error) {
         throw new Error(error.message || 'Algo ha ido mal');

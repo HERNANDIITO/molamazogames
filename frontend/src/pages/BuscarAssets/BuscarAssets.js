@@ -22,49 +22,18 @@ const BuscarAssets = () => {
 
     const { meta } = useParams(); 
 
-    const fetchCategories = async () => {
-        try {
-        console.log("holaa");
-          const result = await getAllCategories({ meta : meta });
-          console.log(result);
-
-          if (result.result == "OK") {
-            setCategories(result.categories);
-            // return result.categories;
-          } else {
-            throw new Error('Error al obtener las categorías');
-          }
-        } catch (error) {
-            setErrorCategories('Algo salió mal. No se han podido recuperar las categorías. Por favor, prueba a recargar la página.');
-        }
-    };
-
-    useEffect(async () => {
-        console.log("Holaaa");
-        await fetchCategories()
-    }, [meta]); 
-
     useEffect(() => {
-        // Definir la función asincrónica dentro de useEffect
-        const fetchData = async () => {
+        const fetchCategories = async () => {
             try {
-                console.log("holaa");
-                const result = await getAllCategories({ meta });
-                console.log(result);
-    
-                if (result.result == "OK") {
-                    setCategories(result.categories);
-                // return result.categories;
-                } else {
-                throw new Error('Error al obtener las categorías');
-                }
+                const result = await getAllCategories({ meta: meta });
+                setCategories(result.categories);
             } catch (error) {
                 setErrorCategories('Algo salió mal. No se han podido recuperar las categorías. Por favor, prueba a recargar la página.');
             }
         };
-    
-        fetchData();
-      }, [meta]); 
+
+        fetchCategories();
+    }, [meta]);
     
     const renderCategories = (categoryList) => {
         return categoryList.map((category) => (
@@ -83,19 +52,18 @@ const BuscarAssets = () => {
 
       <main>
        <h2>{meta}</h2>
-       <p>{categories}</p>
 
        <div className="categories-list">
             {renderCategories(categories)}
         </div>
 
-       {categories.length > 0 ? (
+       {/* {categories.length > 0 ? (
             <div className="categories-list">
                 {renderCategories(categories)}
             </div>
         ) : (
             <p>No se han encontrado categorías.</p>
-        )}
+        )} */}
         
       </main>
 
