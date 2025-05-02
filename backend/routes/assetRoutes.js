@@ -1,29 +1,26 @@
 import express from 'express';
-import assetController from '../controllers/assetController.js';
-const {
-    getAssets,
-    getAssetByID,
-    createAsset,
-    updateAsset,
-    deleteAsset
-} = assetController;
+import { getAssets, getAssetByID, createAsset, updateAsset, deleteAsset, deleteFileFromAsset } from '../controllers/assetController.js';
 
-const router = express.Router();
+import { auth } from '../middlewares/auth.middleware.js';
+
+const assetRouter = express.Router();
 
 // Obtener todos los assets
-router.route('/').get(getAssets);
-
-// Crear un asset
-router.route('/').post(createAsset);
+assetRouter.get('/getAssets', getAssets);
 
 // Obtener un asset por su ID
-router.route('/:id').get(getAssetByID);
+assetRouter.get('/getAssetByID', getAssetByID);
+
+// Crear un asset
+assetRouter.post('/', auth, createAsset);
 
 // Modificar un asset
-router.route('/:id').put(updateAsset);
+assetRouter.put('/', auth, updateAsset);
 
 // Eliminar un aseet
-router.route('/:id').delete(deleteAsset);
+assetRouter.delete('/', auth, deleteAsset);
 
-//module.exports = router;
-export default router;
+// Eliminar un archivo de un asset
+assetRouter.delete('/', auth, deleteFileFromAsset);
+
+export default assetRouter;

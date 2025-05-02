@@ -1,14 +1,20 @@
 import './Registrar.scss'
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import Button from '../../components/Button/Button.js';
 import Input from '../../components/Input/Input.js';
-import { FaArrowRight } from 'react-icons/fa'; 
-import { Link } from 'react-router-dom';
+import Profile from '../../components/Profile/Profile.js';
+import { FaArrowRight } from 'react-icons/fa';
+import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 import { register } from '../../services/authServices.js';
 
+
 const Registrar = () => {
+  useEffect(() => {
+    document.title = 'Registrarse - MoLAMaZoGAMES';
+  }, []);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -24,6 +30,31 @@ const Registrar = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleChangePassword = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+
+    let passwordError = null;
+
+    if (!/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{7,15}$/.test(e.target.value)) {
+      passwordError = "La contraseña no cumple los requisitos.";
+    }
+    setErrors({ ...errors, password: passwordError });
+  };
+
+  const handleChangeRePassword = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+
+    let passwordError = null;
+
+    const password = document.querySelector('#password').value;
+
+    if (password !== e.target.value) {
+      passwordError = "Las contraseñas no coinciden.";
+    }
+
+    setErrors({ ...errors, reppass: passwordError });
+  };
+
   const validate = () => {
     let newErrors = {};
 
@@ -36,6 +67,14 @@ const Registrar = () => {
     if (!/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{7,15}$/.test(formData.password)) {
       newErrors.password = "La contraseña no cumple los requisitos.";
     }
+
+    console.log("tlf: ", formData.phone.trim())
+
+    if (formData.phone != "") {
+      if (!/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/.test(formData.phone)) {
+        newErrors.phone = "El teléfono debe seguir el formato: +34678564738";
+      }
+    }
     if (formData.password !== formData.reppass) {
       newErrors.reppass = "Las contraseñas no coinciden.";
     }
@@ -46,125 +85,130 @@ const Registrar = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (validate()) {
-      console.log("Datos enviados:", formData);
       const { email, password: pass, name, phone } = formData;
 
       try {
         const result = await register({ email, pass, name, phone });
 
-        if ( result.token ) {
+        if (result && result.token) {
           localStorage.setItem('token', result.token);
           window.location.replace('/')
-
+        } else {
+          throw new Error(result.message);
         }
-        else {
-          throw new Error("Un error ha ocurrido.")
-        }
+      } catch (error) {
+        setErrors({ global: error.message });
       }
-      catch (error) {
-        console.error(error.message)
-      }
-
-      
     }
   };
 
   return (
-    <>
-      {showInfo && (
-        <div className={`info-text-container ${showInfo ? "show" : ""}`}>
-          <p className="info-text">La contraseña debe cumplir los siguientes requisitos:</p>
-            <ul className="password-rules">
-              <li>Al menos un número.</li>
-              <li>Al menos una mayúscula.</li>
-              <li>Al menos una minúscula.</li>
-              <li>Al menos un símbolo.</li>
-              <li>Entre 7 y 15 caracteres.</li>
-            </ul>
-        </div>
-      )}
 
-      <section className="form-container">
-          <h2 className="title">Registrarse</h2>
-          <p className="aviso">Los campos obligatorios están marcados con *</p>
-        <form onSubmit={handleSubmit} className="register-form">
-          
-          <Input 
-            type="text" 
-            name="name" 
-            id="name"
-            label="Nombre*"
-            value={formData.name} 
-            onChange={handleChange} 
-            autoFocus
-            placeholder="Manolo1234"
-            className={`login ${errors.name ? "error" : ""}`}
-          />
-          {errors.name && <p className="register-error">{errors.name}</p>}
+      <main className="mainLogin">
+        <section className="form-container">
+          <form onSubmit={handleSubmit} className="register-form">
+            <h2 className="title decorator">Registrarse</h2>
+            <p className="aviso contenido-principal" tabIndex="-1">Los campos obligatorios están marcados con *</p>
+            {errors.global && <p className="login-error"><FontAwesomeIcon icon={faTriangleExclamation} /> &nbsp; {errors.global}</p>}
+            <Input
+              type="text"
+              name="name"
+              id="name"
+              label="Nombre*"
+              value={formData.name}
+              onChange={handleChange}
+              autoFocus
+              placeholder="Manolo1234"
+              className={`login ${errors.name ? "error" : ""}`} />
+            {errors.name && <p className="register-error">{errors.name}</p>}
 
-            <Input 
-              type="email" 
-              name="email" 
+            <Input
+              type="email"
+              name="email"
               id="email"
               label="Email*"
-              value={formData.email} 
-              onChange={handleChange} 
+              value={formData.email}
+              onChange={handleChange}
               placeholder="usuario@email.com"
-              className={`login ${errors.email ? "error" : ""}`}
-            />
+              className={`login ${errors.email ? "error" : ""}`} />
             {errors.email && <p className="register-error">{errors.email}</p>}
 
-            <Input 
-              type="tel" 
-              name="phone" 
+            <Input
+              type="tel"
+              name="phone"
               id="phone"
               label="Teléfono"
-              value={formData.phone} 
+              placeholder="+34694783456"
+              value={formData.phone}
               onChange={handleChange}
-              className="login"
-            />
+              className={`login ${errors.phone ? "error" : ""}`} />
+            {errors.phone && <p className="register-error">{errors.phone}</p>}
 
-            <div className="input-container">
-              <Input 
-                type="password" 
-                name="password" 
-                id="password"
-                label="Contraseña*"
-                value={formData.password} 
-                onChange={handleChange} 
-                placeholder="Contraseña_123"
-                className={`login pass ${errors.password ? "error" : ""}`}
-              />
-              <FontAwesomeIcon icon={faCircleInfo} className="info-icon" onClick={() => setShowInfo(!showInfo)} />
+            <div className="input-container register-pass-container">
+              <div className="pass-container">
+                <Input
+                  type="password"
+                  name="password"
+                  id="password"
+                  label="Contraseña*"
+                  value={formData.password}
+                  onChange={handleChangePassword}
+                  placeholder="Contraseña_123"
+                  className={`login pass ${errors.password ? "error" : ""}`} />
+                {errors.password && <p className="register-error">{errors.password}</p>}
+                <FontAwesomeIcon
+                  icon={faCircleInfo}
+                  className="info-icon"
+                  aria-label="Información sobre los requisitos de la contraseña"
+                  tabIndex="0"
+                  onClick={() => setShowInfo(!showInfo)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      setShowInfo(!showInfo);
+                    }
+                    const info = document.querySelector('.info-icon');
+                    if (info) {
+                      info.focus();
+                    }
+                  }}
+                />
+              </div>
+              {showInfo && (
+                <div tabIndex="0" className={`info-text-container ${showInfo ? "show" : ""}`}>
+                  <ul className="password-rules">La contraseña debe contener: </ul>
+                  <li className="password-rules">Entre 7 y 15 caracteres.</li>
+                  <li className="password-rules">Al menos una letra mayúscula.</li>
+                  <li className="password-rules">Al menos una letra minúscula.</li>
+                  <li className="password-rules">Al menos un número.</li>
+                  <li className="password-rules">Al menos un símbolo.</li>
+                </div>
+              )}
             </div>
-            {errors.password && <p className="register-error">{errors.password}</p>} 
 
-            <Input 
-              type="password" 
-              name="reppass" 
+            <Input
+              type="password"
+              name="reppass"
               id="reppass"
               label="Repetir contraseña*"
-              value={formData.reppass} 
-              onChange={handleChange} 
+              value={formData.reppass}
+              onChange={handleChangeRePassword}
               placeholder="Contraseña_123"
-              className={`login ${errors.reppass ? "error" : ""}`}
-            />
+              className={`login ${errors.reppass ? "error" : ""}`} />
             {errors.reppass && <p className="register-error">{errors.reppass}</p>}
-          
+
             <Button
               label="Registrarse"
-              icon={<FaArrowRight />} 
+              icon={<FaArrowRight />}
               className="seleccionable-btn mediano-btn btn-container"
-              type="submit"
-            />
+              type="submit" />
+          </form>
+          <a href="/login" className='enlaceLogin'>¿Ya tienes una cuenta? Inicia sesión</a>
+        </section>
+      </main>
 
-          <a href="/login">¿Ya tienes una cuenta? Inicia sesión</a>
-        </form>
-      </section>
 
-      
-    </>
   );
 };
 

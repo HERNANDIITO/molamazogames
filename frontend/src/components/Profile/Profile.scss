@@ -2,10 +2,15 @@
 
 @import '../../styles/global.scss';
 
+.profile-container {
+    position: absolute; 
+    top: 1.5rem;
+    right: 1.5rem;
+}
+
 .profile-card{
     background-color: $color-fondo2;
     width: 6.5rem;
-    height: 6.5rem;
     border-radius: $radio-foto-perfil;
     display: flex;
     align-items: center;
@@ -14,8 +19,9 @@
     border: 2px solid $color-fondo2;
     border: 2px solid $color-fondo2; 
     z-index: 999; 
-    transition: border-color 0.5s ease; 
-    
+    transition: all 0.3s ease, border-color 0.5s ease;
+    // transition: ; 
+
     &:hover {
       border-color: $color-hover-secundario; 
     }
@@ -26,6 +32,7 @@
         font-weight: $peso-normal;
         color: $color-texto;
         z-index: inherit;
+        margin-top: -.3rem;
     }
 
     > header > img {
@@ -33,6 +40,7 @@
         height: $ancho-alto-foto-perfil;
         width: $ancho-alto-foto-perfil;
         margin-top: 1rem;
+        margin-bottom: 1rem;
         z-index: inherit;
 
     }
@@ -46,8 +54,16 @@
     }
 
     button, a{
-        height: $alto-boton-peque;
         z-index: inherit;
+        margin: .3rem;
+    }
+
+
+    &:has(button) {
+        padding-bottom: .3rem;
+        border-bottom-left-radius: 60px;
+        border-bottom-right-radius: 60px;
+        // background-color: yellow; para que veas que el selector esta bienç
     }
 }
 

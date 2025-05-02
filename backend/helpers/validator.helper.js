@@ -19,7 +19,18 @@ const validatePass = (pass) => {
     return regex.test(pass);
 }
 
+/**
+ * Valida si un numero de telefono tiene un formato correcto.
+ * @param {string}  phone - Teléfono a validar
+ * @returns {boolean} true si es válido, false si no
+ */
+const validatePhone = (phone) => {
+    const regex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+    return regex.test(phone);
+}
+
 export {
     validateEmail,
-    validatePass
+    validatePass,
+    validatePhone
 }

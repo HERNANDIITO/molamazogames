@@ -1,39 +1,40 @@
 import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
-    displayName:    {
+    name: {
         type: String,
         required: true,
         unique: true
     },
 
-    email:          {
+    email: {
         type: String,
         required: true,
         unique: true,
         match: [/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, 'Email no válido']
     },
 
-    password:       {
+    password: {
         type: String,
         required: true,
     },
 
-    signupDate:     {
+    signupDate: {
         type: Date,
         required: true 
     },
 
-    lastLogin:      {
+    lastLogin: {
         type: Date,
         required: true 
     },
 
-    phone:          {
+    phone: {
         type: String,
         required: false
     }
     
 });
 
-export default userSchema;
+const User = mongoose.model('User', userSchema);
+export default User;

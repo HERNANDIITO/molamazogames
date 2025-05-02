@@ -1,0 +1,35 @@
+@import '../../styles/global.scss';
+
+.slct{
+    padding: 10px;
+    border: 1px solid $color-texto;
+    border-radius: 5px;
+    background-color: $color-fondo2;
+    color: $color-texto;
+    transition: border-color 0.3s;
+    
+    &.texto{
+        display: block;
+        margin: $margen-elementos;
+        font-size: $tamano-texto;
+        width: 85%;
+    }
+
+    &:focus{
+       border-color: $color-secundario;
+       outline: none;
+    }
+    
+    &:disabled{
+        background-color: $color-disabled;
+
+        &:hover{
+            box-shadow: none;
+        }
+    }
+
+    &.error{
+        border: 2px solid $color-danger !important;
+        margin-bottom: 5px;
+    }
+}

@@ -6,10 +6,7 @@ import moment from 'moment'
 
 import db from '../db/conn.js';
 import mongoose from 'mongoose';
-import userSchema from '../schemas/user.schema.js';
-
-
-const User = mongoose.model('users', userSchema);
+import User from '../schemas/user.schema.js';
 
 const getAllUsersAdmin = asyncHandler( async (req, res, next) => {
     try {
@@ -25,6 +22,14 @@ const getUserByID = asyncHandler(async (req, res, next) => {
 
     try {
         const elementoID = req.params.id;
+
+        if ( !elementoID || !(mongoose.Types.ObjectId.isValid(elementoID)) ) {
+            return res.status(400).json({
+                result: "Solicitud errónea.",
+                msg: `Faltan campos obligatorios: ${!elementoID ? 'elementoID ' : ''}`
+            });
+        }
+
         const user = await User.findById(elementoID)
     
         if ( user === null) {
@@ -66,15 +71,15 @@ const newUser = asyncHandler(async (req, res, next) => {
 
         const nuevoUsuario = new User({
             email,
-            displayName: name,
+            name: name,
             password: encryptedPass,
-            signupDate: moment().unix(),
-            lastLogin: moment().unix()
+            signupDate: moment(),
+            lastLogin: moment()
         });
 
         const user = await nuevoUsuario.save();
 
-        res.json({
+        res.status(200).json({
             result: "OK",
             token: generateToken(user._id),
             usuario: user
@@ -98,6 +103,13 @@ const modifyUserByID = asyncHandler(async (req, res, next) => {
         });
     }
 
+    if ( !elementoId || !(mongoose.Types.ObjectId.isValid(elementoId)) ) {
+        return res.status(400).json({
+            result: "Solicitud errónea.",
+            msg: `Faltan campos obligatorios: ${!elementoId ? 'elementoId ' : ''}`
+        });
+    }
+
     try {
         const result = await User.findByIdAndUpdate( elementoId, { $set: nuevosRegistros }, { new: true, runValidators: true } );
         if (!result) {
@@ -117,6 +129,14 @@ const deleteUserByID = asyncHandler(async (req, res, next) => {
         return res.status(400).json({
             result: "Solicitud errónea.",
             msg: `Faltan campos obligatorios: ${!elementoId ? 'ID ' : ''}`
+        });
+    }
+
+    
+    if ( !elementoId || !(mongoose.Types.ObjectId.isValid(elementoId)) ) {
+        return res.status(400).json({
+            result: "Solicitud errónea.",
+            msg: `Faltan campos obligatorios: ${!elementoId ? 'elementoId ' : ''}`
         });
     }
 

@@ -2,46 +2,59 @@ import mongoose from 'mongoose';
 
 const assetSchema = mongoose.Schema(
     {
-        nombre: {
+        name: {
             type: String,
-            required: [true, 'Please, add value for nombre']
+            required: [true, 'Please, add value for name']
         },
-        licencia: {
-            type: String,
-            required: [true, 'Please, value for licencia']
-        },
-        descripcion: {
+        description: {
             type: String,
             required: [false]
         },
-        categorias: { // Array de categorías
-            type: [String],
-            required: [true, 'Please, add value for categorias']
+        categories: { 
+            type: [mongoose.Schema.Types.ObjectId],
+            ref: 'Category',
+            required: true
         },
-        etiquetas: { // Array de etiquetas
-            type: [String],
-            required: [false]
+        tags: { 
+            type: [mongoose.Schema.Types.ObjectId],
+            required: [false],
+            ref: 'Tag',
         },
-        archivos: { // Array de enlaces a archivos
-            type: [String],
-            required: [true, 'Please, add value por erchivos']
+        files: { 
+            type: [mongoose.Schema.Types.ObjectId],
+            required: [true],
+            ref: 'File',
         },
-        autor: {
-            type: String,
-            required: [true, 'Please, add value for autor']
+        author: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: [true, 'Please, add value for autor'],
+            ref: 'User'
         },
-        fecha_publicacion: {
+        publicationDate: {
             type: Date,
             required: [true, 'Please, add value for fecha_publicacion']
         },
-        fecha_actualizacion: {
+        updateDate: {
             type: Date,
             required: [true, 'Please, add value for fecha_actualizacion']
         },
-        // tamaño (guardar o leer al obtener el archivo???)
+        size: {
+            type: Number,
+            required: true
+        }
     }
 );
 
-const Asset = mongoose.model('Asset', assetSchema);
+assetSchema.pre('deleteOne', { document: true, query: false }, async function(next) {
+    const asset = this; 
+    await mongoose.model('Fav').deleteMany({ asset: asset._id });
 
+    for (const fileID of asset.files) {
+        await mongoose.model('File').findByIdAndDelete(fileID);   
+    }
+    
+    next();
+});
+
+const Asset = mongoose.model('Asset', assetSchema);
 export default Asset;

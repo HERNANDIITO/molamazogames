@@ -24,14 +24,14 @@ const register = async (data, headers = {}) => {
 
         if ( !response.ok ) {
             const errorData = await response.json();
-            throw new Error(errorData.message || 'Something went wrong');
+            throw new Error(errorData.msg || 'Algo ha ido mal');
         }
 
         const result = await response.json();
         return result;
 
     } catch (error) {
-        console.error('Error haciendo login', error.message);
+        throw new Error(error.message || 'Algo ha ido mal');
     }
 }
 
@@ -58,20 +58,53 @@ const login = async (data, headers = {}) => {
 
         if ( !response.ok ) {
             const errorData = await response.json();
-            throw new Error(errorData.message || 'Something went wrong');
+            throw new Error(errorData.msg || 'Algo ha ido mal');
         }
 
         const result = await response.json();
         return result;
 
     } catch (error) {
-        console.error('Error haciendo login', error.message);
+        throw new Error(error.message || 'Algo ha ido mal');
     }
 }
 
+/**
+ * LOG IN
+ * @param {Object} data - Debe contener los siguientes parametros:
+ *    - token
 
+ * @param {Object} [headers={}] - Optional headers (e.g., auth tokens)
+ * @returns {Promise<Object>} - Respuesta de la API en formato JSON
+    - result: Resultado,
+    - token: JWT Token
+ */
+const getUserByToken = async (data, headers = {}) => {
+
+    try {
+        const response = await fetch(`${BASE_URL}/me`,{
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json',
+                "Authorization": `Bearer ${data}`
+            }
+        })
+
+        if ( !response.ok ) {
+            const errorData = await response.json();
+            throw new Error(errorData.msg || "Algo ha ido mal");
+        }
+
+        const result = await response.json();
+        return result;
+
+    } catch (error) {
+        throw new Error(error.message || 'Algo ha ido mal');
+    }
+}
 
 export {
     register,
-    login
+    login,
+    getUserByToken
 }

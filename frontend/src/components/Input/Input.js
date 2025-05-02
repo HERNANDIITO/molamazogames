@@ -10,19 +10,23 @@ const Input = ({
   label,
   onChange,           
   disabled = false,         
-  autofocus,                     
+  autoFocus,                     
   placeholder,    
   className,                     
 }) => {
 
   const inputClasses = classNames('inpt', className);
-  const labelClasses = classNames('lbl', className);
+  const labelClasses = classNames('lbl');
   const divClasses = classNames('dv', className);
 
   return(
     <>
     <div className={divClasses}>
-    <label htmlFor={id} className={labelClasses}>{label}</label>
+    {label && (
+      <label htmlFor={id} className={labelClasses}>
+        {label}
+      </label>
+    )}
       <input
           type = {type}
           value = {value}
@@ -30,7 +34,7 @@ const Input = ({
           id = {id}
           onChange = {onChange}
           disabled = {disabled}
-          autofocus = {autofocus}
+          autoFocus = {autoFocus}
           placeholder = {placeholder}
           className = {inputClasses}
       ></input>

@@ -1,22 +1,65 @@
 import logo from './assets/images/logo.png';
 import './App.css';
 import { useEffect, useState } from 'react';
+import { Helmet } from "react-helmet";
 
 import Button from './components/Button/Button';
 import Footer from './components/Footer/Footer';
+import Checkbox from './components/Checkbox/Checkbox';
+import RadioButtonGroup from './components/RadioButtonGroup/RadioButtonGroup';
+
 import Logo from './components/Logo/Logo';
 
-import { FaArrowRight } from 'react-icons/fa';  
+import { FaArrowRight } from 'react-icons/fa';
+import { LuTag } from "react-icons/lu";
+import { LuCirclePlus } from "react-icons/lu";
+import { FiDelete } from "react-icons/fi";
+import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowForward } from "react-icons/io";
 
 import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import Registrar from "./pages/Registrar/Registrar";
 import Login from "./pages/Login/Login";
+import SubirAsset from "./pages/SubirAsset/SubirAsset";
+import BuscarAssets from "./pages/BuscarAssets/BuscarAssets";
+
 import SearchBar from './components/SearchBar/SearchBar';
 import Profile from './components/Profile/Profile';
+import NavBar from './components/NavBar/NavBar';
+import Header from './components/Header/Header';
+import Textarea from './components/Textarea/Textarea';
+import Select from './components/Select/Select';
+import CarousselController from './components/CarousselController/CarousselController';
+import SliderField from './components/SliderField/SliderField';
+import InputField from './components/InputField/InputField';
+import UploadedFile from './components/UploadedFile/UploadedFile';
+import DatePicker from './components/DatePicker/DatePicker';
+import HistoryElement from './components/HistoryElement/HistoryElement';
+
+//USADO PARA COMPROBAR EL HISTORY ELEMENT
+import logo3 from './assets/images/LOGO3.png';
+
 
 
 function AppContent() {
   const location = useLocation(); // Obtiene la ruta actual
+
+  //Cosa pal select
+  const [opcionSeleccionada, setOpcionSeleccionada] = useState('');
+
+  //Cosas pal SliderField
+  const [minValue, setMinValue] = useState(0);
+  const [maxValue, setMaxValue] = useState(100);
+
+  //Cosa pal uploadedFile
+  const [uploadedFiles, setUploadedFiles] = useState([
+    { id: 1, name: 'script.cpp' },
+    { id: 2, name: 'picture.png' },
+    { id: 3, name: 'audio.mp3' },
+  ]);
+
+  // Cosa pal DatePicker
+  const [selectedDate, setSelectedDate] = useState(null);
 
   // Función de ejemplo
   const handleClick = () => {
@@ -25,25 +68,159 @@ function AppContent() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        {/* AQUÍ IRÁ LA NAVBAR */}
-      </header>
-      <main className="App-content">
+      <Header></Header>
+      
         <Routes>
-          <Route path="/registrar"  element={<Registrar />} />
-          <Route path="/login"      element={<Login />}     />
+          <Route path="/registrar" element={<Registrar />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/upAsset" element={<SubirAsset />} />
+          <Route path="/buscarAssets/" element={<BuscarAssets />} />
+          <Route path="/buscarAssets/:meta" element={<BuscarAssets />} />
         </Routes>
 
-        {location.pathname !== "/registrar" && location.pathname !== "/login" &&(   
-            <>
-              <img src={logo} className="App-logo" alt="logo" />
-              <p>
-                Edit <code>src/App.js</code> and save to reload.
-              </p>
+        {location.pathname !== "/registrar" && location.pathname !== "/login" && location.pathname !== "/upAsset" &&(
+          <>
 
-        <Logo isInNav={true}></Logo>
+            {/* 
+        <Logo isInNav={true}></Logo>*/
+/*
+              <>
+                <Textarea
+                  type="text"
+                  name="textarea"
+                  id="textarea"
+                  label="Textarea"
+                  autoFocus
+                  placeholder="Escribe aquí tu texto"
+                  className="texto"
+                />
 
-        <a
+                <Select
+                  id="select"
+                  name="select"
+                  label="Selecciona una opción"
+                  value={opcionSeleccionada}
+                  onChange={(e) => setOpcionSeleccionada(e.target.value)}
+                  placeholder="Selecciona una opción"
+                  options={[
+                    { value: 'opcion1', label: 'Opción 1' },
+                    { value: 'opcion2', label: 'Opción 2' },
+                    { value: 'opcion3', label: 'Opción 3' },
+                  ]}
+                  className="texto"
+                />
+
+                <CarousselController
+                  id="carousselController"
+                  label="Control del carrusel"
+                  onClick={() => console.log("Botón del carrusel presionado")}
+                />
+
+                <CarousselController
+                  id="carousselController"
+                  label="Control del carrusel"
+                  onClick={() => console.log("Botón del carrusel presionado")}
+                  direction='right'
+                />
+
+
+                <Button
+                  label="Next"
+                  icon={<LuTag />}
+                  iconPosition="left"
+                  className="tag"
+                  href="#"
+                />
+
+                <Button
+                  label="Caracolaaa"
+                  icon={<FiDelete />}
+                  iconPosition="left"
+                  className="tag tag-delete"
+                  href="#"
+                />
+
+                <Button
+                  label="Bonito"
+                  icon={<LuCirclePlus />}
+                  iconPosition="left"
+                  className="tag"
+                  href="#"
+                />
+
+
+                <Button
+                  label="Ver assets anteriores"
+                  icon={<IoIosArrowBack />}
+                  iconPosition="alone"
+                  onClick={handleClick}
+                  className="enano-btn round-btn"
+                />
+
+                <Button
+                  label="Ver próximos assets"
+                  icon={<IoIosArrowForward />}
+                  iconPosition="alone"
+                  onClick={handleClick}
+                  className="enano-btn round-btn"
+                />
+
+                {/* Checkbox normal con label visible }
+                {/* <Checkbox label="Aceptar los términos y condiciones" size="normal" showLabel={true} id="terms-conditions" /> }
+
+                <Checkbox label="Aceptar los términos y condiciones" size="normal" showLabel={true} id="terms" />
+                <Checkbox label="Aceptar los términos y condiciones" size="normal" showLabel={true} id="terms2" />
+
+                <Checkbox label="Aceptar los términos y condiciones" size="normal" showLabel={true} id="terms3" />
+
+                <Checkbox label="Recibir boletines" size="big" showLabel={true} id="newsletter" />
+                <Checkbox label="Suscribirse al newsletter" size="normal" showLabel={false} id="subscribe" />
+                <Checkbox label="Aceptar cookies" size="big" showLabel={false} id="cookies" />
+
+                {/* <RadioButton label="Aceptar los términos y condiciones"  id="terms5" name="pregunta" /> }
+
+                <RadioButtonGroup />
+
+
+                <SliderField
+                  label="Slider Field"
+                  min={0}
+                  max={100}
+                  minValue={minValue}
+                  maxValue={maxValue}
+                  onMinChange={(e) => setMinValue(Number(e.target.value))}
+                  onMaxChange={(e) => setMaxValue(Number(e.target.value))}
+                  texto='tera'
+                />
+
+                <InputField />
+
+                {uploadedFiles.map(file => (
+                  <UploadedFile
+                    key={file.id}
+                    name={file.name}
+                    onRemove={() => setUploadedFiles(prev => prev.filter(f => f.id !== file.id))}
+                  />
+                ))}
+
+                <DatePicker
+                  value={selectedDate}
+                  onChange={(newDate) => setSelectedDate(newDate)}
+                />
+
+                <HistoryElement
+                  id={1}
+                  name="Logo"
+                  value="34,6 MB"
+                  time= "22:34"
+                  imgAsset={logo3}
+                />
+
+              </>
+
+
+
+        /*<a
           className=""
           href="https://reactjs.org"
           target="_blank"
@@ -53,7 +230,6 @@ function AppContent() {
         </a>
           <SearchBar general="true"></SearchBar>
           <SearchBar></SearchBar>
-          <Profile></Profile>
 
             <Button
               label="Next"
@@ -124,11 +300,14 @@ function AppContent() {
                 disabled={true}
                 className="seleccionable-btn"
               />
-            </>
-          )}
-      </main>
+
+              <NavBar></NavBar> */}
+
+          </>
+        )}
+
       <Footer>
-        
+
       </Footer>
     </div>
   );
@@ -141,5 +320,6 @@ function App() {
     </Router>
   );
 }
+
 
 export default App;

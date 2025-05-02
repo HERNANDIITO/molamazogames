@@ -2,10 +2,10 @@
 
 .inpt{
     padding: 10px;
-    border: 1px solid white;
+    border: 1px solid $color-texto;
     border-radius: 5px;
     background-color: $color-fondo2;
-    color: white;
+    color: $color-texto;
     transition: border-color 0.3s;
     
     &.login{
@@ -17,8 +17,8 @@
     }
 
     &:focus{
-        border-color: $color-secundario;
-        outline: none;
+       border-color: $color-secundario;
+       outline: none;
     }
     
     &:disabled{
@@ -43,7 +43,7 @@
     font-size: $tamano-texto;
     text-align: left;
     margin-left: 10px;
-    color: white;
+    color: $color-texto;
 }
 
 .dv{

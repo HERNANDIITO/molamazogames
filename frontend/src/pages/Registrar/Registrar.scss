@@ -10,6 +10,7 @@
     background: $color-fondo2;
     border-radius: 10px;
     width: 32%;
+    min-width: fit-content;
 
     .title{
         color: $color-secundario;
@@ -18,16 +19,7 @@
         font-weight: bold;
         font-family: $fuente-principal;
     }
-
-    .title::after {
-        content: "";
-        display: block;
-        width: 100%; 
-        height: 2px;  
-        background-color: $color-secundario; 
-        margin: 10px 0; 
-      }
-
+    
     .aviso {
         display: block;
         text-align: left;
@@ -45,17 +37,21 @@
             align-items: left;
         }
 
-        .pass{
-            width: 92%;
-        }
-        
         .info-icon {
-            margin-top: 55px;
-            margin-left: 15px;
             font-size: 22px;
             color: $color-secundario;
             cursor: pointer;
+
+            position: absolute;
+
+            top: 50%;
+            left: 97%;
+            margin-top: 11px;
+
+            transform: translateX(-50%);
+
         }
+
         
         .info-icon:hover {
             color: $color-hover-secundario;
@@ -67,16 +63,19 @@
             margin-top: 15px;
             margin-bottom: 10px;
         }
-    
-        a{
-            margin: auto;
-        }
     }
-        
+    .enlaceLogin{
+        margin: auto;
+        margin-top: 10px;
+    }  
 }
 
 .error-input {
     border: 2px solid $color-danger !important;
+}
+
+.register-pass-container {
+    position: relative;
 }
 
 .register-error{
@@ -84,17 +83,26 @@
     display: block;
     text-align: left;
     margin-left: 15px;
+    margin-right: 15px;
 }
 
 .info-text-container {
     visibility: hidden;
-    transition: opacity 0.3s ease-in-out;
     position: absolute;
-    margin-left: 70%;
-    margin-top: 33em;
     padding: 2px;
     font-size: $tamano-texto;
     min-width: 15em;
+
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+
+    right: 0;
+    top: -75px;
+}
+
+.pass-container {
+    width: 100%;
+    position: relative;
 }
 
 .info-text-container.show {
@@ -104,23 +112,52 @@
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     width: 15%;
+
+    left: calc(100% + 3rem);
+
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
 }
   
 .info-text {
     display: flex;
     padding: 10px;
     font-size: $tamano-texto;
-    color: white;
+    color: $color-texto;
     width: 90%;
 }
 
 .password-rules {
     padding: 15px;
     font-size: $tamano-texto;
-    color: white;
+    color: $color-texto;
     text-align: left;
     list-style-position: inside;
 }
-  
 
-  
+
+
+@media (max-width: $tamano-tablet) {
+    .info-text-container.show {
+        position: relative;
+        top: 0;
+        left: 0;
+        margin: auto;
+        box-shadow: none;
+    }
+
+    .register-pass-container {
+        flex-direction: column !important; 
+    }
+
+    .info-icon {
+        left: 100% !important;
+    }
+}
+
+// Para que el icono de informacion se mantenga centrado
+@media (max-width: 1250px) {
+    .info-icon {
+        left: 100% !important;
+    }
+}

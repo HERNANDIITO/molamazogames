@@ -6,13 +6,11 @@ import moment from 'moment'
 
 import db from '../db/conn.js'
 import mongoose from 'mongoose'
-import userSchema from '../schemas/user.schema.js'
+import User from '../schemas/user.schema.js'
 
-import {validateEmail, validatePass} from '../helpers/validator.helper.js'
+import { validateEmail, validatePass, validatePhone } from '../helpers/validator.helper.js'
 
-<<<<<<< Updated upstream
 const User = mongoose.model('users', userSchema);
-=======
 const getUserByTokenFunc = async (userID) => {
     if ( !(mongoose.Types.ObjectId.isValid(userID)) ) {
         return res.status(400).json({
@@ -25,11 +23,10 @@ const getUserByTokenFunc = async (userID) => {
     return user;
 
 }
->>>>>>> Stashed changes
 
 const getAllUsers = asyncHandler(async(req, res, next) => {
     try {
-        const users = await User.find( {}, 'displayName email');
+        const users = await User.find( {}, 'name email');
         res.json(users);
     }
     catch (err) {
@@ -48,7 +45,7 @@ const getUserByToken = asyncHandler(async(req, res, next) => {
     }
 
     try {
-        const user = await User.findById(req.user.id)
+        const user = await getUserByTokenFunc(ID);
         res.json(user)
     }
     catch (err) {
@@ -59,41 +56,41 @@ const getUserByToken = asyncHandler(async(req, res, next) => {
 
 const login = asyncHandler(async(req, res, next) => {
 
-    const { email, pass } = req.body;
+    const { name, pass } = req.body;
 
-    if ( !email || !pass ) {
+    if ( !name || !pass ) {
         return res.status(400).json({
             result: "Solicitud errónea.",
-            msg: `Faltan campos obligatorios: ${!email ? 'email ' : ''}${!pass ? 'pass ' : ''}`
+            msg: `Faltan campos obligatorios: ${!name ? 'name ' : ''}${!pass ? 'pass ' : ''}`
         });
     }
 
-    if ( !email ) { 
-        res.status(400).json({ result: "Solicitud erronea.", msg: "No has adjuntado un email" });
+    if ( !name ) { 
+        res.status(400).json({ result: "Solicitud erronea.", msg: "El nombre de usuario no puede quedar vacío." });
         return;
     }
 
     if ( !pass ) { 
-        res.status(400).json({ result: "Solicitud erronea.", msg: "No has adjuntado un pass" });
+        res.status(400).json({ result: "Solicitud erronea.", msg: "La contraseña no puede quedar vacía." });
         return;
     }
 
     try {
 
-        const user = await User.findOne({email: email});
+        const user = await User.findOne({name: name});
 
         if (!user) {
-            res.status(400).json({ result: "Solicitud erronea.", msg: "Dicho email no está registrado" });
+            res.status(400).json({ result: "Solicitud erronea.", msg: "El nombre de usuario o la contraseña son incorrectos." });
             return; 
         }
 
-        const check = checkPassword(pass, user.password);
+        const check = await checkPassword(pass, user.password);
         if (!check) {
-            res.status(401).json({ result: "Solicitud erronea.", msg: "No autorizado" });
+            res.status(401).json({ result: "Solicitud erronea.", msg: "El nombre de usuario o la contraseña son incorrectos." });
             return;
         }
 
-        user.lastLogin = moment().unix();
+        user.lastLogin = moment();
         user.save();
 
         const token = generateToken(user._id);
@@ -127,18 +124,31 @@ const register = asyncHandler(async(req, res, next) => {
         const { email, pass, name, phone } = req.body;
 
         if ( !email || !validateEmail(email) ) {
-            res.status(400).json({ result: "Error. Solicitud erronea", msg: "Email inválido" });
+            res.status(400).json({ result: "Error. Solicitud erronea", msg: "El formato de correo electrónico no es válido." });
             return;
         }
 
-        const user = await User.findOne({email: email});
-        if ( user ) {
-            res.status(400).json({ result: "Error. Solicitud erronea", msg: "Este email ya está registrado" });
+        const alreadyName = await User.findOne({name: name});
+        if ( alreadyName && alreadyName.name == name ) {
+            console.log(alreadyName);
+            res.status(400).json({ result: "Error. Solicitud erronea", msg: "Este nombre ya está registrado." });
+            return;
+        }
+        
+        const alreadyEmail = await User.findOne({email: email});
+        if ( alreadyEmail && alreadyEmail.email == email ) {
+            console.log(alreadyEmail);
+            res.status(400).json({ result: "Error. Solicitud erronea", msg: "Este email ya está registrado." });
             return;
         }
 
         if ( !pass || !validatePass(pass) ) {
-            res.status(400).json({ result: "Error. Solicitud erronea", msg: "Esta contraseña no cumple los requisitos necesarios" });
+            res.status(400).json({ result: "Error. Solicitud erronea", msg: "La contraseña no cumple los requisitos." });
+            return;
+        }
+
+        if ( phone && !validatePhone(phone) ) {
+            res.status(400).json({ result: "Error. Solicitud erronea", msg: "Este número de teléfono no es válido. ej: +34784987645" });
             return;
         }
 
@@ -147,7 +157,7 @@ const register = asyncHandler(async(req, res, next) => {
         const nuevoUsuario = new User({
             password: encryptedPass,
             email: email,
-            displayName: req.body.name,
+            name: req.body.name,
             phone: phone,
             signupDate: moment(),
             lastLogin: moment()
@@ -160,7 +170,7 @@ const register = asyncHandler(async(req, res, next) => {
             "token": generateToken(nuevoUsuario._id),
         }
 
-        res.json(returnValue);
+        res.status(202).json(returnValue);
     }
     catch (err) {
         next(err);
@@ -171,5 +181,6 @@ export {
     getAllUsers,
     getUserByToken,
     login,
-    register
+    register,
+    getUserByTokenFunc
 }

@@ -5,13 +5,22 @@
 @import './themes/_dimensiones.scss';
 
 
+body{
+    min-width: 340px;
+}
+
 html, body, #root, div.App, main.App-content {
     height: 100%;
+}
+
+html {
+    background-color: $color-fondo;
 }
 
 .App {
     display: flex;
     flex-flow: column;
+    min-height: 100vh;
 
     main.App-content {
         flex-grow: 1;
@@ -22,13 +31,7 @@ body{
     margin: 0;
     font-family: $fuente-secundaria;
 
-    opacity: 0.97;
-    background-image: radial-gradient(circle at center center, $color-active-extra-secundario, white), 
-    repeating-radial-gradient(circle at center center, $color-active-extra-secundario, $color-active-extra-secundario, 40px, transparent 80px, transparent 40px);
-    background-blend-mode: multiply;
-    background-color: $color-fondo2;
-
-    background-attachment: fixed;
+    height: fit-content;
 }
 
 h1{
@@ -74,7 +77,7 @@ p{
     }
 }
 
-a:not(.btn) {
+a:not(.btn):not(.downloadIcon) {
     font-family: $fuente-secundaria;
     font-size: $tamano-texto;
     color: $color-secundario;
@@ -118,7 +121,7 @@ a:not(.btn) {
     }
 }
 
-nav a:not(.btn){
+nav a:not(.btn):not(.downloadIcon){
     font-size: $tamano-texto-grande;
     color: $color-texto;
     font-weight: $peso-medio;
@@ -134,11 +137,9 @@ nav a:not(.btn){
 
     &:hover{
         color: $color-hover-secundario;
-        font-weight: $peso-semi-negrita;
+        /*font-weight: $peso-semi-negrita;*/ /*Esta es la razón por qué se mueven los enlaces de navbar*/
     }
 }
-
-
 
 .sr-only {
     position: absolute;
@@ -156,4 +157,15 @@ hr.decorator {
     height: 2px;
     background-color: $color-secundario;
     border: none;
+}
+
+.decorator {
+    &::after {
+        content: "";
+        display: block;
+        width: 100%; 
+        height: 2px;  
+        background-color: $color-secundario; 
+        margin: 10px 0; 
+    }
 }

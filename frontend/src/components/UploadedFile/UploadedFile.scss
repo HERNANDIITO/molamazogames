@@ -1,0 +1,49 @@
+@import '../../styles/global.scss';
+
+.cont {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0.5rem;
+    background-color: $color-fondo;
+    border: 2px solid $color-secundario;
+    border-radius: 1rem;
+    width: 25%;
+    height: $alto-boton-enano;
+    position: relative;
+    margin: 2rem;
+}
+
+.icono {
+    color: $color-secundario;
+    font-size: $tamano-icono;
+    margin-left: 1rem;
+}
+
+.formato {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color: $color-texto;
+    font-size: $tamano-texto;
+}
+
+.boton {
+    background: transparent;
+    border: none;
+    color: $color-texto;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: 1rem;
+
+    transition: color 0.2s;
+
+    &:hover {
+        color: $color-danger;
+    }
+}
+
+.boton svg {
+    width: 22px;
+    height: 22px;
+}

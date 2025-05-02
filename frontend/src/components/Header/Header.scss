@@ -1,0 +1,236 @@
+@import '../../styles/global.scss';
+
+
+.App_header {
+    display: block;
+    background-color: $color-fondo;
+
+    box-shadow: 0 4px 7px rgba(0, 0, 0, 0.3);
+
+    .header_h {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        justify-content: space-between;
+        padding-top: 2rem;
+    }
+
+    .header-buttons {
+        display: flex;
+        margin-top: .5rem;
+        margin-right: 1rem;
+        flex-shrink: 0;
+        white-space: nowrap;
+    }
+
+    .regLog {
+        width: $ancho-boton-mediano;
+        height: $alto-boton-mediano;
+    }
+
+    .searchBar {
+        width: 47%;
+        margin-right: 3rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .h_but_anadir {
+        position: absolute;
+        top: 3rem;
+        right: 9rem;
+        width: $ancho-boton-mediano;
+        height: $alto-boton-mediano;
+        // padding-left: 4em;
+        // padding-right: 4em;
+    }
+
+    .h_logged {
+        justify-content: left;
+
+        >.searchBar {
+            width: 40%;
+            margin-left: 3rem;
+        }
+    }
+}
+
+@media all and (width<930px) {
+    .header_h {
+        flex-direction: column !important;
+        align-items: left;
+    }
+
+    .searchBar {
+        align-self: center !important;
+        width: 80% !important;
+    }
+
+    .header-buttons {
+        position: absolute;
+        top: 2rem;
+        right: 0.1rem;
+    }
+}
+
+// @media all and (width<890px){
+//     .searchBar{
+//         width: 80% !important;
+//     }
+// }
+
+@media all and (width<1300px) {
+    .h_but_anadir {
+        font-size: 0;
+        height: $alto-boton-enano !important;
+        width: $ancho-boton-enano !important;
+        gap: 0;
+
+        >span {
+            font-size: $tamano-texto-boton;
+        }
+
+        width: 3.5rem;
+    }
+}
+
+@media all and (width<1235px) {
+    .get-small {
+        width: $ancho-boton-peque !important;
+        height: $alto-boton-peque !important;
+        text-wrap: wrap;
+    }
+
+    .searchBar {
+        width: 80% !important;
+        display: flex;
+        align-items: center;
+        margin-left: 10%;
+    }
+
+    .h_logged {
+        flex-direction: column !important;
+
+        >.searchBar {
+            align-self: center;
+            margin-top: 3rem;
+            width: 80% !important;
+        }
+    }
+}
+
+// @media all and (width<1065px){
+//     .h_logged{
+//         flex-direction: column !important;
+//         >.searchBar{
+//             align-self: center;
+//             margin-top: 3rem;
+//             width: 80% !important;
+//         }
+//     }
+// }
+
+
+
+/*.App_header:not(.loggedIn) {
+    display: block;
+    background-color: $color-fondo;
+    padding-top: 1em;
+
+    .header_h{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 5rem;
+        justify-content: left;
+        padding: 0 3rem;
+        
+    }
+    
+    .h_but_anadir{
+        position: absolute;
+        top: 3rem;
+        right: 9rem;
+        padding-left: 4em;
+        padding-right: 4em;
+    }
+
+    .searchBar{
+        width: 45%;
+    }
+
+    .header-buttons {
+        display: flex;
+        flex-flow: row;
+        justify-content: center;
+        height: 100%;
+        align-items: center;
+        margin: $margen-elementos;
+        gap: 1rem;
+
+        > a {
+            margin: 0;
+        }
+    }
+}
+
+@media all and (width<1245px){
+    .App_header>.header_h{
+        display: flex;
+        flex-direction: column !important;
+        justify-content: center;
+        align-items: center;
+        margin-left: 5rem;
+        gap: 0 !important;
+        >.searchBar{
+            width: 30% !important; 
+        }
+    }
+}
+
+@media all and (width<1300px){
+    .h_but_anadir{
+        font-size: 0;
+        >span{
+            font-size: $tamano-texto-boton;
+        }
+        width: 3.5rem;
+    }
+}
+
+@media all and (width<1500px){
+    .App_header {
+        .searchBar {
+            width: 30% !important;
+        }
+    }
+}
+
+@media all and (width<770px) {
+    .App_header>.header_h{
+        align-items: center;
+        margin-left: 0;
+    }
+
+    .profile-container {
+        position: relative;
+    }
+
+    .h_but_anadir{
+        position: relative !important;
+        top: 0 !important;
+        right:0 !important;
+        padding-left:0 !important;
+        padding-right:0 !important;
+        margin-top: 3rem !important;
+    }
+
+    .but_profile{
+        display: flex;
+        flex-direction: row;
+        gap: 2rem;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 2rem;
+    }
+}*/

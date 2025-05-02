@@ -1,0 +1,53 @@
+@import '../../styles/global.scss';
+
+.dv {
+    margin: $margen-elementos;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: auto;
+
+    .upload-container {
+        border: 1px solid $color-texto;
+        border-radius: 5px;
+        background-color: $color-fondo;
+        width: $ancho-boton-enorme;
+    }
+  
+    .upload-box {
+        height: $ancho-boton-mediano;
+        border-bottom: 1px solid $color-texto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: $color-fondo;
+        border-top-right-radius: 5px;
+        border-top-left-radius: 5px;
+        width: 100%;
+    }
+    
+    .upload-icon {
+        color: $color-texto;
+        width: 100%;
+    }
+    
+    .upload-button {
+        background-color: $color-fondo2;
+        color: $color-texto;
+        padding: 0.5rem;
+        border: none;
+        cursor: pointer;
+        width: $ancho-boton-enorme;
+        border-radius: 5px;
+    }
+}
+
+.input{
+    width: 13.75rem;
+    margin: 0;
+}
+
+.texta{
+    width: $ancho-boton-enorme;    
+    margin: 0;
+}

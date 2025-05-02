@@ -3,11 +3,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Profile.scss';
 import Button from '../Button/Button';
+import { getUserByToken } from '../../services/authServices';
 
 const Profile = () => {
     const [isContentVisible, setIsContentVisible] = useState(false);
     const profileImageRef = useRef(null); 
     const profileCardRef = useRef(null); 
+
+    const [userName, setUserName] = useState("");
 
     // Función para alternar el estado del contenido
     const toggleContent = () => {
@@ -35,10 +38,24 @@ const Profile = () => {
         }
     };
 
+    // Función para cerrar sesión
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        window.location.reload();
+    };
+
   // Agregamos los event listener cuando el componente se monta
-  useEffect(() => {
+  useEffect( () => {
     document.addEventListener('mousedown', handleClickOutside);
     document.addEventListener('focusin', handleFocusOut, true);
+
+    const token = localStorage.getItem('token');
+
+    getUserByToken(token).then(user => {
+        if (user) {
+            setUserName(user.name);
+        }
+    });
 
     // Limpiamos el event listener cuando el componente se desmonta
     return () => {
@@ -48,8 +65,8 @@ const Profile = () => {
     }, []);
 
     return (
-        <section className="profile-container" tabIndex="-1" ref={profileCardRef}> {/* Se agrega tabIndex para permitir que el contenedor tenga el foco */}
-        <article
+        <div className="profile-container" tabIndex="-1" ref={profileCardRef}> {/* Se agrega tabIndex para permitir que el contenedor tenga el foco */}
+        <div
             className="profile-card"
             ref={profileCardRef} // Asignar la referencia al contenedor del perfil
         >
@@ -68,15 +85,9 @@ const Profile = () => {
 
             {isContentVisible && (
             <>
-                <h2 className="profile-name">Miguel Ángel Maravilloso de los Palotes de Argentina y Puerto Rico</h2>
+                <h2 className="profile-name">{userName || "Usuario"}</h2>
                 <Button
                     label="Ver Perfil"
-                    iconPosition="left"
-                    className=""
-                    href="h"
-                />
-                <Button
-                    label="Subir Asset"
                     iconPosition="left"
                     className=""
                     href="h"
@@ -85,12 +96,13 @@ const Profile = () => {
                     label="Cerrar Sesión"
                     iconPosition="left"
                     className="danger-btn"
+                    onClick={handleLogout}
                     href=""
                 />
             </>
             )}
-        </article>
-        </section>
+        </div>
+        </div>
     );
 };
 
