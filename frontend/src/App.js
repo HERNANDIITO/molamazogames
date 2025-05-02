@@ -20,6 +20,7 @@ import { IoIosArrowForward } from "react-icons/io";
 import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import Registrar from "./pages/Registrar/Registrar";
 import Login from "./pages/Login/Login";
+import SubirAsset from "./pages/SubirAsset/SubirAsset";
 import SearchBar from './components/SearchBar/SearchBar';
 import Profile from './components/Profile/Profile';
 import NavBar from './components/NavBar/NavBar';
@@ -35,6 +36,7 @@ import HistoryElement from './components/HistoryElement/HistoryElement';
 
 //USADO PARA COMPROBAR EL HISTORY ELEMENT
 import logo3 from './assets/images/LOGO3.png';
+
 
 
 function AppContent() {
@@ -65,18 +67,19 @@ function AppContent() {
   return (
     <div className="App">
       <Header></Header>
-      <main className="App-content">
+      
         <Routes>
           <Route path="/registrar" element={<Registrar />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/upAsset" element={<SubirAsset />} />
         </Routes>
 
-        {location.pathname !== "/registrar" && location.pathname !== "/login" && (
+        {location.pathname !== "/registrar" && location.pathname !== "/login" && location.pathname !== "/upAsset" &&(
           <>
 
             {/* 
         <Logo isInNav={true}></Logo>*/
-
+/*
               <>
                 <Textarea
                   type="text"
@@ -158,8 +161,8 @@ function AppContent() {
                   className="enano-btn round-btn"
                 />
 
-                {/* Checkbox normal con label visible */}
-                {/* <Checkbox label="Aceptar los términos y condiciones" size="normal" showLabel={true} id="terms-conditions" /> */}
+                {/* Checkbox normal con label visible }
+                {/* <Checkbox label="Aceptar los términos y condiciones" size="normal" showLabel={true} id="terms-conditions" /> }
 
                 <Checkbox label="Aceptar los términos y condiciones" size="normal" showLabel={true} id="terms" />
                 <Checkbox label="Aceptar los términos y condiciones" size="normal" showLabel={true} id="terms2" />
@@ -170,7 +173,7 @@ function AppContent() {
                 <Checkbox label="Suscribirse al newsletter" size="normal" showLabel={false} id="subscribe" />
                 <Checkbox label="Aceptar cookies" size="big" showLabel={false} id="cookies" />
 
-                {/* <RadioButton label="Aceptar los términos y condiciones"  id="terms5" name="pregunta" /> */}
+                {/* <RadioButton label="Aceptar los términos y condiciones"  id="terms5" name="pregunta" /> }
 
                 <RadioButtonGroup />
 
@@ -298,7 +301,7 @@ function AppContent() {
 
           </>
         )}
-      </main>
+
       <Footer>
 
       </Footer>

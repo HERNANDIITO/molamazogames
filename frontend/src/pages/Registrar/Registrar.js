@@ -5,8 +5,8 @@ import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import Button from '../../components/Button/Button.js';
 import Input from '../../components/Input/Input.js';
 import Profile from '../../components/Profile/Profile.js';
-import { FaArrowRight } from 'react-icons/fa'; 
-import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons"; 
+import { FaArrowRight } from 'react-icons/fa';
+import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 import { register } from '../../services/authServices.js';
 
 
@@ -32,18 +32,18 @@ const Registrar = () => {
 
   const handleChangePassword = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-   
+
     let passwordError = null;
 
     if (!/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{7,15}$/.test(e.target.value)) {
-      passwordError =  "La contraseña no cumple los requisitos.";
+      passwordError = "La contraseña no cumple los requisitos.";
     }
     setErrors({ ...errors, password: passwordError });
   };
 
   const handleChangeRePassword = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-   
+
     let passwordError = null;
 
     const password = document.querySelector('#password').value;
@@ -92,25 +92,26 @@ const Registrar = () => {
       try {
         const result = await register({ email, pass, name, phone });
 
-        if ( result && result.token ) {
+        if (result && result.token) {
           localStorage.setItem('token', result.token);
           window.location.replace('/')
         } else {
           throw new Error(result.message);
         }
       } catch (error) {
-        setErrors({global: error.message});
+        setErrors({ global: error.message });
       }
     }
   };
 
   return (
 
+      <main className="mainLogin">
         <section className="form-container">
           <form onSubmit={handleSubmit} className="register-form">
-          <h2 className="title decorator">Registrarse</h2>
-          <p className="aviso contenido-principal" tabIndex="-1">Los campos obligatorios están marcados con *</p>
-          {errors.global && <p className="login-error"><FontAwesomeIcon icon={faTriangleExclamation} /> &nbsp; {errors.global}</p>}
+            <h2 className="title decorator">Registrarse</h2>
+            <p className="aviso contenido-principal" tabIndex="-1">Los campos obligatorios están marcados con *</p>
+            {errors.global && <p className="login-error"><FontAwesomeIcon icon={faTriangleExclamation} /> &nbsp; {errors.global}</p>}
             <Input
               type="text"
               name="name"
@@ -118,7 +119,7 @@ const Registrar = () => {
               label="Nombre*"
               value={formData.name}
               onChange={handleChange}
-              autoFocus 
+              autoFocus
               placeholder="Manolo1234"
               className={`login ${errors.name ? "error" : ""}`} />
             {errors.name && <p className="register-error">{errors.name}</p>}
@@ -143,10 +144,10 @@ const Registrar = () => {
               value={formData.phone}
               onChange={handleChange}
               className={`login ${errors.phone ? "error" : ""}`} />
-              {errors.phone && <p className="register-error">{errors.phone}</p>}
+            {errors.phone && <p className="register-error">{errors.phone}</p>}
 
             <div className="input-container register-pass-container">
-              <div  className="pass-container">
+              <div className="pass-container">
                 <Input
                   type="password"
                   name="password"
@@ -156,33 +157,33 @@ const Registrar = () => {
                   onChange={handleChangePassword}
                   placeholder="Contraseña_123"
                   className={`login pass ${errors.password ? "error" : ""}`} />
-                {errors.password && <p className="register-error">{errors.password}</p>} 
-              <FontAwesomeIcon 
-                icon={faCircleInfo} 
-                className="info-icon"
-                aria-label="Información sobre los requisitos de la contraseña" 
-                tabIndex="0" 
-                onClick={() => setShowInfo(!showInfo)} 
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    setShowInfo(!showInfo);
-                  }
-                  const info = document.querySelector('.info-icon');
-                  if (info) {
-                    info.focus();
-                  }
-                }}
-              />
+                {errors.password && <p className="register-error">{errors.password}</p>}
+                <FontAwesomeIcon
+                  icon={faCircleInfo}
+                  className="info-icon"
+                  aria-label="Información sobre los requisitos de la contraseña"
+                  tabIndex="0"
+                  onClick={() => setShowInfo(!showInfo)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      setShowInfo(!showInfo);
+                    }
+                    const info = document.querySelector('.info-icon');
+                    if (info) {
+                      info.focus();
+                    }
+                  }}
+                />
               </div>
               {showInfo && (
-                  <div  tabIndex="0" className={`info-text-container ${showInfo ? "show" : ""}`}>
-                    <ul className="password-rules">La contraseña debe contener: </ul>
-                    <li className="password-rules">Entre 7 y 15 caracteres.</li>
-                    <li className="password-rules">Al menos una letra mayúscula.</li>
-                    <li className="password-rules">Al menos una letra minúscula.</li>
-                    <li className="password-rules">Al menos un número.</li>
-                    <li className="password-rules">Al menos un símbolo.</li>
-                  </div>
+                <div tabIndex="0" className={`info-text-container ${showInfo ? "show" : ""}`}>
+                  <ul className="password-rules">La contraseña debe contener: </ul>
+                  <li className="password-rules">Entre 7 y 15 caracteres.</li>
+                  <li className="password-rules">Al menos una letra mayúscula.</li>
+                  <li className="password-rules">Al menos una letra minúscula.</li>
+                  <li className="password-rules">Al menos un número.</li>
+                  <li className="password-rules">Al menos un símbolo.</li>
+                </div>
               )}
             </div>
 
@@ -205,7 +206,9 @@ const Registrar = () => {
           </form>
           <a href="/login" className='enlaceLogin'>¿Ya tienes una cuenta? Inicia sesión</a>
         </section>
-    
+      </main>
+
+
   );
 };
 

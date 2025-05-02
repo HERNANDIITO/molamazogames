@@ -15,7 +15,7 @@ const Textarea = ({
   className,                     
 }) => {
 
-  const textareaClasses = classNames('txta');
+  const textareaClasses = classNames('txta', className);
   const labelClasses = classNames('lbl');
   const divClasses = classNames('dv', className);
 

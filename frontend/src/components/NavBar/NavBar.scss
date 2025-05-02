@@ -1,23 +1,26 @@
 @import '../../styles/global.scss';
 
-nav{
-    >ul{
-        
+nav {
+    >ul {
+
         display: flex;
         flex-direction: row;
     }
 
-    >ul>li{
+    >ul>li {
         list-style: none;
         margin-right: $margen-elementos/2;
-        >a{
+
+        >a {
             color: $color-texto;
             font: $fuente-secundaria;
-            >span{
+
+            >span {
                 margin-right: $margen-elementos/2;
             }
         }
-        >a:hover{
+
+        >a:hover {
             cursor: pointer;
         }
     }
@@ -31,38 +34,38 @@ nav{
         border: none;
         font-size: 0;
 
-        >span{
+        >span {
             font-size: 2rem !important;
         }
 
-        &:hover{
+        &:hover {
             cursor: pointer;
             color: $color-hover-secundario;
             transition: all 0.3s ease;
         }
 
-        &:active{
+        &:active {
             color: $color-active-secundario;
             transition: none;
         }
     }
 
-    #chkMenu{
+    #chkMenu {
         display: none;
     }
-    
-    #chkMenu:checked ~ ul {
+
+    #chkMenu:checked~ul {
         max-height: 30em;
     }
 }
 
-@media all and (width>= 52rem) {
+@media all and (width>=52rem) {
     .nav_but {
         display: none !important;
     }
 }
 
-@media all and ( width<$tamano-tablet ) {
+@media all and (width<$tamano-tablet ) {
     .navbar {
         width: fit-content;
         margin: auto;
@@ -76,11 +79,11 @@ nav{
             visibility: hidden;
         }
     }
-} 
+}
 
 @media all and (width< 52rem) {
-    nav{
-        >ul{
+    nav {
+        >ul {
             display: flex;
             flex-direction: column;
             padding: 0;
@@ -88,7 +91,8 @@ nav{
             overflow: hidden;
             transition: max-height 0.5s ease;
         }
-        .nav_but{
+
+        .nav_but {
             display: block;
             margin: auto;
         }
@@ -116,4 +120,3 @@ nav{
         }
     }
 }*/
-

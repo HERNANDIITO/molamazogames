@@ -180,3 +180,14 @@
         }
     }
 }
+
+
+@media (max-width: 700px) {
+    .btn.ocultar-label .label-text {
+        display: none;
+      }
+    
+      .btn.ocultar-label .icon {
+        margin: 0;
+      }
+}
