@@ -41,12 +41,12 @@ const NavBar = () => {
             
             
             <ul class='nav_content'>
-                <li className='navbar-hidden' ><a href='#1'><span><FontAwesomeIcon icon={faImage} /></span>2D</a></li>
-                <li className='navbar-hidden' ><a href='#2'><span><FontAwesomeIcon icon={faCube} /></span>3D</a></li>
-                <li className='navbar-hidden' ><a href='#3'><span><FontAwesomeIcon icon={faMusic} /></span>Audio</a></li>
-                <li className='navbar-hidden' ><a href='#4'><span><FontAwesomeIcon icon={faVideo} /></span>Video</a></li>
-                <li className='navbar-hidden' ><a href='#5'><span><FontAwesomeIcon icon={faCode} /></span>Código</a></li>
-                <li className='navbar-hidden' ><a href='#6'><span><FontAwesomeIcon icon={faEllipsis} /></span>Otros</a></li>
+                <li className='navbar-hidden' ><a href='/buscarAssets/2d'><span><FontAwesomeIcon icon={faImage} /></span>2D</a></li>
+                <li className='navbar-hidden' ><a href='/buscarAssets/3d'><span><FontAwesomeIcon icon={faCube} /></span>3D</a></li>
+                <li className='navbar-hidden' ><a href='/buscarAssets/audio'><span><FontAwesomeIcon icon={faMusic} /></span>Audio</a></li>
+                <li className='navbar-hidden' ><a href='/buscarAssets/video'><span><FontAwesomeIcon icon={faVideo} /></span>Video</a></li>
+                <li className='navbar-hidden' ><a href='/buscarAssets/codigo'><span><FontAwesomeIcon icon={faCode} /></span>Código</a></li>
+                <li className='navbar-hidden' ><a href='/buscarAssets/otros'><span><FontAwesomeIcon icon={faEllipsis} /></span>Otros</a></li>
             </ul>
         </nav>
     );

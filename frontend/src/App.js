@@ -21,6 +21,8 @@ import { BrowserRouter as Router, Route, Routes, useLocation } from "react-route
 import Registrar from "./pages/Registrar/Registrar";
 import Login from "./pages/Login/Login";
 import SubirAsset from "./pages/SubirAsset/SubirAsset";
+import BuscarAssets from "./pages/BuscarAssets/BuscarAssets";
+
 import SearchBar from './components/SearchBar/SearchBar';
 import Profile from './components/Profile/Profile';
 import NavBar from './components/NavBar/NavBar';
@@ -72,6 +74,8 @@ function AppContent() {
           <Route path="/registrar" element={<Registrar />} />
           <Route path="/login" element={<Login />} />
           <Route path="/upAsset" element={<SubirAsset />} />
+          <Route path="/buscarAssets/" element={<BuscarAssets />} />
+          <Route path="/buscarAssets/:meta" element={<BuscarAssets />} />
         </Routes>
 
         {location.pathname !== "/registrar" && location.pathname !== "/login" && location.pathname !== "/upAsset" &&(
