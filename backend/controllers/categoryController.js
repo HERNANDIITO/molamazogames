@@ -17,13 +17,14 @@ const getAllCategories = asyncHandler( async (req, res, next) => {
             const meta = await Meta.findOne({meta: metaName})
             categories = await Category.find({meta: meta._id}, {__v:0, meta:0});
         } else {
-            categories = await Category.find({__v:0, meta:0});
+            categories = await Category.find({}, {__v:0});
         }
 
         res.status(200).json({
             result: 'OK',
             categories: categories
         });
+        
     }
     catch (err) {
         next(err);
