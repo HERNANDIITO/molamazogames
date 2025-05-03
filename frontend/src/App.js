@@ -21,6 +21,7 @@ import { BrowserRouter as Router, Route, Routes, useLocation } from "react-route
 import Registrar from "./pages/Registrar/Registrar";
 import Login from "./pages/Login/Login";
 import SubirAsset from "./pages/SubirAsset/SubirAsset";
+import Home from "./pages/Home/Home";
 import BuscarAssets from "./pages/BuscarAssets/BuscarAssets";
 
 import SearchBar from './components/SearchBar/SearchBar';
@@ -36,8 +37,10 @@ import UploadedFile from './components/UploadedFile/UploadedFile';
 import DatePicker from './components/DatePicker/DatePicker';
 import HistoryElement from './components/HistoryElement/HistoryElement';
 
-//USADO PARA COMPROBAR EL HISTORY ELEMENT
-import logo3 from './assets/images/LOGO3.png';
+import Card from './components/Card/Card';
+
+
+
 
 
 
@@ -69,21 +72,73 @@ function AppContent() {
   return (
     <div className="App">
       <Header></Header>
-      
-        <Routes>
-          <Route path="/registrar" element={<Registrar />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/upAsset" element={<SubirAsset />} />
-          <Route path="/buscarAssets/" element={<BuscarAssets />} />
-          <Route path="/buscarAssets/:meta" element={<BuscarAssets />} />
-        </Routes>
 
-        {location.pathname !== "/registrar" && location.pathname !== "/login" && location.pathname !== "/upAsset" &&(
-          <>
+      <Routes>
+        <Route path="/registrar" element={<Registrar />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/upAsset" element={<SubirAsset />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/buscarAssets/" element={<BuscarAssets />} />
+        <Route path="/buscarAssets/:meta" element={<BuscarAssets />} />
+      </Routes>
 
-            {/* 
-        <Logo isInNav={true}></Logo>*/
-/*
+      {location.pathname !== "/registrar" && location.pathname !== "/login" && location.pathname !== "/upAsset" && (
+        <>
+
+          {
+/* 
+            <>
+              <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+                <Card
+                  id="card1"
+                  type="3D"
+                  botonTag="boton"
+                />
+
+                <Card
+                  id="card2"
+                  type="2D"
+                  botonTag="boton"
+                />
+
+                <Card
+                  id="card3"
+                  type="Video"
+                  botonTag="boton"
+                />
+
+                <Card
+                  id="card4"
+                  type="Audio"
+                  botonTag="boton"
+                />
+
+                <Card
+                  id="card5"
+                  type="Code"
+                  botonTag="boton"
+                />
+
+                <Card
+                  id="card8"
+                  type="Subir"
+                  botonTag="subir"
+                />
+
+                <Card
+                  id="card7"
+                  type="Otros"
+                  botonTag="tag"
+                />
+
+
+              </div>
+
+
+            </>
+              
+      <Logo isInNav={true}></Logo>
+
               <>
                 <Textarea
                   type="text"
@@ -303,8 +358,8 @@ function AppContent() {
 
               <NavBar></NavBar> */}
 
-          </>
-        )}
+        </>
+      )}
 
       <Footer>
 

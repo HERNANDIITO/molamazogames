@@ -1,0 +1,11 @@
+@import '../../styles/global.scss';
+
+.contAssets{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 5rem;
+    align-items: center;
+    gap: 2rem;
+    justify-content: center;
+}
