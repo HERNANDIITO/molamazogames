@@ -6,7 +6,7 @@ import asyncHandler from 'express-async-handler'
 import moment from 'moment'
 
 const getAssetComments = asyncHandler( async (req,res,next) => {
-    const assetID = req.body.assetID;
+    const assetID = req.query.assetID;
 
     if ( !assetID ) {
         return res.status(400).json({

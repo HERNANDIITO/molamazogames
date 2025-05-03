@@ -9,16 +9,16 @@ import { deleteUserByID, getAllUsersAdmin, getUserByID, modifyUserByID, newUser 
 // Obetenemos todos los usuarios registrados del sistema
 userRouter.get("/", auth, getAllUsersAdmin);
 
-// Obtenemos el usuario indicado por el {id}
-userRouter.get("/:id", auth, getUserByID);
+// Obtenemos el usuario indicado por el
+userRouter.get("/", auth, getUserByID);
 
 // Registramos un nuevo usuario con toda su información.
 userRouter.post("/", auth, newUser);
 
-// Modificamos el usuario {id}.
-userRouter.put("/:id", auth, modifyUserByID)
+// Modificamos el usuario.
+userRouter.put("/", auth, modifyUserByID)
 
-// Eliminamos el usuario {id}.
-userRouter.delete("/:id", auth, deleteUserByID);
+// Eliminamos el usuario.
+userRouter.delete("/", auth, deleteUserByID);
 
 export default userRouter

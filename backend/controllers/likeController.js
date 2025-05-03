@@ -6,9 +6,9 @@ import asyncHandler from 'express-async-handler'
 
 const getUserLikes = asyncHandler( async (req,res,next) => {
 
-    const user = req.body.userID;
+    const userID = req.query.userID;
 
-    if ( !user ) {
+    if ( !userID || !(mongoose.Types.ObjectId.isValid(userID)) ) {
         return res.status(400).json({
             result: "Solicitud errónea.",
             msg: `Faltan campos obligatorios: ${!userID ? 'userID ' : ''}`
@@ -32,9 +32,9 @@ const getUserLikes = asyncHandler( async (req,res,next) => {
 });
 
 const getCommentLikes = asyncHandler( async (req,res,next) => {
-    const comment = req.body.commentID;
+    const commentID = req.body.commentID;
 
-    if ( !comment ) {
+    if ( !commentID || !(mongoose.Types.ObjectId.isValid(commentID)) ) {
         return res.status(400).json({
             result: "Solicitud errónea.",
             msg: `Faltan campos obligatorios: ${!commentID ? 'commentID ' : ''}`

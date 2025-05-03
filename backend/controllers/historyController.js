@@ -6,7 +6,7 @@ import User from '../schemas/user.schema.js';
 import Asset from '../schemas/asset.schema.js';
 
 const getUserHistory = asyncHandler( async (req, res, next) => {
-    const userID = req.user.id
+    const userID = req.query.userID ? req.query.userID : req.user.id;
 
     if ( !userID || !(mongoose.Types.ObjectId.isValid(userID)) ) {
         return res.status(400).json({

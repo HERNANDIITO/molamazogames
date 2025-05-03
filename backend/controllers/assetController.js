@@ -11,58 +11,89 @@ import mongoose from 'mongoose';
 // Obtener todos los assets
 const getAssets = asyncHandler(async (req, res, next) => {
 
-    const orderBy     = req.body.orderBy;
-    const searchBar   = req.body.searchBar;
-    const tags        = req.body.tags;
-    const author      = req.body.author;
-    const category    = req.body.category;
-    const format      = req.body.format;
-    const size        = req.body.size;
-    const meta        = req.body.meta;
+    const orderBy     = req.query.orderBy   ? JSON.parse(req.query.orderBy)     : undefined;
+    const searchBar   = req.query.searchBar ? JSON.parse(req.query.searchBar)   : undefined;
+    const tags        = req.query.tags      ? JSON.parse(req.query.tags)        : undefined;
+    const author      = req.query.author    ? JSON.parse(req.query.author)      : undefined;
+    const category    = req.query.category  ? JSON.parse(req.query.category)    : undefined;
+    const format      = req.query.format    ? JSON.parse(req.query.format)      : undefined;
+    const size        = req.query.size      ? JSON.parse(req.query.size)        : undefined;
+    const meta        = req.query.meta      ? JSON.parse(req.query.meta)        : undefined;
+    const isStrict    = req.query.isStrict  ? JSON.parse(req.query.isStrict)    : undefined;
 
     try{
 
-        const filters = {};
+        const filters = [];
                 
         if (searchBar) {
-            filters.$or = [
+            filters.push({ $or: [
                 { name: { $regex: searchBar, $options: 'i' } },
                 { description: { $regex: searchBar, $options: 'i' } }
-            ];
+            ]});
         }
         
-        if (tags && tags.length > 0) { 
-            filters.tags = { $in: tags };    
+        if (tags && tags.length > 0) {
+
+            const tagIDs = [];
+
+            for (const tag of tags) {
+                tagIDs.push((await createNewTagFunc(tag)).tag._id);
+            }
+
+            if ( isStrict ) {
+                filters.push({ tags: { $all: tagIDs } });
+            } else {
+                filters.push({ tags: { $in: tagIDs } });
+            }
         }
-        
-        if (author) { 
-            filters.author = author    
+
+        if (author) {
+            filters.push({ author: author });
         }
-        
+
         if (category && category.length > 0) { 
-            filters.category = { $in: category };    
+            if ( isStrict ) {
+                filters.push({ categories: { $all: [...category] } });
+            } else {
+                filters.push({ categories: { $in: [...category] } });
+            }
         }
-        
-        if (format) { 
-            filters.format = format    
+
+        if (format) {
+            if ( isStrict ) {
+                filters.push({ format: { $all: [...format] } });
+            } else {
+                filters.push({ format: { $in: [...format] } });
+            }
         }
-        
-        if (size.max && size.min) { 
-            filters.size = { $gte: size.max, $lte: size.min };      
-        } else if (size.min) {
-            filters.size = { $gte: size.min };
-        } else if (size.max) {
-            filters.size = { $lte: size.max };
+
+        if ( size ) {
+            if (size.max && size.min) { 
+                filters.push({ size: { $gte: size.max, $lte: size.min } });      
+            } else if (size.min) {
+                filters.push({ size: { $gte: size.min } });
+            } else if (size.max) {
+                filters.push({ size: { $lte: size.max } });
+            }
         }
-        
+
         if (meta) { 
-            filters.meta = meta      
+            filters.push({ meta: meta });
         }
 
-        console.log("FILTERS", filters)
-        console.log("ORDER BY", orderBy)
+        
+        const query = isStrict ? { $and: filters } : { $or: filters };
 
-        const assets = await Asset.find(filters).sort(orderBy);
+        console.log("filters");
+        console.dir(filters, { depth: null });
+
+        console.log("orderBy");
+        console.dir(orderBy, { depth: null });
+
+        console.log("query");
+        console.dir(query, { depth: null });
+        
+        const assets = await Asset.find(query).sort(orderBy);
         res.status(200).json({
             result: "OK.",
             assets: assets
@@ -77,7 +108,7 @@ const getAssets = asyncHandler(async (req, res, next) => {
 const getAssetByID = asyncHandler(async (req, res, next) => {
     try{
 
-        const assetID = req.body.assetID
+        const assetID = req.query.assetID
         
         if(!assetID || !(mongoose.Types.ObjectId.isValid(assetID))){
             return res.status(400).json({

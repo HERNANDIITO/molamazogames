@@ -11,6 +11,7 @@ dotenv.config();
 
 import express from 'express';
 import cors from 'cors';
+import mongoose from './db/conn.js';
 
 // Importar routers --------------------
 import userRouter       from './routes/userRoutes.js';
@@ -25,7 +26,6 @@ import likeRouter       from './routes/likeRoutes.js';
 import metaRouter       from './routes/metaRoutes.js';
 import tagRouter        from './routes/tagRoutes.js';
 import fileRouter       from './routes/fileRoutes.js';
-
 
 // Constantes --------------------------
 const PORT  = process.env.PORT;

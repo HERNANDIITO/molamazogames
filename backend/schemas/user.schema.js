@@ -24,6 +24,11 @@ const userSchema = new mongoose.Schema({
         required: true 
     },
 
+    profilePic: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'File',
+    },
+
     lastLogin: {
         type: Date,
         required: true 

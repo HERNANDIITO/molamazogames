@@ -6,9 +6,9 @@ import asyncHandler from 'express-async-handler'
 
 const getUserFavs = asyncHandler( async (req,res,next) => {
 
-    const user = req.body.userID;
+    const userID = req.query.userID;
 
-    if ( !user ) {
+    if ( !userID || !(mongoose.Types.ObjectId.isValid(userID)) ) {
         return res.status(400).json({
             result: "Solicitud errónea.",
             msg: `Faltan campos obligatorios: ${!userID ? 'userID ' : ''}`
@@ -17,7 +17,7 @@ const getUserFavs = asyncHandler( async (req,res,next) => {
 
     try {
 
-        const favs = await Fav.find({ author: user });
+        const favs = await Fav.find({ author: userID });
         const assetIDs = favs.map(fav => fav.asset);
         const assets = await Asset.find({ '_id': { $in: assetIDs } });
         return res.status(200).json({
@@ -32,9 +32,9 @@ const getUserFavs = asyncHandler( async (req,res,next) => {
 });
 
 const getAssetFavs = asyncHandler( async (req,res,next) => {
-    const assetID = req.body.assetID;
+    const assetID = req.query.assetID;
 
-    if ( !assetID ) {
+    if ( !assetID || !(mongoose.Types.ObjectId.isValid(assetID)) ) {
         return res.status(400).json({
             result: "Solicitud errónea.",
             msg: `Faltan campos obligatorios: ${!assetID ? 'assetID ' : ''}`

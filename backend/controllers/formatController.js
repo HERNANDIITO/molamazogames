@@ -48,7 +48,7 @@ const setupFormats = asyncHandler( async (req, res, next) => {
 })
 
 const getFormats = asyncHandler( async (req, res, next) => {
-    const meta = req.body.meta;
+    const meta = req.query.meta;
 
     const responseFormats = [];
 

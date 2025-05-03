@@ -22,7 +22,7 @@ const getFiles = asyncHandler( async(req,res,next) => {
 
 const getFileByID = asyncHandler( async(req,res,next) => {
     try {
-        const fileID = req.body.fileID;
+        const fileID = req.query.fileID;
 
         if ( !fileID || !(mongoose.Types.ObjectId.isValid(fileID)) ) {
             return res.status(400).json({
@@ -52,7 +52,7 @@ const getFileByID = asyncHandler( async(req,res,next) => {
 
 const getPreviewFilesByAssetID = asyncHandler( async(req, res, next) => {
     try {
-        const assetID = req.body.assetID;
+        const assetID = req.query.assetID;
 
         if ( !assetID || !(mongoose.Types.ObjectId.isValid(assetID)) ) {
             return res.status(400).json({
@@ -74,7 +74,7 @@ const getPreviewFilesByAssetID = asyncHandler( async(req, res, next) => {
 
 const getFileByAssetID = asyncHandler( async(req,res,next) => {
     try {
-        const assetID = req.body.assetID;
+        const assetID = req.query.assetID;
 
         if ( !assetID || !(mongoose.Types.ObjectId.isValid(assetID)) ) {
             return res.status(400).json({

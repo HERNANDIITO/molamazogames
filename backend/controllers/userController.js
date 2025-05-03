@@ -1,12 +1,12 @@
 import { encryptPassword } from '../helpers/pass.helper.js'
 import { generateToken } from '../helpers/token.helper.js'
-import asyncHandler from 'express-async-handler'
 
 import moment from 'moment'
-
-import db from '../db/conn.js';
+import asyncHandler from 'express-async-handler'
 import mongoose from 'mongoose';
 import User from '../schemas/user.schema.js';
+import File from '../schemas/file.schema.js'
+import { validateEmail, validatePass, validatePhone } from '../helpers/validator.helper.js';
 
 const getAllUsersAdmin = asyncHandler( async (req, res, next) => {
     try {
@@ -21,7 +21,7 @@ const getAllUsersAdmin = asyncHandler( async (req, res, next) => {
 const getUserByID = asyncHandler(async (req, res, next) => {
 
     try {
-        const elementoID = req.params.id;
+        const elementoID = req.query.userID;
 
         if ( !elementoID || !(mongoose.Types.ObjectId.isValid(elementoID)) ) {
             return res.status(400).json({
@@ -33,8 +33,7 @@ const getUserByID = asyncHandler(async (req, res, next) => {
         const user = await User.findById(elementoID)
     
         if ( user === null) {
-            res.status(401).json({ result: "Solicitud erronea.", msg: "No existe dicho usuario." });
-            return;
+            return res.status(401).json({ result: "Solicitud erronea.", msg: "No existe dicho usuario." });
         }
     
         res.json(user);
@@ -42,7 +41,6 @@ const getUserByID = asyncHandler(async (req, res, next) => {
     catch (err){
         next(err);
     }
-
 
 })
 
@@ -93,29 +91,104 @@ const newUser = asyncHandler(async (req, res, next) => {
 })
 
 const modifyUserByID = asyncHandler(async (req, res, next) => {
-    const elementoId = req.params.id;
-    const nuevosRegistros = req.body;
 
-    if ( elementoId === undefined || nuevosRegistros === undefined ) {
+    const userID = req.body.id ? req.body.id : req.user.id;
+
+    const userName  = req.body.userName;
+    const email     = req.body.email   ;
+    const phone     = req.body.phone   ;
+    const pfp       = req.body.pfp     ;
+    const newPass   = req.body.pass    ;
+
+    if ( !userID || !(mongoose.Types.ObjectId.isValid(userID)) ) {
         return res.status(400).json({
             result: "Solicitud errónea.",
-            msg: `Faltan campos obligatorios: ${!elementoId ? 'ID ' : ''}${!nuevosRegistros ? 'registro ' : ''}`
+            msg: `Faltan campos obligatorios: ${!userID ? 'userID ' : ''}`
         });
     }
-
-    if ( !elementoId || !(mongoose.Types.ObjectId.isValid(elementoId)) ) {
+    
+    if ( !userName && !email && !phone && !newPass && !pfp ) {
         return res.status(400).json({
             result: "Solicitud errónea.",
-            msg: `Faltan campos obligatorios: ${!elementoId ? 'elementoId ' : ''}`
+            msg: `No hay nada que editar`
         });
     }
-
+    
     try {
-        const result = await User.findByIdAndUpdate( elementoId, { $set: nuevosRegistros }, { new: true, runValidators: true } );
-        if (!result) {
+        const user = await User.findById(userID);
+
+        if (!user) {
             return res.status(404).json({ result: "Error", msg: "Usuario no encontrado" });
         }
-        res.json(result);
+        
+        if ( userName ) { 
+
+            const alreadyName = await User.findOne({name: userName}, 'name');
+        
+            if ( alreadyName && alreadyName.name == userName ) {
+                return res.status(400).json({ result: "Error. Solicitud erronea", msg: "Este nombre ya está registrado." });
+            }
+
+            user.name = userName
+
+        };
+
+        if ( email ) {
+
+            if (!validateEmail(email)) {
+                return res.status(400).json({ result: "Error. Solicitud erronea", msg: "El formato de correo electrónico no es válido." });
+            }
+
+            const alreadyEmail = await User.findOne({ email }, 'email')
+
+            if ( alreadyEmail ) {
+                return res.status(400).json({
+                    result: "Solicitud errónea.",
+                    msg: `Email en uso`
+                });
+            }
+
+            user.email = email   
+        };
+
+        if ( phone ) { 
+
+            if (!validatePhone(phone)) {
+                return res.status(400).json({ result: "Error. Solicitud erronea", msg: "El formato de telefono no es válido." });
+            }
+
+            user.phone = phone
+        };
+
+        if ( pfp ) {
+            if ( !(mongoose.Types.ObjectId.isValid(pfp)) ) {
+                return res.status(400).json({ result: "Error. Solicitud erronea", msg: "pfp no es una ID de File válida." });
+            }
+
+            const pfpFile = File.findById(pfp);
+
+            if ( !pfpFile ) {
+                return res.status(400).json({ result: "Error. Solicitud erronea", msg: "pfp no es una ID de File válida." });
+            }
+
+            user.profilePic = pfp
+
+        };
+
+        if ( newPass ) {
+
+            if ( !validatePass(newPass) ) {
+                return res.status(400).json({ result: "Error. Solicitud erronea", msg: "La contraseña no cumple los requisitos." });
+            }
+
+            const encryptedPass = await encryptPassword(newPass)
+            user.password = encryptedPass;
+
+        }
+
+        await user.save();
+
+        res.json(res.status(200).json({ result: "OK.", msg: "Usuario actualizado con exito." }));
     }
     catch (err) {
         next(err);
