@@ -21,6 +21,6 @@ assetRouter.put('/', auth, updateAsset);
 assetRouter.delete('/', auth, deleteAsset);
 
 // Eliminar un archivo de un asset
-assetRouter.delete('/', auth, deleteFileFromAsset);
+assetRouter.delete('/deleteFileFromAsset', auth, deleteFileFromAsset);
 
 export default assetRouter;

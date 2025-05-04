@@ -3,10 +3,12 @@ import File from '../schemas/file.schema.js';
 import Category from '../schemas/category.schema.js';
 import User from '../schemas/user.schema.js';
 import { createNewTagFunc } from './tagController.js';
+import { checkCategory, getAllCategoryAndChildrenIds } from './categoryController.js';
 
 import asyncHandler from 'express-async-handler'
 import moment from 'moment';
 import mongoose from 'mongoose';
+import Meta from '../schemas/meta.schema.js';
 
 // Obtener todos los assets
 const getAssets = asyncHandler(async (req, res, next) => {
@@ -51,11 +53,13 @@ const getAssets = asyncHandler(async (req, res, next) => {
             filters.push({ author: author });
         }
 
-        if (category && category.length > 0) { 
+        if (category && category.length > 0) {
+            const expandedCategoryIds = await getAllCategoryAndChildrenIds(category);
+
             if ( isStrict ) {
-                filters.push({ categories: { $all: [...category] } });
+                filters.push({ categories: { $all: expandedCategoryIds } });
             } else {
-                filters.push({ categories: { $in: [...category] } });
+                filters.push({ categories: { $in: expandedCategoryIds } });
             }
         }
 
@@ -77,23 +81,19 @@ const getAssets = asyncHandler(async (req, res, next) => {
             }
         }
 
-        if (meta) { 
-            filters.push({ meta: meta });
+        if (meta) {
+            if ( !mongoose.Types.ObjectId.isValid(meta) ) {
+                const metaObj = await Meta.findOne({meta: meta});
+                filters.push({ meta: metaObj._id });
+            } else {
+                filters.push({ meta: meta });
+            }
         }
 
         
         const query = isStrict ? { $and: filters } : { $or: filters };
 
-        console.log("filters");
-        console.dir(filters, { depth: null });
-
-        console.log("orderBy");
-        console.dir(orderBy, { depth: null });
-
-        console.log("query");
-        console.dir(query, { depth: null });
-        
-        const assets = await Asset.find(query).sort(orderBy);
+        const assets = await Asset.find(query).sort(orderBy).populate( 'author files tags meta' )
         res.status(200).json({
             result: "OK.",
             assets: assets
@@ -117,7 +117,21 @@ const getAssetByID = asyncHandler(async (req, res, next) => {
             });
         }
         
-        const asset = await Asset.findById(assetID);
+        const asset = await Asset.findById(assetID).populate([
+            {
+                path: 'categories',
+                populate: { path: 'meta' }
+            },
+            {
+                path: 'author'
+            },
+            {
+                path: 'files'
+            },
+            {
+                path: 'tags'
+            }
+        ]);;
 
         res.status(200).json({
             result: "OK.",
@@ -161,6 +175,7 @@ const createAsset = asyncHandler(async (req, res, next) => {
 
         const trueCategories = [];
         const falseCategories = [];
+        let meta;
 
         for (const categoryID of categoryIDs) {
 
@@ -169,10 +184,11 @@ const createAsset = asyncHandler(async (req, res, next) => {
                 continue;
             }
 
-            const category = await Category.findById(categoryID);
+            const category = await checkCategory(categoryID);
 
             if ( category ) {
                 trueCategories.push(categoryID);
+                meta = category.meta;
             } else {
                 falseCategories.push(categoryID);
             }
@@ -230,7 +246,8 @@ const createAsset = asyncHandler(async (req, res, next) => {
             publicationDate: publicationDate,
             updateDate: updateDate,
             size: assetSize,
-            files: files
+            files: files,
+            meta: meta
         });
     
         res.status(200).json(asset);
@@ -258,7 +275,7 @@ const updateAsset = asyncHandler(async (req, res, next) => {
                 });
         }
 
-        if ( !newName && !desc && !categories && !tags && !files ) {
+        if ( !newName && !desc && !newCategories && !tags && !newFiles ) {
             return res.status(400).json({
                 result:"Solicitud erronea.",
                 msg: `No hay nada que cambiar`
@@ -275,12 +292,13 @@ const updateAsset = asyncHandler(async (req, res, next) => {
         if ( newCategories ) {
             let errorCats = 0;
             for (const categoryID of newCategories) {
+
                 if ( !(mongoose.Types.ObjectId.isValid(categoryID)) ) {
                     errorCats++;
                     continue;
                 }
 
-                const category = await Category.findById(categoryID);
+                const category = await checkCategory(categoryID);
 
                 if ( !category ) {
                     errorCats++;
@@ -305,7 +323,6 @@ const updateAsset = asyncHandler(async (req, res, next) => {
 
         if ( newFiles ) {
             const currentFiles = asset.files;
-            console.log("currentFiles", currentFiles);
             const removedFiles = currentFiles.filter(file => !newFiles.includes(file));
             const addedFiles   = newFiles.filter(file => !currentFiles.includes(file));
 

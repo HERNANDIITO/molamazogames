@@ -4,12 +4,7 @@ const categoryChild = new mongoose.Schema({
     name: { 
         type: String,
         required: true
-    },
-
-    children: {
-        type: [this],
-        default: undefined
-    },
+    }
 });
 
 const categorySchema = new mongoose.Schema({

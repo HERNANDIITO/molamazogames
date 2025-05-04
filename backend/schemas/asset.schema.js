@@ -15,6 +15,11 @@ const assetSchema = mongoose.Schema(
             ref: 'Category',
             required: true
         },
+        meta: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Meta',
+            required: true
+        },
         tags: { 
             type: [mongoose.Schema.Types.ObjectId],
             required: [false],

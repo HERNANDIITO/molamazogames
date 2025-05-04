@@ -199,18 +199,12 @@ const catOtros = [
       children: [
         {
           name: "Blueprints o Graphs",
-          children: [],
-          meta: "Otros"
         },
         {
           name: "Plantillas de niveles",
-          children: [],
-          meta: "Otros"
         },
         {
           name: "Prefabs escenarios",
-          children: [],
-          meta: "Otros"
         }
       ],
       meta: "Otros"
@@ -220,28 +214,18 @@ const catOtros = [
       children: [
         {
           name: "Concept art",
-          children: [],
-          meta: "Otros"
         },
         {
           name: "Guías de diseño",
-          children: [],
-          meta: "Otros"
         },
         {
           name: "Guías de la historia",
-          children: [],
-          meta: "Otros"
         },
         {
           name: "Guías técnicas",
-          children: [],
-          meta: "Otros"
         },
         {
           name: "Moodboards",
-          children: [],
-          meta: "Otros"
         }
       ],
       meta: "Otros"
@@ -251,40 +235,12 @@ const catOtros = [
       children: [
         {
           name: "Storyboards",
-          children: [],
-          meta: "Otros"
         },
         {
           name: "Mapas de niveles",
-          children: [
-            {
-                name: "3D",
-                children: [],
-                meta: "Otros"
-            },
-            {
-                name: "2D",
-                children: [
-                {
-                    name: "Cenitales",
-                    children: [],
-                    meta: "Otros"
-                },
-                {
-                    name: "Isometricos",
-                    children: [],
-                    meta: "Otros"
-                }
-            ],
-                meta: "Otros"
-            }
-        ],
-          meta: "Otros"
         },
         {
           name: "Guiones y diálogos",
-          children: [],
-          meta: "Otros"
         }
       ],
       meta: "Otros"
