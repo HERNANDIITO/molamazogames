@@ -187,7 +187,7 @@ const uploadFile = asyncHandler(async (req, res, next) => {
             size: size,
             author: author,
             path: filePath,
-            preview: Boolean(isPreview)
+            preview: isPreview
         });
 
         const file = await newFile.save();
