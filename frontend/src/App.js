@@ -36,6 +36,7 @@ import InputField from './components/InputField/InputField';
 import UploadedFile from './components/UploadedFile/UploadedFile';
 import DatePicker from './components/DatePicker/DatePicker';
 import HistoryElement from './components/HistoryElement/HistoryElement';
+import Modal from './components/Modal/Modal';
 
 import Card from './components/Card/Card';
 
@@ -86,6 +87,18 @@ function AppContent() {
         <>
 
           {
+            <>
+              <Modal>
+              </Modal>
+
+              <Modal
+                type='add'>
+              </Modal>
+
+              <Modal
+                type='edit'>
+              </Modal>
+            </>
 /* 
             <>
               <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>

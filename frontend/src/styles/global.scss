@@ -77,7 +77,7 @@ p{
     }
 }
 
-a:not(.btn):not(.downloadIcon) {
+a:not(.btn):not(.downloadIcon):not(.enlaceLogin) {
     font-family: $fuente-secundaria;
     font-size: $tamano-texto;
     color: $color-secundario;
@@ -121,7 +121,7 @@ a:not(.btn):not(.downloadIcon) {
     }
 }
 
-nav a:not(.btn):not(.downloadIcon){
+nav a:not(.btn):not(.downloadIcon):not(.enlaceLogin){
     font-size: $tamano-texto-grande;
     color: $color-texto;
     font-weight: $peso-medio;

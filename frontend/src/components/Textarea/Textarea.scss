@@ -35,14 +35,12 @@
     }
 }
 
-.lbl{
-    margin-top: 15px;
-    margin-bottom: 15px;
+.labelTXT{
     display: block;
     font-size: $tamano-texto;
     text-align: left;
-    margin-left: 10px;
-    color: white;
+    color: $color-texto;
+    
 }
 
 .dv{

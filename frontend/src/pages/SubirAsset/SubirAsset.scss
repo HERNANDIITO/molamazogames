@@ -44,7 +44,7 @@
     }
 
     &.imagen{
-        height: 10rem;
+        height: auto;
     }
 }
 
@@ -95,6 +95,15 @@
     width: 90%;
     margin: 0 auto 1rem auto;
     height: 70%;
+}
+
+.preview-imagen {
+    display: block;
+    border-radius: 8px;
+    margin: auto;
+    margin-bottom: 1rem;
+    max-width: 10rem;
+    height: auto;
 }
 
 .catEti{
