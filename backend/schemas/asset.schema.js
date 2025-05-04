@@ -30,6 +30,11 @@ const assetSchema = mongoose.Schema(
             required: [true],
             ref: 'File',
         },
+        image: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: false,
+            ref: 'File',
+        },
         author: {
             type: mongoose.Schema.Types.ObjectId,
             required: [true, 'Please, add value for autor'],

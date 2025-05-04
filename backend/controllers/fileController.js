@@ -1,5 +1,6 @@
 import File from '../schemas/file.schema.js' 
 import Asset from '../schemas/asset.schema.js'
+import User from '../schemas/user.schema.js'
 import asyncHandler from 'express-async-handler'
 
 import mongoose from 'mongoose'
@@ -166,6 +167,15 @@ const uploadFile = asyncHandler(async (req, res, next) => {
             return res.status(400).json({
                 result: "Solicitud errónea.",
                 msg: `Faltan campos obligatorios: ${!description ? 'description ' : ''}${!author ? 'author ' : ''}${!originalname ? 'originalname ' : ''}${!mimetype ? 'mimetype ' : ''}${!size ? 'size ' : ''}${!filePath ? 'filePath ' : ''}`
+            });
+        }
+
+        const user = await User.findById(author);
+
+        if ( !user ) {
+            return res.status(400).json({
+                result: "Solicitud errónea.",
+                msg: `Dicho usuario no existe`
             });
         }
 

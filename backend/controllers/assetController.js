@@ -93,7 +93,7 @@ const getAssets = asyncHandler(async (req, res, next) => {
         
         const query = isStrict ? { $and: filters } : { $or: filters };
 
-        const assets = await Asset.find(query).sort(orderBy).populate( 'author files tags meta' )
+        const assets = await Asset.find(query).sort(orderBy).populate( 'author files tags meta image' )
         res.status(200).json({
             result: "OK.",
             assets: assets
@@ -117,21 +117,7 @@ const getAssetByID = asyncHandler(async (req, res, next) => {
             });
         }
         
-        const asset = await Asset.findById(assetID).populate([
-            {
-                path: 'categories',
-                populate: { path: 'meta' }
-            },
-            {
-                path: 'author'
-            },
-            {
-                path: 'files'
-            },
-            {
-                path: 'tags'
-            }
-        ]);;
+        const asset = await Asset.findById(assetID).populate('author files tags meta image');
 
         res.status(200).json({
             result: "OK.",
@@ -155,6 +141,7 @@ const createAsset = asyncHandler(async (req, res, next) => {
         const categoryIDs       = req.body.categories;
         const tagIDs            = req.body.tags;
         const files             = req.body.files;
+        const image             = req.body.image;
         const publicationDate   = moment();
         const updateDate        = moment();
 
@@ -230,6 +217,20 @@ const createAsset = asyncHandler(async (req, res, next) => {
             errors += `${falseFileIDs.length} archivos de los ${files.length} enviados no existen. `;
         }
 
+        if ( image ) {
+            // Comprobamos que image sea una id valida
+            if ( !(mongoose.Types.ObjectId.isValid(image)) ) {
+                errors += `La ID para la imagen de portada no es válida.`;
+            } else {
+
+                // Si es  una ID valida comprobamos que haya un elemento con dicha id en la bd
+                const newImage = await File.findById(image);
+                if ( !newImage ) {
+                    errors += `La imagen que se pretende poner como portada, no existe.`;
+                }
+            }
+        }
+
         if ( errors ) {
             return res.status(400).json({
                 result: "Solicitud errónea.",
@@ -247,12 +248,13 @@ const createAsset = asyncHandler(async (req, res, next) => {
             updateDate: updateDate,
             size: assetSize,
             files: files,
-            meta: meta
+            meta: meta,
+            image: image
         });
     
         res.status(200).json(asset);
     } catch(error){
-        res.status(500).json({ message: 'Server error', error: error.message });
+        next(error)
     }
 })
 
@@ -266,6 +268,7 @@ const updateAsset = asyncHandler(async (req, res, next) => {
         const newCategories = req.body.categories ;
         const newTags       = req.body.tags       ;
         const newFiles      = req.body.files      ;
+        const image         = req.body.image      ;
 
         if ( !assetID || !(mongoose.Types.ObjectId.isValid(assetID)) ||
              !userID  || !(mongoose.Types.ObjectId.isValid(userID )) ) {
@@ -275,7 +278,7 @@ const updateAsset = asyncHandler(async (req, res, next) => {
                 });
         }
 
-        if ( !newName && !desc && !newCategories && !tags && !newFiles ) {
+        if ( !newName && !desc && !newCategories && !tags && !newFiles && !image ) {
             return res.status(400).json({
                 result:"Solicitud erronea.",
                 msg: `No hay nada que cambiar`
@@ -319,6 +322,25 @@ const updateAsset = asyncHandler(async (req, res, next) => {
             }
 
             asset.tags = tagIDs;
+        }
+
+        if ( image ) {
+            // Comprobamos que image sea una id valida
+            if ( !(mongoose.Types.ObjectId.isValid(image)) ) {
+                error += `La ID para la imagen de portada no es válida.`;
+            } else {
+
+                // Si es  una ID valida comprobamos que haya un elemento con dicha id en la bd
+                const newImage = await File.findById(image);
+                if ( !newImage ) {
+                    error += `La imagen que se pretende poner como portada, no existe.`;
+                } else {
+                    // Si la ID es valida y hay un elemento con dicha ID procedemos a eliminar la foto existente
+                    await File.deleteOne({_id: asset.image});
+
+                    asset.image = image;
+                }
+            }
         }
 
         if ( newFiles ) {

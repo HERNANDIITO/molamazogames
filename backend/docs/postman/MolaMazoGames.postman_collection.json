@@ -30,7 +30,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/asset/getAssets?tags=[\"gáto\", \"agua\"]&category=[\"6815c94d08e202945dc62a2b\"]",
+							"raw": "http://localhost:5000/asset/getAssets?category=[\"6816abc60ba47755e842baa3\"]",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -56,17 +56,18 @@
 								{
 									"key": "tags",
 									"value": "[\"gáto\", \"agua\"]",
-									"description": "[tag1, tag2, ...]"
+									"description": "[tag1, tag2, ...]",
+									"disabled": true
 								},
 								{
 									"key": "author",
-									"value": "\"\"",
+									"value": "\"6816abce0ba47755e842bab9\"",
 									"description": "userID",
 									"disabled": true
 								},
 								{
 									"key": "category",
-									"value": "[\"6815c94d08e202945dc62a2b\"]",
+									"value": "[\"6816abc60ba47755e842baa3\"]",
 									"description": "[\"catID1, catID2\", ...]"
 								},
 								{
@@ -83,8 +84,8 @@
 								},
 								{
 									"key": "meta",
-									"value": "\"\"",
-									"description": "\"metaID\"",
+									"value": "\"2D\"",
+									"description": "\"metaID\" o \"2D\"",
 									"disabled": true
 								},
 								{
@@ -119,7 +120,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/asset/getAssetByID?assetID=6815cc3e3eb90ba25ea13064",
+							"raw": "http://localhost:5000/asset/getAssetByID?assetID=6817385cccaeb9777441423f",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -132,7 +133,7 @@
 							"query": [
 								{
 									"key": "assetID",
-									"value": "6815cc3e3eb90ba25ea13064"
+									"value": "6817385cccaeb9777441423f"
 								}
 							]
 						}
@@ -146,7 +147,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Perro tonto\",\r\n    \"description\": \"Un Perro tonto y gracioso, parpadea\",\r\n    \"categories\": [\"6815c94d08e202945dc62a2b\"],\r\n    \"tags\": [\"gÁtO\"],\r\n    \"files\": [\"6815cc323eb90ba25ea1305e\"]\r\n}",
+							"raw": "{\r\n    \"name\": \"Perro tonto\",\r\n    \"description\": \"Un Perro tonto y gracioso, parpadea\",\r\n    \"categories\": [\"681737c5765b0e89cf48a19e\"],\r\n    \"tags\": [\"gÁtO\"],\r\n    \"image\": \"681737df765b0e89cf48a226\",\r\n    \"files\": [\"681737df765b0e89cf48a226\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -174,7 +175,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"assetID\": \"68137b7d03ded2255d878a9a\",\r\n    \"name\": \"Asset turbo remix\",\r\n    \"description\": \"Remixeado hasta la saciedad\",\r\n    \"categories\": [],\r\n    \"tags\": [\"remix\", \"astonishing\", \"turbo\"],\r\n    \"files\": [\"68137b6b03ded2255d878a90\"]\r\n}",
+							"raw": "{\r\n    \"assetID\": \"6816b2e72ffe911fbce58ce0\",\r\n    \"name\": \"Asset turbo remix\",\r\n    \"description\": \"Remixeado hasta la saciedad\",\r\n    \"categories\": [\"6816abc60ba47755e842baa1\"],\r\n    \"tags\": [\"remix\", \"astonishing\", \"turbo\"],\r\n    \"files\": []\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -231,7 +232,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"assetID\": \"68136be23da91d72f63583ce\"\r\n}",
+							"raw": "{\r\n    \"assetID\": \"6816ac0d0ba47755e842bacf\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -239,15 +240,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/asset/deleteAssetByID",
+							"raw": "http://localhost:5000/asset",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"asset",
-								"deleteAssetByID"
+								"asset"
 							]
 						}
 					},
@@ -279,7 +279,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/category?meta=2D",
+							"raw": "http://localhost:5000/category",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -291,7 +291,8 @@
 							"query": [
 								{
 									"key": "meta",
-									"value": "2D"
+									"value": "2D",
+									"disabled": true
 								}
 							]
 						}
