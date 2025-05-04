@@ -88,7 +88,7 @@ function AppContent() {
 
           {
             <>
-              <Modal>
+              {/* <Modal>
               </Modal>
 
               <Modal
@@ -97,7 +97,7 @@ function AppContent() {
 
               <Modal
                 type='edit'>
-              </Modal>
+              </Modal> */}
             </>
 /* 
             <>
