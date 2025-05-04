@@ -23,6 +23,7 @@ import Login from "./pages/Login/Login";
 import SubirAsset from "./pages/SubirAsset/SubirAsset";
 import Home from "./pages/Home/Home";
 import BuscarAssets from "./pages/BuscarAssets/BuscarAssets";
+import DetallesAsset from './pages/DetallesAsset/DetallesAsset';
 
 import SearchBar from './components/SearchBar/SearchBar';
 import Profile from './components/Profile/Profile';
@@ -81,6 +82,7 @@ function AppContent() {
         <Route path="/home" element={<Home />} />
         <Route path="/buscarAssets/" element={<BuscarAssets />} />
         <Route path="/buscarAssets/:meta" element={<BuscarAssets />} />
+        <Route path="/detallesAsset/:assetID" element={<DetallesAsset />} />
       </Routes>
 
       {location.pathname !== "/registrar" && location.pathname !== "/login" && location.pathname !== "/upAsset" && (

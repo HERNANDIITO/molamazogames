@@ -93,7 +93,7 @@ const getAssets = asyncHandler(async (req, res, next) => {
         
         const query = isStrict ? { $and: filters } : { $or: filters };
 
-        const assets = await Asset.find(query).sort(orderBy).populate( 'author files tags meta image' )
+        const assets = await Asset.find(query).sort(orderBy).populate( 'author categories files tags meta image' )
         res.status(200).json({
             result: "OK.",
             assets: assets
@@ -117,7 +117,7 @@ const getAssetByID = asyncHandler(async (req, res, next) => {
             });
         }
         
-        const asset = await Asset.findById(assetID).populate('author files tags meta image');
+        const asset = await Asset.findById(assetID).populate('author categories files tags meta image');
 
         res.status(200).json({
             result: "OK.",
