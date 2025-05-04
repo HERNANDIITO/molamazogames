@@ -16,7 +16,7 @@ const SliderField = ({
   const [minValue, setMinValue] = useState(defaultMinValue);
   const [maxValue, setMaxValue] = useState(defaultMaxValue);
 
-  const labelClasses = classNames('lbl', className);
+  const labelClasses = classNames('labl', className);
   const descClasses = classNames('desc', className);
   const divClasses = classNames('dv', className);
   const thumbClasses = classNames('tmb', className);

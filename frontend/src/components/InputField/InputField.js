@@ -6,7 +6,9 @@ import Textarea from '../Textarea/Textarea';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 
-const InputField = ({}) => {
+const InputField = ({
+  type = "file"
+}) => {
   const divClasses = classNames('dv');
   const inputClasses = classNames('input');
   const textaClasses = classNames('texta');
@@ -28,20 +30,21 @@ const InputField = ({}) => {
 
   return (
     <div className={divClasses}>
-      <Input 
-        type="text" 
-        name="inpt" 
+      <Input
+        type="text"
+        name="inpt"
         id="inpt"
-        label="InputField"
+        label="Nombre"
         autoFocus
         placeholder="Escribe aquí tu texto"
         className={inputClasses}
       />
-      
-      <Textarea 
-        type="text" 
-        name="txtA" 
+
+      <Textarea
+        type="text"
+        name="txtA"
         id="txtA"
+        label={type === "foto" ? "Texto alternativo" : "Descripción"}
         autoFocus
         placeholder="Escribe aquí tu texto"
         className={textaClasses}

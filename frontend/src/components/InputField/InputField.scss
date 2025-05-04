@@ -12,6 +12,8 @@
         border-radius: 5px;
         background-color: $color-fondo;
         width: $ancho-boton-enorme;
+        margin: 1rem auto;
+        display: block;
     }
   
     .upload-box {
@@ -20,7 +22,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: $color-fondo;
+        background-color: $color-fondo2;
         border-top-right-radius: 5px;
         border-top-left-radius: 5px;
         width: 100%;
@@ -45,6 +47,7 @@
 .input{
     width: 13.75rem;
     margin: 0;
+    gap: 0;
 }
 
 .texta{

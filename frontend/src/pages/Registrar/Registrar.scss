@@ -12,25 +12,25 @@
     width: 32%;
     min-width: fit-content;
 
-    .title{
+    .title {
         color: $color-secundario;
         margin: 0;
         font-size: $tamano-h2;
         font-weight: bold;
         font-family: $fuente-principal;
     }
-    
+
     .aviso {
         display: block;
         text-align: left;
         font-size: $tamano-texto;
-        margin-bottom: 15px;
+        margin-bottom: 40px;
         margin-top: 10px;
         margin-left: 10px;
     }
 
-    .register-form{
-    
+    .register-form {
+
         .input-container {
             display: flex;
             flex-direction: row;
@@ -52,22 +52,57 @@
 
         }
 
-        
+
         .info-icon:hover {
             color: $color-hover-secundario;
-        }    
-    
-        .btn-container{
+        }
+
+        .btn-container {
             display: block;
             margin: auto;
             margin-top: 15px;
             margin-bottom: 10px;
         }
     }
-    .enlaceLogin{
+
+    .enlaceLogin {
         margin: auto;
         margin-top: 10px;
-    }  
+        font-family: $fuente-secundaria;
+        font-size: $tamano-texto;
+        color: $color-secundario;
+        font-weight: $peso-negrita;
+        font-style: italic;
+        display: inline-block;
+        position: relative;
+        text-decoration: none;
+        transition: color 0.3s ease;
+
+        width: fit-content;
+
+        &:visited {
+            color: $color-visited;
+        }
+
+        &:hover {
+            color: $color-hover-secundario;
+        }
+
+        &::before {
+            content: "";
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            background-color: $color-hover-secundario;
+            transition: width 0.3s ease, left 0.3s ease;
+            top: 18px;
+        }
+
+        &:hover::before {
+            width: 100%;
+            left: 0;
+        }
+    }
 }
 
 .error-input {
@@ -78,8 +113,8 @@
     position: relative;
 }
 
-.register-error{
-    color:$color-danger;
+.register-error {
+    color: $color-danger;
     display: block;
     text-align: left;
     margin-left: 15px;
@@ -118,7 +153,7 @@
     opacity: 1;
     transition: opacity 0.3s ease-in-out;
 }
-  
+
 .info-text {
     display: flex;
     padding: 10px;
@@ -147,7 +182,7 @@
     }
 
     .register-pass-container {
-        flex-direction: column !important; 
+        flex-direction: column !important;
     }
 
     .info-icon {
