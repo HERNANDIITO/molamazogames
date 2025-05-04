@@ -10,6 +10,7 @@ import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 import { getAllCategories } from '../../services/categoriesServices.js';
 import { useParams } from 'react-router-dom';
 import FullDropdown from '../../components/FullDropdown/FullDropdown.js';
+import { useSearchParams } from "react-router-dom";
 
 
 
@@ -21,6 +22,8 @@ const BuscarAssets = () => {
 
     const [categories, setCategories] = useState([]);
     const [categoriesError, setErrorCategories] = useState(null);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const searchTerm = searchParams.get("searchBar");
 
     const { meta } = useParams();
     
@@ -57,24 +60,28 @@ const BuscarAssets = () => {
   return (
     <>  
         <main>
-        <h2>{meta}</h2>
+        <h2>{meta ? (meta) : ( searchTerm ? ( '"' + searchTerm + '"' ) : ("Todos los assets"))}</h2>
         </main>
 
+
         <aside>
-        {!meta ? (
-            Object.entries(getCategoryGroups()).map(([key, value]) => (
-            <FullDropdown
-                categories={value}
-                nameDropdown={key} 
-            />
-            ))
-        ) : (
-            <FullDropdown
-            categories={categories}
-            nameDropdown={"Categoría"}
-            />
-        )}
+        <form>
+            {!meta ? (
+                Object.entries(getCategoryGroups()).map(([key, value]) => (
+                <FullDropdown
+                    categories={value}
+                    nameDropdown={key} 
+                />
+                ))
+            ) : (
+                <FullDropdown
+                    categories={categories}
+                    nameDropdown={"Categoría"}
+                />
+            )}
+        </form>
         </aside>
+        
 
       </>
 

@@ -3,11 +3,13 @@
 import React, { useState } from 'react';
 import './SearchBar.scss';
 import { FaSearch } from 'react-icons/fa';
+import { useNavigate } from "react-router-dom";
 
 const SearchBar = ({
     general = false  // True indica que es la barra principal del header de la web
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
 
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
@@ -18,6 +20,16 @@ const SearchBar = ({
     console.log("Searching for:", searchTerm); 
   };
 
+
+    const handleSubmitBusquedaGeneral = (e) => {
+        e.preventDefault();
+        if (searchTerm && searchTerm.trim() !== "") {
+        navigate(`/buscarAssets?searchBar=${encodeURIComponent(searchTerm)}`);
+        } else {
+        navigate("/buscarAssets");
+        }
+    };
+
   const handleSearch = (event) => {
     event.preventDefault();
     console.log("Searching for:", searchTerm); 
@@ -25,7 +37,7 @@ const SearchBar = ({
 
   if (general) {
         return (
-            <form onSubmit={handleSubmit} className="searchBar">
+            <form onSubmit={handleSubmitBusquedaGeneral} className="searchBar">
                 <label htmlFor="searchInput" className="sr-only">Buscar por palabras claves del título o descripción de los assets</label> 
                 <input
                     type="text"
@@ -33,7 +45,6 @@ const SearchBar = ({
                     placeholder="Buscar"
                     value={searchTerm}
                     onChange={handleInputChange}
-                    required
                 />
                 <button type="submit" aria-label="Confirmar busqueda">
                     <FaSearch />
