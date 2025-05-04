@@ -11,8 +11,6 @@ const setupFormats = asyncHandler( async (req, res, next) => {
 
     for (const formatArray of formats) {
 
-        console.log(formatArray[0].meta);
-        
         const metaCat = await Meta.findOne({meta: formatArray[0].meta})
 
         for (const format of formatArray) {
@@ -28,8 +26,6 @@ const setupFormats = asyncHandler( async (req, res, next) => {
                     meta: metaCat._id
                 });
 
-                console.log("format", format)
-            
                 const formatAdded = await newFormat.save();
                 newFormats.push(formatAdded);
 

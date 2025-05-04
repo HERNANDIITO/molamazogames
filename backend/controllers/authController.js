@@ -128,14 +128,12 @@ const register = asyncHandler(async(req, res, next) => {
 
         const alreadyName = await User.findOne({name: name});
         if ( alreadyName && alreadyName.name == name ) {
-            console.log(alreadyName);
             res.status(400).json({ result: "Error. Solicitud erronea", msg: "Este nombre ya está registrado." });
             return;
         }
         
         const alreadyEmail = await User.findOne({email: email});
         if ( alreadyEmail && alreadyEmail.email == email ) {
-            console.log(alreadyEmail);
             res.status(400).json({ result: "Error. Solicitud erronea", msg: "Este email ya está registrado." });
             return;
         }

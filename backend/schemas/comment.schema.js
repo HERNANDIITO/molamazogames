@@ -25,7 +25,6 @@ const commentSchema = new mongoose.Schema({
 });
 
 commentSchema.pre('deleteOne', { document: true, query: false }, async function(next) {
-    console.log("DELETION MIDDLEWARE!");
     const comment = this; 
     await mongoose.model('Like').deleteMany({ comment: comment._id });
     next();

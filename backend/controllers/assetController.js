@@ -113,7 +113,7 @@ const getAssetByID = asyncHandler(async (req, res, next) => {
         if(!assetID || !(mongoose.Types.ObjectId.isValid(assetID))){
             return res.status(400).json({
                 result:"Solicitud erronea",
-                msg: `Faltan campos obligatorios: ${!assetID ? 'assetID ' : ''}`
+                msg: `Faltan campos obligatorios o no son validos: ${!assetID ? 'assetID ' : ''}${!(mongoose.Types.ObjectId.isValid(assetID)) ? 'assetID no es una ID válida ' : ''}`
             });
         }
         
