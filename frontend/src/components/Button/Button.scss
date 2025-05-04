@@ -141,10 +141,10 @@
         border: $borde-botones solid $color-secundario;
         box-shadow: none;
         transition: all 0.5s ease;
-        width: auto;
+        width: fit-content;
         height: auto;
         padding: .5rem;
-      
+
         &:hover{
             border-color: $color-hover-secundario;
             color: $color-hover-secundario;
