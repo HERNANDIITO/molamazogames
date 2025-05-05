@@ -4,16 +4,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark } from '@fortawesome/free-regular-svg-icons';
 import Button from '../../components/Button/Button.js';
-import Input from '../../components/Input/Input.js';
-import Profile from '../../components/Profile/Profile.js';
-import { FaArrowRight } from 'react-icons/fa';
-import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
-import { getAllCategories } from '../../services/categoriesServices.js';
 import { useParams } from 'react-router-dom';
 import { LuTag } from "react-icons/lu";
 import { getAssetById } from '../../services/assetService.js';
 import CarousselController from '../../components/CarousselController/CarousselController.js';
-
 
 const DetallesAsset = () => {
 
@@ -22,9 +16,6 @@ const DetallesAsset = () => {
 
     const [previewFiles, setPreviewFiles] = useState([]);
     const [previewFilesError, setErrorPreviewFiles] = useState(null);
-
-    const [selectedCarousselEntry, setSelectedCarousselEntry] = useState([]);
-    const [selectedCarousselEntryError, setErrorCarousselEntry] = useState(null);
 
     const carousselRef = useRef(null);
 
@@ -38,7 +29,6 @@ const DetallesAsset = () => {
                 const previewFilesToSet = result.asset.files.filter( (file) => { return file.preview })
                 setAsset(assetToSet);
                 setPreviewFiles(previewFilesToSet)
-                setSelectedCarousselEntry(0)
             } catch (error) {
                 setErrorAsset('Algo salió mal. No se han podido recuperar las categorías. Por favor, prueba a recargar la página.');
             }
@@ -46,14 +36,6 @@ const DetallesAsset = () => {
 
         fetchAsset();
     }, []);
-
-    const isSelected = (fileID) => {
-        const selectedIndex = previewFiles.findIndex(archivo => archivo._id === fileID);
-        if ( selectedIndex == selectedCarousselEntry ) { return " carousselSelectedPhoto" }
-        if ( previewFiles[selectedCarousselEntry - 1] && previewFiles[selectedCarousselEntry - 1]._id == fileID ) { return " carousselBlurredPhoto carousselLeft" }
-        if ( previewFiles[selectedCarousselEntry + 1] && previewFiles[selectedCarousselEntry + 1]._id == fileID ) { return " carousselBlurredPhoto carousselRight" }
-        return " notSelected";
-    }
 
     const renderPreviewImages = () => {
 
