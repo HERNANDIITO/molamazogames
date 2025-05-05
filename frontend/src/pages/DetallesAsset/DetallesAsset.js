@@ -150,7 +150,17 @@ const DetallesAsset = () => {
     }
 
     const renderTags = () => {
+        if ( !asset.tags ) { return; }
 
+        return asset.tags.map((tag) => (
+            <Button
+                label={tag.name}
+                icon={<LuTag />}
+                iconPosition="left"
+                className="tag"
+                href="#"
+            />
+        ));
     }
 
     return (
