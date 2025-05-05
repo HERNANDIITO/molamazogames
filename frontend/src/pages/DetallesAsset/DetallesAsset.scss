@@ -4,17 +4,87 @@ $assetDetailsGap: 15px;
 $assetDetailsPadding: 15px;
 $assetDetailsBackground: $color-fondo2;
 $assetDetailsBorderRadius: 8px;
+$assetCarruselHeight: 700px;
+$assetPhotoHeigh: $assetCarruselHeight - 150px;
 
 .detailsPage {
-    .carousselDetalles {
 
+    .decorator {
+        text-align: left;
     }
+
+    .assetDetails-assetName {
+        width: fit-content;
+        margin: $assetDetailsGap auto;
+    }
+
+    .carousselWrapper {
+
+        position: relative;
+        width: 100%;
+
+        .carousselDetallesButtons {
+            position: absolute;
+            display: flex;
+            justify-content: space-between;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+        }
+
+        .carousselDetalles {
+    
+            display: flex;
+            flex-flow: row;
+            height: $assetCarruselHeight;
+            overflow: hidden;
+            scroll-behavior: smooth;
+            
+            .carousselEntry {
+                flex-shrink: 0;
+                width: 100%;
+                gap: $assetDetailsGap;
+                display: flex;
+                flex-flow: column;
+                margin: $assetDetailsPadding 0;
+    
+                &.notSelected {}
+                &.carousselSelectedPhoto {}
+                &.carousselLeft {}
+                &.carousselRight {}
+                &.carousselBlurredPhoto {}
+    
+                .carousselImage {
+                    flex-grow: 1;
+                    height: $assetPhotoHeigh;
+                    padding: 0 130px;
+    
+                    img {
+                        border-radius: 12px;
+                        height: 100%;
+                    }
+                }
+    
+                .carousselImageInfo {
+                    gap: $assetDetailsGap;
+                    display: flex;
+                    flex-flow: column;
+    
+                    >* {
+                        margin: 0
+                    }
+                }
+    
+            }
+        }
+    }
+
 
     .assetDetails {
         display: flex;
         flex-flow: column;
         width: 70%;
-        margin: auto;
+        margin: 15px auto;
         gap: $assetDetailsGap;
 
         h3 {
@@ -36,14 +106,17 @@ $assetDetailsBorderRadius: 8px;
             gap: $assetDetailsGap;
 
             .info-col {
-                display: flex;
-                flex-flow: column;
                 width: 60%;
 
-                .detailsEntry {
-                    &>* {
-                        margin: 0;
-                        text-align: left;
+                .assetDetailsCard {
+                    display: flex;
+                    flex-flow: column;
+    
+                    .detailsEntry {
+                        &>* {
+                            margin: 0;
+                            text-align: left;
+                        }
                     }
                 }
             
@@ -53,6 +126,7 @@ $assetDetailsBorderRadius: 8px;
                 display: flex;
                 flex-flow: column;
                 gap: $assetDetailsGap;
+                justify-content: space-around;
                 width: 40%;
 
 
@@ -60,7 +134,7 @@ $assetDetailsBorderRadius: 8px;
                     display: flex;
                     flex-flow: row;
                     justify-content: space-between;
-                    gap: 15px;
+                    gap: $assetDetailsGap;
 
                     .assetDetails-button {
                         width: fit-content;
@@ -68,17 +142,54 @@ $assetDetailsBorderRadius: 8px;
                         margin: 0;
                         flex-grow: 1;
                     }
-
-                    .assetDetails-downloadButton {
-                    }
                 }
-                .assetCategories {
+            }
+        }
+    }
+}
 
-                }
-                .assetTags {
-                    .assetTagsDisplay {
+@media all and (width < 1070px) {
+    .detailsPage {
 
+        .carousselWrapper{
+            margin-bottom: 95px;
+
+            .carousselDetallesButtons {
+                top: 100%;
+                transform: translateX(-50%);
+                width: fit-content;
+            }
+            .carousselDetalles {
+                height: auto;
+                width: 100%;
+                
+                .carousselEntry {
+                    height: auto;
+                    width: 100%;
+
+                    .carousselImage {
+                        height: auto;
+                        width: calc(100% - 50px);
+                        padding: 0 25px;
+                        
+                        img {
+                            height: auto;
+                            width: 100%;
+
+                        }
                     }
+                    
+                }
+            }
+        }
+
+        .assetDetails {
+            .assetDetailsCard {}
+            .detailsRow {
+                flex-flow: column-reverse;
+                
+                > .info-col, >.tags-col{
+                    width: 100%;
                 }
             }
         }

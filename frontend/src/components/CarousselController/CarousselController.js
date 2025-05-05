@@ -20,6 +20,13 @@ const CarousselController = ({
   const xOffset = direction === 'left' ? -10 : 10;
   const icon = direction === 'left' ? faCaretLeft : faCaretRight;
 
+  const handleClick = () => {
+    if (onClick) {
+      console.log("triggering on click! ")
+      onClick();  // Llamamos a la función onClick pasada como prop
+    }
+  };
+
   return (
 
       <motion.button
@@ -28,6 +35,7 @@ const CarousselController = ({
         onMouseLeave={() => setExpanded(false)}
         disabled={disabled}
         className={buttonClasses}
+        onClick={handleClick}  
       >
         <motion.div
           animate={{ x: expanded ? xOffset : 0 }}

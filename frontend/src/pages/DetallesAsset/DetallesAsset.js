@@ -1,5 +1,5 @@
 import './DetallesAsset.scss'
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark } from '@fortawesome/free-regular-svg-icons';
@@ -12,6 +12,7 @@ import { getAllCategories } from '../../services/categoriesServices.js';
 import { useParams } from 'react-router-dom';
 import { LuTag } from "react-icons/lu";
 import { getAssetById } from '../../services/assetService.js';
+import CarousselController from '../../components/CarousselController/CarousselController.js';
 
 
 const DetallesAsset = () => {
@@ -19,14 +20,25 @@ const DetallesAsset = () => {
     const [asset, setAsset] = useState([]);
     const [assetError, setErrorAsset] = useState(null);
 
+    const [previewFiles, setPreviewFiles] = useState([]);
+    const [previewFilesError, setErrorPreviewFiles] = useState(null);
+
+    const [selectedCarousselEntry, setSelectedCarousselEntry] = useState([]);
+    const [selectedCarousselEntryError, setErrorCarousselEntry] = useState(null);
+
+    const carousselRef = useRef(null);
+
     const { assetID } = useParams(); 
 
     useEffect(() => {
         const fetchAsset = async () => {
             try {
                 const result = await getAssetById({ assetID: assetID });
-                console.log(result.asset)
-                setAsset(result.asset);
+                const assetToSet = result.asset;
+                const previewFilesToSet = result.asset.files.filter( (file) => { return file.preview })
+                setAsset(assetToSet);
+                setPreviewFiles(previewFilesToSet)
+                setSelectedCarousselEntry(0)
             } catch (error) {
                 setErrorAsset('Algo salió mal. No se han podido recuperar las categorías. Por favor, prueba a recargar la página.');
             }
@@ -35,17 +47,28 @@ const DetallesAsset = () => {
         fetchAsset();
     }, []);
 
+    const isSelected = (fileID) => {
+        const selectedIndex = previewFiles.findIndex(archivo => archivo._id === fileID);
+        if ( selectedIndex == selectedCarousselEntry ) { return " carousselSelectedPhoto" }
+        if ( previewFiles[selectedCarousselEntry - 1] && previewFiles[selectedCarousselEntry - 1]._id == fileID ) { return " carousselBlurredPhoto carousselLeft" }
+        if ( previewFiles[selectedCarousselEntry + 1] && previewFiles[selectedCarousselEntry + 1]._id == fileID ) { return " carousselBlurredPhoto carousselRight" }
+        return " notSelected";
+    }
+
     const renderPreviewImages = () => {
 
-        if ( !asset.files ) { return; }
+        if ( !previewFiles ) { return "No hay preview files"; }
 
-        const previewFiles = asset.files.filter( (file) => { return file.preview });
-
+        console.log("previewFiles", previewFiles)
         return previewFiles.map((file) => (
-            <div class="carousselEntry">
-                <img src={`http://localhost:5000\\${file.path}`}></img>
-                <h3>{file.name}</h3>
-                <p>{file.description}</p>
+            <div id={file._id} class={`carousselEntry`}>
+                <div class="carousselImage">
+                    <img src={`http://localhost:5000\\${file.path}`}></img>
+                </div>
+                <div class="carousselImageInfo">
+                    <h3>{file.name}</h3>
+                    <p>{file.description}</p>
+                </div>
             </div>
         ));
     };
@@ -115,18 +138,19 @@ const DetallesAsset = () => {
         ));
     }
 
-    const renderTags = () => {
-        if ( !asset.tags ) { return; }
+    const scroll = (direction) => {
+        const caroussel = carousselRef.current;
 
-        return asset.tags.map((tag) => (
-            <Button
-                label={tag.name}
-                icon={<LuTag />}
-                iconPosition="left"
-                className="tag"
-                href="#"
-            />
-        ));
+        if ( !caroussel ) { return; }
+
+        const currentScroll = caroussel.scrollLeft;
+        const pxToScroll = currentScroll + (caroussel.clientWidth * direction)
+
+        caroussel.scroll(pxToScroll, 0);  
+    }
+
+    const renderTags = () => {
+
     }
 
     return (
@@ -134,31 +158,48 @@ const DetallesAsset = () => {
     <main>
         
         <div class="detailsPage">
-            <h2 class="decorator">{asset.name}</h2>
+            <h2 class="decorator assetDetails-assetName">{asset.name}</h2>
+            <div class="carousselWrapper">
+                <div class="carousselDetallesButtons">
+                    <CarousselController
+                        id="assetDetailsCarousselControllerLeft"
+                        label="Control del carrusel"
+                        onClick={() => scroll(-1)}
+                    />
 
-            <div class="carousselDetalles">
-                { renderPreviewImages() }
+                    <CarousselController
+                        id="assetDetailsCarousselControllerRight"
+                        label="Control del carrusel"
+                        onClick={() => scroll(1)}
+                        direction='right'
+                    />
+                </div>
+                <div ref={carousselRef} class="carousselDetalles">
+                    { renderPreviewImages() }
+                </div>
             </div>
 
             <div class="assetDetails">
                 <div class="detailsRow">
-                    <div class="info-col assetDetailsCard">
-                        <h3 class="decorator">Información</h3>
-                        <div class="detailsEntry">
-                            <h4>Autor</h4>
-                            <p>{getAssetAuthor()}</p>
-                        </div>
-                        <div class="detailsEntry">
-                            <h4>Tamaño</h4>
-                            <p>{getAssetSize()}</p>
-                        </div>
-                        <div class="detailsEntry">
-                            <h4>Fecha de publicación</h4>
-                            <p>{getAssetPublicationDate()}</p>
-                        </div>
-                        <div class="detailsEntry">
-                            <h4>Fecha de actualización</h4>
-                            <p>{getAssetUpdateDate()}</p>
+                    <div class="info-col">
+                        <div class="assetDetailsCard">
+                            <h3 class="decorator">Información</h3>
+                            <div class="detailsEntry">
+                                <h4>Autor</h4>
+                                <p>{getAssetAuthor()}</p>
+                            </div>
+                            <div class="detailsEntry">
+                                <h4>Tamaño</h4>
+                                <p>{getAssetSize()}</p>
+                            </div>
+                            <div class="detailsEntry">
+                                <h4>Fecha de publicación</h4>
+                                <p>{getAssetPublicationDate()}</p>
+                            </div>
+                            <div class="detailsEntry">
+                                <h4>Fecha de actualización</h4>
+                                <p>{getAssetUpdateDate()}</p>
+                            </div>
                         </div>
                     </div>
                     <div class="tags-col">
