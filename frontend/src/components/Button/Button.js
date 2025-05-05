@@ -13,6 +13,7 @@ const Button = ({
   icon,                     // El icono que se quiere mostrar (opcional)
   iconPosition = 'left',    // Donde colocar el icono 'left', 'right', 'alone'
   href,                     // Si se envia algo en este campo se renderizara un <a>
+  download = false
 }) => {
 
   const buttonClasses = classNames(
@@ -28,6 +29,23 @@ const Button = ({
 
 
   if (href) {
+    if ( download ) {
+      return (
+      <a
+        href={href}
+        className={buttonClasses}
+        title={iconPosition === 'alone' ? label : ''}
+        aria-label={iconPosition === 'alone' ? label : ''}
+        download
+        target="_blank"
+      >
+        {iconPosition === 'left' && iconElement}
+        {iconPosition !== 'alone' && <span className="label-text">{label}</span>}
+        {iconPosition === 'right' && iconElement}
+        {iconPosition === 'alone' && iconElement}
+      </a>
+      )
+    }
     return (
       <a
         href={href}

@@ -1,8 +1,8 @@
 import './DetallesAsset.scss'
 import { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDownload } from '@fortawesome/free-solid-svg-icons';
-import { faBookmark } from '@fortawesome/free-regular-svg-icons';
+import { faCode, faDownload, faFilm, faFolder, faImage, faMusic } from '@fortawesome/free-solid-svg-icons';
+import { faBookmark, faFileCode } from '@fortawesome/free-regular-svg-icons';
 import Button from '../../components/Button/Button.js';
 import { useParams } from 'react-router-dom';
 import { LuTag } from "react-icons/lu";
@@ -17,6 +17,9 @@ const DetallesAsset = () => {
     const [previewFiles, setPreviewFiles] = useState([]);
     const [previewFilesError, setErrorPreviewFiles] = useState(null);
 
+    const [downloadableFiles, setDownloadableFiles] = useState([]);
+    const [downloadableFilesError, setErrorDownloadableFiles] = useState(null);
+
     const carousselRef = useRef(null);
 
     const { assetID } = useParams(); 
@@ -27,8 +30,10 @@ const DetallesAsset = () => {
                 const result = await getAssetById({ assetID: assetID });
                 const assetToSet = result.asset;
                 const previewFilesToSet = result.asset.files.filter( (file) => { return file.preview })
+                const downloadableFilesToSet = result.asset.files.filter( (file) => { return !file.preview })
                 setAsset(assetToSet);
-                setPreviewFiles(previewFilesToSet)
+                setPreviewFiles(previewFilesToSet);
+                setDownloadableFiles(downloadableFilesToSet);
             } catch (error) {
                 setErrorAsset('Algo salió mal. No se han podido recuperar las categorías. Por favor, prueba a recargar la página.');
             }
@@ -131,6 +136,42 @@ const DetallesAsset = () => {
         caroussel.scroll(pxToScroll, 0);  
     }
 
+    const renderDownloadableFiles = () => {
+        if ( !downloadableFiles ) { return "No hay downloadable files"; }
+        return downloadableFiles.map((file) => (
+            <div class="downloadableFile">
+                <span class="fileType" >
+                {(() => {
+                    switch (file.mimetype.split("/")[0]) {
+                    case "image":
+                        return <FontAwesomeIcon icon={faImage} />;
+                    case "video":
+                        return <FontAwesomeIcon icon={faFilm} />;
+                    case "audio":
+                        return <FontAwesomeIcon icon={faMusic} />;
+                    case "text":
+                        return <FontAwesomeIcon icon={faCode} />;
+                    case "application":
+                        return <FontAwesomeIcon icon={faFolder} />;
+                    default:
+                        return "Unsupported file type"; // Puedes mostrar un mensaje por defecto
+                    }
+                })()}
+                </span>
+                <span class="fileName" >{file.originalName}</span>
+                <span class="fileDesc" >{file.description}</span>
+                <Button
+                    label={file.originalName}
+                    icon={<FontAwesomeIcon icon={faDownload} />}
+                    iconPosition="alone"
+                    className="round-btn secondary-btn enano-btn fileDownload"
+                    href={`http://localhost:5000/${file.path}`}
+                    download={true}
+                />
+            </div>
+        ))
+    }
+
     const renderTags = () => {
         if ( !asset.tags ) { return; }
 
@@ -229,6 +270,10 @@ const DetallesAsset = () => {
                 <div class="assetDescription assetDetailsCard">
                     <h3 class="decorator">Descripción</h3>
                     <p>{getAssetDescription()}</p>
+                </div>
+                <div class="assetDownloads assetDetailsCard">
+                    <h3 class="decorator">Descargas</h3>
+                    <p class="downloadableFileList">{renderDownloadableFiles()}</p>
                 </div>
             </div>
         </div>

@@ -1,4 +1,5 @@
 @import '../../styles/global.scss';
+@import '../../styles//themes/colors';
 
 $assetDetailsGap: 15px;
 $assetDetailsPadding: 15px;
@@ -107,10 +108,12 @@ $assetPhotoHeigh: $assetCarruselHeight - 150px;
 
             .info-col {
                 width: 60%;
+                display: flex;
 
                 .assetDetailsCard {
                     display: flex;
                     flex-flow: column;
+                    flex-grow: 1;
     
                     .detailsEntry {
                         &>* {
@@ -141,6 +144,52 @@ $assetPhotoHeigh: $assetCarruselHeight - 150px;
                         padding: 0 $assetDetailsPadding;
                         margin: 0;
                         flex-grow: 1;
+                    }
+                }
+            }
+        }
+
+        .assetDownloads {
+            .downloadableFileList{
+                display: flex;
+                flex-flow: column;
+                gap: $assetDetailsGap;
+
+                .downloadableFile {
+                    display: flex;
+                    flex-flow: row;
+                    justify-content: space-around;
+                    gap: $assetDetailsGap;
+
+                    border: solid 3px $color-secundario;
+                    padding: 5px 32px;
+                    border-radius: 32px;
+                    
+                    span {
+                        margin: auto 0;
+                    }
+
+                    .fileName {
+                        font-size: large;
+                    }
+
+                    .fileDesc {
+                        flex-grow: 1;
+                    }
+
+                    .fileType {
+                        font-size: xx-large;
+                        color: $color-secundario;
+                    }
+
+                    .fileDesc {
+                        font-size: larger;
+                    }
+
+                    .fileDownload {
+                        font-size: medium;
+                        padding: 3px;
+                        border-width: 3px;
                     }
                 }
             }
@@ -184,7 +233,6 @@ $assetPhotoHeigh: $assetCarruselHeight - 150px;
         }
 
         .assetDetails {
-            .assetDetailsCard {}
             .detailsRow {
                 flex-flow: column-reverse;
                 
