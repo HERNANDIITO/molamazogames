@@ -4,6 +4,7 @@
     width: 25%;
     background-color: $color-fondo2;
     border-radius: 5px;
+    min-width: 15rem;
 }
 
 .imagenAsset {
@@ -32,11 +33,13 @@
   .divTag{
     display: flex;
     flex-direction: column;
+    width: 100%;
+    text-align: left;
   }
 
   .tituloCard{
     font-size: $tamano-h4;
     font-weight: bold;
-    margin: 0 0 .5rem -1rem;   
+    margin: 0 0 .5rem .5rem;   
   }
 

@@ -18,7 +18,6 @@ import Card from "../../components/Card/Card"
 
 
 function HomeContent() {
-    const location = useLocation();
 
     const [assets, setAssets] = useState([]);
     const [assetsError, setErrorAssets] = useState(null);
@@ -40,11 +39,10 @@ function HomeContent() {
     const renderAssets = (assetList) => {
         return assetList.map((asset) => (
             <Card
-                key={asset.id}
-                type={asset.type}
+                type={asset.categories[0]?.meta}
                 botonTag="tag"
                 image={asset.image}
-                tagsAsset={asset.tags}
+                tagsAsset={asset.tags.map(tag => tag.name)}
                 tituloAsset={asset.name}
             />
         ));
@@ -67,9 +65,8 @@ function HomeContent() {
                     className="enano-btn round-btn flechas"
                 />
 
-                {renderAssets(assets.filter((asset) => {
-                    return asset.name === 'Perro tonto'
-                }))}
+                {renderAssets(assets.filter((asset) => asset.categories[0]?.meta === '6816347d134bd7d986168374'))}
+
 
                 <Button
                     label="Ver assets anteriores"
@@ -89,18 +86,7 @@ function HomeContent() {
                     className="enano-btn round-btn flechas"
                 />
 
-                <Card
-                    type="3D"
-                    botonTag="tag"
-                />
-                <Card
-                    type="3D"
-                    botonTag="tag"
-                />
-                <Card
-                    type="3D"
-                    botonTag="tag"
-                />
+                {renderAssets(assets.filter((asset) => asset.categories[0]?.meta === '6816347d134bd7d986168377'))}
 
                 <Button
                     label="Ver assets anteriores"
@@ -120,18 +106,7 @@ function HomeContent() {
                     className="enano-btn round-btn flechas"
                 />
 
-                <Card
-                    type="Audio"
-                    botonTag="tag"
-                />
-                <Card
-                    type="Audio"
-                    botonTag="tag"
-                />
-                <Card
-                    type="Audio"
-                    botonTag="tag"
-                />
+                {renderAssets(assets.filter((asset) => asset.categories[0]?.meta === '6816347d134bd7d98616837a'))}
 
                 <Button
                     label="Ver assets anteriores"
@@ -151,18 +126,7 @@ function HomeContent() {
                     className="enano-btn round-btn flechas"
                 />
 
-                <Card
-                    type="Video"
-                    botonTag="tag"
-                />
-                <Card
-                    type="Video"
-                    botonTag="tag"
-                />
-                <Card
-                    type="Video"
-                    botonTag="tag"
-                />
+                {renderAssets(assets.filter((asset) => asset.categories[0]?.meta === '6816347d134bd7d98616837d'))}
 
                 <Button
                     label="Ver assets anteriores"
@@ -182,18 +146,7 @@ function HomeContent() {
                     className="enano-btn round-btn flechas"
                 />
 
-                <Card
-                    type="Code"
-                    botonTag="tag"
-                />
-                <Card
-                    type="Code"
-                    botonTag="tag"
-                />
-                <Card
-                    type="Code"
-                    botonTag="tag"
-                />
+                {renderAssets(assets.filter((asset) => asset.categories[0]?.meta === '6816347d134bd7d986168380'))}
 
                 <Button
                     label="Ver assets anteriores"
@@ -213,18 +166,7 @@ function HomeContent() {
                     className="enano-btn round-btn flechas"
                 />
 
-                <Card
-                    type="Otros"
-                    botonTag="tag"
-                />
-                <Card
-                    type="Otros"
-                    botonTag="tag"
-                />
-                <Card
-                    type="Otros"
-                    botonTag="tag"
-                />
+                {renderAssets(assets.filter((asset) => asset.categories[0]?.meta === '6816347d134bd7d986168383'))}
 
                 <Button
                     label="Ver assets anteriores"

@@ -54,7 +54,8 @@
     border-radius: 5px;
     width: 100%;
     min-width: 15rem;
-    height: 15rem;
+    min-height: 15rem;
+    padding-bottom: 1rem;
 
     &.catego{
         min-width: 15rem;
@@ -113,6 +114,18 @@
     margin: auto;
     width: 50%;
 }
+
+.categoriasAdds {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  .cats{
+    margin: auto;
+  }
+  
 
 .botones{
     display: flex;

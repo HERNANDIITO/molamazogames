@@ -7,6 +7,9 @@
     background-color: $color-fondo2;
     color: $color-texto;
     transition: border-color 0.3s;
+    resize: vertical;
+    max-height: 80%;
+    min-height: 1rem;
     
     &.texto{
         display: block;

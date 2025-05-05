@@ -89,5 +89,6 @@ const postAsset = async (data, headers = {}) => {
 
 export {
     getAssetById,
-    getAssets
+    getAssets,
+    postAsset
 }

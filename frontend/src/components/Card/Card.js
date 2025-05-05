@@ -21,17 +21,17 @@ const Card = ({
   // Función para obtener imagen por defecto según el tipo
   const getDefaultImage = (type) => {
     switch (type) {
-      case '2D':
+      case '6816347d134bd7d986168374':
         return require('../../assets/imagesDefault/2Ddefecto.png');
-      case '3D':
+      case '6816347d134bd7d986168377':
         return require('../../assets/imagesDefault/3Ddefecto.png');
-      case 'Video':
+      case '6816347d134bd7d98616837d':
         return require('../../assets/imagesDefault/Videodefecto.png');
-      case 'Audio':
+      case '6816347d134bd7d98616837a':
         return require('../../assets/imagesDefault/Audiodefecto.png');
-      case 'Code':
+      case '6816347d134bd7d986168380':
         return require('../../assets/imagesDefault/Codedefecto.png');
-      case 'Otros':
+      case '6816347d134bd7d986168383':
         return require('../../assets/imagesDefault/Otrosdefecto.png');
       case 'Subir':
         return require('../../assets/imagesDefault/subirArchivo.png');
