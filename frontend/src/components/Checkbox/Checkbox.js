@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { FaCheck } from 'react-icons/fa6';
 import './Checkbox.scss'; 
 
-const Checkbox = ({ label, size = 'normal', showLabel = true, id, checked, onChange }) => {
+const Checkbox = ({ label, size = 'normal', showLabel = true, id, checked, onChange, parent }) => {
   const [isChecked, setIsChecked] = useState(false);
 
   const handleCheckboxChange = () => {
@@ -31,7 +31,7 @@ const Checkbox = ({ label, size = 'normal', showLabel = true, id, checked, onCha
         id={id} 
         checked={checked ? checked : isChecked}
         onChange={onChange ? onChange : handleCheckboxChange}
-        className={`checkbox-input ${size}`}
+        className={`checkbox-input ${size} ${parent ? parent : ''}`}
         aria-label={label} 
         aria-checked={checked ? checked : isChecked} 
         tabIndex={0}
@@ -43,12 +43,12 @@ const Checkbox = ({ label, size = 'normal', showLabel = true, id, checked, onCha
         tabIndex={0}
         onKeyDown={handleKeyDown}
         aria-label={label} 
-        className={`checkbox-label ${size}`} 
+        className={`checkbox-label ${size} ${parent ? parent : ''}`} 
       >
         {showLabel ? label : ''}
       </label>
       
-      {checked && <FaCheck className={`checkbox-icon ${size}`} onClick={onChange ? onChange : handleCheckboxChange} />}
+      {checked && <FaCheck className={`checkbox-icon ${size} ${parent ? parent : ''}`} onClick={onChange ? onChange : handleCheckboxChange} />}
     </>
   ); 
 };

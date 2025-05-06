@@ -1,0 +1,19 @@
+.details-dropdownCheckboxes summary::marker {  
+    content: '';
+}
+
+.summary-dropdownCheckboxes {
+    display: flex;
+    align-items: center;
+    margin-bottom: .3rem;
+    margin-top: .3rem;
+}
+
+.summary-dropdownCheckboxes::after {
+    margin-left: .3rem;
+    transition: transform .6s ease; 
+}
+
+.details-dropdownCheckboxes[open] summary::after {
+    transform: rotate(180deg);
+}

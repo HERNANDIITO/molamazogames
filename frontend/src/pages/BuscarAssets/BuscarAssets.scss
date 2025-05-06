@@ -1,0 +1,29 @@
+.buscarsssets-main-container {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: flex-start; 
+
+    section {
+        flex: 1;
+    }
+
+    aside {
+        margin: 18px;
+        width: 20rem;
+        
+        .details-super-fulldropdown {
+            width: 17rem;
+
+            .details-fulldropdown {
+                width: 15rem;
+            }
+        }
+
+        .details-super-fulldropdown[open] > .summary-super-fulldropdown::after {
+            transform: rotate(180deg);
+        }
+          
+    }
+}
+  
+

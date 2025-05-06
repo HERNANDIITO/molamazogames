@@ -1,0 +1,43 @@
+/* src/componenents/FullDropdown/FullDropdown.scss */
+
+@import '../../styles/global.scss';
+
+.details-fulldropdown {
+    color: $color-texto;
+    padding: 0.6rem;
+    width: 17rem;
+    font-size: $tamano-texto-grande;
+    font-family: $fuente-secundaria;
+    margin: .5rem;
+    position: relative;
+
+    summary::after {
+        content: '\e5cf';  // código Unicode de para la flecha hacia abajo 
+        font-family: 'Material Icons';
+        transition: transform .6s ease; 
+    }
+
+    &::after {
+        content: '';
+        position: absolute; 
+        left: 1%;
+        bottom: 0; 
+        width: 98%; 
+        height: 1px; 
+        background-color: #fff;
+    }
+}
+
+.details-fulldropdown[open] > .summary-fulldropdown::after {
+    transform: rotate(180deg);
+}
+  
+.summary-fulldropdown {
+    font-weight: $peso-semi-negrita;
+    cursor: pointer;
+    margin-bottom: .5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+}
+    

@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import Checkbox from '../../components/Checkbox/Checkbox.js';
+import './DropdownCheckboxes.scss';
 
 const DropdownCheckboxes = ({ fullcategories, categories, checked, setChecked }) => {
   const [openDetails, setOpenDetails] = useState({});
@@ -20,7 +21,7 @@ const DropdownCheckboxes = ({ fullcategories, categories, checked, setChecked })
       const updateParents = (category, categories) => {
         const findParent = (id, tree) => {
           for (const item of tree) {
-            if (item.children?.some((child) => child._id == id)) {
+            if (item.children?.some((child) => child._id === id)) {
               return item;
             }
             const found = item.children && findParent(id, item.children);
@@ -55,7 +56,8 @@ const DropdownCheckboxes = ({ fullcategories, categories, checked, setChecked })
     if (category.children && category.children.length > 0) {
       // Si tiene hijos
       return (
-        <details 
+        <details
+          class="details-dropdownCheckboxes" 
           key={category._id} 
           open={openDetails[category._id]}
           onToggle={e => {
@@ -66,8 +68,8 @@ const DropdownCheckboxes = ({ fullcategories, categories, checked, setChecked })
             }));
           }}
         >
-          <summary>
-            <Checkbox
+          <summary class="summary-dropdownCheckboxes">
+            <Checkbox 
                 label={category.name} 
                 id={category._id}
                 value={category._id}
@@ -75,6 +77,7 @@ const DropdownCheckboxes = ({ fullcategories, categories, checked, setChecked })
                 showLabel={true}
                 checked={checked[category._id] || false}
                 onChange={(e) => handleChange(e.target.checked, category)}
+                parent="parent-checkbox"
             />
           </summary>
 

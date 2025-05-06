@@ -1,16 +1,15 @@
 import './BuscarAssets.scss'
 import { useState, useEffect } from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
+
 import Button from '../../components/Button/Button.js';
 import Input from '../../components/Input/Input.js';
-import Profile from '../../components/Profile/Profile.js';
-import { FaArrowRight } from 'react-icons/fa';
-import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
+
 import { getAllCategories } from '../../services/categoriesServices.js';
+import { getAllFormats } from '../../services/formatsServices.js';
 import { useParams } from 'react-router-dom';
 import FullDropdown from '../../components/FullDropdown/FullDropdown.js';
 import { useSearchParams } from "react-router-dom";
+import './BuscarAssets.scss'
 
 
 
@@ -22,6 +21,8 @@ const BuscarAssets = () => {
 
     const [categories, setCategories] = useState([]);
     const [categoriesError, setErrorCategories] = useState(null);
+    const [formats, setFormats] = useState([]);
+    const [formatsError, setErrorFormats] = useState(null);
     const [searchParams, setSearchParams] = useSearchParams();
     const searchTerm = searchParams.get("searchBar");
 
@@ -40,10 +41,23 @@ const BuscarAssets = () => {
         fetchCategories();
     }, [meta]);
 
+    useEffect(() => {
+        const fetchFormats = async () => {
+            try {
+                const result = await getAllFormats({ meta: meta });
+                setFormats(result.responseFormats);
+            } catch (error) {
+                setErrorFormats('Algo salió mal. No se han podido recuperar los formatos. Por favor, prueba a recargar la página.');
+            }
+        };
+
+        fetchFormats();
+    }, [meta]);
 
     const getCategoryGroups = () => {
-        if (categories && Array.isArray(categories)) {
-            const groupedByMeta = categories.reduce((acc, category) => {
+        if (categories && Array.isArray(categories) && categories.length > 0) {
+            const groupedByMetaCategories = categories.reduce((acc, category) => {
+                if (!category || !category.meta) { return acc; }
                 const metaValue = category.meta.meta;
                 if (!acc[metaValue]) {
                     acc[metaValue] = [];
@@ -51,39 +65,97 @@ const BuscarAssets = () => {
                 acc[metaValue].push(category);
                 return acc;
             }, {});
-            console.log(groupedByMeta);
-            return groupedByMeta;
+            return groupedByMetaCategories;
         }
         return {};
     }
+
+    const categoryGroups = getCategoryGroups();
+
+    const getFormatsGroups = () => {
+        if (formats && Array.isArray(formats) && formats.length > 0) {
+            const groupedByMetaFormats = formats.reduce((acc, format) => {
+                if (!format || !format.meta) { return acc; }
+                const metaValue = format.meta;
+                if (!acc[metaValue]) {
+                    acc[metaValue] = [];
+                }
+                acc[metaValue].push(format);
+                return acc;
+            }, {});
+            console.log(groupedByMetaFormats);
+            return groupedByMetaFormats;
+        }
+        return {};
+    }
+
+    const formatsGroups = getFormatsGroups();
     
   return (
-    <>  
-        <main>
+    <main class="buscarsssets-main-container">  
+        <section>
         <h2>{meta ? (meta) : ( searchTerm ? ( '"' + searchTerm + '"' ) : ("Todos los assets"))}</h2>
-        </main>
-
+        </section>
 
         <aside>
         <form>
             {!meta ? (
-                Object.entries(getCategoryGroups()).map(([key, value]) => (
-                <FullDropdown
-                    categories={value}
-                    nameDropdown={key} 
-                />
-                ))
+                <>
+                {!categoryGroups ? (
+                    <p>Cargando...</p>
+                ) : (
+                    // Si ya están cargadas las categorías, mostramos el dropdown
+                    <details className="details-fulldropdown details-super-fulldropdown">
+                    <summary className="summary-fulldropdown summary-super-fulldropdown">Categorías</summary>
+                    {
+                        Object.entries(categoryGroups).map(([key, value]) => (
+                        <FullDropdown
+                            key={key}
+                            categories={value}
+                            nameDropdown={key}
+                        />
+                        ))
+                    }
+                    </details>
+                )}
+                
+
+                {!formatsGroups ? (
+                    <p>Cargando...</p>
+                ) : (
+                    // Si ya están cargadas los formatos, mostramos el dropdown
+                    <details className="details-fulldropdown details-super-fulldropdown">
+                    <summary className="summary-fulldropdown summary-super-fulldropdown">Formatos</summary>
+                    {
+                        Object.entries(formatsGroups).map(([key, value]) => (
+                        <FullDropdown
+                            key={key}
+                            categories={value}
+                            nameDropdown={key}
+                        />
+                        ))
+                    }
+                    </details>
+                )}
+
+                </>
             ) : (
-                <FullDropdown
-                    categories={categories}
-                    nameDropdown={"Categoría"}
-                />
+                <>
+                    <FullDropdown
+                        categories={categories}
+                        nameDropdown={"Categoría"}
+                    />
+
+                    <FullDropdown
+                        categories={formats}
+                        nameDropdown={"Formato"}
+                    />
+                </>
             )}
         </form>
         </aside>
-        
-
-      </>
+    
+      </main>
 
 
   );
