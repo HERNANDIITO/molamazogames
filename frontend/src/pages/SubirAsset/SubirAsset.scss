@@ -10,7 +10,7 @@
 
 }
 
-.informacionUpAsset{
+.informacionUpAsset {
     margin-left: 1rem;
     margin-right: 1rem;
 }
@@ -26,7 +26,7 @@
     }
 }
 
-.bloque{
+.bloque {
     display: block;
     justify-content: center;
     background-color: $color-fondo2;
@@ -35,20 +35,20 @@
     min-width: 16rem;
     margin: 2rem auto;
 
-    &.nombre{
+    &.nombre {
         height: 10rem;
     }
 
-    &.descripcion{
+    &.descripcion {
         height: 15rem;
     }
 
-    &.imagen{
+    &.imagen {
         height: auto;
     }
 }
 
-.categoriaEtiqueta{
+.categoriaEtiqueta {
     display: block;
     background-color: $color-fondo2;
     border-radius: 5px;
@@ -57,12 +57,12 @@
     min-height: 15rem;
     padding-bottom: 1rem;
 
-    &.catego{
+    &.catego {
         min-width: 15rem;
         margin: 0 .5rem 0 0;
     }
 
-    &.eti{
+    &.eti {
         min-width: 15rem;
         margin: 0 0 0 .5rem;
     }
@@ -80,19 +80,19 @@
     }
 }
 
-.encabezado{
+.encabezado {
     text-align: left;
     font-size: $tamano-h4;
     padding-left: 1rem;
     padding-top: 1rem;
 }
 
-.inputUpAsset{
+.inputUpAsset {
     width: 60%;
     margin: 1rem auto 1rem auto;
 }
 
-.textareaUpAsset{
+.textareaUpAsset {
     width: 90%;
     margin: 0 auto 1rem auto;
     height: 70%;
@@ -107,9 +107,9 @@
     height: auto;
 }
 
-.catEti{
+.catEti {
     display: flex;
-    flex-direction: row; 
+    flex-direction: row;
     justify-content: center;
     margin: auto;
     width: 50%;
@@ -120,42 +120,49 @@
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-  }
-  
-  .cats{
-    margin: auto;
-  }
-  
+}
 
-.botones{
+.cats {
+    margin: auto;
+}
+
+.archivos-subidos {
     display: flex;
-    flex-direction: row; 
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+
+.botones {
+    display: flex;
+    flex-direction: row;
     justify-content: center;
     margin: auto;
     width: 50%;
     margin-bottom: 2rem;
 }
 
-.botonesFinales{
+.botonesFinales {
     width: 100%;
 }
 
 @media (max-width: 1000px) {
-    
-    .catEti{
+
+    .catEti {
         flex-direction: column;
         margin: 0 auto 0 auto;
         min-width: 16rem;
     }
 
-    .categoriaEtiqueta{
-        &.catego{
+    .categoriaEtiqueta {
+        &.catego {
             display: block;
             margin-top: 0 auto 0 auto;
             min-width: 16rem;
         }
-    
-        &.eti{
+
+        &.eti {
             display: block;
             margin: 2rem auto 0 auto;
             min-width: 16rem;
@@ -164,8 +171,7 @@
 }
 
 @media (max-width: 1000px) {
-    .botonesFinales{
+    .botonesFinales {
         min-width: 7rem;
     }
 }
-

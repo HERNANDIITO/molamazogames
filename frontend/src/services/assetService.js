@@ -65,14 +65,14 @@ const getAssetById = async (data, headers = {}) => {
 const postAsset = async (data, headers = {}) => {
     try {
 
-        console.log("stringified data", JSON.stringify(data));
-
-        const response = await axios.get(`${BASE_URL}`, {
-            params: data,
+        const config = {
             headers: {
+                "authorization": `Bearer ${localStorage.getItem('token')}`,
                 'Content-type': 'application/json'
-            },
-        })
+            }
+        };
+
+        const response = await axios.post(`${BASE_URL}`, data, config)
 
         if (response.status != 200) {
             const errorData = await response.json();

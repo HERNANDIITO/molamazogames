@@ -17,7 +17,7 @@ const auth = (req, res, next) => {
         res.status(401)
         .json({
             result: "KO",
-            msg: "Envía un código válido en la cabecera 'token'",
+            msg: "No hay token despues de partir",
         });
         return;
     }

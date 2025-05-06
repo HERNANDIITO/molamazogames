@@ -7,12 +7,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 
 const InputField = ({
-  type = "file"
+  type = "file",
+  onFileSelect,
+  onNombreChange,
+  onAltChange
 }) => {
-  const divClasses = classNames('dv');
-  const inputClasses = classNames('input');
-  const textaClasses = classNames('texta');
-
   const fileInputRef = useRef(null);
   const [selectedFile, setSelectedFile] = useState(null);
 
@@ -24,36 +23,38 @@ const InputField = ({
     const file = e.target.files[0];
     if (file) {
       setSelectedFile(file);
-      console.log('Archivo seleccionado:', file);
+      if (onFileSelect) {
+        onFileSelect(file);
+      }
     }
   };
 
   return (
-    <div className={divClasses}>
+    <div className="dv">
       <Input
         type="text"
         name="inpt"
         id="inpt"
         label="Nombre"
-        autoFocus
-        placeholder="Escribe aquí tu texto"
-        className={inputClasses}
+        placeholder="Escribe aquí el nombre"
+        className="input"
+        onChange={(e) => onNombreChange?.(e.target.value)}
       />
 
       <Textarea
-        type="text"
         name="txtA"
         id="txtA"
         label={type === "foto" ? "Texto alternativo" : "Descripción"}
-        autoFocus
-        placeholder="Escribe aquí tu texto"
-        className={textaClasses}
+        placeholder="Escribe aquí el texto"
+        className="texta"
+        onChange={(e) => onAltChange?.(e.target.value)}
       />
 
       <input
         type="file"
         ref={fileInputRef}
         style={{ display: 'none' }}
+        accept={type === 'foto' ? '.jpg,.jpeg,.png' : '*'}
         onChange={handleFileChange}
       />
 
@@ -72,7 +73,6 @@ const InputField = ({
           {selectedFile ? 'Cambiar archivo' : 'Subir archivo'}
         </button>
       </div>
-
     </div>
   );
 };
