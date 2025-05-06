@@ -8,10 +8,10 @@
     background-color: $color-fondo;
     border: 2px solid $color-secundario;
     border-radius: 1rem;
-    width: 25%;
+    width: fit-content;
     height: $alto-boton-enano;
     position: relative;
-    margin: 2rem;
+    margin: 1rem;
 }
 
 .icono {
@@ -21,11 +21,14 @@
 }
 
 .formato {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    position: relative;
     color: $color-texto;
     font-size: $tamano-texto;
+    margin-right: 1rem;
+    margin-left: 1rem;
+    white-space: nowrap; 
+    overflow: hidden;    
+    text-overflow: ellipsis; 
 }
 
 .boton {
