@@ -7,6 +7,7 @@ import Button from '../Button/Button';
 import NavBar from '../NavBar/NavBar';
 import SearchBar from '../SearchBar/SearchBar';
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { FaPlus } from 'react-icons/fa';
 
@@ -16,6 +17,8 @@ import { FaPlus } from 'react-icons/fa';
 // }
 
 const Header = () =>{
+
+    const navigate = useNavigate();
     
     const [isLogged, setIsLogged] = useState(false);
     useEffect(() => {
@@ -37,8 +40,9 @@ const Header = () =>{
                             label="Añadir asset"
                             icon={<FaPlus />}
                             iconPosition="left"
-                            href="#"
+                            href="./upAsset"
                             className="h_but_anadir"
+                            onClick={() => navigate("/upAsset", { replace: true })}
                         />
                         <Profile></Profile>
                     </div>

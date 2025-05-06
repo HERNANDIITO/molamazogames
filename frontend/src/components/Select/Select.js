@@ -16,7 +16,7 @@ const Select = ({
 }) => {
 
   const selectClasses = classNames('slct', className);
-  const labelClasses = classNames('lbl', className);
+  const labelClasses = classNames('lbl lbl-select', className);
   const divClasses = classNames('dv', className);
 
   return (

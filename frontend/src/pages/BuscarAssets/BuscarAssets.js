@@ -9,6 +9,8 @@ import { getAllFormats } from '../../services/formatsServices.js';
 import { useParams } from 'react-router-dom';
 import FullDropdown from '../../components/FullDropdown/FullDropdown.js';
 import { useSearchParams } from "react-router-dom";
+import Select from "../../components/Select/Select";
+
 import './BuscarAssets.scss'
 
 
@@ -25,6 +27,9 @@ const BuscarAssets = () => {
     const [formatsError, setErrorFormats] = useState(null);
     const [searchParams, setSearchParams] = useSearchParams();
     const searchTerm = searchParams.get("searchBar");
+
+    const [ordenes, setOrden] = useState([]);
+    const [ordenSeleccionado, setOrdenSeleccionado] = useState('');
 
     const { meta } = useParams();
     
@@ -76,7 +81,7 @@ const BuscarAssets = () => {
         if (formats && Array.isArray(formats) && formats.length > 0) {
             const groupedByMetaFormats = formats.reduce((acc, format) => {
                 if (!format || !format.meta) { return acc; }
-                const metaValue = format.meta;
+                const metaValue = format.meta.meta;
                 if (!acc[metaValue]) {
                     acc[metaValue] = [];
                 }
@@ -90,6 +95,38 @@ const BuscarAssets = () => {
     }
 
     const formatsGroups = getFormatsGroups();
+
+      useEffect(() => {
+    const options = [
+      {
+        label: 'Actualizaciones nuevas',
+        value: '1',
+      },
+      {
+        label: 'Actualizaciones más antiguas',
+        value: '2',
+      },
+      {
+        value: '3',
+        label: 'Nombre ascendente A-Z',
+      },
+      {
+        label: 'Nombre descendente A-Z',
+        value: '4',
+      },
+      {
+        label: 'Publicaciones nuevas',
+        value: '5',
+      },
+      {
+        label: 'Publicaciones más antiguas',
+        value: '6',
+      }
+    ];
+
+    setOrden(options);
+  }, []);
+      
     
   return (
     <main class="buscarsssets-main-container">  
@@ -99,6 +136,13 @@ const BuscarAssets = () => {
 
         <aside>
         <form>
+            <Select
+                label="Ordenar por"
+                options={ordenes}
+                name="orden"
+                value={ordenSeleccionado}
+                onChange={(e) => setOrdenSeleccionado(e.target.value)}
+            />
             {!meta ? (
                 <>
                 {!categoryGroups ? (

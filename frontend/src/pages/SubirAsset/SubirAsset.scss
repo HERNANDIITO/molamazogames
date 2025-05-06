@@ -147,6 +147,11 @@
     width: 100%;
 }
 
+.descripcion {
+    height: auto !important;
+    padding-bottom: 1rem;
+}
+
 @media (max-width: 1000px) {
 
     .catEti {

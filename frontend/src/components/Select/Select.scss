@@ -2,11 +2,14 @@
 
 .slct{
     padding: 10px;
-    border: 1px solid $color-texto;
+    border: 2px solid $color-texto;
     border-radius: 5px;
     background-color: $color-fondo2;
     color: $color-texto;
     transition: border-color 0.3s;
+    border-right-width: 10px;
+    border-color: transparent;
+    outline: solid 2px $color-texto;
     
     &.texto{
         display: block;
@@ -16,8 +19,7 @@
     }
 
     &:focus{
-       border-color: $color-secundario;
-       outline: none;
+        outline: solid 2px $color-secundario; 
     }
     
     &:disabled{
@@ -32,4 +34,8 @@
         border: 2px solid $color-danger !important;
         margin-bottom: 5px;
     }
+}
+
+.lbl-select {
+    margin-bottom: 0;
 }

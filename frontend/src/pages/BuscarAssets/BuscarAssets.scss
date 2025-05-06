@@ -8,8 +8,11 @@
     }
 
     aside {
-        margin: 18px;
+        margin: .8rem;
+        margin-top: 3rem;
         width: 20rem;
+        display: flex;
+        align-items: center;
         
         .details-super-fulldropdown {
             width: 17rem;

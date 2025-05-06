@@ -34,6 +34,7 @@ const Button = ({
       <a
         href={href}
         className={buttonClasses}
+        onClick = {onClick}
         title={iconPosition === 'alone' ? label : ''}
         aria-label={iconPosition === 'alone' ? label : ''}
         download
@@ -50,6 +51,7 @@ const Button = ({
       <a
         href={href}
         className={buttonClasses}
+        onClick = {onClick}
         title={iconPosition === 'alone' ? label : ''}
         aria-label={iconPosition === 'alone' ? label : ''}
       >

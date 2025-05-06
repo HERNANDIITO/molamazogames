@@ -2,11 +2,12 @@
 
 .inpt {
     padding: 10px;
-    border: 1px solid $color-texto;
+    border: 2px solid transparent;
     border-radius: 5px;
     background-color: $color-fondo2;
     color: $color-texto;
     transition: border-color 0.3s;
+    outline: solid 2px $color-texto;
 
     &.login {
         display: block;
@@ -16,8 +17,7 @@
     }
 
     &:focus {
-        border-color: $color-secundario;
-        outline: none;
+        outline-color: $color-secundario;
     }
 
     &:disabled {
@@ -29,7 +29,7 @@
     }
 
     &.error {
-        border: 2px solid $color-danger !important;
+        outline: 2px solid $color-danger !important;
         margin-bottom: 5px;
     }
 }
