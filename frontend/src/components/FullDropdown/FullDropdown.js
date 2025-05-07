@@ -2,8 +2,8 @@ import React, {useState, useEffect} from 'react';
 import DropdownCheckboxes from '../../components/DropdownCheckboxes/DropdownCheckboxes.js';
 import './FullDropdown.scss'; 
 
-const FullDropdown = ({ categories, nameDropdown }) => {
-    const [checked, setChecked] = useState({});
+const FullDropdown = ({ categories, nameDropdown, checked, setChecked }) => {
+    // const [checked, setChecked] = useState({});
 
     return (
         <details class="details-fulldropdown">

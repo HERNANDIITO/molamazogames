@@ -1,3 +1,6 @@
+@import '../../styles/global.scss';
+
+
 .buscarsssets-main-container {
     display: flex; 
     justify-content: space-between; 
@@ -25,8 +28,45 @@
         .details-super-fulldropdown[open] > .summary-super-fulldropdown::after {
             transform: rotate(180deg);
         }
+
+        .slct {
+            margin-bottom: 1rem
+        }
+
+        .right-elemets {
+            display: flex;
+            justify-content: flex-end;
+            flex-direction: column;
+        }
+
+
+        .aling-right {
+            display: flex; 
+            align-self: flex-end; 
+            margin-right: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        p.aling-right {
+            margin-bottom: .2rem;
+            font-weight: $peso-semi-negrita;
+
+            > span {
+                margin-right: .3rem;
+            }
+        }
+        
           
     }
+
+    .etiquetasAdds, .autoresAdds {
+        margin-left: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        width: 17rem;
+    }
+
 }
   
 
