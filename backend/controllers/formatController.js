@@ -50,7 +50,7 @@ const getFormats = asyncHandler( async (req, res, next) => {
 
     if ( !meta ) {
 
-        const formats = await Format.find().populate('meta');
+        const formats = await Format.find().populate('meta').sort("name");
         responseFormats.push(...formats);
 
     } else {
@@ -63,7 +63,7 @@ const getFormats = asyncHandler( async (req, res, next) => {
             });
         }
 
-        const formats = await Format.find({meta: metaDoc._id}).populate('meta')
+        const formats = await Format.find({meta: metaDoc._id}).populate('meta').sort("name");
         responseFormats.push(...formats);
     }
 

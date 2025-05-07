@@ -1,13 +1,15 @@
 import './DetallesAsset.scss'
 import { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCode, faDownload, faFilm, faFolder, faImage, faMusic } from '@fortawesome/free-solid-svg-icons';
+import { faCode, faDownload, faFilm, faFolder, faImage, faListOl, faMusic } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark, faFileCode } from '@fortawesome/free-regular-svg-icons';
 import Button from '../../components/Button/Button.js';
 import { useParams } from 'react-router-dom';
 import { LuTag } from "react-icons/lu";
 import { getAssetById } from '../../services/assetService.js';
 import CarousselController from '../../components/CarousselController/CarousselController.js';
+
+import { CarousselImage } from '../../components/carousselEntry/carousselImage/CarousselImage.js'
 
 const DetallesAsset = () => {
 
@@ -47,17 +49,37 @@ const DetallesAsset = () => {
         if ( !previewFiles ) { return "No hay preview files"; }
 
         console.log("previewFiles", previewFiles)
-        return previewFiles.map((file) => (
-            <div id={file._id} class={`carousselEntry`}>
-                <div class="carousselImage">
-                    <img src={`http://localhost:5000\\${file.path}`}></img>
-                </div>
-                <div class="carousselImageInfo">
-                    <h3>{file.name}</h3>
-                    <p>{file.description}</p>
-                </div>
-            </div>
-        ));
+
+        const modelos3D = [
+            "model/gltf+json",
+            "model/gltf-binary",
+            "application/octet-stream",
+            "text/plain",
+            "application/fbx",
+            "application/sla",
+            "application/stl",
+            "application/ply",
+            "application/x-3ds"
+        ]
+
+        {
+            previewFiles.map((entry) => {
+                if (entry.mimetype.split("/")[0] === "image") {
+                    return (
+                        <CarousselImage
+                            key={entry.name}
+                            path={entry.path}
+                            name={entry.name}
+                            description={entry.description}
+                        />
+                    );
+                }
+                if (modelos3D.includes(entry.mimetype)) {
+                    
+                }
+            })
+        }
+
     };
 
     const getAssetAuthor = () => {

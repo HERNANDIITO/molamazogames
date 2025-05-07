@@ -1,45 +1,62 @@
 const formats = [
     [
+        { name: "DDS", meta: "2D" },
+        { name: "JPG/JPEG", meta: "2D" },
         { name: "PNG", meta: "2D" },
-        { name: "JPEG", meta: "2D" },
-        { name: "GIF", meta: "2D" },
         { name: "SVG", meta: "2D" },
-        { name: "WebP", meta: "2D" },
+        { name: "TIFF", meta: "2D" },
+        { name: "TGA", meta: "2D" },
+        { name: "Otros", meta: "2D" }
     ],
     [
+        { name: "BLEND", meta: "3D" },
         { name: "FBX", meta: "3D" },
+        { name: "GLTF / GLB", meta: "3D" },
+        { name: "MAX / MB / MA", meta: "3D" },
         { name: "OBJ", meta: "3D" },
-        { name: "GLTF", meta: "3D" },
+        { name: "PLY", meta: "3D" },
         { name: "STL", meta: "3D" },
-        { name: "3DS", meta: "3D" },
+        { name: "Otros", meta: "3D" }
     ],
     [
-        { name: "MP3", meta: "Audio" },
-        { name: "WAV", meta: "Audio" },
-        { name: "AAC", meta: "Audio" },
-        { name: "OGG", meta: "Audio" },
         { name: "FLAC", meta: "Audio" },
+        { name: "MP3", meta: "Audio" },
+        { name: "MIDI", meta: "Audio" },
+        { name: "OGG", meta: "Audio" },
+        { name: "WAV", meta: "Audio" },
+        { name: "XWV / XSB / XGS", meta: "Audio" },
+        { name: "Otros", meta: "Audio" }
     ],
     [
+        { name: "AVI", meta: "Video" },
+        { name: "BINK", meta: "Video" },
         { name: "MP4", meta: "Video" },
         { name: "MOV", meta: "Video" },
-        { name: "AVI", meta: "Video" },
-        { name: "MKV", meta: "Video" },
-        { name: "WebM", meta: "Video" },
+        { name: "Thora", meta: "Video" },
+        { name: "WEBM", meta: "Video" },
+        { name: "Otros", meta: "Video" }
     ],
     [
-        { name: "JavaScript", meta: "Codigo" },
-        { name: "Python", meta: "Codigo" },
-        { name: "Java", meta: "Codigo" },
+        { name: "C", meta: "Codigo" },
         { name: "C++", meta: "Codigo" },
-        { name: "PHP", meta: "Codigo" },
+        { name: "HLSL / GLSL / ShaderLab", meta: "Codigo" },
+        { name: "JavaScript++", meta: "Codigo" },
+        { name: "Lua", meta: "Codigo" },
+        { name: "Python", meta: "Codigo" },
+        { name: "TypeScript", meta: "Codigo" },
+        { name: "YAML", meta: "Codigo" },
+        { name: "Otros", meta: "Codigo" }
     ],
     [
-        { name: "PDF", meta: "Otros" },
-        { name: "TXT", meta: "Otros" },
-        { name: "ZIP", meta: "Otros" },
-        { name: "XML", meta: "Otros" },
+        { name: "CSV", meta: "Otros" },
+        { name: "INI", meta: "Otros" },
         { name: "JSON", meta: "Otros" },
+        { name: "NAVMESH / AI Graphs", meta: "Otros" },
+        { name: "PDF", meta: "Otros" },
+        { name: "SQL / SQLite", meta: "Otros" },
+        { name: "XML", meta: "Otros" },
+        { name: "ZIP", meta: "Otros" },
+        { name: "Otros", meta: "Otros" }
     ],
 ];
 
