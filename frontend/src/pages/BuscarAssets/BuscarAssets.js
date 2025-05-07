@@ -4,18 +4,21 @@ import { useState, useEffect } from "react";
 import Button from '../../components/Button/Button.js';
 import Input from '../../components/Input/Input.js';
 
+import { getAssets } from '../../services/assetService.js';
 import { getAllCategories } from '../../services/categoriesServices.js';
 import { getAllFormats } from '../../services/formatsServices.js';
 import { useParams } from 'react-router-dom';
 import { useSearchParams } from "react-router-dom";
+import { RxCross2 } from "react-icons/rx";
 
 import FullDropdown from '../../components/FullDropdown/FullDropdown.js';
 import Checkbox from '../../components/Checkbox/Checkbox.js';
 import SearchBar from '../../components/SearchBar/SearchBar.js';
 import Select from "../../components/Select/Select";
+import Card from "../../components/Card/Card"
 
-import './BuscarAssets.scss'
 
+import { FiDelete } from "react-icons/fi";
 
 
 const BuscarAssets = () => {
@@ -37,7 +40,17 @@ const BuscarAssets = () => {
     const [etiquetasAnadidas, setEtiquetasAnadidas] = useState([]);
     const [etiquetaInput, setEtiquetaInput] = useState('');
 
+    const [autoresAnadidos, setAutoresAnadidos] = useState([]);
+    const [autorInput, setAutorInput] = useState('');
+
     const [searchMode, setSearchMode] = useState(false);
+
+    const [checkedCategories, setCheckedCategories] = useState({});
+    const [checkedFormats, setCheckedFormats] = useState({});
+
+    const [assets, setAssets] = useState([]);
+    const [assetsError, setErrorAssets] = useState(null);
+
 
     const { meta } = useParams();
     
@@ -104,6 +117,66 @@ const BuscarAssets = () => {
 
     const formatsGroups = getFormatsGroups();
 
+    const size = {}
+
+    useEffect(() => {
+        const timeoutId = setTimeout(() => {
+            search();
+        }, 500);
+
+        return () => {
+            clearTimeout(timeoutId);
+        };
+    }, [searchTerm, etiquetasAnadidas, autoresAnadidos, ordenSeleccionado, searchMode, checkedCategories, checkedFormats, meta, searchMode, size]); 
+    
+
+    const search = async () => {
+       let orderby
+       switch ( ordenSeleccionado ) {
+        case '1':
+            orderby = {"updateDate": 1}
+            break;
+        case '2':
+            orderby = {"updateDate": -1}
+            break;
+        case '3':
+            orderby = {"mane": 1}
+            break;
+        case '4':
+            orderby = {"name": -1}
+            break;
+        case '5':
+            orderby = {"publicationDate": 1}
+            break;
+        case '6':
+            orderby = {"publicationDate": -1}
+            break;
+       }
+
+    console.log("checkedCategories: ", checkedCategories);
+    console.log("checkedFormats: ", checkedFormats);
+
+       const params = {
+        orderBy: orderby,
+        searchBar: searchTerm,
+        tags: etiquetasAnadidas,
+        author: autoresAnadidos,
+        category: checkedCategories,
+        format: checkedFormats,
+        size: null,
+        meta: meta ? meta : null,
+        isStrict: searchMode
+       }
+
+       try {
+            const result = await getAssets(params);
+            console.log(result);
+            setAssets(result.assets);
+        } catch (error) {
+            setErrorAssets('Algo salió mal. No se han podido recuperar las categorías. Por favor, prueba a recargar la página.');
+        }
+    }
+
     useEffect(() => {
         const options = [
         {
@@ -136,7 +209,6 @@ const BuscarAssets = () => {
   }, []);
       
   const anadirEtiqueta = () => {
-    console.log(etiquetaInput);
     const etiquetaLimpia = etiquetaInput.trim();
 
     if (
@@ -148,15 +220,48 @@ const BuscarAssets = () => {
         setEtiquetaInput('');
     }
 };
+
+const anadirAutor = () => {
+    const autorLimpio = autorInput.trim();
+
+    if (
+        autorLimpio &&
+        /^[a-zA-Z0-9]+$/.test(autorLimpio) &&
+        !autoresAnadidos.includes(autorLimpio)
+    ) {
+        setAutoresAnadidos([...autoresAnadidos, autorLimpio]);
+        setAutorInput('');
+    }
+};
     
   return (
     <main class="buscarsssets-main-container">  
         <section>
         <h2>{meta ? (meta) : ( searchTerm ? ( '"' + searchTerm + '"' ) : ("Todos los assets"))}</h2>
+
+        {assets.map((asset) => (
+            <Card
+                type={asset.categories[0]?.meta}
+                botonTag="tag"
+                image={asset.image ? "http://localhost:5000/" + asset.image.path : null}
+                tagsAsset={asset.tags.map(tag => tag.name)}
+                tituloAsset={asset.name}
+            />
+        ))}
         </section>
 
         <aside>
         <form>
+            <div class="right-elemets">
+                <p class="aling-right"><span id="contador-resultados-numero">7</span> resultados</p>
+                <Button
+                    label="Resetear filtros"
+                    icon={<FiDelete />}
+                    iconPosition="left"
+                    className="mediano-btn aling-right"
+                />
+            </div>
+
             <Checkbox 
                 label="Búsqueda exclusiva"
                 id="modo-busqueda"
@@ -184,7 +289,7 @@ const BuscarAssets = () => {
             />
             <div className="etiquetasAdds">
                 {etiquetasAnadidas.map((tag, index) => (
-                    <Button key={index} className="tag tag-delete" label={tag} onClick={() => {
+                    <Button key={index} className="tag tag-delete tag-solid" label={tag} icon={<RxCross2 />}  iconPosition="right" onClick={() => {
                         setEtiquetasAnadidas(etiquetasAnadidas.filter(t => t !== tag));
                     }} />
                 ))}
@@ -194,8 +299,17 @@ const BuscarAssets = () => {
                 placeholderText = "Escribe un autor..."
                 id = "searchBar-autor"
                 buttonId = "searchBarButton-autor"
-                // onClick = {(e) => }
+                onClick = {anadirAutor}
+                onChange = {(e) => setAutorInput(e.target.value)}
+                value={autorInput}
             />
+            <div className="autoresAdds">
+                {autoresAnadidos.map((tag, index) => (
+                    <Button key={index} className="tag tag-delete tag-solid" label={tag} icon={<RxCross2 />}  iconPosition="right" onClick={() => {
+                        setAutoresAnadidos(autoresAnadidos.filter(t => t !== tag));
+                    }} />
+                ))}
+            </div>
             {!meta ? (
                 <>
                 {!categoryGroups ? (
@@ -210,6 +324,8 @@ const BuscarAssets = () => {
                             key={key}
                             categories={value}
                             nameDropdown={key}
+                            checked={checkedCategories}
+                            setChecked={setCheckedCategories}
                         />
                         ))
                     }
@@ -229,6 +345,8 @@ const BuscarAssets = () => {
                             key={key}
                             categories={value}
                             nameDropdown={key}
+                            checked={checkedFormats}
+                            setChecked={setCheckedFormats}
                         />
                         ))
                     }
@@ -241,11 +359,15 @@ const BuscarAssets = () => {
                     <FullDropdown
                         categories={categories}
                         nameDropdown={"Categoría"}
+                        checked={checkedCategories}
+                        setChecked={setCheckedCategories}
                     />
 
                     <FullDropdown
                         categories={formats}
                         nameDropdown={"Formato"}
+                        checked={checkedFormats}
+                        setChecked={setCheckedFormats}
                     />
                 </>
             )}
