@@ -1,5 +1,5 @@
 import './BuscarAssets.scss'
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import Button from '../../components/Button/Button.js';
 import Input from '../../components/Input/Input.js';
@@ -10,6 +10,7 @@ import { getAllFormats } from '../../services/formatsServices.js';
 import { useParams } from 'react-router-dom';
 import { useSearchParams } from "react-router-dom";
 import { RxCross2 } from "react-icons/rx";
+import { useNavigate } from 'react-router-dom';
 
 import FullDropdown from '../../components/FullDropdown/FullDropdown.js';
 import Checkbox from '../../components/Checkbox/Checkbox.js';
@@ -119,18 +120,54 @@ const BuscarAssets = () => {
 
     const size = {}
 
+    // useEffect(() => {
+    //     const timeoutId = setTimeout(() => {
+    //         search();
+    //     }, 500);
+
+    //     return () => {
+    //         clearTimeout(timeoutId);
+    //     };
+    // }, [searchTerm, etiquetasAnadidas, autoresAnadidos, ordenSeleccionado, searchMode, checkedCategories, checkedFormats, meta, searchMode, size]); 
+
+    const timeoutRef = useRef(null);
+
     useEffect(() => {
-        const timeoutId = setTimeout(() => {
+        // Limpiar el timeout previo
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+        }
+
+        // Establecer un nuevo timeout
+        timeoutRef.current = setTimeout(() => {
             search();
         }, 500);
 
         return () => {
-            clearTimeout(timeoutId);
+            clearTimeout(timeoutRef.current);
         };
-    }, [searchTerm, etiquetasAnadidas, autoresAnadidos, ordenSeleccionado, searchMode, checkedCategories, checkedFormats, meta, searchMode, size]); 
+    }, [searchTerm, etiquetasAnadidas, autoresAnadidos, ordenSeleccionado, searchMode, checkedCategories, checkedFormats, meta]);
+
+
+    const navigate = useNavigate();
+  
+    const handleCardClick = (id) => {
+        navigate(`/detallesAsset/${id}`);
+    };
+
+    // useEffect(() => {
+    //     const timeoutId = setTimeout(() => {
+    //         search();
+    //     }, 500);
+
+    //     return () => {
+    //         clearTimeout(timeoutId);
+    //     };
+    // }, [etiquetasAnadidas]); 
     
 
     const search = async () => {
+        console.log("me han llamado")
        let orderby
        switch ( ordenSeleccionado ) {
         case '1':
@@ -164,9 +201,11 @@ const BuscarAssets = () => {
         category: checkedCategories,
         format: checkedFormats,
         size: null,
-        meta: meta ? meta : null,
+        meta: meta,
         isStrict: searchMode
        }
+
+       console.log(params);
 
        try {
             const result = await getAssets(params);
@@ -238,14 +277,15 @@ const anadirAutor = () => {
     <main class="buscarsssets-main-container">  
         <section>
         <h2>{meta ? (meta) : ( searchTerm ? ( '"' + searchTerm + '"' ) : ("Todos los assets"))}</h2>
-
-        {assets.map((asset) => (
+        {assets.map(asset => (
             <Card
+                key={asset._id}
                 type={asset.categories[0]?.meta}
                 botonTag="tag"
                 image={asset.image ? "http://localhost:5000/" + asset.image.path : null}
                 tagsAsset={asset.tags.map(tag => tag.name)}
                 tituloAsset={asset.name}
+                onClick={() => handleCardClick(asset._id)}
             />
         ))}
         </section>

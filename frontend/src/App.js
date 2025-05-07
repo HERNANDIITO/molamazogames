@@ -79,6 +79,7 @@ function AppContent() {
         <Route path="/registrar" element={<Registrar />} />
         <Route path="/login" element={<Login />} />
         <Route path="/upAsset" element={<SubirAsset />} />
+        <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/buscarAssets/" element={<BuscarAssets />} />
         <Route path="/buscarAssets/:meta" element={<BuscarAssets />} />
