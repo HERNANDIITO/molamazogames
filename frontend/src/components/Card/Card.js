@@ -41,18 +41,34 @@ const Card = ({
   const imageToShow = image || getDefaultImage(type);
 
   const renderTags = () => {
-    if (!tagsAsset) return null;
+    if (!tagsAsset || tagsAsset.length === 0) return null;
 
-    return tagsAsset.map((tag, index) => (
-      <Button
-        key={index}
-        label={tag}
-        icon={<FiTag />}
-        iconPosition="left"
-        className="tag"
-      />
-    ));
+    const maxVisibleTags = 2;
+    const visibleTags = tagsAsset.slice(0, maxVisibleTags);
+    const remainingCount = tagsAsset.length - maxVisibleTags;
+
+    return (
+      <>
+        <div className="tagsVisibles">
+          {visibleTags.map((tag, index) => (
+            <Button
+              key={index}
+              label={tag}
+              icon={<FiTag />}
+              iconPosition="left"
+              className="tag"
+            />
+          ))}
+        
+
+        {remainingCount > 0 && (
+          <span className="tagRestante">...</span>
+        )}
+        </div>
+      </>
+    );
   };
+
 
   return (
     <div className={contornoClasses}>

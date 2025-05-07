@@ -62,7 +62,8 @@ function SubirAssetContent() {
                 setArchivosSubidos(prev => [...prev, {
                     file,
                     name: nombre || file.name,
-                    desc: alt
+                    desc: alt,
+                    isPreview: false
                 }]);
             }
         } else if (file && file.type.startsWith('image/')) {
@@ -158,7 +159,7 @@ function SubirAssetContent() {
                 formData.append('file', archivo.file);
                 formData.append('name', archivo.name || "Sin nombre");
                 formData.append('description', archivo.desc || "Sin descripcion");
-                formData.append('isPreview', false);
+                formData.append('isPreview', archivo.isPreview);
 
                 const result = await uploadFile(formData);
                 asset.files.push(result.file._id);
@@ -277,6 +278,14 @@ function SubirAssetContent() {
                         <UploadedFile
                             key={index}
                             name={archivo.name}
+                            isPreview={archivo.isPreview}
+                            onTogglePreview={() => {
+                                setArchivosSubidos(prev =>
+                                    prev.map((a, i) =>
+                                        i === index ? { ...a, isPreview: !a.isPreview } : a
+                                    )
+                                );
+                            }}
                             onRemove={() => setArchivosSubidos(prev =>
                                 prev.filter((_, i) => i !== index)
                             )}
@@ -304,7 +313,7 @@ function SubirAssetContent() {
                         cerrarModal();
                         descartarAsset();
                     }}
-                    onGoDetails={() =>  navigate(`/detallesAsset/${assetId}`)}
+                    onGoDetails={() => navigate(`/detallesAsset/${assetId}`)}
                 />
             )}
         </main>

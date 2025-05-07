@@ -183,9 +183,9 @@ const BuscarAssets = () => {
                 value={etiquetaInput}
             />
             <div className="etiquetasAdds">
-                {etiquetasAnadidas.map(tag => (
-                    <Button key={tag.value} className="tag tag-delete" label={tag.label} onClick={() => {
-                        setEtiquetasAnadidas(etiquetasAnadidas.filter(t => t.value !== tag.value));
+                {etiquetasAnadidas.map((tag, index) => (
+                    <Button key={index} className="tag tag-delete" label={tag} onClick={() => {
+                        setEtiquetasAnadidas(etiquetasAnadidas.filter(t => t !== tag));
                     }} />
                 ))}
             </div>

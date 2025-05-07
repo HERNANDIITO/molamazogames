@@ -43,3 +43,16 @@
     margin: 0 0 .5rem .5rem;   
   }
 
+  .tagRestante {
+    display: inline-block;
+    font-size: $tamano-texto;
+    color: $color-secundario;
+    margin: 1.5rem 0 0 1rem;
+  }
+
+  .tagsVisibles{
+    display: flex;
+    flex: row;
+    flex-wrap: wrap;
+  }
+

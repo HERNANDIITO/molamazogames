@@ -32,7 +32,7 @@ const DetallesAsset = () => {
                 const result = await getAssetById({ assetID: assetID });
                 const assetToSet = result.asset;
                 const previewFilesToSet = result.asset.files.filter( (file) => { return file.preview })
-                const downloadableFilesToSet = result.asset.files.filter( (file) => { return !file.preview })
+                const downloadableFilesToSet = result.asset.files//.filter( (file) => { return !file.preview })
                 setAsset(assetToSet);
                 setPreviewFiles(previewFilesToSet);
                 setDownloadableFiles(downloadableFilesToSet);

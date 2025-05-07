@@ -9,6 +9,7 @@
     border: 2px solid $color-secundario;
     border-radius: 1rem;
     width: 100%;
+    max-width: 100%;
     height: $alto-boton-enano;
     position: relative;
     margin: 1rem;
@@ -25,9 +26,9 @@
     font-size: $tamano-texto;
     margin-right: 1rem;
     margin-left: 1rem;
-    white-space: nowrap; 
-    overflow: hidden;    
-    text-overflow: ellipsis; 
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     width: 100%;
     text-align: center;
 }
@@ -52,7 +53,16 @@
     height: 22px;
 }
 
-.previewChck{
-    display: inline-flex;
-    margin-right: 5rem;
+.previewChck {
+    margin-right: 2rem;
+}
+
+@media (max-width: $tamano-tablet) {
+    .previewChck {
+        font-size: 0;
+      }
+    
+      .previewChck::before {
+        margin-right: 0;
+      }
 }
