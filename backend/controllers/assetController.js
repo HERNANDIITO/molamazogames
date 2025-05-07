@@ -1,13 +1,10 @@
 import Asset from '../schemas/asset.schema.js';
 import File from '../schemas/file.schema.js';
-import Category from '../schemas/category.schema.js';
 import User from '../schemas/user.schema.js';
 import { createNewTagFunc } from './tagController.js';
 import { checkCategory, getAllCategoryAndChildrenIds } from './categoryController.js';
 import fs from 'fs';
 import archiver from 'archiver';
-import path from 'path';
-import { fileURLToPath } from 'url';  // Correcta importación
 
 import asyncHandler from 'express-async-handler'
 import moment from 'moment';
@@ -54,7 +51,20 @@ const getAssets = asyncHandler(async (req, res, next) => {
         }
 
         if (author) {
-            filters.push({ author: author });
+            let possibleAuthors = [];
+
+            for (const possibleAuthor of author) {                
+                if ( isStrict ) {
+                    const user = await User.findOne({ name: possibleAuthor }).select('_id');
+                    if ( !user ) { continue; };
+                    possibleAuthors.push( user._id );
+                } else {
+                    const users = await User.find({ name: { $regex: possibleAuthor, $options: 'i' } }).select('_id');
+                    possibleAuthors.push( ...(users.map(user => user._id)) )
+                }
+            }
+
+            filters.push({ author: { $in: possibleAuthors } });
         }
 
         if (category && category.length > 0) {

@@ -30,7 +30,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/asset/getAssets?category=[\"6816abc60ba47755e842baa3\"]",
+							"raw": "http://localhost:5000/asset/getAssets?author=[\"Manolo\", \"Paula\"]",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -61,14 +61,14 @@
 								},
 								{
 									"key": "author",
-									"value": "\"6816abce0ba47755e842bab9\"",
-									"description": "userID",
-									"disabled": true
+									"value": "[\"Manolo\", \"Paula\"]",
+									"description": "userID"
 								},
 								{
 									"key": "category",
 									"value": "[\"6816abc60ba47755e842baa3\"]",
-									"description": "[\"catID1, catID2\", ...]"
+									"description": "[\"catID1, catID2\", ...]",
+									"disabled": true
 								},
 								{
 									"key": "format",
@@ -141,13 +141,39 @@
 					"response": []
 				},
 				{
+					"name": "Descargar zip",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/asset/download?assetID=681b24ee52dd56aa852183fb",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"asset",
+								"download"
+							],
+							"query": [
+								{
+									"key": "assetID",
+									"value": "681b24ee52dd56aa852183fb"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Subir asset",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Perro tonto\",\r\n    \"description\": \"Un Perro tonto y gracioso, parpadea\",\r\n    \"categories\": [\"681737c5765b0e89cf48a19e\"],\r\n    \"tags\": [\"gÁtO\"],\r\n    \"image\": \"681737df765b0e89cf48a226\",\r\n    \"files\": [\"681737df765b0e89cf48a226\"]\r\n}",
+							"raw": "{\r\n    \"name\": \"Gato que parpadea\",\r\n    \"description\": \"Un gato tonto y gracioso, parpadea\",\r\n    \"categories\": [\"681921f6ebd572adb4a98ae8\"],\r\n    \"tags\": [\"gato\", \"gato tonto\"],\r\n    \"image\": \"681921cfebd572adb4a98ae1\",\r\n    \"files\": [\"681921b9ebd572adb4a98ade\", \"681921cfebd572adb4a98ae1\", \"681921e3ebd572adb4a98ae4\", \"6819222aebd572adb4a98b79\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -551,44 +577,6 @@
 			"name": "Files",
 			"item": [
 				{
-					"name": "Obtener archivo",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"fileID\": \"68147b517a0f1289b59d227c\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:5000/file/getFileByID?fileID=68147b517a0f1289b59d227c",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"file",
-								"getFileByID"
-							],
-							"query": [
-								{
-									"key": "fileID",
-									"value": "68147b517a0f1289b59d227c"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Obtener archivos de un asset",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
@@ -697,6 +685,44 @@
 					"response": []
 				},
 				{
+					"name": "Descargar archivo",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fileID\": \"68147b517a0f1289b59d227c\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/file/download?fileID=681b24ee52dd56aa852183d8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"file",
+								"download"
+							],
+							"query": [
+								{
+									"key": "fileID",
+									"value": "681b24ee52dd56aa852183d8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Subir archivo",
 					"request": {
 						"method": "POST",
@@ -707,21 +733,21 @@
 								{
 									"key": "file",
 									"type": "file",
-									"src": "postman-cloud:///1f02670c-2e0c-4b30-80fd-5c0da3ca1972"
+									"src": "/C:/Users/pablo/Desktop/Sin título.png"
 								},
 								{
 									"key": "description",
-									"value": "Este perro es muy gracioso, mira qué cara de tonto",
+									"value": "hamster",
 									"type": "text"
 								},
 								{
 									"key": "name",
-									"value": "Esto no es un perro",
+									"value": "hamster",
 									"type": "text"
 								},
 								{
 									"key": "isPreview",
-									"value": "true",
+									"value": "false",
 									"type": "text"
 								}
 							]
@@ -791,7 +817,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/format?meta=Video",
+							"raw": "http://localhost:5000/format",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -803,7 +829,8 @@
 							"query": [
 								{
 									"key": "meta",
-									"value": "Video"
+									"value": "Video",
+									"disabled": true
 								}
 							]
 						}

@@ -1,7 +1,7 @@
 import './DetallesAsset.scss'
 import { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCode, faDownload, faFilm, faFolder, faImage, faListOl, faMusic } from '@fortawesome/free-solid-svg-icons';
+import { faCode, faDownload, faFilm, faFolder, faHeart, faImage, faListOl, faMusic } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark, faFileCode } from '@fortawesome/free-regular-svg-icons';
 import Button from '../../components/Button/Button.js';
 import { useParams } from 'react-router-dom';
@@ -269,7 +269,7 @@ const DetallesAsset = () => {
                             <Button
                                 label= {""}
                                 onClick= {"any"}
-                                icon= {<FontAwesomeIcon icon={faBookmark} />}
+                                icon= {<FontAwesomeIcon icon={faHeart} />}
                                 href= {"any"}
                                 iconPosition= {"alone"}
                                 className={"assetDetails-button secondary-btn"}
