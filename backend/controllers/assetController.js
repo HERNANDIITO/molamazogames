@@ -93,7 +93,12 @@ const getAssets = asyncHandler(async (req, res, next) => {
         
         const query = isStrict ? { $and: filters } : { $or: filters };
 
-        const assets = await Asset.find(query).sort(orderBy).populate( 'author categories files tags meta image' )
+        const assets = await Asset.find(query).sort(orderBy).populate( 'author categories files tags image' ).populate({
+            path: 'categories', // Poblar 'categories', que son un array de IDs
+            populate: {
+              path: 'meta' // Luego poblar el campo 'meta' dentro de cada categoría
+            }
+          });
         res.status(200).json({
             result: "OK.",
             assets: assets

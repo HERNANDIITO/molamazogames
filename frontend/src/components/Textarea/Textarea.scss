@@ -9,14 +9,14 @@
     transition: border-color 0.3s;
     resize: vertical;
     max-height: 80%;
-    min-height: 5rem;
-    height: 70%;
+    
     
     &.texto{
         display: block;
         margin: $margen-elementos;
         font-size: $tamano-texto;
         width: 85%;
+        height: 70%;
     }
 
     &:focus{

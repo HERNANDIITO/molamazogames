@@ -37,11 +37,12 @@ function HomeContent() {
     }, []);
 
     const renderAssets = (assetList) => {
+        console.log("assetList", assetList);
         return assetList.map((asset) => (
             <Card
                 type={asset.categories[0]?.meta}
                 botonTag="tag"
-                image={asset.image}
+                image={asset.image ? "http://localhost:5000/" + asset.image.path : null}
                 tagsAsset={asset.tags.map(tag => tag.name)}
                 tituloAsset={asset.name}
             />
@@ -62,17 +63,17 @@ function HomeContent() {
                     label="Ver assets anteriores"
                     icon={<IoIosArrowBack />}
                     iconPosition="alone"
-                    className="enano-btn round-btn flechas"
+                    className="enano-btn round-btn flechas izq"
                 />
 
-                {renderAssets(assets.filter((asset) => asset.categories[0]?.meta === '6816347d134bd7d986168374'))}
+                {renderAssets(assets.filter((asset) => asset.categories[0]?.meta.meta === '2D'))}
 
 
                 <Button
                     label="Ver assets anteriores"
                     icon={<IoIosArrowForward />}
                     iconPosition="alone"
-                    className="enano-btn round-btn flechas"
+                    className="enano-btn round-btn flechas drch"
                 />
             </div>
 
@@ -83,16 +84,16 @@ function HomeContent() {
                     label="Ver assets anteriores"
                     icon={<IoIosArrowBack />}
                     iconPosition="alone"
-                    className="enano-btn round-btn flechas"
+                    className="enano-btn round-btn flechas izq"
                 />
 
-                {renderAssets(assets.filter((asset) => asset.categories[0]?.meta === '6816347d134bd7d986168377'))}
+                {renderAssets(assets.filter((asset) => asset.categories[0]?.meta.meta === '3D'))}
 
                 <Button
                     label="Ver assets anteriores"
                     icon={<IoIosArrowForward />}
                     iconPosition="alone"
-                    className="enano-btn round-btn flechas"
+                    className="enano-btn round-btn flechas drch"
                 />
             </div>
 
@@ -103,16 +104,16 @@ function HomeContent() {
                     label="Ver assets anteriores"
                     icon={<IoIosArrowBack />}
                     iconPosition="alone"
-                    className="enano-btn round-btn flechas"
+                    className="enano-btn round-btn flechas izq"
                 />
 
-                {renderAssets(assets.filter((asset) => asset.categories[0]?.meta === '6816347d134bd7d98616837a'))}
+                {renderAssets(assets.filter((asset) => asset.categories[0]?.meta.meta === 'Audio'))}
 
                 <Button
                     label="Ver assets anteriores"
                     icon={<IoIosArrowForward />}
                     iconPosition="alone"
-                    className="enano-btn round-btn flechas"
+                    className="enano-btn round-btn flechas drch"
                 />
             </div>
 
@@ -123,16 +124,16 @@ function HomeContent() {
                     label="Ver assets anteriores"
                     icon={<IoIosArrowBack />}
                     iconPosition="alone"
-                    className="enano-btn round-btn flechas"
+                    className="enano-btn round-btn flechas izq"
                 />
 
-                {renderAssets(assets.filter((asset) => asset.categories[0]?.meta === '6816347d134bd7d98616837d'))}
+                {renderAssets(assets.filter((asset) => asset.categories[0]?.meta.meta === 'Video'))}
 
                 <Button
                     label="Ver assets anteriores"
                     icon={<IoIosArrowForward />}
                     iconPosition="alone"
-                    className="enano-btn round-btn flechas"
+                    className="enano-btn round-btn flechas drch"
                 />
             </div>
 
@@ -143,16 +144,16 @@ function HomeContent() {
                     label="Ver assets anteriores"
                     icon={<IoIosArrowBack />}
                     iconPosition="alone"
-                    className="enano-btn round-btn flechas"
+                    className="enano-btn round-btn flechas izq"
                 />
 
-                {renderAssets(assets.filter((asset) => asset.categories[0]?.meta === '6816347d134bd7d986168380'))}
+                {renderAssets(assets.filter((asset) => asset.categories[0]?.meta.meta === 'Codigo'))}
 
                 <Button
                     label="Ver assets anteriores"
                     icon={<IoIosArrowForward />}
                     iconPosition="alone"
-                    className="enano-btn round-btn flechas"
+                    className="enano-btn round-btn flechas drch"
                 />
             </div>
 
@@ -163,16 +164,16 @@ function HomeContent() {
                     label="Ver assets anteriores"
                     icon={<IoIosArrowBack />}
                     iconPosition="alone"
-                    className="enano-btn round-btn flechas"
+                    className="enano-btn round-btn flechas izq"
                 />
 
-                {renderAssets(assets.filter((asset) => asset.categories[0]?.meta === '6816347d134bd7d986168383'))}
+                {renderAssets(assets.filter((asset) => asset.categories[0]?.meta.meta === 'Otros'))}
 
                 <Button
                     label="Ver assets anteriores"
                     icon={<IoIosArrowForward />}
                     iconPosition="alone"
-                    className="enano-btn round-btn flechas"
+                    className="enano-btn round-btn flechas drch"
                 />
             </div>
 

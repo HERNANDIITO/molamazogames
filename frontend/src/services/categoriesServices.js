@@ -28,6 +28,8 @@ const getAllCategories = async (data, headers = {}) => {
             throw new Error(errorData.msg || 'Algo ha ido mal');
         }
 
+        console.log("gatAllCategories", response.data)
+
         return response.data;
 
     } catch (error) {

@@ -1,9 +1,13 @@
 import React from 'react';
+import { useState } from 'react';
+
 import classNames from 'classnames';
 import './UploadedFile.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCode } from '@fortawesome/free-solid-svg-icons';
 import { faCircleXmark } from '@fortawesome/free-regular-svg-icons';
+
+import Checkbox from "../Checkbox/Checkbox";
 
 const UploadedFile = ({
   name,
@@ -15,14 +19,26 @@ const UploadedFile = ({
   const iconoClasses = classNames('icono');
   const botonClasses = classNames('boton');
 
+  const [preview, setPreview] = useState(false);
+
   return (
     <div className={containerClasses}>
       <span className={iconoClasses}>
-      <FontAwesomeIcon icon={faCode} />
+        <FontAwesomeIcon icon={faCode} />
       </span>
       <span className={formatoClasses}>{name}</span>
+      <Checkbox
+        label="Vista previa"
+        id="preview"
+        value="1"
+        checked={preview}
+        onChange={() => setPreview(!preview)}
+        className= "previewChck"
+      >
+
+      </Checkbox>
       <button type="button" className={botonClasses} onClick={onRemove}>
-      <FontAwesomeIcon icon={faCircleXmark} />
+        <FontAwesomeIcon icon={faCircleXmark} />
       </button>
     </div>
   );

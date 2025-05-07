@@ -40,18 +40,18 @@ const Modal = ({ type = "subir", onClose, onImageUpload, onGoDetails, onGoUpload
 
           <div className="contbotonesExito">
             <div className="filaBotones">
-              {/* <Button
+              <Button
                 label="Detalles del asset"
                 onClick={onGoDetails}
                 className="botonesModal"
-              /> */}
+              />
               <Button
                 label="Subir otro asset"
                 onClick={onGoUpload}
                 className="botonesModal"
               />
-            {/* </div>
-            <div className="filaBotones"> */}
+            </div>
+            <div className="filaBotones">
               <Button
                 label="Volver a inicio"
                 onClick={onGoHome}

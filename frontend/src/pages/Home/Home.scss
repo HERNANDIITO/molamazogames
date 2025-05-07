@@ -3,9 +3,28 @@
 .contAssets{
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
-    margin-bottom: 5rem;
+    flex-wrap: nowrap;
     align-items: center;
     gap: 2rem;
     justify-content: center;
+    width: 100vh;
+    overflow-x: hidden;
+    margin: 0 auto;
+    margin-bottom: 5rem;
+    position: relative;
+
+    .flechas {
+        position: absolute;
+        
+        &.izq {
+            left: 0;
+            transform: translateX(50%);
+        }
+        
+        &.drch {
+            right: 0;
+            transform: translateX(-50%);
+        }
+    }
 }
+

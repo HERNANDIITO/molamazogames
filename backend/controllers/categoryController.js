@@ -75,6 +75,14 @@ const setupCategories = asyncHandler( async (req, res, next) => {
     try {
 
       const metas = await Meta.find();
+      const categories = await Category.find();
+
+      if ( categories.length > 0 ) {
+        res.status(500).json({
+            result: "Error",
+            msg: "Las categorias ya existen"
+        })
+      }
 
       for (const categoryData of allCats) {
 
@@ -93,9 +101,12 @@ const setupCategories = asyncHandler( async (req, res, next) => {
     } catch (error) {
         next(error);
     }
+    
+    const categories = await Category.find();
 
     res.status(200).json({
-        result: "OK"
+        result: "OK",
+        categories: categories
     })
 
 })

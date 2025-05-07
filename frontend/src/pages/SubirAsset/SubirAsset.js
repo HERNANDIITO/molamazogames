@@ -88,6 +88,7 @@ function SubirAssetContent() {
                     metas.map(async (meta) => {
                         const resCat = await getAllCategories({ meta: meta.meta });
                         const categorias = resCat.categories || [];
+                        console.log("categorias", categorias);
 
                         return {
                             label: meta.meta,
@@ -185,11 +186,11 @@ function SubirAssetContent() {
 
         try {
             const response = await postAsset(asset);
-            console.log(response);
-            setAssetId(response.asset?._id);
+            // console.log("Respuesta subida: ", response._id);
+            setAssetId(response._id);
             setModalType('exito');
             setShowModal(true);
-            console.log(assetId);
+            // console.log(assetId);
         } catch (error) {
             console.error(error);
             setMensaje("Error al subir el asset.");
@@ -303,7 +304,7 @@ function SubirAssetContent() {
                         cerrarModal();
                         descartarAsset();
                     }}
-                    // onGoDetails={() =>  navigate(`/detallesAsset/${assetId}`)}
+                    onGoDetails={() =>  navigate(`/detallesAsset/${assetId}`)}
                 />
             )}
         </main>
