@@ -26,7 +26,7 @@ const Checkbox = ({ label, size = 'normal', showLabel = true, id, checked, onCha
   };
 
   return (
-    <>
+    <div>
       <input
         type="checkbox"
         id={id} 
@@ -50,8 +50,8 @@ const Checkbox = ({ label, size = 'normal', showLabel = true, id, checked, onCha
       </label>
       
       {checked && <FaCheck className={`checkbox-icon ${size} ${parent ? parent : ''}`} onClick={onChange ? onChange : handleCheckboxChange} />}
-    </>
+    </div>
   ); 
-};
+};  
 
 export default Checkbox;
