@@ -1,6 +1,7 @@
 import './SubirAsset.scss';
 
 import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { FaPlusCircle, FaCheck, FaTimes, FaUpload, FaTag } from "react-icons/fa";
 
 import Input from "../../components/Input/Input";
@@ -16,6 +17,8 @@ import { getAllMeta } from "../../services/metaServices";
 import { getAllCategories } from "../../services/categoriesServices";
 
 function SubirAssetContent() {
+    const navigate = useNavigate();
+
     const [imagen, setImagen] = useState(null);
     const [imagenURL, setImagenURL] = useState(null);
     const [imagenNombre, setImagenNombre] = useState('');
@@ -35,6 +38,9 @@ function SubirAssetContent() {
     const [categorias, setCategorias] = useState([]);
     const [categoriaSeleccionada, setCategoriaSeleccionada] = useState('');
     const [categoriasAnadidas, setCategoriasAnadidas] = useState([]);
+
+    const [mensaje, setMensaje] = useState('');
+    const [assetId, setAssetId] = useState(null);
 
     const abrirModalArchivo = () => {
         setModalType('subir');
@@ -64,9 +70,9 @@ function SubirAssetContent() {
             setImagen(file);
             setImagenNombre(nombre);
             setImagenAlt(alt);
-            reader.onloadend = function() {
+            reader.onloadend = function () {
                 setImagenURL(reader.result);
-            }
+            };
             reader.readAsDataURL(file);
         }
         cerrarModal();
@@ -82,7 +88,7 @@ function SubirAssetContent() {
                     metas.map(async (meta) => {
                         const resCat = await getAllCategories({ meta: meta.meta });
                         const categorias = resCat.categories || [];
-                        
+
                         return {
                             label: meta.meta,
                             options: categorias.map(cat => ({
@@ -103,7 +109,6 @@ function SubirAssetContent() {
 
         cargarCategoriasAgrupadas();
     }, []);
-    
 
     const anadirCategoria = () => {
         if (
@@ -133,7 +138,6 @@ function SubirAssetContent() {
     };
 
     const uploadAsset = async () => {
-
         const asset = {
             name: nombreAsset,
             description: descripcionAsset ? descripcionAsset : "Sin descripcion",
@@ -147,49 +151,65 @@ function SubirAssetContent() {
             asset.categories.push(category.key);
         }
 
-        // Obtenemos las ids de los archivos
-        for (const archivo of archivosSubidos) {
-            const formData = new FormData();
-            formData.append('file', archivo.file);
-            formData.append('name', archivo.name ? archivo.name : "Sin nombre");
-            formData.append('description', archivo.desc ? archivo.desc : "Sin descripcion" );
-            formData.append('isPreview', false);
+        try {
+            for (const archivo of archivosSubidos) {
+                const formData = new FormData();
+                formData.append('file', archivo.file);
+                formData.append('name', archivo.name || "Sin nombre");
+                formData.append('description', archivo.desc || "Sin descripcion");
+                formData.append('isPreview', false);
 
-            try {
                 const result = await uploadFile(formData);
                 asset.files.push(result.file._id);
-                
-            } catch (error) {
-                console.error(error);
-                return;
             }
+        } catch (error) {
+            console.error(error);
+            setMensaje("Error al subir los archivos.");
+            return;
         }
 
-        // Obtenemos la id de la portada
         try {
-
             const imgFormData = new FormData();
-
             imgFormData.append('file', imagen);
-            imgFormData.append('name', imagenNombre ? imagenNombre : "Sin nombre");
-            imgFormData.append('description', imagenAlt ? imagenAlt : "Sin descripcion" );
+            imgFormData.append('name', imagenNombre || "Sin nombre");
+            imgFormData.append('description', imagenAlt || "Sin descripcion");
             imgFormData.append('isPreview', true);
 
             const result = await uploadFile(imgFormData);
             asset.image = result.file._id;
-
         } catch (error) {
             console.error(error);
+            setMensaje("Error al subir la imagen de portada.");
             return;
         }
 
         try {
-            const result = await postAsset(asset);
+            const response = await postAsset(asset);
+            console.log(response);
+            setAssetId(response.asset?._id);
+            setModalType('exito');
+            setShowModal(true);
+            console.log(assetId);
         } catch (error) {
             console.error(error);
-            return;
+            setMensaje("Error al subir el asset.");
         }
-    }
+    };
+
+    const descartarAsset = () => {
+        setNombreAsset('');
+        setDescripcionAsset('');
+        setImagen(null);
+        setImagenURL(null);
+        setImagenNombre('');
+        setImagenAlt('');
+        setArchivosSubidos([]);
+        setCategoriaSeleccionada('');
+        setCategoriasAnadidas([]);
+        setEtiquetaInput('');
+        setEtiquetasAnadidas([]);
+        setMensaje('');
+    };
 
     return (
         <main className="App-content">
@@ -198,12 +218,12 @@ function SubirAssetContent() {
 
             <div className="bloque nombre">
                 <h3 className="encabezado lineaBloque">Nombre*:</h3>
-                <Input name="nombreAsset" onChange={(e) => setNombreAsset(e.target.value)}  value={nombreAsset} placeholder="Nombre" className="inputUpAsset" />
+                <Input name="nombreAsset" onChange={(e) => setNombreAsset(e.target.value)} value={nombreAsset} placeholder="Nombre" className="inputUpAsset" />
             </div>
 
             <div className="bloque descripcion">
                 <h3 className="encabezado lineaBloque">Descripción:</h3>
-                <Textarea name="descAsset" onChange={(e) => setDescripcionAsset(e.target.value)}  value={descripcionAsset} placeholder="Descripción del asset" className="textareaUpAsset" />
+                <Textarea name="descAsset" onChange={(e) => setDescripcionAsset(e.target.value)} value={descripcionAsset} placeholder="Descripción del asset" className="textareaUpAsset" />
             </div>
 
             <div className="catEti">
@@ -267,11 +287,24 @@ function SubirAssetContent() {
 
             <div className="botones">
                 <Button onClick={uploadAsset} label="Subir asset" icon={<FaCheck />} className="botonesFinales ocultar-label" />
-                <Button label="Descartar asset" icon={<FaTimes />} className="danger-btn botonesFinales ocultar-label" />
+                <Button onClick={descartarAsset} label="Descartar asset" icon={<FaTimes />} className="danger-btn botonesFinales ocultar-label" />
             </div>
 
+            {mensaje && <p className="mensaje-subida">{mensaje}</p>}
+
             {showModal && (
-                <Modal type={modalType} onClose={cerrarModal} onImageUpload={handleModalUpload} />
+                <Modal
+                    type={modalType}
+                    onClose={cerrarModal}
+                    onImageUpload={handleModalUpload}
+                    assetId={assetId}
+                    onGoHome={() => navigate('/home')}
+                    onGoUpload={() => {
+                        cerrarModal();
+                        descartarAsset();
+                    }}
+                    // onGoDetails={() =>  navigate(`/detallesAsset/${assetId}`)}
+                />
             )}
         </main>
     );

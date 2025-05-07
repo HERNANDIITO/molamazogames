@@ -8,7 +8,7 @@
     background-color: $color-fondo;
     border: 2px solid $color-secundario;
     border-radius: 1rem;
-    width: fit-content;
+    width: 100%;
     height: $alto-boton-enano;
     position: relative;
     margin: 1rem;
@@ -21,7 +21,6 @@
 }
 
 .formato {
-    position: relative;
     color: $color-texto;
     font-size: $tamano-texto;
     margin-right: 1rem;
@@ -29,6 +28,8 @@
     white-space: nowrap; 
     overflow: hidden;    
     text-overflow: ellipsis; 
+    width: 100%;
+    text-align: center;
 }
 
 .boton {

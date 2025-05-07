@@ -6,23 +6,25 @@ import Button from '../Button/Button';
 
 import { FaCheck, FaTimes } from "react-icons/fa";
 
-const Modal = ({ type = 'subir', onClose, onImageUpload }) => {
+const Modal = ({ type = "subir", onClose, onImageUpload, onGoDetails, onGoUpload, onGoHome }) => {
   const [file, setFile] = useState(null);
-  const [nombre, setNombre] = useState('');
-  const [alt, setAlt] = useState('');
+  const [nombre, setNombre] = useState("");
+  const [alt, setAlt] = useState("");
 
   const getTitle = () => {
     switch (type) {
-      case 'add':
-        return 'Añadir foto';
-      case 'edit':
-        return 'Modificar foto';
+      case "add":
+        return "Añadir foto";
+      case "edit":
+        return "Modificar foto";
+      case "exito":
+        return "¡Asset subido con éxito!";
       default:
-        return 'Subir archivo';
+        return "Subir archivo";
     }
   };
 
-  const inputFieldType = (type === 'add' || type === 'edit') ? 'foto' : 'file';
+  const inputFieldType = type === "add" || type === "edit" ? "foto" : "file";
 
   const handleAceptar = () => {
     if (onImageUpload && file) {
@@ -32,23 +34,60 @@ const Modal = ({ type = 'subir', onClose, onImageUpload }) => {
 
   return (
     <div className="modalOverlay" onClick={onClose}>
-      <div className="modalContorno" onClick={(e) => e.stopPropagation()}>
-        <p className="titModal">{getTitle()}</p>
+      {type === "exito" ? (
+        <div className="modalExito" onClick={(e) => e.stopPropagation()}>
+          <p className="titModal">{getTitle()}</p>
 
-        <InputField
-          type={inputFieldType}
-          onFileSelect={setFile}
-          onNombreChange={setNombre}
-          onAltChange={setAlt}
-        />
-
-        <div className="contbotonesModal">
-          <Button label="Aceptar" icon={<FaCheck />} className="botonesModal" onClick={handleAceptar} />
-          <Button label="Cancelar" icon={<FaTimes />} className="danger-btn botonesModal" onClick={onClose} />
+          <div className="contbotonesExito">
+            <div className="filaBotones">
+              {/* <Button
+                label="Detalles del asset"
+                onClick={onGoDetails}
+                className="botonesModal"
+              /> */}
+              <Button
+                label="Subir otro asset"
+                onClick={onGoUpload}
+                className="botonesModal"
+              />
+            {/* </div>
+            <div className="filaBotones"> */}
+              <Button
+                label="Volver a inicio"
+                onClick={onGoHome}
+                className="botonesModal secondary-btn"
+              />
+            </div>
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="modalContorno" onClick={(e) => e.stopPropagation()}>
+          <p className="titModal">{getTitle()}</p>
+          <InputField
+            type={inputFieldType}
+            onFileSelect={setFile}
+            onNombreChange={setNombre}
+            onAltChange={setAlt}
+          />
+          <div className="contbotonesModal">
+            <Button
+              label="Aceptar"
+              icon={<FaCheck />}
+              className="botonesModal"
+              onClick={handleAceptar}
+            />
+            <Button
+              label="Cancelar"
+              icon={<FaTimes />}
+              className="danger-btn botonesModal"
+              onClick={onClose}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
+
 
 export default Modal;

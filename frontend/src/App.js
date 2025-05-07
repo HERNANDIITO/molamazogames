@@ -290,6 +290,27 @@ function AppContent() {
               </>
 
 
+        <CarousselController
+          id="carousselController"
+          label="Control del carrusel"
+          onClick={() => console.log("Botón del carrusel presionado")}
+          direction='right'
+        />
+
+        <SliderField
+          label="Slider Field"
+          min={0}
+          max={100}
+          minValue={minValue}
+          maxValue={maxValue}
+          onMinChange={(e) => setMinValue(Number(e.target.value))}
+          onMaxChange={(e) => setMaxValue(Number(e.target.value))}
+          texto = 'tera'
+        />
+
+        <InputField/>
+
+        </>
 
         /*<a
           className=""

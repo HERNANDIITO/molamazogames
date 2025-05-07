@@ -11,6 +11,18 @@
     align-items: center;   
 }
 
+.modalExito {
+    background-color: $color-fondo2;
+    border-radius: 8px;
+    width: 30rem;
+    height: auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
 .titModal{
     font-size: $tamano-h2;
     color: $color-secundario;
@@ -43,6 +55,16 @@
     margin-bottom: 2rem;
 }
 
+.contbotonesExito {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+    margin-top: 1rem;
+  }
+
 .modalOverlay {
     position: fixed;
     top: 0;
@@ -54,6 +76,13 @@
     justify-content: center;
     align-items: center;
     z-index: 1000;
+  }
+
+  .filaBotones {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
   }
 
 

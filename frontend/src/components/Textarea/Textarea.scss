@@ -14,8 +14,7 @@
     
     &.texto{
         display: block;
-        margin-left: 10px;
-        margin-bottom: 20px;
+        margin: $margen-elementos;
         font-size: $tamano-texto;
         width: 85%;
     }
