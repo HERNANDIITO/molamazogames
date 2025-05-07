@@ -4,6 +4,10 @@ import Category from '../schemas/category.schema.js';
 import User from '../schemas/user.schema.js';
 import { createNewTagFunc } from './tagController.js';
 import { checkCategory, getAllCategoryAndChildrenIds } from './categoryController.js';
+import fs from 'fs';
+import archiver from 'archiver';
+import path from 'path';
+import { fileURLToPath } from 'url';  // Correcta importación
 
 import asyncHandler from 'express-async-handler'
 import moment from 'moment';
@@ -106,6 +110,44 @@ const getAssets = asyncHandler(async (req, res, next) => {
     }
     catch(error){
         next(error);
+    }
+})
+
+const downloadAsset = asyncHandler( async (req, res, next) => {
+    const assetID = req.query.assetID;
+
+    if(!assetID || !(mongoose.Types.ObjectId.isValid(assetID))){
+        return res.status(400).json({
+            result:"Solicitud erronea",
+            msg: `Faltan campos obligatorios o no son validos: ${!assetID ? 'assetID ' : ''}${!(mongoose.Types.ObjectId.isValid(assetID)) ? 'assetID no es una ID válida ' : ''}`
+        });
+    }
+
+    try {
+        const asset = await Asset.findById(assetID).populate('files');
+
+        const zip = archiver('zip', {
+            zlib: { level: 9 }, // Nivel de compresión máximo
+        });
+
+        res.setHeader('Content-Type', 'application/zip');
+        res.setHeader('Content-Disposition', `attachment; filename="${asset.name}.zip"`);
+
+        zip.pipe(res);
+
+        for (let file of asset.files) {
+            const filePath = file.path;  // Asumimos que tienes el path completo en la base de datos
+            zip.append(fs.createReadStream(filePath), { name: file.originalName });
+        }
+
+        zip.finalize();
+
+        res.on('finish', () => {
+            return res.status(200);
+        });
+
+    } catch (error) {
+        next(error)
     }
 })
 
@@ -502,5 +544,6 @@ export {
     createAsset,
     updateAsset,
     deleteAsset,
-    deleteFileFromAsset
+    deleteFileFromAsset,
+    downloadAsset
 }

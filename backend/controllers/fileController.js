@@ -2,6 +2,8 @@ import File from '../schemas/file.schema.js'
 import Asset from '../schemas/asset.schema.js'
 import User from '../schemas/user.schema.js'
 import asyncHandler from 'express-async-handler'
+import archiver from 'archiver'
+import fs from 'fs'
 
 import mongoose from 'mongoose'
 
@@ -19,6 +21,51 @@ const getFiles = asyncHandler( async(req,res,next) => {
     } catch (error) {
         next(error);
     }
+})
+
+const downloadFile = asyncHandler( async(req, res, next) => {
+    const fileID = req.query.fileID;
+    
+    if(!fileID || !(mongoose.Types.ObjectId.isValid(fileID))){
+        return res.status(400).json({
+            result:"Solicitud erronea",
+            msg: `Faltan campos obligatorios o no son validos: ${!fileID ? 'fileID ' : ''}${!(mongoose.Types.ObjectId.isValid(fileID)) ? 'fileID no es una ID válida ' : ''}`
+        });
+    }
+
+    const file = await File.findById(fileID);
+
+    if (!file) {
+        return res.status(404).send('Archivo no encontrado.');
+    }
+
+    if ( file.size > 2000000 ) {
+        const zip = archiver('zip', {
+            zlib: { level: 9 },
+        });
+
+        res.setHeader('Content-Type', 'application/zip');
+        res.setHeader('Content-Disposition', `attachment; filename="${file.name}.zip"`);
+        
+        zip.pipe(res);
+
+        const filePath = file.path;
+        zip.append(fs.createReadStream(filePath), { name: file.originalName });
+        
+        zip.finalize();
+
+        res.on('finish', () => {
+            return res.status(200);
+        });
+    }
+
+    res.download(file.path, file.originalName, (err) => {
+        if (err) {
+            console.error('Error al descargar el archivo:', err);
+            return res.status(500);
+        }
+    });
+
 })
 
 const getFileByID = asyncHandler( async(req,res,next) => {
@@ -210,5 +257,6 @@ export {
     getFileByAssetID,
     getPreviewFilesByAssetID,
     uploadFile,
-    editFile
+    editFile,
+    downloadFile
 }
