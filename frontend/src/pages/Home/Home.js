@@ -1,32 +1,34 @@
 import './Home.scss';
-
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
-
 import { getAssets } from '../../services/assetService';
-
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import Button from "../../components/Button/Button";
+import Card from "../../components/Card/Card";
+import { motion, AnimatePresence } from 'framer-motion';
 
-import Button from "../../components/Button/Button"
-import Card from "../../components/Card/Card"
-
-
+const ITEMS_PER_PAGE = 3;
 
 function HomeContent() {
-
     const [assets, setAssets] = useState([]);
     const [assetsError, setErrorAssets] = useState(null);
-
+    const [assetPage, setAssetPage] = useState({});
+    const [slideDirection, setSlideDirection] = useState("next");
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchAssets = async () => {
             try {
                 const result = await getAssets();
-                console.log(result);
                 setAssets(result.assets);
+
+                const initialPages = {};
+                ["2D", "3D", "Audio", "Video", "Codigo", "Otros"].forEach(cat => {
+                    initialPages[cat] = 0;
+                });
+                setAssetPage(initialPages);
             } catch (error) {
-                setErrorAssets('Algo salió mal. No se han podido recuperar las categorías. Por favor, prueba a recargar la página.');
+                setErrorAssets('Algo salió mal. No se han podido recuperar los assets. Por favor, prueba a recargar la página.');
             }
         };
 
@@ -37,152 +39,184 @@ function HomeContent() {
         navigate(`/detallesAsset/${id}`);
     };
 
-    const renderAssets = (assetList) => {
-        console.log("assetList", assetList);
-        return assetList.map((asset) => (
-            <Card
-                key={asset._id}
-                type={asset.categories[0]?.meta}
-                botonTag="tag"
-                image={asset.image ? "http://localhost:5000/" + asset.image.path : null}
-                tagsAsset={asset.tags.map(tag => tag.name)}
-                tituloAsset={asset.name}
-                onClick={() => handleCardClick(asset._id)}
-            />
-        ));
+    const getPaginatedAssets = (category) => {
+        const filtered = assets.filter(asset => asset.categories[0]?.meta.meta === category);
+        const page = assetPage[category] || 0;
+        const start = page * ITEMS_PER_PAGE;
+        return filtered.slice(start, start + ITEMS_PER_PAGE);
+    };
+
+    const handlePrev = (category) => {
+        setSlideDirection("prev");
+        setAssetPage(prev => ({
+            ...prev,
+            [category]: Math.max(0, (prev[category] || 0) - 1)
+        }));
+    };
+
+    const handleNext = (category) => {
+        setSlideDirection("next");
+        const filtered = assets.filter(asset => asset.categories[0]?.meta.meta === category);
+        const maxPage = Math.floor((filtered.length - 1) / ITEMS_PER_PAGE);
+        setAssetPage(prev => ({
+            ...prev,
+            [category]: Math.min(maxPage, (prev[category] || 0) + 1)
+        }));
+    };
+
+    const renderAssets = (category) => {
+        const paginated = getPaginatedAssets(category);
+        const isNext = slideDirection === "next";
+
+        return (
+            <AnimatePresence mode="wait">
+                <motion.div
+                    key={`${category}-${assetPage[category]}`}
+                    initial={{ x: isNext ? 300 : -300, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    exit={{ x: isNext ? 300 : -300, opacity: 0 }}
+                    transition={{ duration: 0.4 }}
+                    className="cards-row"
+                    style={{ display: 'flex', gap: '1rem' }}
+                >
+                    {paginated.map(asset => (
+                        <Card
+                            key={asset._id}
+                            type={asset.categories[0]?.meta}
+                            botonTag="tag"
+                            image={asset.image ? "http://localhost:5000/" + asset.image.path : null}
+                            tagsAsset={asset.tags.map(tag => tag.name)}
+                            tituloAsset={asset.name}
+                            onClick={() => handleCardClick(asset._id)}
+                        />
+                    ))}
+                </motion.div>
+            </AnimatePresence>
+        );
     };
 
     return (
         <main className="App-content">
+            {assetsError && <p className="error">{assetsError}</p>}
             <p className="titulo linea">2D</p>
-
             <div className='contAssets'>
                 <Button
                     label="Ver assets anteriores"
                     icon={<IoIosArrowBack />}
                     iconPosition="alone"
                     className="enano-btn round-btn flechas izq"
+                    onClick={() => handlePrev("2D")}
                 />
-
-                {renderAssets(assets.filter((asset) => asset.categories[0]?.meta.meta === '2D'))}
-
-
+                {renderAssets("2D")}
                 <Button
-                    label="Ver assets anteriores"
+                    label="Ver assets siguientes"
                     icon={<IoIosArrowForward />}
                     iconPosition="alone"
                     className="enano-btn round-btn flechas drch"
+                    onClick={() => handleNext("2D")}
                 />
             </div>
 
             <p className="titulo linea">3D</p>
-
             <div className='contAssets'>
                 <Button
                     label="Ver assets anteriores"
                     icon={<IoIosArrowBack />}
                     iconPosition="alone"
                     className="enano-btn round-btn flechas izq"
+                    onClick={() => handlePrev("3D")}
                 />
-
-                {renderAssets(assets.filter((asset) => asset.categories[0]?.meta.meta === '3D'))}
-
+                {renderAssets("3D")}
                 <Button
-                    label="Ver assets anteriores"
+                    label="Ver assets siguientes"
                     icon={<IoIosArrowForward />}
                     iconPosition="alone"
                     className="enano-btn round-btn flechas drch"
+                    onClick={() => handleNext("3D")}
                 />
             </div>
 
             <p className="titulo linea">Audio</p>
-
             <div className='contAssets'>
                 <Button
                     label="Ver assets anteriores"
                     icon={<IoIosArrowBack />}
                     iconPosition="alone"
                     className="enano-btn round-btn flechas izq"
+                    onClick={() => handlePrev("Audio")}
                 />
-
-                {renderAssets(assets.filter((asset) => asset.categories[0]?.meta.meta === 'Audio'))}
-
+                {renderAssets("Audio")}
                 <Button
-                    label="Ver assets anteriores"
+                    label="Ver assets siguientes"
                     icon={<IoIosArrowForward />}
                     iconPosition="alone"
                     className="enano-btn round-btn flechas drch"
+                    onClick={() => handleNext("Audio")}
                 />
             </div>
 
             <p className="titulo linea">Video</p>
-
             <div className='contAssets'>
                 <Button
                     label="Ver assets anteriores"
                     icon={<IoIosArrowBack />}
                     iconPosition="alone"
                     className="enano-btn round-btn flechas izq"
+                    onClick={() => handlePrev("Video")}
                 />
-
-                {renderAssets(assets.filter((asset) => asset.categories[0]?.meta.meta === 'Video'))}
-
+                {renderAssets("Video")}
                 <Button
-                    label="Ver assets anteriores"
+                    label="Ver assets siguientes"
                     icon={<IoIosArrowForward />}
                     iconPosition="alone"
                     className="enano-btn round-btn flechas drch"
+                    onClick={() => handleNext("Video")}
                 />
             </div>
 
-            <p className="titulo linea">Code</p>
-
+            <p className="titulo linea">Código</p>
             <div className='contAssets'>
                 <Button
                     label="Ver assets anteriores"
                     icon={<IoIosArrowBack />}
                     iconPosition="alone"
                     className="enano-btn round-btn flechas izq"
+                    onClick={() => handlePrev("Codigo")}
                 />
-
-                {renderAssets(assets.filter((asset) => asset.categories[0]?.meta.meta === 'Codigo'))}
-
+                {renderAssets("Codigo")}
                 <Button
-                    label="Ver assets anteriores"
+                    label="Ver assets siguientes"
                     icon={<IoIosArrowForward />}
                     iconPosition="alone"
                     className="enano-btn round-btn flechas drch"
+                    onClick={() => handleNext("Codigo")}
                 />
             </div>
 
             <p className="titulo linea">Otros</p>
-
             <div className='contAssets'>
                 <Button
                     label="Ver assets anteriores"
                     icon={<IoIosArrowBack />}
                     iconPosition="alone"
                     className="enano-btn round-btn flechas izq"
+                    onClick={() => handlePrev("Otros")}
                 />
-
-                {renderAssets(assets.filter((asset) => asset.categories[0]?.meta.meta === 'Otros'))}
-
+                {renderAssets("Otros")}
                 <Button
-                    label="Ver assets anteriores"
+                    label="Ver assets siguientes"
                     icon={<IoIosArrowForward />}
                     iconPosition="alone"
                     className="enano-btn round-btn flechas drch"
+                    onClick={() => handleNext("Otros")}
                 />
             </div>
-
         </main>
     );
 }
 
 function Home() {
-    return (
-        <HomeContent />
-    );
+    return <HomeContent />;
 }
 
 export default Home;

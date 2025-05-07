@@ -81,10 +81,18 @@
 
 @media all and (width<1300px) {
     .h_but_anadir {
-        font-size: 0;
         height: $alto-boton-enano !important;
         width: $ancho-boton-enano !important;
         gap: 0;
+        width: 3.5rem;
+    
+        .label-text {
+          display: none; // Oculta solo el texto, no el icono
+        }
+    
+        .icon {
+          font-size: $tamano-texto-boton; // Asegúrate de que el icono siga viéndose bien
+        }
 
         >span {
             font-size: $tamano-texto-boton;

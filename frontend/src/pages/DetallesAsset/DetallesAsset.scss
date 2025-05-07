@@ -47,6 +47,7 @@ $assetPhotoHeigh: $assetCarruselHeight - 150px;
                 gap: $assetDetailsGap;
                 display: flex;
                 flex-flow: column;
+                align-items: center;
                 margin: $assetDetailsPadding 0;
     
                 &.notSelected {}

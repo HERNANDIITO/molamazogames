@@ -10,6 +10,8 @@ import { getAssetById } from '../../services/assetService.js';
 import CarousselController from '../../components/CarousselController/CarousselController.js';
 
 import { CarousselImage } from '../../components/carousselEntry/carousselImage/CarousselImage.js'
+import { Caroussel3D } from '../../components/carousselEntry/caroussel3D/Caroussel3D.js';
+
 
 const DetallesAsset = () => {
 
@@ -24,14 +26,14 @@ const DetallesAsset = () => {
 
     const carousselRef = useRef(null);
 
-    const { assetID } = useParams(); 
+    const { assetID } = useParams();
 
     useEffect(() => {
         const fetchAsset = async () => {
             try {
                 const result = await getAssetById({ assetID: assetID });
                 const assetToSet = result.asset;
-                const previewFilesToSet = result.asset.files.filter( (file) => { return file.preview })
+                const previewFilesToSet = result.asset.files.filter((file) => { return file.preview })
                 const downloadableFilesToSet = result.asset.files//.filter( (file) => { return !file.preview })
                 setAsset(assetToSet);
                 setPreviewFiles(previewFilesToSet);
@@ -45,50 +47,56 @@ const DetallesAsset = () => {
     }, []);
 
     const renderPreviewImages = () => {
-
-        if ( !previewFiles ) { return "No hay preview files"; }
-
-        console.log("previewFiles", previewFiles)
+        if (!previewFiles || previewFiles.length === 0) {
+            return;
+        }
 
         const modelos3D = [
             "model/gltf+json",
             "model/gltf-binary",
             "application/octet-stream",
-            "text/plain",
-            "application/fbx",
-            "application/sla",
             "application/stl",
             "application/ply",
             "application/x-3ds"
-        ]
+        ];
 
-        {
-            previewFiles.map((entry) => {
-                if (entry.mimetype.split("/")[0] === "image") {
-                    return (
-                        <CarousselImage
-                            key={entry.name}
-                            path={entry.path}
-                            name={entry.name}
-                            description={entry.description}
-                        />
-                    );
-                }
-                if (modelos3D.includes(entry.mimetype)) {
-                    
-                }
-            })
-        }
+        return previewFiles.map((entry) => {
+            const tipo = entry.mimetype.split("/")[0];
 
+            if (tipo === "image") {
+                return (
+                    <CarousselImage
+                        key={entry.name}
+                        path={entry.path}
+                        name={entry.name}
+                        description={entry.description}
+                    />
+                );
+            }
+
+            if (modelos3D.includes(entry.mimetype)) {
+                return (
+                    <Caroussel3D
+                        key={entry.name}
+                        path={entry.path}
+                        name={entry.name}
+                        description={entry.description}
+                    />
+                );
+            }
+
+            return null;
+        });
     };
 
+
     const getAssetAuthor = () => {
-        if ( asset.author ) { return asset.author.name; }
+        if (asset.author) { return asset.author.name; }
         return;
     }
 
     const getAssetSize = () => {
-        if ( asset.size ) { return bytesToBigUnit(asset.size); }
+        if (asset.size) { return bytesToBigUnit(asset.size); }
         return;
     }
 
@@ -107,24 +115,24 @@ const DetallesAsset = () => {
     }
 
     const getAssetPublicationDate = () => {
-        if ( asset.publicationDate ) { return formatDate(asset.publicationDate); }
+        if (asset.publicationDate) { return formatDate(asset.publicationDate); }
         return;
     }
 
     const getAssetUpdateDate = () => {
-        if ( asset.updateDate ) { return formatDate(asset.updateDate); }
+        if (asset.updateDate) { return formatDate(asset.updateDate); }
         return;
     }
 
     const getAssetDescription = () => {
-        if ( asset.description ) { return asset.description; }
+        if (asset.description) { return asset.description; }
         return;
     }
 
     function bytesToBigUnit(bytes) {
-        const unidades = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB']; 
+        const unidades = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB'];
         let i = 0;
-    
+
         while (bytes >= 1024 && i < unidades.length - 1) {
             bytes /= 1024;
             i++;
@@ -134,7 +142,7 @@ const DetallesAsset = () => {
     }
 
     const renderCategories = () => {
-        if ( !asset.categories ) { return; }
+        if (!asset.categories) { return; }
 
         return asset.categories.map((cat) => (
             <Button
@@ -150,35 +158,35 @@ const DetallesAsset = () => {
     const scroll = (direction) => {
         const caroussel = carousselRef.current;
 
-        if ( !caroussel ) { return; }
+        if (!caroussel) { return; }
 
         const currentScroll = caroussel.scrollLeft;
         const pxToScroll = currentScroll + (caroussel.clientWidth * direction)
 
-        caroussel.scroll(pxToScroll, 0);  
+        caroussel.scroll(pxToScroll, 0);
     }
 
     const renderDownloadableFiles = () => {
-        if ( !downloadableFiles ) { return "No hay downloadable files"; }
+        if (!downloadableFiles) { return "No hay downloadable files"; }
         return downloadableFiles.map((file) => (
             <div class="downloadableFile">
                 <span class="fileType" >
-                {(() => {
-                    switch (file.mimetype.split("/")[0]) {
-                    case "image":
-                        return <FontAwesomeIcon icon={faImage} />;
-                    case "video":
-                        return <FontAwesomeIcon icon={faFilm} />;
-                    case "audio":
-                        return <FontAwesomeIcon icon={faMusic} />;
-                    case "text":
-                        return <FontAwesomeIcon icon={faCode} />;
-                    case "application":
-                        return <FontAwesomeIcon icon={faFolder} />;
-                    default:
-                        return "Unsupported file type"; // Puedes mostrar un mensaje por defecto
-                    }
-                })()}
+                    {(() => {
+                        switch (file.mimetype.split("/")[0]) {
+                            case "image":
+                                return <FontAwesomeIcon icon={faImage} />;
+                            case "video":
+                                return <FontAwesomeIcon icon={faFilm} />;
+                            case "audio":
+                                return <FontAwesomeIcon icon={faMusic} />;
+                            case "text":
+                                return <FontAwesomeIcon icon={faCode} />;
+                            case "application":
+                                return <FontAwesomeIcon icon={faFolder} />;
+                            default:
+                                return "Unsupported file type"; // Puedes mostrar un mensaje por defecto
+                        }
+                    })()}
                 </span>
                 <span class="fileName" >{file.originalName}</span>
                 <span class="fileDesc" >{file.description}</span>
@@ -187,15 +195,14 @@ const DetallesAsset = () => {
                     icon={<FontAwesomeIcon icon={faDownload} />}
                     iconPosition="alone"
                     className="round-btn secondary-btn enano-btn fileDownload"
-                    href={`http://localhost:5000/${file.path}`}
-                    download={true}
+                    href={`http://localhost:5000/file/download?fileID=${file._id}`}
                 />
             </div>
         ))
     }
 
     const renderTags = () => {
-        if ( !asset.tags ) { return; }
+        if (!asset.tags) { return; }
 
         return asset.tags.map((tag) => (
             <Button
@@ -208,101 +215,110 @@ const DetallesAsset = () => {
         ));
     }
 
+    const renderCarousselController = () => {
+        if (!previewFiles || previewFiles.length === 0) {
+            return;
+        }
+            return (
+                <div class="carousselWrapper">
+                    <div class="carousselDetallesButtons">
+                        <CarousselController
+                            id="assetDetailsCarousselControllerLeft"
+                            label="Control del carrusel"
+                            onClick={() => scroll(-1)}
+                        />
+
+                        <CarousselController
+                            id="assetDetailsCarousselControllerRight"
+                            label="Control del carrusel"
+                            onClick={() => scroll(1)}
+                            direction='right'
+                        />
+                    </div>
+                    <div ref={carousselRef} class="carousselDetalles">
+                        {renderPreviewImages()}
+                    </div>
+                </div>
+
+
+            )
+        
+    }
+
     return (
 
-    <main>
-        
-        <div class="detailsPage">
-            <h2 class="decorator assetDetails-assetName">{asset.name}</h2>
-            <div class="carousselWrapper">
-                <div class="carousselDetallesButtons">
-                    <CarousselController
-                        id="assetDetailsCarousselControllerLeft"
-                        label="Control del carrusel"
-                        onClick={() => scroll(-1)}
-                    />
+        <main>
 
-                    <CarousselController
-                        id="assetDetailsCarousselControllerRight"
-                        label="Control del carrusel"
-                        onClick={() => scroll(1)}
-                        direction='right'
-                    />
-                </div>
-                <div ref={carousselRef} class="carousselDetalles">
-                    { renderPreviewImages() }
-                </div>
-            </div>
+            <div class="detailsPage">
+                <h2 class="decorator assetDetails-assetName">{asset.name}</h2>
+                {previewFiles.length > 0 && renderCarousselController()}
 
-            <div class="assetDetails">
-                <div class="detailsRow">
-                    <div class="info-col">
-                        <div class="assetDetailsCard">
-                            <h3 class="decorator">Información</h3>
-                            <div class="detailsEntry">
-                                <h4>Autor</h4>
-                                <p>{getAssetAuthor()}</p>
+                <div class="assetDetails">
+                    <div class="detailsRow">
+                        <div class="info-col">
+                            <div class="assetDetailsCard">
+                                <h3 class="decorator">Información</h3>
+                                <div class="detailsEntry">
+                                    <h4>Autor</h4>
+                                    <p>{getAssetAuthor()}</p>
+                                </div>
+                                <div class="detailsEntry">
+                                    <h4>Tamaño</h4>
+                                    <p>{getAssetSize()}</p>
+                                </div>
+                                <div class="detailsEntry">
+                                    <h4>Fecha de publicación</h4>
+                                    <p>{getAssetPublicationDate()}</p>
+                                </div>
+                                <div class="detailsEntry">
+                                    <h4>Fecha de actualización</h4>
+                                    <p>{getAssetUpdateDate()}</p>
+                                </div>
                             </div>
-                            <div class="detailsEntry">
-                                <h4>Tamaño</h4>
-                                <p>{getAssetSize()}</p>
+                        </div>
+                        <div class="tags-col">
+                            <div class="assetInteractionButtons" >
+                                <Button
+                                    label={"Descarga"}
+                                    icon={<FontAwesomeIcon icon={faDownload} />}
+                                    href={`http://localhost:5000/asset/download?assetID=${assetID}`}
+                                    className={'assetDetails-button assetDetails-downloadButton'}
+                                ></Button>
+                                <Button
+                                    label={""}
+                                    icon={<FontAwesomeIcon icon={faHeart} />}
+                                    iconPosition={"alone"}
+                                    className={"assetDetails-button secondary-btn"}
+                                ></Button>
                             </div>
-                            <div class="detailsEntry">
-                                <h4>Fecha de publicación</h4>
-                                <p>{getAssetPublicationDate()}</p>
+                            <div class="assetTags assetDetailsCard">
+                                <h3 class="decorator">Categorías</h3>
+                                <div class="assetTags">
+                                    {renderCategories()}
+                                </div>
                             </div>
-                            <div class="detailsEntry">
-                                <h4>Fecha de actualización</h4>
-                                <p>{getAssetUpdateDate()}</p>
+                            <div class="assetTags assetDetailsCard">
+                                <h3 class="decorator">Etiquetas</h3>
+                                <div class="assetTags">
+                                    {renderTags()}
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="tags-col">
-                        <div class="assetInteractionButtons" >
-                            <Button
-                                label= {"Descarga"}
-                                onClick= {"any"}
-                                icon= {<FontAwesomeIcon icon={faDownload} />}
-                                href= {"any"}
-                                className={'assetDetails-button assetDetails-downloadButton'}
-                            ></Button>
-                            <Button
-                                label= {""}
-                                onClick= {"any"}
-                                icon= {<FontAwesomeIcon icon={faHeart} />}
-                                href= {"any"}
-                                iconPosition= {"alone"}
-                                className={"assetDetails-button secondary-btn"}
-                            ></Button>
-                        </div>
-                        <div class="assetTags assetDetailsCard">
-                            <h3 class="decorator">Categorías</h3>
-                            <div class="assetTags">
-                                {renderCategories()}
-                            </div>
-                        </div>
-                        <div class="assetTags assetDetailsCard">
-                            <h3 class="decorator">Etiquetas</h3>
-                            <div class="assetTags">
-                                {renderTags()}
-                            </div>
-                        </div>
+                    <div class="assetDescription assetDetailsCard">
+                        <h3 class="decorator">Descripción</h3>
+                        <p>{getAssetDescription()}</p>
+                    </div>
+                    <div class="assetDownloads assetDetailsCard">
+                        <h3 class="decorator">Descargas</h3>
+                        <p class="downloadableFileList">{renderDownloadableFiles()}</p>
                     </div>
                 </div>
-                <div class="assetDescription assetDetailsCard">
-                    <h3 class="decorator">Descripción</h3>
-                    <p>{getAssetDescription()}</p>
-                </div>
-                <div class="assetDownloads assetDetailsCard">
-                    <h3 class="decorator">Descargas</h3>
-                    <p class="downloadableFileList">{renderDownloadableFiles()}</p>
-                </div>
             </div>
-        </div>
 
-    </main>
+        </main>
 
-  );
+    );
 };
 
 export default DetallesAsset;
