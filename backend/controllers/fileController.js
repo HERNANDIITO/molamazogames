@@ -1,4 +1,5 @@
 import File from '../schemas/file.schema.js' 
+import Format from '../schemas/format.schema.js'
 import Asset from '../schemas/asset.schema.js'
 import User from '../schemas/user.schema.js'
 import asyncHandler from 'express-async-handler'
@@ -196,6 +197,81 @@ const editFile = asyncHandler( async(req,res,next) => {
 
 })
 
+const getFormatByMimeType = async (mimeType) => {
+    const mimeMap = {
+        // Formatos de imagen
+        'image/jpeg': 'JPG/JPEG',
+        'image/png': 'PNG',
+        'image/svg+xml': 'SVG',
+        'image/tiff': 'TIFF',
+        'image/vnd.ms-dds': 'DDS',
+        'image/tga': 'TGA',
+      
+        // Formatos de audio
+        'audio/mpeg': 'MP3',
+        'audio/ogg': 'OGG',
+        'audio/wav': 'WAV',
+        'audio/flac': 'FLAC',
+        'audio/x-midi': 'MIDI',
+        'audio/x-wav': 'WAV',
+        'audio/x-ms-wma': 'WAV',
+        
+        // Formatos de video
+        'video/mp4': 'MP4',
+        'video/webm': 'WEBM',
+        'video/x-msvideo': 'AVI',
+        'video/avi': 'AVI',
+        'video/mpeg': 'MP4',  // Es posible que algunas veces se reconozca como MPEG en lugar de MP4
+        'video/quicktime': 'MOV',
+        'video/x-flv': 'FLV',  // Flash Video
+        'video/x-matroska': 'WEBM',  // WebM también puede ser un tipo de Matroska
+      
+        // Formatos de 3D
+        'application/vnd.blender': 'BLEND',
+        'model/x-obj': 'OBJ',
+        'application/x-tar': 'STL',
+        'application/json': 'GLTF / GLB',  // GLTF se usa también con JSON
+        'application/octet-stream': 'FBX',  // FBX generalmente no tiene un MIME type estándar
+      
+        // Formatos de código
+        'text/x-csrc': 'C',
+        'text/x-c++src': 'C++',
+        'application/javascript': 'JavaScript++',
+        'text/lua': 'Lua',
+        'text/x-python': 'Python',
+        'application/typescript': 'TypeScript',
+        'application/yaml': 'YAML',
+        'text/html': 'HTML',  // HTML también es relevante en algunos casos como "Código"
+        
+        // Otros
+        'application/json': 'JSON',
+        'application/pdf': 'PDF',
+        'application/zip': 'ZIP',
+        'application/xml': 'XML',
+        'text/csv': 'CSV',
+        'text/plain': 'Otros',
+        'application/x-sqlite3': 'SQL / SQLite',  // SQLite3
+        'application/ini': 'INI',
+        'application/x-navmesh': 'NAVMESH / AI Graphs' // Para gráficos de inteligencia artificial
+    };
+  
+    // Buscar en el mapa de MIME types
+    const formatName = mimeMap[mimeType];
+
+    // Buscar el formato correspondiente en los arrays
+    if ( formatName ) {
+        const file = await Format.findOne({ name: { $regex: formatName, $options: 'i' } });
+        if ( file ) {
+            return file._id
+        }
+    }
+
+    const otros = await Format.findOne({name: "Otros"});
+  
+    // Si no se encuentra un formato válido, devolver 'Otros'
+    return otros._id;
+};
+
 const uploadFile = asyncHandler(async (req, res, next) => {
     try{
         
@@ -226,6 +302,8 @@ const uploadFile = asyncHandler(async (req, res, next) => {
             });
         }
 
+        const formatID = await getFormatByMimeType(mimetype);
+
         const newFile = new File({
             name: fileName,
             originalName: originalname,
@@ -234,7 +312,8 @@ const uploadFile = asyncHandler(async (req, res, next) => {
             size: size,
             author: author,
             path: filePath,
-            preview: isPreview
+            preview: isPreview,
+            format: formatID
         });
 
         const file = await newFile.save();

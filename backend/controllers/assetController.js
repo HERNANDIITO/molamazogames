@@ -10,6 +10,7 @@ import asyncHandler from 'express-async-handler'
 import moment from 'moment';
 import mongoose from 'mongoose';
 import Meta from '../schemas/meta.schema.js';
+import Format from '../schemas/format.schema.js';
 
 // Obtener todos los assets
 const getAssets = asyncHandler(async (req, res, next) => {
@@ -24,7 +25,7 @@ const getAssets = asyncHandler(async (req, res, next) => {
     const meta        = req.query.meta      ? JSON.parse(req.query.meta)        : undefined;
     const isStrict    = req.query.isStrict  ? JSON.parse(req.query.isStrict)    : undefined;
 
-    try{
+    try {
 
         const filters = [];
                 
@@ -77,14 +78,6 @@ const getAssets = asyncHandler(async (req, res, next) => {
             }
         }
 
-        if (format) {
-            if ( isStrict ) {
-                filters.push({ format: { $all: [...format] } });
-            } else {
-                filters.push({ format: { $in: [...format] } });
-            }
-        }
-
         if ( size ) {
             if (size.max && size.min) { 
                 filters.push({ size: { $gte: size.max, $lte: size.min } });      
@@ -95,27 +88,55 @@ const getAssets = asyncHandler(async (req, res, next) => {
             }
         }
 
-        if (meta) {
-            if ( !mongoose.Types.ObjectId.isValid(meta) ) {
-                const metaObj = await Meta.findOne({meta: meta});
-                filters.push({ meta: metaObj._id });
-            } else {
-                filters.push({ meta: meta });
+        if (meta && Array.isArray(meta)) {
+            for (const m of meta) {
+                if (!mongoose.Types.ObjectId.isValid(m)) {
+                    const metaObj = await Meta.findOne({ meta: m });
+                    if (metaObj) {
+                        filters.push({ meta: metaObj._id });
+                    }
+                } else {
+                    filters.push({ meta: m });
+                }
             }
         }
 
-        
         const query = isStrict ? { $and: filters } : { $or: filters };
 
-        const assets = await Asset.find(query).sort(orderBy).populate( 'author categories files tags image' ).populate({
-            path: 'categories', // Poblar 'categories', que son un array de IDs
-            populate: {
-              path: 'meta' // Luego poblar el campo 'meta' dentro de cada categoría
-            }
-          });
-        res.status(200).json({
+        let assets = await Asset.find(query)
+            .sort(orderBy)
+            .populate('author categories files tags image')
+            .populate({
+                path: 'categories', 
+                populate: {
+                    path: 'meta' 
+                }
+            })
+            .populate({
+                path: 'files',
+                match: format ? { format: { $in: format } } : {},
+            });
+
+        if (!isStrict && format) {
+            const assetsWithFormat = await Asset.find({ 
+                files: { $elemMatch: { format: { $in: format } } }
+            })
+            .populate('author categories files tags image')
+            .populate({
+                path: 'categories',
+                populate: {
+                    path: 'meta'
+                }
+            });
+
+            // Combinamos los resultados (evitando duplicados)
+            assets = [...new Set([...assets, ...assetsWithFormat])];
+        }
+        
+        return res.status(200).json({
             result: "OK.",
-            assets: assets
+            assets: assets,
+            results: assets.length
         });
     }
     catch(error){
@@ -219,7 +240,7 @@ const createAsset = asyncHandler(async (req, res, next) => {
 
         const trueCategories = [];
         const falseCategories = [];
-        let meta;
+        let meta = [];
 
         for (const categoryID of categoryIDs) {
 
@@ -232,7 +253,10 @@ const createAsset = asyncHandler(async (req, res, next) => {
 
             if ( category ) {
                 trueCategories.push(categoryID);
-                meta = category.meta;
+                if ( !meta.includes(category.meta.toString() ) ) {
+                    meta.push(category.meta.toString() );
+                }
+
             } else {
                 falseCategories.push(categoryID);
             }
@@ -266,6 +290,12 @@ const createAsset = asyncHandler(async (req, res, next) => {
             if ( !file ) {
                 falseFileIDs.push(fileID);
             } else {
+                const format = await Format.findById(file.format);
+
+                if ( !meta.includes(format.meta.toString() ) ) {
+                    meta.push(format.meta.toString() );
+                }
+
                 assetSize += file.size;
             }
         }

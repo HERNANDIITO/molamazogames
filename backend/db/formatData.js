@@ -6,7 +6,6 @@ const formats = [
         { name: "SVG", meta: "2D" },
         { name: "TIFF", meta: "2D" },
         { name: "TGA", meta: "2D" },
-        { name: "Otros", meta: "2D" }
     ],
     [
         { name: "BLEND", meta: "3D" },
@@ -16,7 +15,6 @@ const formats = [
         { name: "OBJ", meta: "3D" },
         { name: "PLY", meta: "3D" },
         { name: "STL", meta: "3D" },
-        { name: "Otros", meta: "3D" }
     ],
     [
         { name: "FLAC", meta: "Audio" },
@@ -25,7 +23,6 @@ const formats = [
         { name: "OGG", meta: "Audio" },
         { name: "WAV", meta: "Audio" },
         { name: "XWV / XSB / XGS", meta: "Audio" },
-        { name: "Otros", meta: "Audio" }
     ],
     [
         { name: "AVI", meta: "Video" },
@@ -34,7 +31,6 @@ const formats = [
         { name: "MOV", meta: "Video" },
         { name: "Thora", meta: "Video" },
         { name: "WEBM", meta: "Video" },
-        { name: "Otros", meta: "Video" }
     ],
     [
         { name: "C", meta: "Codigo" },
@@ -45,7 +41,6 @@ const formats = [
         { name: "Python", meta: "Codigo" },
         { name: "TypeScript", meta: "Codigo" },
         { name: "YAML", meta: "Codigo" },
-        { name: "Otros", meta: "Codigo" }
     ],
     [
         { name: "CSV", meta: "Otros" },
@@ -57,7 +52,7 @@ const formats = [
         { name: "XML", meta: "Otros" },
         { name: "ZIP", meta: "Otros" },
         { name: "Otros", meta: "Otros" }
-    ],
+    ]
 ];
 
 export default formats;

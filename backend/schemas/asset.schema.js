@@ -16,7 +16,7 @@ const assetSchema = mongoose.Schema(
             required: true
         },
         meta: {
-            type: mongoose.Schema.Types.ObjectId,
+            type: [mongoose.Schema.Types.ObjectId],
             ref: 'Meta',
             required: true
         },

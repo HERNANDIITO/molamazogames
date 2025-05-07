@@ -17,6 +17,11 @@ const fileSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    format: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Format',
+        required: true
+    },
     size: {
         type: Number,
         required: true
