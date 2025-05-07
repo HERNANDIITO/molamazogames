@@ -15,15 +15,15 @@ import Format from '../schemas/format.schema.js';
 // Obtener todos los assets
 const getAssets = asyncHandler(async (req, res, next) => {
 
-    const orderBy     = req.query.orderBy   ? JSON.parse(req.query.orderBy)     : undefined;
-    const searchBar   = req.query.searchBar ? JSON.parse(req.query.searchBar)   : undefined;
-    const tags        = req.query.tags      ? JSON.parse(req.query.tags)        : undefined;
-    const author      = req.query.author    ? JSON.parse(req.query.author)      : undefined;
-    const category    = req.query.category  ? JSON.parse(req.query.category)    : undefined;
-    const format      = req.query.format    ? JSON.parse(req.query.format)      : undefined;
-    const size        = req.query.size      ? JSON.parse(req.query.size)        : undefined;
-    const meta        = req.query.meta      ? JSON.parse(req.query.meta)        : undefined;
-    const isStrict    = req.query.isStrict  ? JSON.parse(req.query.isStrict)    : undefined;
+    const orderBy     = req.query.orderBy   ? (typeof req.query.orderBy   === 'string' ? JSON.parse(req.query.orderBy)   : req.query.orderBy   ) : undefined;
+    const searchBar   = req.query.searchBar ? (typeof req.query.searchBar === 'string' ? JSON.parse(req.query.searchBar) : req.query.searchBar ) : undefined;
+    const tags        = req.query.tags      ? (typeof req.query.tags      === 'string' ? JSON.parse(req.query.tags)      : req.query.tags      ) : undefined;
+    const author      = req.query.author    ? (typeof req.query.author    === 'string' ? JSON.parse(req.query.author)    : req.query.author    ) : undefined;
+    const category    = req.query.category  ? (typeof req.query.category  === 'string' ? JSON.parse(req.query.category)  : req.query.category  ) : undefined;
+    const format      = req.query.format    ? (typeof req.query.format    === 'string' ? JSON.parse(req.query.format)    : req.query.format    ) : undefined;
+    const size        = req.query.size      ? (typeof req.query.size      === 'string' ? JSON.parse(req.query.size)      : req.query.size      ) : undefined;
+    const meta        = req.query.meta      ? (typeof req.query.meta      === 'string' ? JSON.parse(req.query.meta)      : req.query.meta      ) : undefined;
+    const isStrict    = req.query.isStrict  ? (typeof req.query.isStrict  === 'string' ? JSON.parse(req.query.isStrict)  : req.query.isStrict  ) : undefined;
 
     try {
 

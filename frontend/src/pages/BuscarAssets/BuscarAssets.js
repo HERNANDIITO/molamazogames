@@ -201,7 +201,7 @@ const BuscarAssets = () => {
         category: checkedCategories,
         format: checkedFormats,
         size: null,
-        meta: meta,
+        meta: [meta],
         isStrict: searchMode
        }
 
