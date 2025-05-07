@@ -12,6 +12,7 @@ const Card = ({
   image,
   type,
   botonTag,
+  onClick,
 }) => {
   const [expanded, setExpanded] = useState(false);
 
@@ -62,7 +63,7 @@ const Card = ({
         
 
         {remainingCount > 0 && (
-          <span className="tagRestante">...</span>
+          <span className="tagRestante">({remainingCount} +)</span>
         )}
         </div>
       </>
@@ -72,7 +73,7 @@ const Card = ({
 
   return (
     <div className={contornoClasses}>
-      <img src={imageToShow} alt={`${type} preview`} className="imagenAsset" />
+      <img src={imageToShow} alt={`${type} preview`} className="imagenAsset" onClick={onClick} style={{ cursor: 'pointer' }}/>
 
       <section
         className={classNames('bottag', {
@@ -102,7 +103,7 @@ const Card = ({
           <>
             <div className='divTag'>
 
-              <p className='tituloCard'>{tituloAsset}</p>
+              <p className='tituloCard' onClick={onClick} style={{ cursor: 'pointer' }}>{tituloAsset}</p>
 
               {renderTags()}
 

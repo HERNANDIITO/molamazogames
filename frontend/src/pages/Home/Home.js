@@ -1,17 +1,12 @@
 import './Home.scss';
 
-import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 
 import { getAssets } from '../../services/assetService';
 
-import { FaPlusCircle, FaCheck, FaTimes, FaUpload } from "react-icons/fa";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
-
-
-import Input from "../../components/Input/Input"
-import Textarea from "../../components/Textarea/Textarea"
 import Button from "../../components/Button/Button"
 import Card from "../../components/Card/Card"
 
@@ -21,6 +16,8 @@ function HomeContent() {
 
     const [assets, setAssets] = useState([]);
     const [assetsError, setErrorAssets] = useState(null);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchAssets = async () => {
@@ -36,23 +33,24 @@ function HomeContent() {
         fetchAssets();
     }, []);
 
+    const handleCardClick = (id) => {
+        navigate(`/detallesAsset/${id}`);
+    };
+
     const renderAssets = (assetList) => {
         console.log("assetList", assetList);
         return assetList.map((asset) => (
             <Card
+                key={asset._id}
                 type={asset.categories[0]?.meta}
                 botonTag="tag"
                 image={asset.image ? "http://localhost:5000/" + asset.image.path : null}
                 tagsAsset={asset.tags.map(tag => tag.name)}
                 tituloAsset={asset.name}
+                onClick={() => handleCardClick(asset._id)}
             />
         ));
     };
-
-
-
-
-
 
     return (
         <main className="App-content">

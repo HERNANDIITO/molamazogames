@@ -5,16 +5,16 @@
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: center;
-    gap: 2rem;
+    gap: 4rem;
     justify-content: center;
-    width: 100vh;
+    width: 100%;
     overflow-x: hidden;
     margin: 0 auto;
     margin-bottom: 5rem;
     position: relative;
 
     .flechas {
-        position: absolute;
+        position: relative;
         
         &.izq {
             left: 0;
