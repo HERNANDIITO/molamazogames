@@ -7,8 +7,11 @@ import Input from '../../components/Input/Input.js';
 import { getAllCategories } from '../../services/categoriesServices.js';
 import { getAllFormats } from '../../services/formatsServices.js';
 import { useParams } from 'react-router-dom';
-import FullDropdown from '../../components/FullDropdown/FullDropdown.js';
 import { useSearchParams } from "react-router-dom";
+
+import FullDropdown from '../../components/FullDropdown/FullDropdown.js';
+import Checkbox from '../../components/Checkbox/Checkbox.js';
+import SearchBar from '../../components/SearchBar/SearchBar.js';
 import Select from "../../components/Select/Select";
 
 import './BuscarAssets.scss'
@@ -30,6 +33,11 @@ const BuscarAssets = () => {
 
     const [ordenes, setOrden] = useState([]);
     const [ordenSeleccionado, setOrdenSeleccionado] = useState('');
+
+    const [etiquetasAnadidas, setEtiquetasAnadidas] = useState([]);
+    const [etiquetaInput, setEtiquetaInput] = useState('');
+
+    const [searchMode, setSearchMode] = useState(false);
 
     const { meta } = useParams();
     
@@ -96,37 +104,50 @@ const BuscarAssets = () => {
 
     const formatsGroups = getFormatsGroups();
 
-      useEffect(() => {
-    const options = [
-      {
-        label: 'Actualizaciones nuevas',
-        value: '1',
-      },
-      {
-        label: 'Actualizaciones más antiguas',
-        value: '2',
-      },
-      {
-        value: '3',
-        label: 'Nombre ascendente A-Z',
-      },
-      {
-        label: 'Nombre descendente A-Z',
-        value: '4',
-      },
-      {
-        label: 'Publicaciones nuevas',
-        value: '5',
-      },
-      {
-        label: 'Publicaciones más antiguas',
-        value: '6',
-      }
+    useEffect(() => {
+        const options = [
+        {
+            label: 'Actualizaciones nuevas',
+            value: '1',
+        },
+        {
+            label: 'Actualizaciones más antiguas',
+            value: '2',
+        },
+        {
+            value: '3',
+            label: 'Nombre ascendente A-Z',
+        },
+        {
+            label: 'Nombre descendente A-Z',
+            value: '4',
+        },
+        {
+            label: 'Publicaciones nuevas',
+            value: '5',
+        },
+        {
+            label: 'Publicaciones más antiguas',
+            value: '6',
+        }
     ];
 
     setOrden(options);
   }, []);
       
+  const anadirEtiqueta = () => {
+    console.log(etiquetaInput);
+    const etiquetaLimpia = etiquetaInput.trim();
+
+    if (
+        etiquetaLimpia &&
+        /^[a-zA-Z0-9]+$/.test(etiquetaLimpia) &&
+        !etiquetasAnadidas.includes(etiquetaLimpia)
+    ) {
+        setEtiquetasAnadidas([...etiquetasAnadidas, etiquetaLimpia]);
+        setEtiquetaInput('');
+    }
+};
     
   return (
     <main class="buscarsssets-main-container">  
@@ -136,12 +157,44 @@ const BuscarAssets = () => {
 
         <aside>
         <form>
+            <Checkbox 
+                label="Búsqueda exclusiva"
+                id="modo-busqueda"
+                value="1"
+                size="normal"
+                showLabel={true}
+                checked={searchMode}
+                onChange={() => setSearchMode(!searchMode)}
+            />
             <Select
                 label="Ordenar por"
                 options={ordenes}
                 name="orden"
                 value={ordenSeleccionado}
                 onChange={(e) => setOrdenSeleccionado(e.target.value)}
+            />
+            <SearchBar
+                labelText = "Filtrar por etiquetas"
+                placeholderText = "Escribe una etiqueta..."
+                id = "searchBar-etiquetas"
+                buttonId = "searchBarButton-etiquetas"
+                onClick = {anadirEtiqueta}
+                onChange = {(e) => setEtiquetaInput(e.target.value)}
+                value={etiquetaInput}
+            />
+            <div className="etiquetasAdds">
+                {etiquetasAnadidas.map(tag => (
+                    <Button key={tag.value} className="tag tag-delete" label={tag.label} onClick={() => {
+                        setEtiquetasAnadidas(etiquetasAnadidas.filter(t => t.value !== tag.value));
+                    }} />
+                ))}
+            </div>
+            <SearchBar
+                labelText = "Filtrar por autor"
+                placeholderText = "Escribe un autor..."
+                id = "searchBar-autor"
+                buttonId = "searchBarButton-autor"
+                // onClick = {(e) => }
             />
             {!meta ? (
                 <>

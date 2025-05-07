@@ -6,7 +6,15 @@ import { FaSearch } from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
 
 const SearchBar = ({
-    general = false  // True indica que es la barra principal del header de la web
+    general = false,  // True indica que es la barra principal del header de la web
+    labelText,
+    placeholderText,
+    id,
+    buttonId,
+    onClick,
+    onChange,
+    value
+
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
@@ -53,20 +61,22 @@ const SearchBar = ({
         );
     } else {
         return (
-            <div className="searchBar">
-                <label htmlFor="searchInput2" className="sr-only">Buscar por palabras claves del título o descripción de los assets</label> 
-                <input
-                    type="text"
-                    id="searchInput2"
-                    placeholder="Buscar"
-                    value={searchTerm}
-                    onChange={handleInputChange}
-                    required
-                />
-                <button type="button" id="searchButton" onClick={handleSearch} aria-label="Confirmar búsqueda">
-                    <FaSearch /> 
-                </button>
-            </div>
+            <>
+                <label htmlFor={id} className="searchBarLabel">{labelText}</label>
+                <div className="searchBar nogeneral"> 
+                    <input
+                        type="text"
+                        id={id}
+                        placeholder={placeholderText}
+                        onChange={onChange ? onChange : handleInputChange}
+                        value={value}
+                        required
+                    />
+                    <button type="button" id={buttonId} onClick={onClick ? onClick : handleSearch} aria-label="Confirmar búsqueda">
+                        <FaSearch /> 
+                    </button>
+                </div>
+            </>
         );
     };
 };
