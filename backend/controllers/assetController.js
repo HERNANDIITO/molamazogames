@@ -15,15 +15,15 @@ import Format from '../schemas/format.schema.js';
 // Obtener todos los assets
 const getAssets = asyncHandler(async (req, res, next) => {
 
-    const orderBy     = req.query.orderBy   ? (typeof req.query.orderBy   === 'string' ? JSON.parse(req.query.orderBy)   : req.query.orderBy   ) : undefined;
-    const searchBar   = req.query.searchBar ? (typeof req.query.searchBar === 'string' ? JSON.parse(req.query.searchBar) : req.query.searchBar ) : undefined;
-    const tags        = req.query.tags      ? (typeof req.query.tags      === 'string' ? JSON.parse(req.query.tags)      : req.query.tags      ) : undefined;
-    const author      = req.query.author    ? (typeof req.query.author    === 'string' ? JSON.parse(req.query.author)    : req.query.author    ) : undefined;
-    const category    = req.query.category  ? (typeof req.query.category  === 'string' ? JSON.parse(req.query.category)  : req.query.category  ) : undefined;
-    const format      = req.query.format    ? (typeof req.query.format    === 'string' ? JSON.parse(req.query.format)    : req.query.format    ) : undefined;
-    const size        = req.query.size      ? (typeof req.query.size      === 'string' ? JSON.parse(req.query.size)      : req.query.size      ) : undefined;
-    const meta        = req.query.meta      ? (typeof req.query.meta      === 'string' ? JSON.parse(req.query.meta)      : req.query.meta      ) : undefined;
-    const isStrict    = req.query.isStrict  ? (typeof req.query.isStrict  === 'string' ? JSON.parse(req.query.isStrict)  : req.query.isStrict  ) : undefined;
+    const orderBy     = req.query.orderBy   ? req.query.orderBy   : undefined;
+    const searchBar   = req.query.searchBar ? req.query.searchBar : undefined;
+    const tags        = req.query.tags      ? req.query.tags      : undefined;
+    const author      = req.query.author    ? req.query.author    : undefined;
+    const category    = req.query.category  ? req.query.category  : undefined;
+    const format      = req.query.format    ? req.query.format    : undefined;
+    const size        = req.query.size      ? req.query.size      : undefined;
+    const meta        = req.query.meta      ? req.query.meta      : undefined;
+    const isStrict    = req.query.isStrict  ? req.query.isStrict === 'true' : false;
 
     try {
 
@@ -103,34 +103,51 @@ const getAssets = asyncHandler(async (req, res, next) => {
 
         const query = isStrict ? { $and: filters } : { $or: filters };
 
-        let assets = await Asset.find(query)
-            .sort(orderBy)
-            .populate('author categories files tags image')
-            .populate({
-                path: 'categories', 
-                populate: {
-                    path: 'meta' 
-                }
-            })
-            .populate({
-                path: 'files',
-                match: format ? { format: { $in: format } } : {},
-            });
+        console.log("query", query)
+        console.log("isStrict", isStrict)
+        console.log("format", format)
+        console.log("orderBy", )
 
-        if (!isStrict && format) {
-            const assetsWithFormat = await Asset.find({ 
-                files: { $elemMatch: { format: { $in: format } } }
-            })
-            .populate('author categories files tags image')
-            .populate({
-                path: 'categories',
-                populate: {
-                    path: 'meta'
-                }
-            });
+        if ( orderBy ) {
+            orderBy[Object.keys(orderBy)[0]] = parseInt(orderBy[Object.keys(orderBy)[0]], 10);
+        }
 
-            // Combinamos los resultados (evitando duplicados)
-            assets = [...new Set([...assets, ...assetsWithFormat])];
+        // Primero, estructuramos la consulta inicial con el query y la lógica de filtro por formato
+        let assets = await Asset.find(query).sort(orderBy).populate('author tags image').populate({
+            path: 'categories',
+            populate: {
+                path: 'meta'
+            }
+        }).populate({
+            path: 'files'
+        });
+
+        if ( isStrict && format ) {
+            assets = assets.filter((asset) => {
+                for (const file of asset.files) {
+                    if ( format.includes(file.format) ) {
+                        return true;
+                    }
+                }
+                return false;
+            })
+        } else if ( !isStrict && format ) {
+            const assetsFormat = await Asset.aggregate([
+                {
+                  $lookup: {
+                    from: 'files',
+                    localField: 'files',
+                    foreignField: '_id',
+                    as: 'fileDetails'
+                  }
+                },
+                {
+                  $match: {
+                    'fileDetails.format': { $in: format }
+                  }
+                }
+            ]);
+            assets.push([...assetsFormat]);
         }
         
         return res.status(200).json({

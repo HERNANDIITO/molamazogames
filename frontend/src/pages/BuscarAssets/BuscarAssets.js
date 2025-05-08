@@ -171,47 +171,60 @@ const BuscarAssets = () => {
     
 
     const search = async () => {
-        console.log("me han llamado", ordenSeleccionado);
-        console.log("ordenSeleccionado", ordenSeleccionado);
-        
-       let orderby
-       switch ( ordenSeleccionado ) {
-        case '1':
-            orderby = {"updateDate": 1}
-            break;
-        case '2':
-            orderby = {"updateDate": -1}
-            break;
-        case '3':
-            orderby = {"mane": 1}
-            break;
-        case '4':
-            orderby = {"name": -1}
-            break;
-        case '5':
-            orderby = {"publicationDate": 1}
-            break;
-        case '6':
-            orderby = {"publicationDate": -1}
-            break;
-       }
+        console.log("me han llamado")
+        let orderby
+        switch ( ordenSeleccionado ) {
+            case '1':
+                orderby = {"updateDate": 1}
+                break;
+            case '2':
+                orderby = {"updateDate": -1}
+                break;
+            case '3':
+                orderby = {"name": 1}
+                break;
+            case '4':
+                orderby = {"name": -1}
+                break;
+            case '5':
+                orderby = {"publicationDate": 1}
+                break;
+            case '6':
+                orderby = {"publicationDate": -1}
+                break;
+        }
 
-    console.log("checkedCategories: ", checkedCategories);
-    console.log("checkedFormats: ", checkedFormats);
+        console.log("checkedCategories: ", );
+        console.log("checkedFormats: ", checkedFormats);
 
-       const params = {
-        orderBy: orderby,
-        searchBar: searchTerm,
-        tags: etiquetasAnadidas,
-        author: autoresAnadidos,
-        category: checkedCategories,
-        format: checkedFormats,
-        size: null,
-        meta: [meta],
-        isStrict: searchMode
-       }
+        const categoryKeys = [];
+        const formatsKeys = [];
 
-       console.log(params);
+        for (const key of Object.keys(checkedCategories)) {
+            if ( checkedCategories[key] ) {
+                categoryKeys.push(key);
+            }
+        }
+
+        for (const key of Object.keys(checkedFormats)) {
+            if ( checkedFormats[key] ) {
+                formatsKeys.push(key);
+            }
+        }
+
+        const params = {
+            orderBy: orderby,
+            searchBar: searchTerm,
+            tags: etiquetasAnadidas,
+            author: autoresAnadidos,
+            category: categoryKeys,
+            format: formatsKeys,
+            size: null,
+            meta: meta,
+            isStrict: searchMode
+        }
+
+        console.log("params", params)
 
        try {
             const result = await getAssets(params);
@@ -244,7 +257,7 @@ const BuscarAssets = () => {
             label: 'Nombre ascendente A-Z',
         },
         {
-            label: 'Nombre descendente A-Z',
+            label: 'Nombre descendente Z-A',
             value: '4',
         },
         {
@@ -290,19 +303,26 @@ const anadirAutor = () => {
     <main class="buscarsssets-main-container">  
         <section>
         <h2>{meta ? (meta) : ( searchTerm ? ( '"' + searchTerm + '"' ) : ("Todos los assets"))}</h2>
-        <div class="cards">
-            {assets.map(asset => (
-                <Card
-                    key={asset._id}
-                    type={asset.categories[0]?.meta}
-                    botonTag="tag"
-                    image={asset.image ? "http://localhost:5000/" + asset.image.path : null}
-                    tagsAsset={asset.tags.map(tag => tag.name)}
-                    tituloAsset={asset.name}
-                    onClick={() => handleCardClick(asset._id)}
-                />
-            ))}
-        </div>
+        
+        {
+            Array.isArray(assets) && assets.length > 0 ? (
+                <div class="cards">
+                {assets.map(asset => (
+                    <Card
+                        key={asset._id}
+                        type={asset.categories[0]?.meta}
+                        botonTag="tag"
+                        image={asset.image ? "http://localhost:5000/" + asset.image.path : null}
+                        tagsAsset={asset.tags.map(tag => tag.name)}
+                        tituloAsset={asset.name}
+                        onClick={() => handleCardClick(asset._id)}
+                    />
+                ))}
+                </div>
+            ) : (
+                <p>No assets found</p> 
+            )
+        }
         </section>
 
         <aside>

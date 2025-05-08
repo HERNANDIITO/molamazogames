@@ -157,9 +157,13 @@ function SubirAssetContent() {
             for (const archivo of archivosSubidos) {
                 const formData = new FormData();
                 formData.append('file', archivo.file);
+                console.log('FILE:', archivo.file)
                 formData.append('name', archivo.name || "Sin nombre");
+                console.log('NAME:', archivo.name)
                 formData.append('description', archivo.desc || "Sin descripcion");
+                console.log('DESCRIPTION:', archivo.desc)
                 formData.append('isPreview', archivo.isPreview);
+                console.log('PREVIEW:', archivo.isPreview)
 
                 const result = await uploadFile(formData);
                 asset.files.push(result.file._id);
