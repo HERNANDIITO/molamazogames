@@ -290,9 +290,7 @@ const anadirAutor = () => {
     const autorLimpio = autorInput.trim();
 
     if (
-        autorLimpio &&
-        /^[a-zA-Z0-9]+$/.test(autorLimpio) &&
-        !autoresAnadidos.includes(autorLimpio)
+        autorLimpio 
     ) {
         setAutoresAnadidos([...autoresAnadidos, autorLimpio]);
         setAutorInput('');
