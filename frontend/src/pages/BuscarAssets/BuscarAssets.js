@@ -50,7 +50,11 @@ const BuscarAssets = () => {
     const [checkedFormats, setCheckedFormats] = useState({});
 
     const [assets, setAssets] = useState([]);
+    const [numbreAssets, setNumberAssets] = useState('');
     const [assetsError, setErrorAssets] = useState(null);
+
+    const [areFilters, setAreFilters] = useState(false);
+
 
 
     const { meta } = useParams();
@@ -167,7 +171,9 @@ const BuscarAssets = () => {
     
 
     const search = async () => {
-        console.log("me han llamado")
+        console.log("me han llamado", ordenSeleccionado);
+        console.log("ordenSeleccionado", ordenSeleccionado);
+        
        let orderby
        switch ( ordenSeleccionado ) {
         case '1':
@@ -211,8 +217,15 @@ const BuscarAssets = () => {
             const result = await getAssets(params);
             console.log(result);
             setAssets(result.assets);
+            setNumberAssets(result.results);
         } catch (error) {
             setErrorAssets('Algo salió mal. No se han podido recuperar las categorías. Por favor, prueba a recargar la página.');
+        }
+
+        if(ordenSeleccionado != '1' ) {
+            setAreFilters(true)
+        } else {
+            setAreFilters(false)
         }
     }
 
@@ -277,29 +290,39 @@ const anadirAutor = () => {
     <main class="buscarsssets-main-container">  
         <section>
         <h2>{meta ? (meta) : ( searchTerm ? ( '"' + searchTerm + '"' ) : ("Todos los assets"))}</h2>
-        {assets.map(asset => (
-            <Card
-                key={asset._id}
-                type={asset.categories[0]?.meta}
-                botonTag="tag"
-                image={asset.image ? "http://localhost:5000/" + asset.image.path : null}
-                tagsAsset={asset.tags.map(tag => tag.name)}
-                tituloAsset={asset.name}
-                onClick={() => handleCardClick(asset._id)}
-            />
-        ))}
+        <div class="cards">
+            {assets.map(asset => (
+                <Card
+                    key={asset._id}
+                    type={asset.categories[0]?.meta}
+                    botonTag="tag"
+                    image={asset.image ? "http://localhost:5000/" + asset.image.path : null}
+                    tagsAsset={asset.tags.map(tag => tag.name)}
+                    tituloAsset={asset.name}
+                    onClick={() => handleCardClick(asset._id)}
+                />
+            ))}
+        </div>
         </section>
 
         <aside>
         <form>
             <div class="right-elemets">
-                <p class="aling-right"><span id="contador-resultados-numero">7</span> resultados</p>
-                <Button
+                <p class="aling-right"><span id="contador-resultados-numero">{numbreAssets}</span> resultados</p>
+                {/* {areFilters && <Button
                     label="Resetear filtros"
                     icon={<FiDelete />}
                     iconPosition="left"
                     className="mediano-btn aling-right"
-                />
+                />} */}
+                {areFilters && (
+                    <Button
+                        label="Resetear filtros"
+                        icon={<FiDelete />}
+                        iconPosition="left"
+                        className="mediano-btn aling-right"
+                    />
+                )}
             </div>
 
             <Checkbox 

@@ -10,6 +10,15 @@
         flex: 1;
     }
 
+    .cards {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        padding: 1.5rem;
+        justify-content: center;
+    }
+    
     aside {
         margin: .8rem;
         margin-top: 3rem;
