@@ -194,7 +194,7 @@ const BuscarAssets = () => {
                 break;
         }
 
-        console.log("checkedCategories: ", );
+        console.log("checkedCategories: ", ) ;
         console.log("checkedFormats: ", checkedFormats);
 
         const categoryKeys = [];
@@ -220,7 +220,7 @@ const BuscarAssets = () => {
             category: categoryKeys,
             format: formatsKeys,
             size: null,
-            meta: meta,
+            meta: [meta],
             isStrict: searchMode
         }
 
