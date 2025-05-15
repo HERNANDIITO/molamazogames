@@ -1,6 +1,6 @@
 // db/conn.js
 import mongoose from 'mongoose';
-
+// 
 const MONGO_STRING = process.env.MONGO_STRING;
 
 if (!MONGO_STRING) {
