@@ -36,7 +36,7 @@ const BuscarAssets = () => {
     const searchTerm = searchParams.get("searchBar");
 
     const [ordenes, setOrden] = useState([]);
-    const [ordenSeleccionado, setOrdenSeleccionado] = useState('');
+    const [ordenSeleccionado, setOrdenSeleccionado] = useState('1');
 
     const [etiquetasAnadidas, setEtiquetasAnadidas] = useState([]);
     const [etiquetaInput, setEtiquetaInput] = useState('');
@@ -235,12 +235,32 @@ const BuscarAssets = () => {
             setErrorAssets('Algo salió mal. No se han podido recuperar las categorías. Por favor, prueba a recargar la página.');
         }
 
-        if(ordenSeleccionado != '1' ) {
+        if(ordenSeleccionado != '1' || searchMode || etiquetasAnadidas.length != 0 || autoresAnadidos.length != 0 ) {
             setAreFilters(true)
         } else {
             setAreFilters(false)
         }
+
+        console.log('ordenSeleccionado:', ordenSeleccionado);
+        console.log('searchMode:', searchMode);
+        console.log('etiquetasAnadidas:', etiquetasAnadidas);
+
     }
+
+    const resetFilters = () => {
+        if(ordenSeleccionado != '1' ) {
+            setOrdenSeleccionado(['1'])
+        }
+        if(searchMode) {
+            setSearchMode(false)
+        }
+        if(etiquetasAnadidas) {
+            setEtiquetasAnadidas([])
+        }
+        if(autoresAnadidos) {
+            setAutoresAnadidos([])
+        }
+    };
 
     useEffect(() => {
         const options = [
@@ -326,21 +346,26 @@ const anadirAutor = () => {
         <aside>
         <form>
             <div class="right-elemets">
-                <p class="aling-right"><span id="contador-resultados-numero">{numbreAssets}</span> resultados</p>
-                {/* {areFilters && <Button
+                <p class="aling-right">
+                    <span id="contador-resultados-numero">{numbreAssets}</span> 
+                    {numbreAssets === 1 ? ' resultado' : ' resultados'}
+                </p>
+                <Button
                     label="Resetear filtros"
+                    onClick={resetFilters}
                     icon={<FiDelete />}
                     iconPosition="left"
                     className="mediano-btn aling-right"
-                />} */}
-                {areFilters && (
+                    disabled={!areFilters}
+                />
+                {/* {areFilters && (
                     <Button
                         label="Resetear filtros"
                         icon={<FiDelete />}
                         iconPosition="left"
                         className="mediano-btn aling-right"
                     />
-                )}
+                )} */}
             </div>
 
             <Checkbox 

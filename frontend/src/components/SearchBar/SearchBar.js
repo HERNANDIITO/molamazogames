@@ -50,7 +50,7 @@ const SearchBar = ({
                 <input
                     type="text"
                     id="searchInput"
-                    placeholder="Buscar"
+                    placeholder="Buscar en todos los assets"
                     value={searchTerm}
                     onChange={handleInputChange}
                 />
