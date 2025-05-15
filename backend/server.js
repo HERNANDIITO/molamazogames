@@ -52,6 +52,11 @@ app.use('/tag',      tagRouter      );
 app.use('/file',     fileRouter     );
 
 // Servidor ----------------------------
-app.listen(PORT, () => {
-    console.log(`Server started on: ${PORT}`);
-})
+// app.listen(PORT, () => {
+//     console.log(`Server started on: ${PORT}`);
+// })
+
+// Exportamos la función Express para Vercel --------------------
+export default (req, res) => {
+    app(req, res);  // Llamamos a la aplicación Express
+};
