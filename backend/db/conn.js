@@ -1,34 +1,13 @@
-// db/conn.js
+// Importamos Mongo
 import mongoose from 'mongoose';
-// 
-const MONGO_STRING = process.env.MONGO_STRING;
 
-if (!MONGO_STRING) {
-  throw new Error('MONGO_STRING no está definido en las variables de entorno');
-}
+// Importamos dotenv
+// import dotenv from 'dotenv';
+// dotenv.config();
 
-let cached = global.mongoose;
+// Conexion
+mongoose.connect(process.env.MONGO_STRING, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('Connected to Mongoose'))
+  .catch(error => console.log('Connection failed:', error));
 
-if (!cached) {
-  cached = global.mongoose = { conn: null, promise: null };
-}
-
-async function dbConnect() {
-  if (cached.conn) {
-    return cached.conn;
-  }
-
-  if (!cached.promise) {
-    cached.promise = mongoose.connect(MONGO_STRING, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }).then((mongoose) => {
-      return mongoose;
-    });
-  }
-
-  cached.conn = await cached.promise;
-  return cached.conn;
-}
-
-export default dbConnect;
+export default mongoose;
