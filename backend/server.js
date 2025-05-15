@@ -26,6 +26,7 @@ import likeRouter       from './routes/likeRoutes.js';
 import metaRouter       from './routes/metaRoutes.js';
 import tagRouter        from './routes/tagRoutes.js';
 import fileRouter       from './routes/fileRoutes.js';
+import dbConnect from './db/conn.js';
 
 // Constantes --------------------------
 const PORT  = process.env.PORT;
@@ -57,6 +58,7 @@ app.use('/file',     fileRouter     );
 // })
 
 // Exportamos la función Express para Vercel --------------------
-export default (req, res) => {
-    app(req, res);  // Llamamos a la aplicación Express
-};
+app.use(async (req, res, next) => {
+    await dbConnect();
+    next();
+});
