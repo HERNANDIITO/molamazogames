@@ -1,0 +1,81 @@
+@import '../../styles/global.scss';
+
+.upPerfil{
+    display: flex;
+    flex-direction: row;
+    background-color: black;
+    gap: 5rem;
+    margin: auto;
+}
+
+.downPerfil{
+    display: flex;
+    flex-direction: row;
+    background-color: blueviolet;
+    gap: 5rem;
+}
+
+.perfilBotones{
+    display: flex;
+    flex-direction: row;
+    width: 45%;
+    background-color: grey;
+    justify-content: center;
+    align-content: center;
+    margin: auto;
+}
+
+.imgOpciones{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    justify-content: center;
+    align-content: center;
+    margin: auto;
+}
+
+.botOpPer{
+    margin: auto;
+    width: $ancho-boton-mediano;
+}
+
+.botonesPerfil{
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    justify-content: center;
+    align-content: center;
+    margin: auto;
+}
+
+.filtrarPerfil{
+    background-color: grey;
+    margin: auto;
+}
+
+.tituloFiltrar{
+    font-size: $tamano-h3;
+    font-weight: bold;
+    color: $color-secundario
+}
+
+.subtituloFiltrar{
+    font-size: $tamano-h4;
+    color: $color-texto;
+}
+
+.tiposFiltro{
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+.upFiltrar{
+    display: flex;
+    flex-direction: row;
+}
+
+.datePickers{
+    display: flex;
+    flex-direction: column;
+}

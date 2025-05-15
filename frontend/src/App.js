@@ -20,6 +20,7 @@ import { IoIosArrowForward } from "react-icons/io";
 import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import Registrar from "./pages/Registrar/Registrar";
 import Login from "./pages/Login/Login";
+import Perfil from "./pages/Perfil/Perfil";
 import SubirAsset from "./pages/SubirAsset/SubirAsset";
 import Home from "./pages/Home/Home";
 import BuscarAssets from "./pages/BuscarAssets/BuscarAssets";
@@ -84,6 +85,7 @@ function AppContent() {
         <Route path="/buscarAssets/" element={<BuscarAssets />} />
         <Route path="/buscarAssets/:meta" element={<BuscarAssets />} />
         <Route path="/detallesAsset/:assetID" element={<DetallesAsset />} />
+        <Route path="/perfil" element={<Perfil />} />
       </Routes>
 
       {location.pathname !== "/registrar" && location.pathname !== "/login" && location.pathname !== "/upAsset" && (
