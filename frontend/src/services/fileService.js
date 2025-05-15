@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const BASE_URL = "http://localhost:5000/file"
+const BASE_URL = "https://molamazogames-backend.vercel.app/file"
 
 const uploadFile = async (data, headers = {}) => {
     try {
