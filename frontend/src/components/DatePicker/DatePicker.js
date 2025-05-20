@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 import 'react-datepicker/dist/react-datepicker.css';
 
-const DatePicker = ({ value, onChange = () => {} }) => {
+const DatePicker = ({ value, onChange = () => { } }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState(formatDate(value));
   const [error, setError] = useState(null);
@@ -41,7 +41,9 @@ const DatePicker = ({ value, onChange = () => {} }) => {
     const newValue = e.target.value;
     setInputValue(newValue);
     const parsed = parseDate(newValue);
-    if (parsed) {
+    if (!newValue.trim()) {
+      setError(null); // no mostrar error si el input está vacío
+    } else if (parsed) {
       setError(null);
       onChange(parsed);
     } else {

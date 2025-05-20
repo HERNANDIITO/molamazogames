@@ -103,8 +103,33 @@ const getUserByToken = async (data, headers = {}) => {
     }
 }
 
+const updateUser = async (data, headers = {}) => {
+
+    try {
+        const response = await fetch(`${BASE_URL}/user`,{
+            method: 'PUT',
+            headers: {
+                'Content-type': 'application/json',
+                "Authorization": `Bearer ${data}`
+            }
+        })
+
+        if ( !response.ok ) {
+            const errorData = await response.json();
+            throw new Error(errorData.msg || "Algo ha ido mal");
+        }
+
+        const result = await response.json();
+        return result;
+
+    } catch (error) {
+        throw new Error(error.message || 'Algo ha ido mal');
+    }
+}
+
 export {
     register,
     login,
-    getUserByToken
+    getUserByToken,
+    updateUser
 }

@@ -23,7 +23,7 @@ const Input = ({
     <>
     <div className={divClasses}>
     {label && (
-      <label htmlFor={id} className={labelClasses}>
+      <label htmlFor={id} className={`inpName ${labelClasses}`}>
         {label}
       </label>
     )}

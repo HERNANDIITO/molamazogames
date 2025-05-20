@@ -1,0 +1,149 @@
+@import '../../styles/global.scss';
+
+.change-password-form {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding: 1.5rem 2.5rem 1.5rem 2.5rem;
+  background: $color-fondo2;
+  border-radius: 10px;
+  width: 32%;
+  min-width: fit-content;
+
+  .title {
+    color: $color-secundario;
+    margin: 0;
+    font-size: $tamano-h2;
+    font-weight: bold;
+    font-family: $fuente-principal;
+    margin-bottom: 20px;
+  }
+
+  .input-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+  }
+
+  .pass-container {
+    width: 100%;
+    position: relative;
+  }
+
+  .info-icon {
+    font-size: 22px;
+    color: $color-secundario;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    left: 97%;
+    transform: translate(-50%, -50%);
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: $color-hover-secundario;
+    }
+  }
+
+  .register-pass-container {
+    position: relative;
+    margin-bottom: 15px;
+  }
+
+  .info-text-container {
+    visibility: hidden;
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    padding: 2px;
+    font-size: $tamano-texto;
+    min-width: 15em;
+    right: 0;
+    top: -75px;
+
+    &.show {
+      visibility: visible;
+      opacity: 1;
+      padding: 15px;
+      background: $color-fondo2;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      width: 15%;
+      left: calc(100% + 5rem);
+    }
+  }
+
+  .password-rules {
+    padding: 15px;
+    font-size: $tamano-texto;
+    color: $color-texto;
+    text-align: left;
+    list-style-position: inside;
+  }
+
+  .avisoPass{
+    text-align: left;
+    font-weight: bold;
+    margin-top: 0;
+  }
+
+  .register-error {
+    color: $color-danger;
+    display: block;
+    text-align: left;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+  }
+
+  .contenedorBotonesPass {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    margin: auto;
+    margin-top: 15px;
+    margin-bottom: 10px;
+  }
+
+  .botonesPass{
+    height: $alto-boton-mediano;
+    width: $ancho-boton-grande;
+  }
+
+  .login-error {
+    color: $color-danger;
+    font-weight: $peso-negrita;
+    font-size: $tamano-texto;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: $tamano-tablet) {
+  .info-text-container.show {
+    position: relative;
+    top: 0;
+    left: 0;
+    margin: auto;
+    box-shadow: none;
+  }
+
+  .register-pass-container {
+    flex-direction: column !important;
+  }
+
+  .info-icon {
+    left: 100% !important;
+  }
+}
+
+@media (max-width: 1250px) {
+  .info-icon {
+    left: 100% !important;
+  }
+}
