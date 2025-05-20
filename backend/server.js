@@ -26,6 +26,7 @@ import likeRouter       from './routes/likeRoutes.js';
 import metaRouter       from './routes/metaRoutes.js';
 import tagRouter        from './routes/tagRoutes.js';
 import fileRouter       from './routes/fileRoutes.js';
+import errorMiddleware  from './middlewares/errorMiddleware.js';
 
 // Constantes --------------------------
 const PORT  = process.env.PORT;
@@ -36,6 +37,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
 app.use('/uploads', express.static('uploads'));
+
+// Middleware para manejar errores
+app.use(errorMiddleware);
 
 // Routers -----------------------------
 app.use('/user',     userRouter     );
