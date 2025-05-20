@@ -26,7 +26,7 @@ import likeRouter       from './routes/likeRoutes.js';
 import metaRouter       from './routes/metaRoutes.js';
 import tagRouter        from './routes/tagRoutes.js';
 import fileRouter       from './routes/fileRoutes.js';
-import errorMiddleware  from './middlewares/errorMiddleware.js';
+import errorMiddleware  from './middlewares/error.middleware.js';
 
 // Constantes --------------------------
 const PORT  = process.env.PORT;
