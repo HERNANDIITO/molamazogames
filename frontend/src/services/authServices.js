@@ -1,4 +1,4 @@
-const BASE_URL = "https://molamazogames-backend.vercel.app/auth"
+const BASE_URL = "https://molamazogames-ctup.onrender.com//auth"
 
 /**
  * REGISTER

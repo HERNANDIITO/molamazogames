@@ -1,4 +1,4 @@
-const BASE_URL = "https://molamazogames-backend.vercel.app/user"
+const BASE_URL = "https://molamazogames-ctup.onrender.com//user"
 
 const updateUser = async (data, headers = {}) => {
 

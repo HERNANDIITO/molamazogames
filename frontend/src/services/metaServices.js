@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const BASE_URL = "https://molamazogames-backend.vercel.app/meta"
+const BASE_URL = "https://molamazogames-ctup.onrender.com//meta"
 
 /**
  * GET ALL CATEGORIES 
