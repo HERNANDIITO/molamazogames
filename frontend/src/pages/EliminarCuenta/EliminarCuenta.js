@@ -8,7 +8,7 @@ import { FaCheck } from "react-icons/fa";
 import { deleteUser } from "../../services/userServices";
 import { getUserByToken } from "../../services/authServices";
 import { FaXmark } from "react-icons/fa6";
-import { encryptPassword } from "../../utils/pass";
+import { checkPassword } from "../../utils/pass";
 
 const EliminarCuenta = () => {
   const [password, setPassword] = useState("");
@@ -22,6 +22,7 @@ const EliminarCuenta = () => {
       if (token) {
         try {
           const user = await getUserByToken(token);
+          console.log(user);
           setStoredPassword(user.password);
           setUserId(user._id);
         } catch (error) {
@@ -34,16 +35,12 @@ const EliminarCuenta = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const hashedPass = await encryptPassword(password);
-    console.log("hashedPass", hashedPass)
-    console.log("hashedPass", password)
-    console.log("storedPassword", storedPassword)
-    if (hashedPass !== storedPassword) {
+    if (await checkPassword(password, storedPassword)) {
       setError("La contraseña actual no es correcta.");
     } else {
       setError("");
       try {
-        const result = await deleteUser(userId);
+        const result = await deleteUser({id: userId});
         console.log("result", result)
         localStorage.removeItem("token");
         alert("Tu cuenta ha sido eliminada.");

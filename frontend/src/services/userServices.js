@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-const BASE_URL = "https://molamazogames-ctup.onrender.com/user"
+// const BASE_URL = "https://molamazogames-ctup.onrender.com/user"
+const BASE_URL = "http://localhost:5000/user"
 
 const updateUser = async (data, headers = {}) => {
     console.log("DATA: ", data);
@@ -30,14 +31,17 @@ const updateUser = async (data, headers = {}) => {
 const deleteUser = async (data, headers = {}) => {
     try {
 
+        console.log("DATA: ", data)
+
         const config = {
+            params: data,
             headers: {
-                "authorization": `Bearer ${localStorage.getItem('token')}`,
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                "Authorization": `Bearer ${data}`
             }
         };
-
-        const response = await axios.delete(`${BASE_URL}/:${data}`, config)
+        
+        const response = await axios.delete(`${BASE_URL}`, config)
 
         if (response.status != 200) {
             const errorData = await response.json();
