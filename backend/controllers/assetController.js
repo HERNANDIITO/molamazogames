@@ -89,20 +89,59 @@ const getAssets = asyncHandler(async (req, res, next) => {
             }
         }
 
+        const metaFilters = [];
         if (meta && Array.isArray(meta)) {
             for (const m of meta) {
                 if (!mongoose.Types.ObjectId.isValid(m)) {
                     const metaObj = await Meta.findOne({ meta: m });
                     if (metaObj) {
-                        filters.push({ meta: metaObj._id });
+                        metaFilters.push({ meta: metaObj._id });
                     }
                 } else {
-                    filters.push({ meta: m });
+                    metaFilters.push({ meta: m });
                 }
             }
         }
 
         const query = isStrict ? { $and: filters } : { $or: filters };
+
+        console.log("query", query);
+
+        if (metaFilters.length > 0) {
+            if (!query.$and) {
+                query.$and = [];
+            }
+
+            query.$and.push(...metaFilters);
+        }
+        
+        if (format) {
+            // Encontrar todos los archivos con ese formato
+            const filesWithFormat = await File.find({ format: format });
+
+            // Extraemos los IDs de esos archivos
+            const fileIds = filesWithFormat.map(file => file._id);
+
+            // Ahora buscamos los assets que tengan esos archivos
+            if ( isStrict ) {
+
+                if (!query.$and) {
+                    query.$and = [];  // Si no existe $and, inicializarlo como un array
+                }
+
+                query.$and.push({ files: { $in: fileIds } });
+
+            } else {
+
+                if (!query.$or) {
+                    query.$or = [];  // Si no existe $or, inicializarlo como un array
+                }
+
+                query.$or.push({ files: { $in: fileIds } });
+
+            }
+
+        }
 
         if ( orderBy ) {
             orderBy[Object.keys(orderBy)[0]] = parseInt(orderBy[Object.keys(orderBy)[0]], 10);
@@ -114,9 +153,7 @@ const getAssets = asyncHandler(async (req, res, next) => {
             populate: {
                 path: 'meta'
             }
-        }).populate({
-            path: 'files'
-        });
+        }).populate('files');
 
         if ( isStrict && format ) {
             assets = assets.filter((asset) => {
