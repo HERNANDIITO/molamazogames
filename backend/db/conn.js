@@ -2,8 +2,8 @@
 import mongoose from 'mongoose';
 
 // Importamos dotenv
-// import dotenv from 'dotenv';
-// dotenv.config();
+import dotenv from 'dotenv';
+dotenv.config();
 
 // Conexion
 mongoose.connect(process.env.MONGO_STRING, { useNewUrlParser: true, useUnifiedTopology: true })

@@ -42,6 +42,7 @@ const Profile = () => {
     // Función para cerrar sesión
     const handleLogout = () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('userName');
         window.location.reload();
     };
 

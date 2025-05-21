@@ -1,0 +1,79 @@
+@import '../../styles/global.scss';
+
+.fondoOpt {
+    background-image: url('../Login/blob-scene-haikei.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    justify-content: center;
+}
+
+.optPerfil {
+    background-color: $color-fondo2;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    padding: 0 3rem 2rem 3rem;
+    border-radius: 1rem;
+    margin: 3rem auto 3rem auto;
+}
+
+.titOptUser {
+    font-size: $tamano-h2;
+    font-weight: bold;
+    color: $color-secundario;
+}
+
+.decoratorTit {
+    text-align: center;
+
+    &::after {
+        content: "";
+        display: block;
+        width: 20rem;
+        height: 2px;
+        background-color: $color-secundario;
+        margin: 10px 0;
+    }
+}
+
+.cambiaDatos {
+    display: flex;
+    flex-direction: row;
+    gap: 10rem;
+}
+
+.imgOptUser {
+    width: 12rem;
+    margin-bottom: 1rem;
+}
+
+.imgPass {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.imgBut {
+    position: relative;
+    width: fit-content;
+}
+
+.imgEdit {
+  position: absolute;
+  bottom: 0.5rem;
+  right: -1rem;
+}
+
+.botonUser{
+    height: $alto-boton-mediano;
+    width: 12rem;
+}
+
+.botonFinOpt{
+    height: $alto-boton-mediano;
+    width: $ancho-boton-grande;
+    margin-top: 2.5rem;
+}
