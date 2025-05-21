@@ -5,6 +5,7 @@ import { getAssets } from '../../services/assetService';
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import Button from "../../components/Button/Button";
 import Card from "../../components/Card/Card";
+import Modal from "../../components/Modal/Modal";
 import { motion, AnimatePresence } from 'framer-motion';
 
 const ITEMS_PER_PAGE = 3;
@@ -14,7 +15,19 @@ function HomeContent() {
     const [assetsError, setErrorAssets] = useState(null);
     const [assetPage, setAssetPage] = useState({});
     const [slideDirection, setSlideDirection] = useState("next");
+
+    const [modalType, setModalType] = useState('token');
+    const [showModal, setShowModal] = useState(false);
+
     const navigate = useNavigate();
+
+    const abrirModalToken = () => {
+        setShowModal(true);
+    };
+
+    const cerrarModal = () => {
+        setShowModal(false);
+    };
 
     useEffect(() => {
         const fetchAssets = async () => {
@@ -36,8 +49,16 @@ function HomeContent() {
     }, []);
 
     const handleCardClick = (id) => {
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+            abrirModalToken();
+            return;
+        }
+
         navigate(`/detallesAsset/${id}`);
     };
+
 
     const getPaginatedAssets = (category) => {
         const filtered = assets.filter(asset => asset.categories[0]?.meta.meta === category);
@@ -105,7 +126,8 @@ function HomeContent() {
                     icon={<IoIosArrowBack />}
                     iconPosition="alone"
                     className="enano-btn round-btn flechas izq"
-                    onClick={() => handlePrev("2D")}
+                    //onClick={() => handlePrev("2D")}
+                    onClick={() => handleCardClick(3)}
                 />
                 {renderAssets("2D")}
                 <Button
@@ -211,6 +233,13 @@ function HomeContent() {
                     onClick={() => handleNext("Otros")}
                 />
             </div>
+
+            {showModal && (
+    <Modal
+        type="token"
+        onClose={cerrarModal}
+    />
+)}
         </main>
     );
 }

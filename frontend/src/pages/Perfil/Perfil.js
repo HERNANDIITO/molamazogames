@@ -45,6 +45,7 @@ function PerfilContent() {
     }, []);
 
     const handleCheckboxChange = (metaId) => {
+        console.log("clickin on checkbox")
         setCheckedMetas((prev) => ({
             ...prev,
             [metaId]: !prev[metaId]
