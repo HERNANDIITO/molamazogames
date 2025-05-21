@@ -25,7 +25,7 @@ const getAssetComments = asyncHandler( async (req,res,next) => {
             });
         }
 
-        const comments = await Comment.find({asset: asset._id});
+        const comments = await Comment.find({asset: asset._id}).populate('author');
 
         return res.status(200).json({
             result: "OK",
