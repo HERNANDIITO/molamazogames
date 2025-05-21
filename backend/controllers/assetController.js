@@ -40,14 +40,10 @@ const getAssets = asyncHandler(async (req, res, next) => {
 
             const tagIDs = [];
 
-            console.log("tags", tags)
 
             for (const tag of tags) {
                 tagIDs.push((await createNewTagFunc(tag)).tag._id);
             }
-
-            console.log("tagIds", tagIDs);
-            
 
             if ( isStrict ) {
                 filters.push({ tags: { $all: tagIDs } });
@@ -107,11 +103,6 @@ const getAssets = asyncHandler(async (req, res, next) => {
         }
 
         const query = isStrict ? { $and: filters } : { $or: filters };
-
-        console.log("query", query)
-        console.log("isStrict", isStrict)
-        console.log("format", format)
-        console.log("orderBy", )
 
         if ( orderBy ) {
             orderBy[Object.keys(orderBy)[0]] = parseInt(orderBy[Object.keys(orderBy)[0]], 10);

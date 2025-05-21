@@ -62,7 +62,6 @@ const downloadFile = asyncHandler( async(req, res, next) => {
 
     res.download(file.path, file.originalName, (err) => {
         if (err) {
-            console.error('Error al descargar el archivo:', err);
             return res.status(500);
         }
     });
