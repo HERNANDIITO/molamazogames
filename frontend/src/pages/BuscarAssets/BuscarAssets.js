@@ -235,7 +235,7 @@ const BuscarAssets = () => {
             setErrorAssets('Algo salió mal. No se han podido recuperar las categorías. Por favor, prueba a recargar la página.');
         }
 
-        if(ordenSeleccionado != '1' || searchMode || etiquetasAnadidas.length != 0 || autoresAnadidos.length != 0 ) {
+        if(ordenSeleccionado != '1' || searchMode || etiquetasAnadidas.length != 0 || autoresAnadidos.length != 0) {
             setAreFilters(true)
         } else {
             setAreFilters(false)
@@ -243,7 +243,7 @@ const BuscarAssets = () => {
 
         console.log('ordenSeleccionado:', ordenSeleccionado);
         console.log('searchMode:', searchMode);
-        console.log('etiquetasAnadidas:', etiquetasAnadidas);
+        // console.log('checkedCategories:', checkedCategories);
 
     }
 
