@@ -203,11 +203,11 @@ function SubirAssetContent() {
 
         try {
             const response = await postAsset(asset);
-            // console.log("Respuesta subida: ", response._id);
+
             setAssetId(response._id);
             setModalType('exito');
             setShowModal(true);
-            // console.log(assetId);
+
         } catch (error) {
             console.error(error);
             setMensaje("Error al subir el asset.");

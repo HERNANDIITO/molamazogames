@@ -87,8 +87,35 @@ const postAsset = async (data, headers = {}) => {
 }
 
 
+const putAsset = async (data, headers = {}) => {
+    try {
+
+        const config = {
+            params: data,
+            headers: {
+                "authorization": `Bearer ${localStorage.getItem('token')}`,
+                'Content-type': 'application/json'
+            }
+        };
+
+        const response = await axios.put(`${BASE_URL}`, config)
+
+        if (response.status != 200) {
+            const errorData = await response.json();
+            throw new Error(errorData.msg || 'Algo ha ido mal');
+        }
+
+        return response.data;
+
+    } catch (error) {
+        throw new Error(error.message || 'Algo ha ido mal');
+    }
+}
+
+
 export {
     getAssetById,
     getAssets,
-    postAsset
+    postAsset,
+    putAsset
 }

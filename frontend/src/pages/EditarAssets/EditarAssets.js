@@ -11,8 +11,9 @@ import Modal from "../../components/Modal/Modal";
 import Select from "../../components/Select/Select";
 import UploadedFile from "../../components/UploadedFile/UploadedFile";
 
+import { updateFile } from '../../services/fileService';
 import { uploadFile } from '../../services/fileService';
-import { postAsset } from '../../services/assetService';
+import { putAsset } from '../../services/assetService';
 import { getAssetById } from '../../services/assetService';
 import { getAllMeta } from "../../services/metaServices";
 import { getAllCategories } from "../../services/categoriesServices";
@@ -24,7 +25,6 @@ function EditarAssetContent() {
     const { id } = useParams();
 
     const [imagen, setImagen] = useState(null);
-    const [newImage, setNewImagen] = useState(null);
 
     const [imagenURL, setImagenURL] = useState(null);
     const [imagenNombre, setImagenNombre] = useState('');
@@ -48,17 +48,13 @@ function EditarAssetContent() {
     const [mensaje, setMensaje] = useState('');
     const [assetId, setAssetId] = useState(null);
 
-
-
-
-
     const abrirModalArchivo = () => {
         setModalType('subir');
         setShowModal(true);
     };
 
     const abrirModalFoto = () => {
-        setModalType(imagen ? 'edit' : 'add');
+        setModalType('edit');
         setShowModal(true);
     };
 
@@ -69,25 +65,34 @@ function EditarAssetContent() {
     const handleModalUpload = (file, nombre, alt) => {
         if (modalType === 'subir') {
             if (file) {
-                setArchivosSubidos(prev => [...prev, {
-                    file,
-                    name: nombre || file.name,
-                    desc: alt,
-                    isPreview: false
-                }]);
+                setArchivosSubidos(prev => [
+                    ...prev,
+                    {
+                        file,
+                        name: nombre || file.name,
+                        desc: alt,
+                        isPreview: false
+                    }
+                ]);
             }
         } else if (file && file.type.startsWith('image/')) {
             const reader = new FileReader();
+
             setImagen(file);
-            setImagenNombre(nombre);
+            setImagenNombre(nombre || file.name);
             setImagenAlt(alt);
+
             reader.onloadend = function () {
-                setImagenURL(reader.result);
+                setImagenURL(reader.result); // base64 preview
             };
+
             reader.readAsDataURL(file);
         }
+
         cerrarModal();
     };
+
+
 
     useEffect(() => {
         const cargarDatosIniciales = async () => {
@@ -159,17 +164,18 @@ function EditarAssetContent() {
                 );
 
                 await setImagenURL(asset.asset.image.path);
+                await setImagenNombre(asset.asset.image.name);
+                await setImagenAlt(asset.asset.image.description);
 
-                console.log("RUTA IMAGEN: ", asset.asset.image.path);
-                console.log("IMAGENURL: ", imagenURL);
 
-                if (Array.isArray(asset.files)) {
+
+                if (Array.isArray(asset.asset.files)) {
                     setArchivosSubidos(
                         asset.asset.files.map(file => ({
-                            file: file.file || null,
                             name: file.name || '',
                             desc: file.description || '',
-                            isPreview: file.isPreview || false
+                            isPreview: file.isPreview || false,
+                            _id: file._id
                         }))
                     );
                 }
@@ -229,9 +235,10 @@ function EditarAssetContent() {
 
         try {
             for (const archivo of archivosSubidos) {
+                
                 const formData = new FormData();
-                formData.append('file', archivo.file);
-                console.log('FILE:', archivo.file)
+                formData.append('file', archivo);
+                console.log('FILE:', archivo)
                 formData.append('name', archivo.name || "Sin nombre");
                 console.log('NAME:', archivo.name)
                 formData.append('description', archivo.desc || "Sin descripcion");
@@ -239,7 +246,7 @@ function EditarAssetContent() {
                 formData.append('isPreview', archivo.isPreview);
                 console.log('PREVIEW:', archivo.isPreview)
 
-                const result = await uploadFile(formData);
+                const result = await updateFile(formData);
                 asset.files.push(result.file._id);
             }
         } catch (error) {
@@ -264,7 +271,7 @@ function EditarAssetContent() {
         }
 
         try {
-            const response = await postAsset(asset);
+            const response = await putAsset();
 
             setAssetId(response._id);
             setModalType('exito');
@@ -349,22 +356,27 @@ function EditarAssetContent() {
                 <h3 className="encabezado lineaBloque">Imagen de portada:</h3>
 
 
-                {newImage ? (
-                    <img src={newImage} alt="newImage" />
-                ) : (
+                {
                     imagenURL && (
-                        <img src={`https://molamazogames-ctup.onrender.com/${imagenURL}`} alt="imagen" />
+                        <img
+                            src={imagenURL.startsWith('data:') ? imagenURL : `https://molamazogames-ctup.onrender.com/${imagenURL}`}
+                            alt="portada"
+                            className="preview-imagen"
+                        />
                     )
-                )}
+                }
+                <p><strong>Nombre:</strong> {imagenNombre}</p>
+                <p><strong>Texto alternativo:</strong> {imagenAlt}</p>
 
 
-                <Button label={imagen ? "Cambiar imagen" : "Subir imagen"} icon={<FaUpload />} className="mediano-btn" onClick={abrirModalFoto} />
+                <Button label="Cambiar imagen" icon={<FaUpload />} className="mediano-btn" onClick={abrirModalFoto} />
             </div>
 
             <div className="bloque imagen">
                 <h3 className="encabezado lineaBloque">Archivos*:</h3>
                 <div className="archivos-subidos">
                     {archivosSubidos.map((archivo, index) => (
+                        console.log("ARCHIVO DEL CHIVO: ", archivo),
                         <UploadedFile
                             key={index}
                             name={archivo.name}
@@ -386,7 +398,7 @@ function EditarAssetContent() {
             </div>
 
             <div className="botones">
-                <Button onClick={uploadAsset} label="Subir asset" icon={<FaCheck />} className="botonesFinales ocultar-label" />
+                <Button onClick={uploadAsset} label="Guardar cambios" icon={<FaCheck />} className="botonesFinales ocultar-label" />
                 <Button onClick={descartarAsset} label="Descartar asset" icon={<FaTimes />} className="danger-btn botonesFinales ocultar-label" />
             </div>
 
