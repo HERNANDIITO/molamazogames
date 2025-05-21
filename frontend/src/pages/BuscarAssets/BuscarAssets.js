@@ -347,8 +347,20 @@ const anadirAutor = () => {
 
             <div className='section-second-header'>
                 <p class="aling-right btn-filters">
-                    <span id="contador-resultados-numero">{numbreAssets}</span> 
-                    {numbreAssets === 1 ? ' resultado' : ' resultados'}
+                    <span id="contador-resultados-numero">
+                        {numbreAssets - (
+                            Object.keys(checkedFormats).length !== 0 &&
+                            !Object.values(checkedFormats).every(value => value === undefined || value === false)
+                                ? 1
+                                : 0
+                        )}
+                    </span> 
+                    {(numbreAssets - (
+                        Object.keys(checkedFormats).length !== 0 &&
+                        !Object.values(checkedFormats).every(value => value === undefined || value === false)
+                            ? 1
+                            : 0
+                    )) === 1 ? ' resultado' : ' resultados'}
                 </p>
                 <Button
                     label="Resetear filtros"
@@ -388,8 +400,21 @@ const anadirAutor = () => {
         <form>
             <div class="right-elemets">
                 <p class="aling-right">
-                    <span id="contador-resultados-numero">{numbreAssets}</span> 
-                    {numbreAssets === 1 ? ' resultado' : ' resultados'}
+                    <span id="contador-resultados-numero">
+                        {numbreAssets - (
+                            Object.keys(checkedFormats).length !== 0 &&
+                            !Object.values(checkedFormats).every(value => value === undefined || value === false)
+                                ? 1
+                                : 0
+                        )}
+                    </span> 
+                    {/* {numbreAssets === 1 ? ' resultado' : ' resultados'} */}
+                    {(numbreAssets - (
+                        Object.keys(checkedFormats).length !== 0 &&
+                        !Object.values(checkedFormats).every(value => value === undefined || value === false)
+                            ? 1
+                            : 0
+                    )) === 1 ? ' resultado' : ' resultados'}
                 </p>
                 <Button
                     label="Resetear filtros"
