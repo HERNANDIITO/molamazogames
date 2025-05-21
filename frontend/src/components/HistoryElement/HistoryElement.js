@@ -4,11 +4,12 @@ import './HistoryElement.scss';
 import Checkbox from '../Checkbox/Checkbox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
+import { useState, useEffect } from "react";
 
-const HistoryElement = ({ 
-  id, 
-  name, 
-  value, 
+const HistoryElement = ({
+  id,
+  name,
+  value,
   time,
   imgAsset,
 }) => {
@@ -20,13 +21,32 @@ const HistoryElement = ({
   const valueClasses = classNames('downloadValue');
   const downloadiconClasses = classNames('downloadIcon');
 
+  const [checkedChecks, setCheckedChecks] = useState({});
+
+  const handleCheckboxChange = () => {
+    setCheckedChecks(prev => ({
+      ...prev,
+      [id]: !prev[id]
+    }));
+  };
+
+
+
 
   return (
     <div className={contClasses}>
       <span className={timeClasses}>{time}</span>
       <section className={sectionClasses}>
-        <Checkbox label="Check" size="normal" showLabel={false} id={`chk-${id}`}/>
-          {imgAsset && <img src={imgAsset} alt={`${name}`} className={imageClasses}/>}
+        <Checkbox
+          label="Check"
+          size="normal"
+          checked={!!checkedChecks[id]}
+          onChange={handleCheckboxChange}
+          showLabel={false}
+          id={`chk-${id}`}
+        />
+
+        {imgAsset && <img src={imgAsset} alt={`${name}`} className={imageClasses} />}
         <span className={assetnameClasses}>{name}</span>
         <span className={valueClasses}>{value}</span>
         {imgAsset && (

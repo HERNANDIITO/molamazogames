@@ -90,6 +90,7 @@ function HomeContent() {
         const isNext = slideDirection === "next";
 
         return (
+
             <AnimatePresence mode="wait">
                 <motion.div
                     key={`${category}-${assetPage[category]}`}
@@ -118,6 +119,7 @@ function HomeContent() {
 
     return (
         <main className="App-content">
+
             {assetsError && <p className="error">{assetsError}</p>}
             <p className="titulo linea">2D</p>
             <div className='contAssets'>
