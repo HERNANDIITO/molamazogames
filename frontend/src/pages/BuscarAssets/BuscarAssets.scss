@@ -10,6 +10,22 @@
         flex: 1;
     }
 
+    .sidebar-open {
+        display: flex;
+    }
+
+    .sidebar-closed {
+        display: none;
+    }
+
+    .sidebar {
+        display: flex;
+    }
+
+    .btn-filters{
+        display: none;
+    }
+
     .cards {
         display: flex;
         flex-direction: row;
@@ -22,6 +38,7 @@
     aside {
         margin: .8rem;
         margin-top: 3rem;
+        margin-bottom: 2rem;
         width: 20rem;
         display: flex;
         align-items: center;
@@ -64,7 +81,6 @@
                 margin-right: .3rem;
             }
         }
-        
           
     }
 
@@ -77,5 +93,82 @@
     }
 
 }
-  
+
+@media (max-width: $tamano-tablet) {
+    .buscarsssets-main-container {
+        flex-direction: column;
+        align-items: center;
+        .btn-filters{
+            display: flex;
+        }
+
+        .sidebar-open {
+            display: flex;
+        }
+
+        .sidebar-closed {
+            display: none;
+        }
+
+        section {
+            width: 100%;
+        }
+        .section-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            padding-left: 2rem;
+            width: 85%;
+            padding-bottom: 0;
+            gap: 0rem;
+
+            .section-first-header {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                width: 80%;
+                padding-bottom: 0;
+                margin-bottom: -2rem;
+                //gap: 7rem
+            }
+
+            .section-second-header {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                justify-content: space-between;
+                width: 80%;
+            }
+        }
+
+        .cards-open {
+            display: flex;
+        }
+
+        .cards-closed {
+            display: none;
+        }
+
+        .right-elemets {
+            display: none !important;
+        }
+
+        p.aling-right {
+            margin-bottom: .2rem;
+            font-weight: $peso-semi-negrita;
+
+            > span {
+                margin-right: .3rem;
+            }
+        }
+
+        aside {
+            margin-top: 0;
+        }
+    }
+}
+
 

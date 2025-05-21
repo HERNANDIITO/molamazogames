@@ -103,7 +103,7 @@ const deleteComment = asyncHandler( async (req, res, next) => {
             });
         }
 
-        if ( user._id != comment.author ) {
+        if ( !user._id.equals(comment.author) ) {
             return res.status(400).json({
                 result: "Solicitud errónea.",
                 msg: `Este comentario no le pertenece a dicho usuario`
