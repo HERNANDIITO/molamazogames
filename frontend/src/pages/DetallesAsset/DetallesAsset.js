@@ -17,6 +17,7 @@ import { CarousselImage } from '../../components/carousselEntry/carousselImage/C
 import { Caroussel3D } from '../../components/carousselEntry/caroussel3D/Caroussel3D.js';
 import { getAssetFavs, getUserFavs } from '../../services/favService.js';
 import { postFav } from "../../services/favService.js"
+import { postNewHistoryEntry } from '../../services/historyServices.js';
 import { getCommentByAssetID, postComment, deleteComment } from '../../services/commentService.js';
 
 
@@ -72,6 +73,24 @@ const DetallesAsset = () => {
 
         fetchAsset();
     }, [assetID]); // Este `useEffect` solo se ejecuta al cargar el asset
+
+
+    useEffect(() => {
+        const registrarHistorial = async () => {
+            const lastVisited = localStorage.getItem("lastVisitedAsset");
+
+            if (assetID && lastVisited !== assetID) {
+                try {
+                    localStorage.setItem("lastVisitedAsset", assetID);
+                    await postNewHistoryEntry({"assetID": assetID });
+                } catch (error) {
+                    console.error("Error registrando historial:", error);
+                }
+            }
+        };
+
+        registrarHistorial();
+    }, [assetID]);
 
     const renderPreviewImages = () => {
         if (!previewFiles || previewFiles.length === 0) {
