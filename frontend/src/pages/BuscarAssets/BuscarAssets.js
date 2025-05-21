@@ -20,6 +20,8 @@ import Card from "../../components/Card/Card"
 
 
 import { FiDelete } from "react-icons/fi";
+import { HiOutlineFilter } from 'react-icons/hi'
+import { HiPuzzle } from 'react-icons/hi'
 
 
 const BuscarAssets = () => {
@@ -44,6 +46,8 @@ const BuscarAssets = () => {
     const [autoresAnadidos, setAutoresAnadidos] = useState([]);
     const [autorInput, setAutorInput] = useState('');
 
+    const [nameInput, setNameInput] = useState('');
+
     const [searchMode, setSearchMode] = useState(false);
 
     const [checkedCategories, setCheckedCategories] = useState({});
@@ -54,8 +58,7 @@ const BuscarAssets = () => {
     const [assetsError, setErrorAssets] = useState(null);
 
     const [areFilters, setAreFilters] = useState(false);
-
-
+    const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const { meta } = useParams();
     
@@ -150,7 +153,7 @@ const BuscarAssets = () => {
         return () => {
             clearTimeout(timeoutRef.current);
         };
-    }, [searchTerm, etiquetasAnadidas, autoresAnadidos, ordenSeleccionado, searchMode, checkedCategories, checkedFormats, meta]);
+    }, [searchTerm, etiquetasAnadidas, autoresAnadidos, ordenSeleccionado, searchMode, checkedCategories, checkedFormats, meta, nameInput]);
 
 
     const navigate = useNavigate();
@@ -212,9 +215,11 @@ const BuscarAssets = () => {
             }
         }
 
+        let searchWord = nameInput ? nameInput : searchTerm;
+
         const params = {
             orderBy: orderby,
-            searchBar: searchTerm,
+            searchBar: searchWord,
             tags: etiquetasAnadidas,
             author: autoresAnadidos,
             category: categoryKeys,
@@ -239,7 +244,8 @@ const BuscarAssets = () => {
            autoresAnadidos.length != 0 || (Object.keys(checkedFormats).length != 0 &&
            !Object.values(checkedFormats).every(value => value === undefined || value === false))
            || (Object.keys(checkedCategories).length != 0 &&
-            !Object.values(checkedCategories).every(value => value === undefined || value === false))) {
+            !Object.values(checkedCategories).every(value => value === undefined || value === false)) ||
+        nameInput != '') {
             setAreFilters(true)
         } else {
             setAreFilters(false)
@@ -260,21 +266,13 @@ const BuscarAssets = () => {
         if(ordenSeleccionado != '1' ) {
             setOrdenSeleccionado(['1'])
         }
-        if(searchMode) {
-            setSearchMode(false)
-        }
-        if(etiquetasAnadidas) {
-            setEtiquetasAnadidas([])
-        }
-        if(autoresAnadidos) {
-            setAutoresAnadidos([])
-        }
-        if(checkedCategories) {
-           setCheckedCategories({})
-        }
-        if(checkedFormats) {
-            setCheckedFormats({})
-        }
+    
+        setSearchMode(false)
+        setEtiquetasAnadidas([])
+        setAutoresAnadidos([])
+        setCheckedCategories({})
+        setCheckedFormats({})
+        setNameInput('')
     };
 
     useEffect(() => {
@@ -333,13 +331,38 @@ const anadirAutor = () => {
 };
     
   return (
-    <main class="buscarsssets-main-container">  
+    <main className="buscarsssets-main-container">  
         <section>
-        <h2>{meta ? (meta) : ( searchTerm ? ( '"' + searchTerm + '"' ) : ("Todos los assets"))}</h2>
-        
+        <div className='section-header'>
+            <div className='section-first-header'>
+                <h2>{meta ? (meta) : ( searchTerm ? ( '"' + searchTerm + '"' ) : ("Todos los assets"))}</h2>
+                <Button
+                    label={sidebarOpen ? "Ver assets" : "Filtrar assets"}
+                    onClick={() => setSidebarOpen(!sidebarOpen)}
+                    icon={sidebarOpen ? <HiPuzzle /> : <HiOutlineFilter />}
+                    iconPosition="left"
+                    className="mediano-btn aling-right btn-filters"
+                />
+            </div>
+
+            <div className='section-second-header'>
+                <p class="aling-right btn-filters">
+                    <span id="contador-resultados-numero">{numbreAssets}</span> 
+                    {numbreAssets === 1 ? ' resultado' : ' resultados'}
+                </p>
+                <Button
+                    label="Resetear filtros"
+                    onClick={resetFilters}
+                    icon={<FiDelete />}
+                    iconPosition="left"
+                    className="mediano-btn aling-right btn-filters"
+                    disabled={!areFilters}
+                />
+            </div>
+        </div>
         {
             Array.isArray(assets) && assets.length > 0 && assets.filter(asset => asset.name).length > 0 ? (
-                <div class="cards">
+                <div className={`cards ${sidebarOpen ? 'cards-closed' : 'cards-open'}`}>
                 {assets.filter(asset => asset.name).map(asset => (
                     console.log(asset),
                     <Card
@@ -354,12 +377,14 @@ const anadirAutor = () => {
                 ))}
                 </div>
             ) : (
-                <p>No assets found</p> 
+                // <p>No assets found</p> 
+                !sidebarOpen && <p>No se han encontrado assets</p>
             )
         }
+        
         </section>
 
-        <aside>
+        <aside className={`sidebar ${sidebarOpen ? 'sidebar-open' : 'sidebar-closed'}`}>
         <form>
             <div class="right-elemets">
                 <p class="aling-right">
@@ -432,6 +457,18 @@ const anadirAutor = () => {
                     }} />
                 ))}
             </div>
+
+            {meta && (
+                <SearchBar
+                    labelText="Filtrar por nombre o descripción"
+                    placeholderText="Nombre o descripción..."
+                    id="searchBar-nombre"
+                    buttonId="searchBarButton-nombre"
+                    onChange={(e) => setNameInput(e.target.value)}
+                    value={nameInput}
+                />
+            )}
+
             {!meta ? (
                 <>
                 {!categoryGroups ? (
