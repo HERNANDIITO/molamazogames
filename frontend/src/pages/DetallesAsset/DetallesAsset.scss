@@ -140,6 +140,10 @@ $assetPhotoHeigh: $assetCarruselHeight - 150px;
                     justify-content: space-between;
                     gap: $assetDetailsGap;
 
+                    button {
+                        height: 100%;
+                    }
+
                     .assetDetails-button {
                         width: fit-content;
                         padding: 0 $assetDetailsPadding;
@@ -193,6 +197,65 @@ $assetPhotoHeigh: $assetCarruselHeight - 150px;
                         border-width: 3px;
                     }
                 }
+            }
+        }
+
+        .assetComments {
+            form {
+                display: flex;
+                flex-flow: column;
+
+                .comment-button {
+                    padding: 0 60px;
+                }
+            }
+
+            .comment {
+                display: flex;
+                flex-flow: column;
+                margin: 15px 20px;
+                border: 2px solid $color-secundario;
+                border-radius: 30px;
+                position: relative;
+
+                .borrar-comment-btn {
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    border-radius: 100%;
+                }
+
+                .userInfo {
+                    display: flex;
+                    flex-flow: row;
+                    padding: 10px;
+
+                    
+                    img {
+                        width: 64px;
+                        height: auto;
+                    }
+
+                    .userName {
+                        height: fit-content;
+                        margin: auto 0;
+                        margin-left: 1rem;
+                        font-size: larger;
+                    }
+                }
+
+                .commentDate {
+                    text-align: left;
+                    padding-left: 20px;
+                }
+
+                .commentContent {
+                    margin: 0;
+                    text-align: left;
+                    padding: 15px;
+                }
+
+
             }
         }
     }
