@@ -82,7 +82,7 @@ const postComment = asyncHandler(async (req, res, next) => {
 
 const deleteComment = asyncHandler( async (req, res, next) => {
     const userID = req.user.id;
-    const commentID = req.body.commentID;
+    const commentID = req.query.commentID;
 
     if ( !userID || !commentID ) {
         return res.status(400).json({
