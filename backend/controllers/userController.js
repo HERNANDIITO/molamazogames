@@ -196,7 +196,8 @@ const modifyUserByID = asyncHandler(async (req, res, next) => {
 })
 
 const deleteUserByID = asyncHandler(async (req, res, next) => {
-    const elementoId = req.params.id;
+
+    const elementoId = req.query.id;
 
     if ( elementoId === undefined ) {
         return res.status(400).json({
