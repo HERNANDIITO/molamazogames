@@ -125,7 +125,7 @@ const modifyUserByID = asyncHandler(async (req, res, next) => {
 
             const alreadyName = await User.findOne({name: userName}, 'name');
         
-            if ( alreadyName && alreadyName.name == userName ) {
+            if ( alreadyName && alreadyName.name == userName && alreadyName._id != req.user.id ) {
                 return res.status(400).json({ result: "Error. Solicitud erronea", msg: "Este nombre ya está registrado." });
             }
 
@@ -141,7 +141,7 @@ const modifyUserByID = asyncHandler(async (req, res, next) => {
 
             const alreadyEmail = await User.findOne({ email }, 'email')
 
-            if ( alreadyEmail ) {
+            if ( alreadyEmail && alreadyEmail._id != req.user.id ) {
                 return res.status(400).json({
                     result: "Solicitud errónea.",
                     msg: `Email en uso`

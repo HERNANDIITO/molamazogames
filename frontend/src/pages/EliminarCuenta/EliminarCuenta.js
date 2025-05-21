@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 import { FaCheck } from "react-icons/fa";
 import { deleteUser } from "../../services/userServices";
+import { getUserByToken } from "../../services/authServices";
 import { FaXmark } from "react-icons/fa6";
 
 const EliminarCuenta = () => {
@@ -34,7 +35,7 @@ const EliminarCuenta = () => {
       setError("La contraseña actual no es correcta.");
     } else {
       setError("");
-      alert("Contraseña correcta.");
+      console.log("Contraseña correcta.");
       setPassword("");
     }
   };

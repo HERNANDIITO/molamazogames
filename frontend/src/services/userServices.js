@@ -1,23 +1,25 @@
+import axios from 'axios'
+
 const BASE_URL = "https://molamazogames-ctup.onrender.com/user"
 
 const updateUser = async (data, headers = {}) => {
-
     try {
-        const response = await fetch(`${BASE_URL}`,{
-            method: 'PUT',
-            headers: {
-                'Content-type': 'application/json',
-                "Authorization": `Bearer ${data}`
-            }
-        })
 
-        if ( !response.ok ) {
+        const config = {
+            headers: {
+                "authorization": `Bearer ${localStorage.getItem('token')}`,
+                'Content-type': 'application/json'
+            }
+        };
+
+        const response = await axios.put(`${BASE_URL}`, data, config)
+
+        if (response.status != 200) {
             const errorData = await response.json();
-            throw new Error(errorData.msg || "Algo ha ido mal");
+            throw new Error(errorData.msg || 'Algo ha ido mal');
         }
 
-        const result = await response.json();
-        return result;
+        return response.data;
 
     } catch (error) {
         throw new Error(error.message || 'Algo ha ido mal');

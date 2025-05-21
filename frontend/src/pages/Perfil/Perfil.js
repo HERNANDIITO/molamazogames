@@ -72,6 +72,7 @@ function PerfilContent() {
                                 label="Añadir asset"
                                 icon={<FaPlus />}
                                 className="btnPerfil"
+                                href={'/upAsset'}
                             />
                             <Button
                                 label="Historial descargas"
@@ -142,6 +143,7 @@ function PerfilContent() {
 
             <div className="downPerfil">
                 <p className='tituloFiltrar decoratorDown'>Mis assets</p>
+
             </div>
         </main>
     );

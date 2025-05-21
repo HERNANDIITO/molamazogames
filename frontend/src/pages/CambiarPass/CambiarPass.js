@@ -68,7 +68,7 @@ const CambiarPass = () => {
         console.log("Contraseña actualizada correctamente.");
         setFormData({ actualPassword: "", newPassword: "", newPassword2: "" });
       } catch (err) {
-        setErrors({ global: err.message || "Error actualizando contraseña" });
+        console.err("Error actualizando contraseña:", err);
       }
     }
   };

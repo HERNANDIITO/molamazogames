@@ -79,12 +79,11 @@ function UserOptContent() {
 
         if (validate()) {
             try {
-                const token = localStorage.getItem("token");
-                await updateUser(formData, token);
-                alert("Datos actualizados correctamente.");
+                await updateUser(formData);
+                console.log("Datos actualizados correctamente.");
             } catch (error) {
                 console.error("Error actualizando usuario:", error);
-                alert("Hubo un error al actualizar tus datos.");
+
             }
         }
     };

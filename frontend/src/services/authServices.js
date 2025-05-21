@@ -106,6 +106,5 @@ const getUserByToken = async (data, headers = {}) => {
 export {
     register,
     login,
-    getUserByToken,
-    updateUser
+    getUserByToken
 }
