@@ -9,11 +9,9 @@ import Button from "../../components/Button/Button";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import DatePicker from "../../components/DatePicker/DatePicker";
 import Checkbox from "../../components/Checkbox/Checkbox";
-import Card from "../../components/Card/Card";
 
 import { getAllMeta } from "../../services/metaServices";
 import { getUserByToken } from "../../services/authServices";
-import { getAssets } from "../../services/assetService";
 
 function PerfilContent() {
 
@@ -22,7 +20,6 @@ function PerfilContent() {
     const [metacategorias, setMetacategorias] = useState([]);
     const [checkedMetas, setCheckedMetas] = useState({});
     const [userName, setUserName] = useState('');
-    const [userAssets, setUserAssets] = useState([]);
 
     useEffect(() => {
         async function fetchData() {
@@ -31,15 +28,9 @@ function PerfilContent() {
 
                 if (token) {
                     const userData = await getUserByToken(token);
+                    console.log(userData);
                     setUserName(userData.name);
-
-                    const allAssets = await getAssets();
-
-                    const myAssets = allAssets.assets.filter(asset => asset.author._id === userData._id);
-                    setUserAssets(myAssets);
                 }
-
-
 
                 const metas = await getAllMeta();
                 setMetacategorias(metas);
@@ -53,12 +44,11 @@ function PerfilContent() {
         fetchData();
     }, []);
 
-    const handleCardClick = (assetId) => {
-        navigate(`/detallesAsset/${assetId}`);
-    };
+    useEffect(() => {
+        console.log("checkedMetas:", checkedMetas);
+    }, [checkedMetas]);
 
     const handleCheckboxChange = (metaId) => {
-        console.log("clickin on checkbox")
         setCheckedMetas((prev) => ({
             ...prev,
             [metaId]: !prev[metaId]
@@ -101,7 +91,7 @@ function PerfilContent() {
                     <div className='upFiltrar'>
                         <p className="tituloFiltrar decoratorFiltrosTitulo">Filtrar assets</p>
                         <div className='buscaFilt'>
-                            <SearchBar
+                            <SearchBar 
                                 placeholderText="Buscar"
                             />
                         </div>
@@ -117,8 +107,9 @@ function PerfilContent() {
                                         {metacategorias.slice(0, 3).map((meta) => (
                                             <div key={meta._id} className="checkboxCategoria">
                                                 <Checkbox
+                                                    id={`meta-${meta._id}`} 
                                                     label={meta.meta}
-                                                    checked={!!checkedMetas[meta._id]}
+                                                    checked={!!checkedMetas[meta._id]} 
                                                     onChange={() => handleCheckboxChange(meta._id)}
                                                     size="normal"
                                                     showLabel={true}
@@ -130,8 +121,9 @@ function PerfilContent() {
                                         {metacategorias.slice(3, 6).map((meta) => (
                                             <div key={meta._id} className="checkboxCategoria">
                                                 <Checkbox
+                                                    id={`meta-${meta._id}`} 
                                                     label={meta.meta}
-                                                    checked={!!checkedMetas[meta._id]}
+                                                    checked={!!checkedMetas[meta._id]} 
                                                     onChange={() => handleCheckboxChange(meta._id)}
                                                     size="normal"
                                                     showLabel={true}
@@ -156,22 +148,6 @@ function PerfilContent() {
 
             <div className="downPerfil">
                 <p className='tituloFiltrar decoratorDown'>Mis assets</p>
-
-                <div className="cardsAssetsPerfil">
-                    <div className="cardsAssetsPerfil">
-                        {userAssets.map(asset => (
-                            <Card
-                                idAsset={asset._id}
-                                type={asset.categories[0]?.meta._id}
-                                botonTag="botonYtags"
-                                image={asset.image ? "https://molamazogames-ctup.onrender.com/" + asset.image.path : null}
-                                tagsAsset={asset.tags.map(tag => tag.name)}
-                                tituloAsset={asset.name}
-                                onClick={() => handleCardClick(asset._id)}
-                            />
-                        ))}
-                    </div>
-                </div>
 
             </div>
         </main>
