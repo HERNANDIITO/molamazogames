@@ -90,16 +90,31 @@ const postFav = asyncHandler( async (req,res,next) => {
         });
     }
 
-    const nuevoFav = new Fav({
-        author: user._id,
-        asset: asset._id
-    });
+    const alreadyFav = await Fav.findOne({ author: user._id, asset: asset._id })
 
-    const fav = await nuevoFav.save();
-    return res.status(200).json({
-        result: "OK",
-        fav: fav
-    });
+    if ( alreadyFav ) {
+        const result = await Fav.deleteOne({
+            author: user._id, 
+            asset: asset._id
+        });
+        return res.status(200).json({
+            result: "OK",
+            msg: "Fav eliminado",
+            fav: alreadyFav
+        });
+    } else {
+        const nuevoFav = new Fav({
+            author: user._id,
+            msg: "Fav creado",
+            asset: asset._id
+        });
+
+        const fav = await nuevoFav.save();
+        return res.status(200).json({
+            result: "OK",
+            fav: fav
+        });
+    }
 
 });
 
