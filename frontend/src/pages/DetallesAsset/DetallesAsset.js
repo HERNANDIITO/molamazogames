@@ -2,15 +2,20 @@ import './DetallesAsset.scss'
 import { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCode, faDownload, faFilm, faFolder, faHeart, faImage, faListOl, faMusic } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as faRegularHeart } from '@fortawesome/free-regular-svg-icons';
 import { faBookmark, faFileCode } from '@fortawesome/free-regular-svg-icons';
 import Button from '../../components/Button/Button.js';
 import { useParams } from 'react-router-dom';
 import { LuTag } from "react-icons/lu";
 import { getAssetById } from '../../services/assetService.js';
 import CarousselController from '../../components/CarousselController/CarousselController.js';
+import { getUserByToken } from '../../services/authServices';
+
 
 import { CarousselImage } from '../../components/carousselEntry/carousselImage/CarousselImage.js'
 import { Caroussel3D } from '../../components/carousselEntry/caroussel3D/Caroussel3D.js';
+import { getAssetFavs, getUserFavs } from '../../services/favService.js';
+import { postFav } from "../../services/favService.js"
 
 
 const DetallesAsset = () => {
@@ -24,6 +29,12 @@ const DetallesAsset = () => {
     const [downloadableFiles, setDownloadableFiles] = useState([]);
     const [downloadableFilesError, setErrorDownloadableFiles] = useState(null);
 
+    const [userLikes, setUserLikes] = useState(false);
+    const [userLikesError, setErrorUserLikes] = useState(false);
+
+    const [ pageLoaded, setPageLoaded ] = useState(false);
+    const [ userID, setUserID ] = useState("");
+
     const carousselRef = useRef(null);
 
     const { assetID } = useParams();
@@ -33,18 +44,27 @@ const DetallesAsset = () => {
             try {
                 const result = await getAssetById({ assetID: assetID });
                 const assetToSet = result.asset;
-                const previewFilesToSet = result.asset.files.filter((file) => { return file.preview })
-                const downloadableFilesToSet = result.asset.files//.filter( (file) => { return !file.preview })
+                const previewFilesToSet = result.asset.files.filter((file) => file.preview);
+                const downloadableFilesToSet = result.asset.files;
                 setAsset(assetToSet);
                 setPreviewFiles(previewFilesToSet);
                 setDownloadableFiles(downloadableFilesToSet);
+
+                const token = localStorage.getItem('token');
+                const user = await getUserByToken(token);
+                setUserID(user._id);
+
+                const resultAssetFavs = await getAssetFavs({ assetID: assetID });
+                setUserLikes(resultAssetFavs.users.some(item => item._id === user._id));
+
             } catch (error) {
-                setErrorAsset('Algo salió mal. No se han podido recuperar las categorías. Por favor, prueba a recargar la página.');
+                console.error(error);
             }
+            setPageLoaded(true); // Marca que la página ha sido cargada
         };
 
         fetchAsset();
-    }, []);
+    }, [assetID]); // Este `useEffect` solo se ejecuta al cargar el asset
 
     const renderPreviewImages = () => {
         if (!previewFiles || previewFiles.length === 0) {
@@ -245,10 +265,25 @@ const DetallesAsset = () => {
         
     }
 
+    // Función para manejar el like del post
+    const likeThisPost = async () => {
+        if (!pageLoaded) return; 
+
+        const newLikeStatus = !userLikes; 
+        setUserLikes(newLikeStatus); 
+
+        try {
+            await postFav({ userID, assetID });
+        } catch (error) {
+            console.error("Error al actualizar el like:", error);
+        }
+
+    };
+
     return (
 
         <main>
-
+ 
             <div class="detailsPage">
                 <h2 class="decorator assetDetails-assetName">{asset.name}</h2>
                 {previewFiles.length > 0 && renderCarousselController()}
@@ -286,9 +321,10 @@ const DetallesAsset = () => {
                                 ></Button>
                                 <Button
                                     label={""}
-                                    icon={<FontAwesomeIcon icon={faHeart} />}
+                                    icon={<FontAwesomeIcon icon={ userLikes ? faHeart : faRegularHeart } />}
                                     iconPosition={"alone"}
                                     className={"assetDetails-button secondary-btn"}
+                                    onClick={likeThisPost}
                                 ></Button>
                             </div>
                             <div class="assetTags assetDetailsCard">
