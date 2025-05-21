@@ -188,7 +188,7 @@ const modifyUserByID = asyncHandler(async (req, res, next) => {
 
         await user.save();
 
-        res.json(res.status(200).json({ result: "OK.", msg: "Usuario actualizado con exito." }));
+        return res.status(200).json({ result: "OK.", msg: "Usuario actualizado con exito." });
     }
     catch (err) {
         next(err);
