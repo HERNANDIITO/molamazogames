@@ -13,6 +13,7 @@ const EliminarCuenta = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [storedPassword, setStoredPassword] = useState("");
+  const [userId, setUserId] = useState("");
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -21,6 +22,7 @@ const EliminarCuenta = () => {
         try {
           const user = await getUserByToken(token);
           setStoredPassword(user.password);
+          setUserId(user._id);
         } catch (error) {
           console.error("Error obteniendo usuario:", error);
         }
@@ -29,14 +31,21 @@ const EliminarCuenta = () => {
     fetchUserData();
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== storedPassword) {
       setError("La contraseña actual no es correcta.");
     } else {
       setError("");
-      console.log("Contraseña correcta.");
-      setPassword("");
+      try {
+        await deleteUser(userId);
+        localStorage.removeItem("token");
+        alert("Tu cuenta ha sido eliminada.");
+        window.location.href = "/";
+      } catch (err) {
+        console.error("Error al eliminar la cuenta:", err);
+        setError("Hubo un problema al eliminar tu cuenta.");
+      }
     }
   };
 

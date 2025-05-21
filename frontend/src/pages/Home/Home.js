@@ -103,7 +103,7 @@ function HomeContent() {
                     {paginated.map(asset => (
                         <Card
                             key={asset._id}
-                            type={asset.categories[0]?.meta}
+                            type={asset.categories[0]?.meta._id}
                             botonTag="tag"
                             image={asset.image ? "https://molamazogames-ctup.onrender.com/" + asset.image.path : null}
                             tagsAsset={asset.tags.map(tag => tag.name)}
@@ -126,8 +126,7 @@ function HomeContent() {
                     icon={<IoIosArrowBack />}
                     iconPosition="alone"
                     className="enano-btn round-btn flechas izq"
-                    //onClick={() => handlePrev("2D")}
-                    onClick={() => handleCardClick(3)}
+                    onClick={() => handlePrev("2D")}
                 />
                 {renderAssets("2D")}
                 <Button

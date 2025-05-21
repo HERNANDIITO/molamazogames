@@ -19,7 +19,7 @@ function UserOptContent() {
     const [userPhone, setUserPhone] = useState('');
 
     const [formData, setFormData] = useState({
-        name: '',
+        userName: '',
         email: '',
         phone: '',
     });
@@ -36,7 +36,7 @@ function UserOptContent() {
                     setUserName(userData.name);
                     setUserEmail(userData.email);
                     setUserPhone(userData.phone);
-                    setFormData({ ...formData, name: userData.name, email: userData.email, phone: userData.phone });
+                    setFormData({ ...formData, userName: userData.name, email: userData.email, phone: userData.phone });
                 }
 
             } catch (error) {
@@ -56,8 +56,8 @@ function UserOptContent() {
     const validate = () => {
         let newErrors = {};
 
-        if (!formData.name.trim()) {
-            newErrors.name = "El nombre de usuario no puede quedar vacío.";
+        if (!formData.userName.trim()) {
+            newErrors.userName = "El nombre de usuario no puede quedar vacío.";
         }
 
         if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email)) {
@@ -78,13 +78,9 @@ function UserOptContent() {
         e.preventDefault();
 
         if (validate()) {
-            try {
-                await updateUser(formData);
-                console.log("Datos actualizados correctamente.");
-            } catch (error) {
-                console.error("Error actualizando usuario:", error);
 
-            }
+            const response = await updateUser(formData);            
+
         }
     };
 
@@ -122,15 +118,15 @@ function UserOptContent() {
                         <form onSubmit={handleSubmit}>
                             <Input
                                 type="text"
-                                name="name"
-                                id="name"
+                                name="userName"
+                                id="userName"
                                 label="Nombre de usuario"
-                                value={formData.name}
+                                value={formData.userName}
                                 onChange={handleChange}
                                 autoFocus
                                 placeholder={userName}
-                                className={`login ${errors.name ? "error" : ""}`} />
-                            {errors.name && <p className="register-error">{errors.name}</p>}
+                                className={`login ${errors.userName ? "error" : ""}`} />
+                            {errors.userName && <p className="register-error">{errors.userName}</p>}
 
                             <Input
                                 type="email"

@@ -23,6 +23,7 @@ import Login from "./pages/Login/Login";
 import Perfil from "./pages/Perfil/Perfil";
 import UserOpt from "./pages/UserOpt/UserOpt";
 import SubirAsset from "./pages/SubirAsset/SubirAsset";
+import EditarAssets from "./pages/EditarAssets/EditarAssets";
 import Home from "./pages/Home/Home";
 import BuscarAssets from "./pages/BuscarAssets/BuscarAssets";
 import DetallesAsset from './pages/DetallesAsset/DetallesAsset';
@@ -83,6 +84,7 @@ function AppContent() {
         <Route path="/registrar" element={<Registrar />} />
         <Route path="/login" element={<Login />} />
         <Route path="/upAsset" element={<SubirAsset />} />
+        <Route path="/editAsset/:id" element={<EditarAssets />} />
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/buscarAssets/" element={<BuscarAssets />} />

@@ -13,9 +13,9 @@
 
 .downPerfil{
     display: flex;
-    flex-direction: row;
-    background-color: blueviolet;
-    gap: 5rem;
+    flex-direction: column;
+    background-color: $color-fondo;
+
     align-content: center;
     justify-content: center;
 }
@@ -154,7 +154,7 @@
         width: 15rem; 
         height: 2px;  
         background-color: $color-secundario; 
-        margin: 10px 0; 
+        margin: 10px auto 0 auto; 
     }
 }
 
@@ -173,6 +173,14 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+}
+
+.cardsAssetsPerfil{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 0 3rem 2rem 3rem;
 }
 
 
