@@ -93,7 +93,7 @@ function PerfilContent() {
                                 label="Historial descargas"
                                 icon={<FaClock />}
                                 className="btnPerfil"
-                                href={'/historial'}
+                                href={'/historialAssets'}
                             />
                         </div>
                     </div>

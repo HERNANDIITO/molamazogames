@@ -29,6 +29,7 @@ import BuscarAssets from "./pages/BuscarAssets/BuscarAssets";
 import DetallesAsset from './pages/DetallesAsset/DetallesAsset';
 import CambiarPass from './pages/CambiarPass/CambiarPass';
 import EliminarCuenta from './pages/EliminarCuenta/EliminarCuenta';
+import HistorialAssets from './pages/HistorialAssets/HistorialAssets';
 
 import SearchBar from './components/SearchBar/SearchBar';
 import Profile from './components/Profile/Profile';
@@ -94,6 +95,7 @@ function AppContent() {
         <Route path="/useropt" element={<UserOpt />} />
         <Route path="/cambiarPass" element={<CambiarPass />} />
         <Route path="/eliminarCuenta" element={<EliminarCuenta />} />
+        <Route path="/historialAssets" element={<HistorialAssets />} />
       </Routes>
 
       {location.pathname !== "/registrar" && location.pathname !== "/login" && location.pathname !== "/upAsset" && (

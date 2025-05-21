@@ -1,5 +1,6 @@
 @import '../../styles/global.scss';
 
+
 .contain {
     display: flex;
     align-items: center;
@@ -16,7 +17,6 @@
     display: block;
 }
 
-
 .section {
     display: flex;
     background-color: $color-fondo2;
@@ -25,6 +25,8 @@
     width: 100%;
     height: $alto-boton-enorme;
     padding-right: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }
 
 .image {

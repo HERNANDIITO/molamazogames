@@ -28,6 +28,33 @@ const postNewHistoryEntry = async (data, headers = {}) => {
     }
 }
 
+const getHistoryByUser = async (data, headers = {}) => {
+    try {
+
+        console.log("data:", data);
+
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+                "authorization": `Bearer ${localStorage.getItem('token')}`,
+            }
+        };
+
+        const response = await axios.get(`${BASE_URL}`, data, config)
+
+        if (response.status != 200) {
+            const errorData = await response.json();
+            throw new Error(errorData.msg || 'Algo ha ido mal');
+        }
+
+        return response.data;
+
+    } catch (error) {
+        throw new Error(error.message || 'Algo ha ido mal');
+    }
+}
+
 export {
-    postNewHistoryEntry
+    postNewHistoryEntry,
+    getHistoryByUser
 }

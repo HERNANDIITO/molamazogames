@@ -75,22 +75,18 @@ const DetallesAsset = () => {
     }, [assetID]); // Este `useEffect` solo se ejecuta al cargar el asset
 
 
-    useEffect(() => {
-        const registrarHistorial = async () => {
-            const lastVisited = localStorage.getItem("lastVisitedAsset");
+    const registrarHistorial = async () => {
+        const lastVisited = localStorage.getItem("lastVisitedAsset");
 
-            if (assetID && lastVisited !== assetID) {
-                try {
-                    localStorage.setItem("lastVisitedAsset", assetID);
-                    await postNewHistoryEntry({"assetID": assetID });
-                } catch (error) {
-                    console.error("Error registrando historial:", error);
-                }
+        if (assetID && lastVisited !== assetID) {
+            try {
+                localStorage.setItem("lastVisitedAsset", assetID);
+                await postNewHistoryEntry({"assetID": assetID });
+            } catch (error) {
+                console.error("Error registrando historial:", error);
             }
-        };
-
-        registrarHistorial();
-    }, [assetID]);
+        }
+    };
 
     const renderPreviewImages = () => {
         if (!previewFiles || previewFiles.length === 0) {
@@ -230,7 +226,7 @@ const DetallesAsset = () => {
                             case "application":
                                 return <FontAwesomeIcon icon={faFolder} />;
                             default:
-                                return "Unsupported file type"; // Puedes mostrar un mensaje por defecto
+                                return "Unsupported file type"; 
                         }
                     })()}
                 </span>
@@ -242,6 +238,7 @@ const DetallesAsset = () => {
                     iconPosition="alone"
                     className="round-btn secondary-btn enano-btn fileDownload"
                     href={`https://molamazogames-ctup.onrender.com/file/download?fileID=${file._id}`}
+                    onClick={registrarHistorial}
                 />
             </div>
         ))
@@ -401,6 +398,7 @@ const DetallesAsset = () => {
                                     label={"Descarga"}
                                     icon={<FontAwesomeIcon icon={faDownload} />}
                                     href={`https://molamazogames-ctup.onrender.com/asset/download?assetID=${assetID}`}
+                                    onClick={registrarHistorial}
                                     className={'assetDetails-button assetDetails-downloadButton'}
                                 ></Button>
                                 <Button
