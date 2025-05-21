@@ -12,6 +12,12 @@
     width: $ancho-logo; 
 }
 
+.logo > h1{ 
+    display: inline;
+    transition: display .3s ease allow-discrete; 
+    margin-left: $espacio-elementos-logo;
+}
+
 .saltar-contenido-principal-btn{
     position: absolute;
     left: $fuera-pantalla;
@@ -20,18 +26,14 @@
     &:focus{
         position: relative;
         left: $resetear-fuera-pantalla;
+        margin-right: -23rem;
 
         ~ .logo { 
+            visibility: hidden;
             position: absolute;
             left: $fuera-pantalla; 
         }
     }
-}
-
-.logo > h1{ 
-    display: inline;
-    transition: display .3s ease allow-discrete; 
-    margin-left: $espacio-elementos-logo;
 }
 
 @media (max-width: 52rem) {
