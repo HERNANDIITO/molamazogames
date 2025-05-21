@@ -140,6 +140,10 @@ $assetPhotoHeigh: $assetCarruselHeight - 150px;
                     justify-content: space-between;
                     gap: $assetDetailsGap;
 
+                    button {
+                        height: 100%;
+                    }
+
                     .assetDetails-button {
                         width: fit-content;
                         padding: 0 $assetDetailsPadding;
