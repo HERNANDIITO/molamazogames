@@ -4,6 +4,7 @@ import asyncHandler from 'express-async-handler'
 import moment from 'moment'
 import User from '../schemas/user.schema.js';
 import Asset from '../schemas/asset.schema.js';
+import mongoose from 'mongoose';
 
 const getUserHistory = asyncHandler( async (req, res, next) => {
     const userID = req.query.userID ? req.query.userID : req.user.id;
