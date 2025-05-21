@@ -545,8 +545,8 @@ const updateAsset = asyncHandler(async (req, res, next) => {
 const deleteFileFromAsset = asyncHandler( async (req,res,next) => {
     try {
 
-        const assetID = req.body.assetID;
-        const fileID  = req.body.fileID;
+        const assetID = req.query.assetID;
+        const fileID  = req.query.fileID;
 
         if ( !assetID || !(mongoose.Types.ObjectId.isValid(assetID)) ||
              !fileID  || !(mongoose.Types.ObjectId.isValid(fileID))) {
@@ -592,7 +592,7 @@ const deleteFileFromAsset = asyncHandler( async (req,res,next) => {
 const deleteAsset = asyncHandler(async (req, res, next) => {
 
     try{
-        const assetID = req.body.assetID;
+        const assetID = req.query.assetID;
 
         if(!assetID || !(mongoose.Types.ObjectId.isValid(assetID))){
             return res.status(404).json({
