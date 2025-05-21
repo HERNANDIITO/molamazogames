@@ -99,7 +99,7 @@ const Profile = () => {
                     iconPosition="left"
                     className="danger-btn"
                     onClick={handleLogout}
-                    href=""
+                    href="/"
                 />
             </>
             )}

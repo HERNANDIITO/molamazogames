@@ -15,6 +15,7 @@ import { uploadFile } from '../../services/fileService';
 import { postAsset } from '../../services/assetService';
 import { getAllMeta } from "../../services/metaServices";
 import { getAllCategories } from "../../services/categoriesServices";
+import { getUserByToken } from "../../services/authServices";
 
 function SubirAssetContent() {
     const navigate = useNavigate();
@@ -80,37 +81,48 @@ function SubirAssetContent() {
     };
 
     useEffect(() => {
-        const cargarCategoriasAgrupadas = async () => {
-            try {
-                const resMeta = await getAllMeta();
-                const metas = resMeta || [];
+    const cargarDatosIniciales = async () => {
+        try {
+            const token = localStorage.getItem("token");
 
-                const grupos = await Promise.all(
-                    metas.map(async (meta) => {
-                        const resCat = await getAllCategories({ meta: meta.meta });
-                        const categorias = resCat.categories || [];
-                        console.log("categorias", categorias);
-
-                        return {
-                            label: meta.meta,
-                            options: categorias.map(cat => ({
-                                value: cat._id,
-                                label: cat.name,
-                                key: cat._id
-                            }))
-                        };
-                    })
-                );
-
-                grupos.sort((a, b) => a.label.localeCompare(b.label));
-                setCategorias(grupos);
-            } catch (error) {
-                console.error("Error al cargar categorias agrupadas:", error.message);
+            if (!token) {
+                navigate("/login");
+                return;
             }
-        };
 
-        cargarCategoriasAgrupadas();
-    }, []);
+            const userData = await getUserByToken(token);
+            console.log("Usuario autenticado:", userData);
+
+            const resMeta = await getAllMeta();
+            const metas = resMeta || [];
+
+            const grupos = await Promise.all(
+                metas.map(async (meta) => {
+                    const resCat = await getAllCategories({ meta: meta.meta });
+                    const categorias = resCat.categories || [];
+
+                    return {
+                        label: meta.meta,
+                        options: categorias.map(cat => ({
+                            value: cat._id,
+                            label: cat.name,
+                            key: cat._id
+                        }))
+                    };
+                })
+            );
+
+            grupos.sort((a, b) => a.label.localeCompare(b.label));
+            setCategorias(grupos);
+        } catch (error) {
+            console.error("Error cargando datos:", error);
+            navigate("/login");
+        }
+    };
+
+    cargarDatosIniciales();
+}, []);
+
 
     const anadirCategoria = () => {
         if (

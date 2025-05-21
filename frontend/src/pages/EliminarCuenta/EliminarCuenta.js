@@ -5,7 +5,7 @@ import Button from "../../components/Button/Button";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 import { FaCheck } from "react-icons/fa";
-import { getUserByToken } from "../../services/authServices";
+import { deleteUser } from "../../services/userServices";
 import { FaXmark } from "react-icons/fa6";
 
 const EliminarCuenta = () => {
@@ -16,14 +16,14 @@ const EliminarCuenta = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       const token = localStorage.getItem("token");
-      // if (token) {
-      //   try {
-      //     const user = await getUserByToken(token);
-      //     setStoredPassword(user.password);
-      //   } catch (error) {
-      //     console.error("Error obteniendo usuario:", error);
-      //   }
-      // }
+      if (token) {
+        try {
+          const user = await getUserByToken(token);
+          setStoredPassword(user.password);
+        } catch (error) {
+          console.error("Error obteniendo usuario:", error);
+        }
+      }
     };
     fetchUserData();
   }, []);

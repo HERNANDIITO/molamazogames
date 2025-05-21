@@ -5,7 +5,8 @@ import Button from "../../components/Button/Button";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleInfo, faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 import { FaCheck } from "react-icons/fa";
-import { getUserByToken, updateUser } from "../../services/authServices";
+import { getUserByToken } from "../../services/authServices";
+import { updateUser } from "../../services/userServices";
 import { FaXmark } from "react-icons/fa6";
 
 const CambiarPass = () => {
@@ -64,7 +65,7 @@ const CambiarPass = () => {
       try {
         const token = localStorage.getItem("token");
         await updateUser({ oldPassword: formData.actualPassword, newPassword: formData.newPassword }, token);
-        alert("Contraseña actualizada correctamente.");
+        console.log("Contraseña actualizada correctamente.");
         setFormData({ actualPassword: "", newPassword: "", newPassword2: "" });
       } catch (err) {
         setErrors({ global: err.message || "Error actualizando contraseña" });

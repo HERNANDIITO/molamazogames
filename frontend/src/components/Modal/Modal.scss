@@ -11,6 +11,17 @@
     align-items: center;   
 }
 
+.modalContornoToken{
+    background-color: $color-fondo2;
+    border-radius: 8px;
+    width: 30rem;
+    height: fit-content;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;   
+}
+
 .modalExito {
     background-color: $color-fondo2;
     border-radius: 8px;
@@ -34,7 +45,7 @@
     &::after {
         content: "";
         display: block;
-        width: 20rem; 
+        width: 25rem; 
         height: 2px;  
         background-color: $color-secundario; 
         margin: 10px auto;
@@ -44,6 +55,10 @@
 
 .botonesModal{
     width: $ancho-boton-mediano
+}
+
+.mensajeModal{
+  margin-bottom: 1.5rem;
 }
 
 .contbotonesModal{

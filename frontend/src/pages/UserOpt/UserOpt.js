@@ -8,7 +8,7 @@ import { FaPen, FaTrash, FaCheck, FaArrowLeft } from "react-icons/fa";
 import Button from "../../components/Button/Button";
 import Input from "../../components/Input/Input";
 
-import { updateUser } from "../../services/authServices";
+import { updateUser } from "../../services/userServices";
 import { getUserByToken } from "../../services/authServices";
 
 function UserOptContent() {
