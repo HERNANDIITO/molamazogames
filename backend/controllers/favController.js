@@ -1,6 +1,7 @@
 import Fav from '../schemas/fav.schema.js';
 import Asset from '../schemas/asset.schema.js';
 import User from '../schemas/user.schema.js';
+import mongoose from 'mongoose';
 
 import asyncHandler from 'express-async-handler'
 
