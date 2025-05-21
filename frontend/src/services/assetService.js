@@ -86,6 +86,33 @@ const postAsset = async (data, headers = {}) => {
     }
 }
 
+const deleteAsset = async (data, headers = {}) => {
+    try {
+
+        console.log("DATA: ", data)
+
+        const config = {
+            params: data,
+            headers: {
+                "authorization": `Bearer ${localStorage.getItem('token')}`,
+                'Content-type': 'application/json'
+            }
+        };
+
+        const response = await axios.delete(`${BASE_URL}`, config)
+
+        if (response.status != 200) {
+            const errorData = await response.json();
+            throw new Error(errorData.msg || 'Algo ha ido mal');
+        }
+
+        return response.data;
+
+    } catch (error) {
+        throw new Error(error.message || 'Algo ha ido mal');
+    }
+}
+
 
 const putAsset = async (data, headers = {}) => {
     try {
@@ -117,5 +144,6 @@ export {
     getAssetById,
     getAssets,
     postAsset,
-    putAsset
+    putAsset,
+    deleteAsset
 }

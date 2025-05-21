@@ -9,9 +9,11 @@ import Button from "../../components/Button/Button";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import DatePicker from "../../components/DatePicker/DatePicker";
 import Checkbox from "../../components/Checkbox/Checkbox";
+import Card from "../../components/Card/Card";
 
 import { getAllMeta } from "../../services/metaServices";
 import { getUserByToken } from "../../services/authServices";
+import { getAssets } from "../../services/assetService";
 
 function PerfilContent() {
 
@@ -20,6 +22,7 @@ function PerfilContent() {
     const [metacategorias, setMetacategorias] = useState([]);
     const [checkedMetas, setCheckedMetas] = useState({});
     const [userName, setUserName] = useState('');
+    const [userAssets, setUserAssets] = useState([]);
 
     useEffect(() => {
         async function fetchData() {
@@ -30,6 +33,11 @@ function PerfilContent() {
                     const userData = await getUserByToken(token);
                     console.log(userData);
                     setUserName(userData.name);
+                    
+                    const allAssets = await getAssets();
+
+                    const myAssets = allAssets.assets.filter(asset => asset.author._id === userData._id);
+                    setUserAssets(myAssets);
                 }
 
                 const metas = await getAllMeta();
@@ -47,6 +55,10 @@ function PerfilContent() {
     useEffect(() => {
         console.log("checkedMetas:", checkedMetas);
     }, [checkedMetas]);
+
+    const handleCardClick = (assetId) => {
+        navigate(`/detallesAsset/${assetId}`);
+    };
 
     const handleCheckboxChange = (metaId) => {
         setCheckedMetas((prev) => ({
@@ -148,7 +160,21 @@ function PerfilContent() {
 
             <div className="downPerfil">
                 <p className='tituloFiltrar decoratorDown'>Mis assets</p>
-
+                <div className="cardsAssetsPerfil">
+                    <div className="cardsAssetsPerfil">
+                        {userAssets.map(asset => (
+                            <Card
+                                idAsset={asset._id}
+                                type={asset.categories[0]?.meta._id}
+                                botonTag="botonYtags"
+                                image={asset.image ? "https://molamazogames-ctup.onrender.com/" + asset.image.path : null}
+                                tagsAsset={asset.tags.map(tag => tag.name)}
+                                tituloAsset={asset.name}
+                                onClick={() => handleCardClick(asset._id)}
+                            />
+                        ))}
+                    </div>
+                </div>
             </div>
         </main>
     );

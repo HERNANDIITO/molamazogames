@@ -8,6 +8,7 @@ import Button from '../Button/Button';
 import { getAllMeta } from '../../services/metaServices';
 
 import { useNavigate } from 'react-router-dom';
+import { deleteAsset } from '../../services/assetService';
 
 
 const Card = ({
@@ -20,6 +21,7 @@ const Card = ({
   onClick,
 }) => {
   const [metaMap, setMetaMap] = useState({});
+  const [deleted, setDeleted] = useState(false);
   const navigate = useNavigate();
 
 
@@ -96,59 +98,53 @@ const Card = ({
     );
   };
 
+  const deleteAssetHandler = async () => {
+    const result = await deleteAsset({assetID: idAsset});
+    setDeleted(true);
+  }
+
   return (
-    <div className={classNames("contorno")}>
-      {imageToShow && (
-        <img
-          src={imageToShow}
-          alt={`${type} preview`}
-          className="imagenAsset"
-          onClick={onClick}
-          onError={() => setValidImage(false)}
-          style={{ cursor: 'pointer' }}
-        />
-      )}
 
-
-      <section
-        className={classNames('bottag', {
-          'centrado': ['boton', 'subir'].includes(botonTag),
-          'izquierda': botonTag === 'tag',
-        })}
-      >
-        {botonTag === 'boton' && (
-          <>
-            <Button
-              label="Modificar"
-              icon={<FiEdit />}
-              iconPosition="left"
-              className="warning-btn mediano-btn"
-            />
-            <Button
-              label="Eliminar"
-              icon={<FiTrash2 />}
-              iconPosition="left"
-              className="danger-btn mediano-btn"
-            />
-          </>
+    <>
+    {
+      deleted ? (<div></div>) : (
+      <div className={classNames("contorno")}>
+        {imageToShow && (
+          <img
+            src={imageToShow}
+            alt={`${type} preview`}
+            className="imagenAsset"
+            onClick={onClick}
+            onError={() => setValidImage(false)}
+            style={{ cursor: 'pointer' }}
+          />
         )}
 
-        {botonTag === 'tag' && (
-          <div className='divTag'>
-            <p
-              className='tituloCard'
-              onClick={onClick}
-              style={{ cursor: 'pointer' }}
-            >
-              {tituloAsset}
-            </p>
-            {renderTags()}
-          </div>
-        )}
 
-        {botonTag === 'botonYtags' && (
-          <>
+        <section
+          className={classNames('bottag', {
+            'centrado': ['boton', 'subir'].includes(botonTag),
+            'izquierda': botonTag === 'tag',
+          })}
+        >
+          {botonTag === 'boton' && (
+            <>
+              <Button
+                label="Modificar"
+                icon={<FiEdit />}
+                iconPosition="left"
+                className="warning-btn mediano-btn"
+              />
+              <Button
+                label="Eliminar"
+                icon={<FiTrash2 />}
+                iconPosition="left"
+                className="danger-btn mediano-btn"
+              />
+            </>
+          )}
 
+          {botonTag === 'tag' && (
             <div className='divTag'>
               <p
                 className='tituloCard'
@@ -157,39 +153,56 @@ const Card = ({
               >
                 {tituloAsset}
               </p>
-              <div className='tagsYbotones'>
-                {renderTags()}
-                <div className='contDeBotones'>
-                  <Button
-                    icon={<FiEdit />}
-                    iconPosition="left"
-                    className="warning-btn enano-btn"
-                    onClick={() => navigate(`/editAsset/${idAsset}`)}
-                  />
-                  <Button
-                    icon={<FiTrash2 />}
-                    iconPosition="left"
-                    className="danger-btn enano-btn"
-                  />
-                </div>
-
-              </div>
-
+              {renderTags()}
             </div>
+          )}
 
-          </>
-        )}
+          {botonTag === 'botonYtags' && (
+            <>
+              <div className='divTag'>
+                <p
+                  className='tituloCard'
+                  onClick={onClick}
+                  style={{ cursor: 'pointer' }}
+                >
+                  {tituloAsset}
+                </p>
+                <div className='tagsYbotones'>
+                  {renderTags()}
+                  <div className='contDeBotones'>
+                    <Button
+                      icon={<FiEdit />}
+                      iconPosition="left"
+                      className="warning-btn enano-btn"
+                      onClick={() => navigate(`/editAsset/${idAsset}`)}
+                    />
+                    <Button
+                      icon={<FiTrash2 />}
+                      iconPosition="left"
+                      className="danger-btn enano-btn"
+                      onClick={() => deleteAssetHandler()}
+                    />
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
 
-        {botonTag === 'subir' && (
-          <Button
-            label="Subir foto"
-            icon={<FiUpload />}
-            iconPosition="left"
-            className="mediano-btn"
-          />
-        )}
-      </section>
-    </div>
+          {botonTag === 'subir' && (
+              <Button
+              label="Subir foto"
+              icon={<FiUpload />}
+              iconPosition="left"
+              className="mediano-btn"
+              />
+            )}
+        </section>
+      </div>
+      )
+    }
+  </>
+
+
   );
 };
 
