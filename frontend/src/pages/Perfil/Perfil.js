@@ -93,6 +93,7 @@ function PerfilContent() {
                                 label="Historial descargas"
                                 icon={<FaClock />}
                                 className="btnPerfil"
+                                href={'/historial'}
                             />
                         </div>
                     </div>
@@ -161,7 +162,7 @@ function PerfilContent() {
             <div className="downPerfil">
                 <p className='tituloFiltrar decoratorDown'>Mis assets</p>
                 <div className="cardsAssetsPerfil">
-                    <div className="cardsAssetsPerfil">
+
                         {userAssets.map(asset => (
                             <Card
                                 idAsset={asset._id}
@@ -173,7 +174,7 @@ function PerfilContent() {
                                 onClick={() => handleCardClick(asset._id)}
                             />
                         ))}
-                    </div>
+
                 </div>
             </div>
         </main>

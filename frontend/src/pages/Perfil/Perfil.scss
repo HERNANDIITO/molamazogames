@@ -1,5 +1,9 @@
 @import '../../styles/global.scss';
 
+.App-content{
+    min-width: $tamano-telefono;
+}
+
 .upPerfil{
     display: flex;
     flex-direction: row;
@@ -181,13 +185,55 @@
     flex-wrap: wrap;
     gap: 2rem;
     padding: 0 3rem 2rem 3rem;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
 }
 
 
 
 
-@media all and (width < 1070px) {
+@media all and (width < 1500px) {
     .upPerfil{
         flex-direction: column;
+        padding: 2rem;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .perfilBotones{
+        margin: auto;
+    }
+
+    .filtrarPerfil{
+        margin: auto;
+    }
+}
+
+
+@media all and (width < 800px) {
+
+    .btnPerfil {
+        height: $alto-boton-enano !important;
+        width: $ancho-boton-enano !important;
+        gap: 0;
+    
+        .label-text {
+          display: none; 
+        }
+    
+        .icon {
+          font-size: $tamano-texto-boton;
+        }
+    }
+
+    .filtrarPerfil{
+        padding: 0.5rem;
+        padding-left: 1rem;
+    }
+
+    .perfilBotones{
+        width: 28.3rem;
+        margin: auto;
     }
 }
