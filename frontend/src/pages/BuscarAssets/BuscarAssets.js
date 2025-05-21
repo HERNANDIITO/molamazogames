@@ -330,7 +330,7 @@ const anadirAutor = () => {
                         key={asset._id}
                         type={asset.categories[0]?.meta}
                         botonTag="tag"
-                        image={asset.image ? "http://localhost:5000/" + asset.image.path : null}
+                        image={asset.image ? "https://molamazogames-ctup.onrender.com/" + asset.image.path : null}
                         tagsAsset={asset.tags.map(tag => tag.name)}
                         tituloAsset={asset.name}
                         onClick={() => handleCardClick(asset._id)}

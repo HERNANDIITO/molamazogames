@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const BASE_URL = "http://localhost:5000/format"
+const BASE_URL = "https://molamazogames-ctup.onrender.com/format"
 
 /**
  * GET ALL CATEGORIES 

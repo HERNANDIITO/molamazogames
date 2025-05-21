@@ -19,6 +19,8 @@ const Modal = ({ type = "subir", onClose, onImageUpload, onGoDetails, onGoUpload
         return "Modificar foto";
       case "exito":
         return "¡Asset subido con éxito!";
+      case "token":
+        return "Acceso restringido";
       default:
         return "Subir archivo";
     }
@@ -37,7 +39,6 @@ const Modal = ({ type = "subir", onClose, onImageUpload, onGoDetails, onGoUpload
       {type === "exito" ? (
         <div className="modalExito" onClick={(e) => e.stopPropagation()}>
           <p className="titModal">{getTitle()}</p>
-
           <div className="contbotonesExito">
             <div className="filaBotones">
               <Button
@@ -58,6 +59,23 @@ const Modal = ({ type = "subir", onClose, onImageUpload, onGoDetails, onGoUpload
                 className="botonesModal secondary-btn"
               />
             </div>
+          </div>
+        </div>
+      ) : type === "token" ? (
+        <div className="modalContornoToken" onClick={(e) => e.stopPropagation()}>
+          <p className="titModal">{getTitle()}</p>
+          <p className="mensajeModal">Para ver los detalles del asset necesitas iniciar sesión.</p>
+          <div className="contbotonesModal">
+            <Button
+              label="Iniciar sesión"
+              className="botonesModal"
+              href="/login"
+            />
+            <Button
+              label="Cerrar"
+              className="danger-btn botonesModal"
+              onClick={onClose}
+            />
           </div>
         </div>
       ) : (
@@ -88,6 +106,5 @@ const Modal = ({ type = "subir", onClose, onImageUpload, onGoDetails, onGoUpload
     </div>
   );
 };
-
 
 export default Modal;

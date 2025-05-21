@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import './Profile.scss';
 import Button from '../Button/Button';
 import { getUserByToken } from '../../services/authServices';
+import perfil from '../../assets/images/perfil.png';
 
 const Profile = () => {
     const [isContentVisible, setIsContentVisible] = useState(false);
@@ -41,6 +42,7 @@ const Profile = () => {
     // Función para cerrar sesión
     const handleLogout = () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('userName');
         window.location.reload();
     };
 
@@ -72,7 +74,7 @@ const Profile = () => {
         >
             <header className="profile-header">
             <img
-                src="https://randomuser.me/api/portraits/med/men/75.jpg"
+                src={perfil}
                 alt="Foto de perfil de Jane Doe"
                 className="profile-image"
                 onClick={toggleContent} // Manejador de clic
@@ -90,14 +92,14 @@ const Profile = () => {
                     label="Ver Perfil"
                     iconPosition="left"
                     className=""
-                    href="h"
+                    href="/perfil"
                 />
                 <Button
                     label="Cerrar Sesión"
                     iconPosition="left"
                     className="danger-btn"
                     onClick={handleLogout}
-                    href=""
+                    href="/"
                 />
             </>
             )}

@@ -20,10 +20,14 @@ import { IoIosArrowForward } from "react-icons/io";
 import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import Registrar from "./pages/Registrar/Registrar";
 import Login from "./pages/Login/Login";
+import Perfil from "./pages/Perfil/Perfil";
+import UserOpt from "./pages/UserOpt/UserOpt";
 import SubirAsset from "./pages/SubirAsset/SubirAsset";
 import Home from "./pages/Home/Home";
 import BuscarAssets from "./pages/BuscarAssets/BuscarAssets";
 import DetallesAsset from './pages/DetallesAsset/DetallesAsset';
+import CambiarPass from './pages/CambiarPass/CambiarPass';
+import EliminarCuenta from './pages/EliminarCuenta/EliminarCuenta';
 
 import SearchBar from './components/SearchBar/SearchBar';
 import Profile from './components/Profile/Profile';
@@ -84,6 +88,10 @@ function AppContent() {
         <Route path="/buscarAssets/" element={<BuscarAssets />} />
         <Route path="/buscarAssets/:meta" element={<BuscarAssets />} />
         <Route path="/detallesAsset/:assetID" element={<DetallesAsset />} />
+        <Route path="/perfil" element={<Perfil />} />
+        <Route path="/useropt" element={<UserOpt />} />
+        <Route path="/cambiarPass" element={<CambiarPass />} />
+        <Route path="/eliminarCuenta" element={<EliminarCuenta />} />
       </Routes>
 
       {location.pathname !== "/registrar" && location.pathname !== "/login" && location.pathname !== "/upAsset" && (

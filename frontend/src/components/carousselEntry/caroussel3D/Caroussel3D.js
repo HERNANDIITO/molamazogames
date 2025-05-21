@@ -16,7 +16,7 @@ const Caroussel3D = ({ path, name, description }) => {
           <ambientLight />
           <directionalLight position={[2, 2, 2]} />
           <Suspense fallback={null}>
-            <Model url={`http://localhost:5000/${path}`} />
+            <Model url={`https://molamazogames-ctup.onrender.com/${path}`} />
             <Environment preset="sunset" />
           </Suspense>
           <OrbitControls />

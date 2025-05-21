@@ -26,6 +26,7 @@ import likeRouter       from './routes/likeRoutes.js';
 import metaRouter       from './routes/metaRoutes.js';
 import tagRouter        from './routes/tagRoutes.js';
 import fileRouter       from './routes/fileRoutes.js';
+import errorMiddleware  from './middlewares/error.middleware.js';
 
 // Constantes --------------------------
 const PORT  = process.env.PORT;
@@ -36,6 +37,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
 app.use('/uploads', express.static('uploads'));
+
+// Middleware para manejar errores
+app.use(errorMiddleware);
 
 // Routers -----------------------------
 app.use('/user',     userRouter     );
@@ -52,11 +56,6 @@ app.use('/tag',      tagRouter      );
 app.use('/file',     fileRouter     );
 
 // Servidor ----------------------------
-// app.listen(PORT, () => {
-//     console.log(`Server started on: ${PORT}`);
-// })
-
-// Exportamos la función Express para Vercel --------------------
-export default (req, res) => {
-    app(req, res);  // Llamamos a la aplicación Express
-};
+app.listen(PORT, () => {
+    console.log(`Server started on: ${PORT}`);
+})
