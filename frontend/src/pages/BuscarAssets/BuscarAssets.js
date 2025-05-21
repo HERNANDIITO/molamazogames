@@ -145,7 +145,7 @@ const BuscarAssets = () => {
         // Establecer un nuevo timeout
         timeoutRef.current = setTimeout(() => {
             search();
-        }, 500);
+        }, 200);
 
         return () => {
             clearTimeout(timeoutRef.current);
@@ -235,7 +235,11 @@ const BuscarAssets = () => {
             setErrorAssets('Algo salió mal. No se han podido recuperar las categorías. Por favor, prueba a recargar la página.');
         }
 
-        if(ordenSeleccionado != '1' || searchMode || etiquetasAnadidas.length != 0 || autoresAnadidos.length != 0) {
+        if(ordenSeleccionado != '1' || searchMode || etiquetasAnadidas.length != 0 || 
+           autoresAnadidos.length != 0 || (Object.keys(checkedFormats).length != 0 &&
+           !Object.values(checkedFormats).every(value => value === undefined || value === false))
+           || (Object.keys(checkedCategories).length != 0 &&
+            !Object.values(checkedCategories).every(value => value === undefined || value === false))) {
             setAreFilters(true)
         } else {
             setAreFilters(false)
@@ -243,6 +247,11 @@ const BuscarAssets = () => {
 
         console.log('ordenSeleccionado:', ordenSeleccionado);
         console.log('searchMode:', searchMode);
+        console.log('autoresAnadidos', autoresAnadidos);
+        console.log('checkedCategories:', checkedCategories);
+        console.log('checkedFormats:', checkedFormats);
+
+
         // console.log('checkedCategories:', checkedCategories);
 
     }
@@ -259,6 +268,12 @@ const BuscarAssets = () => {
         }
         if(autoresAnadidos) {
             setAutoresAnadidos([])
+        }
+        if(checkedCategories) {
+           setCheckedCategories({})
+        }
+        if(checkedFormats) {
+            setCheckedFormats({})
         }
     };
 
@@ -323,15 +338,16 @@ const anadirAutor = () => {
         <h2>{meta ? (meta) : ( searchTerm ? ( '"' + searchTerm + '"' ) : ("Todos los assets"))}</h2>
         
         {
-            Array.isArray(assets) && assets.length > 0 ? (
+            Array.isArray(assets) && assets.length > 0 && assets.filter(asset => asset.name).length > 0 ? (
                 <div class="cards">
-                {assets.map(asset => (
+                {assets.filter(asset => asset.name).map(asset => (
+                    console.log(asset),
                     <Card
                         key={asset._id}
-                        type={asset.categories[0]?.meta}
+                        type={Array.isArray(asset.categories) && asset.categories.length > 0 ? asset.categories[0].meta : ""}
                         botonTag="tag"
                         image={asset.image ? "https://molamazogames-ctup.onrender.com/" + asset.image.path : null}
-                        tagsAsset={asset.tags.map(tag => tag.name)}
+                        tagsAsset={Array.isArray(asset.tags) ? asset.tags.map(tag => tag.name) : []}
                         tituloAsset={asset.name}
                         onClick={() => handleCardClick(asset._id)}
                     />
