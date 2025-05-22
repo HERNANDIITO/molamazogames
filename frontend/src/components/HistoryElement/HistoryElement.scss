@@ -6,8 +6,10 @@
     align-items: center;
     padding: 10px;
     color: $color-texto;
-    width: 100%;
-    max-width: 500px;
+    width: 90%;
+    margin: auto;
+    max-width: 1200px;
+    min-width: 300px;
 }
 
 .time {
@@ -60,5 +62,12 @@
 
     &:active {
         color: $color-active-secundario;
+    }
+}
+
+
+@media (max-width: $tamano-telefono) {
+    .time {
+        display: none;
     }
 }

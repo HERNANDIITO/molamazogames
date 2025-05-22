@@ -1,0 +1,49 @@
+@import '../../styles/global.scss';
+
+// .decoratorTituloHitorial {
+//     &::after {
+//         content: "";
+//         display: block;
+//         width: 80%; 
+//         height: 2px;  
+//         background-color: $color-secundario; 
+//         margin: 10px 0; 
+//     }
+// }
+
+// .decoratorTituloHitorial {
+//   position: relative; /* Opcional: para posicionamiento relativo si lo necesitas */
+
+//   &::after {
+//     content: "";
+//     display: block;
+//     width: 100%;      /* Ocupa todo el ancho del h2 */
+//     height: 2px;
+//     background-color: $color-secundario;
+//     margin: 10px 0 0 0;  /* margen arriba y abajo ajustable */
+//   }
+// }
+
+.decoratorTituloHitorial {
+  display: inline-block; 
+  position: relative;
+  width: fit-content;
+  margin: auto;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+
+
+  &::after {
+    content: "";
+    display: block;
+    width: 100%;  
+    height: 2px;
+    background-color: $color-secundario;
+    margin: 10px 0 0 0;
+  }
+}
+
+.volver-perfil-btn-historial-assets {
+    margin-left: 2rem;
+    margin-top: 1.5rem;
+}

@@ -12,7 +12,6 @@ import CarousselController from '../../components/CarousselController/CarousselC
 import { getUserByToken } from '../../services/authServices';
 import Textarea from '../../components/Textarea/Textarea.js';
 import perfil from '../../assets/images/perfil.png';
-
 import { CarousselImage } from '../../components/carousselEntry/carousselImage/CarousselImage.js'
 import { Caroussel3D } from '../../components/carousselEntry/caroussel3D/Caroussel3D.js';
 import { getAssetFavs, getUserFavs } from '../../services/favService.js';
