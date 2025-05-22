@@ -43,6 +43,10 @@ app.use('/uploads', express.static('uploads', {
         }
     }
 }));
+app.use((req, res, next) => {
+    res.setHeader("Content-Security-Policy", "default-src 'self'; img-src 'self' https://molamazogames-ctup.onrender.com; style-src 'self'; script-src 'self';");
+    next();
+});
 
 // Middleware para manejar errores
 app.use(errorMiddleware);
