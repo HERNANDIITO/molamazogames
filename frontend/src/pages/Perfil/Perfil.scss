@@ -1,21 +1,21 @@
 @import '../../styles/global.scss';
 
-.App-content{
+.App-content {
     min-width: $tamano-telefono;
 }
 
-.upPerfil{
+.upPerfil {
     display: flex;
     flex-direction: row;
     background-color: black;
-    gap: 4rem;
+    gap: 7rem;
     background-image: url('../Login/blob-scene-haikei.svg');
     background-repeat: no-repeat;
     background-size: cover;
-    
+
 }
 
-.downPerfil{
+.downPerfil {
     display: flex;
     flex-direction: column;
     background-color: $color-fondo;
@@ -24,25 +24,25 @@
     justify-content: center;
 }
 
-.nombreUser{
+.nombreUser {
     font-size: $tamano-h3;
     font-weight: bold;
 }
 
-.perfilBotones{
+.perfilBotones {
     display: flex;
     flex-direction: row;
     width: fit-content;
     height: fit-content;
     align-self: center;
     padding: 2rem;
-    margin-left: 3rem;
+    margin-left: 4.5rem;
     background-color: $color-fondo2;
     border-radius: 1rem;
     gap: 4rem;
 }
 
-.imgOpciones{
+.imgOpciones {
     display: flex;
     flex-direction: column;
     width: 50%;
@@ -51,28 +51,28 @@
     margin: auto 0 auto 0;
 }
 
-.btnPerfil{
+.btnPerfil {
     width: 12rem;
 }
 
-.imgPerfil{
+.imgPerfil {
     width: 10rem;
     margin-bottom: 1rem;
 }
 
-.infoPerfil{
+.infoPerfil {
     justify-content: center;
     align-content: center;
 
     margin-left: 0;
 }
 
-.botonPer{
+.botonPer {
     margin: 0 auto 2rem auto;
     width: $ancho-boton-mediano;
 }
 
-.botonesPerfil{
+.botonesPerfil {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -80,7 +80,9 @@
     margin: auto;
 }
 
-.filtrarPerfil{
+
+
+.filtrarPerfil {
     display: flex;
     flex-direction: column;
     gap: 0;
@@ -88,41 +90,41 @@
     padding: 1rem 2rem 1rem 2rem;
     border-radius: 1rem;
     width: fit-content;
-    margin: 2rem 2rem 2rem 0;
+    margin: 2rem 0 2rem 0;
 }
 
-.tituloFiltrar{
+.tituloFiltrar {
     font-size: $tamano-h3;
     text-align: left;
     font-weight: bold;
-    color: $color-secundario
+    color: $color-secundario;
+    margin-bottom: 0;
 }
 
-.subtituloFiltrar{
+.subtituloFiltrar {
     font-size: $tamano-h4;
     color: $color-texto;
     margin-top: 0;
-    margin-left:0;
+    margin-left: 0;
     font-weight: bold;
     justify-self: left;
 }
 
-.tiposFiltro{
-    display: flex;
-    flex-direction: row;
-    gap: 4rem;
+.tiposFiltro {
+    display: block;
     margin-top: 0;
+
 }
 
-.upFiltrar{
+.upFiltrar {
     display: flex;
-    flex-direction: row;
-    gap: 4rem;
+    flex-direction: column;
+    gap: 0;
     margin-bottom: 0;
     height: fit-content;
 }
 
-.datePickers{
+.datePickers {
     display: flex;
     flex-direction: column;
 }
@@ -131,82 +133,94 @@
     &::after {
         content: "";
         display: block;
-        width: 120%; 
-        height: 2px;  
-        background-color: $color-secundario; 
-        margin: 10px 0; 
+        width: 100%;
+        height: 2px;
+        background-color: $color-secundario;
+        margin: 10px 0;
     }
 }
 
 .decoratorFiltros {
     text-align: left;
+
     &::after {
         content: "";
         display: block;
-        width: 8rem; 
-        height: 2px;  
-        background-color: $color-secundario; 
-        margin: 10px 0; 
+        width: 8rem;
+        height: 2px;
+        background-color: $color-secundario;
+        margin: 10px 0;
     }
 }
 
 .decoratorDown {
     text-align: center;
+
     &::after {
         content: "";
         display: block;
-        width: 15rem; 
-        height: 2px;  
-        background-color: $color-secundario; 
-        margin: 10px auto 0 auto; 
+        width: 15rem;
+        height: 2px;
+        background-color: $color-secundario;
+        margin: 10px auto 0 auto;
     }
 }
 
-.buscaFilt{
-    padding-top: 0.5rem;
+.buscaFilt {
     height: fit-content;
+    padding-bottom: 1rem;
+    margin: auto;
 }
 
 .checkboxGrid {
-  display: flex;
-  flex-direction: row;
-  gap: 2rem;
+    display: flex;
+    flex-direction: row;
+
+    margin: auto;
+    gap: 0;
 }
 
 .checkboxColumn {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    gap: 2rem;
 }
 
-.cardsAssetsPerfil{
+.cardsAssetsPerfil {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     gap: 2rem;
-    padding: 0 3rem 2rem 3rem;
+    padding: 1.5rem 3rem 2rem 3rem;
     margin: auto;
     justify-content: center;
     align-items: center;
 }
 
+.filtrarCategoria{
+    margin-bottom: 1rem;
+}
 
 
 
-@media all and (width < 1500px) {
-    .upPerfil{
+
+@media all and (width < 1300px) {
+    .upPerfil {
         flex-direction: column;
         padding: 2rem;
         justify-content: center;
         align-items: center;
     }
 
-    .perfilBotones{
+    .perfilBotones {
         margin: auto;
     }
 
-    .filtrarPerfil{
+    .filtrarPerfil {
         margin: auto;
+        justify-content: center;
+        align-items: center;
     }
 }
 
@@ -217,23 +231,24 @@
         height: $alto-boton-enano !important;
         width: $ancho-boton-enano !important;
         gap: 0;
-    
+
         .label-text {
-          display: none; 
+            display: none;
         }
-    
+
         .icon {
-          font-size: $tamano-texto-boton;
+            font-size: $tamano-texto-boton;
         }
     }
 
-    .filtrarPerfil{
-        padding: 0.5rem;
-        padding-left: 1rem;
+
+
+    .perfilBotones {
+        width: 25;
+        margin: auto;
     }
 
-    .perfilBotones{
-        width: 28.3rem;
-        margin: auto;
+    .infoPerfil{
+        width: 100%;
     }
 }

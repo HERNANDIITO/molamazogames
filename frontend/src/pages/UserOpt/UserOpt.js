@@ -93,10 +93,10 @@ function UserOptContent() {
                     <div className='imgPass'>
                         <div className='imgBut'>
                             <img src={perfil} className='imgOptUser' />
-                            <Button
+                            {/* <Button
                                 className='enano-btn imgEdit'
                                 icon={<FaPen />}
-                            />
+                            /> */}
                         </div>
 
                         <Button
