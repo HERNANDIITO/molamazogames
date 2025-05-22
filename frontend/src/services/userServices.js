@@ -1,7 +1,6 @@
 import axios from 'axios'
 
 const BASE_URL = "https://molamazogames-ctup.onrender.com/user"
-// const BASE_URL = "http://localhost:5000/user"
 
 const updateUser = async (data, headers = {}) => {
     console.log("DATA: ", data);
