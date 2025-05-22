@@ -20,6 +20,7 @@
     border: 2px solid $color-fondo2; 
     z-index: 999; 
     transition: all 0.3s ease, border-color 0.5s ease;
+
     // transition: ; 
 
     &:hover {
@@ -59,11 +60,12 @@
     }
 
 
-    &:has(button) {
-        padding-bottom: .3rem;
+    &:has(a) {
         border-bottom-left-radius: 60px;
         border-bottom-right-radius: 60px;
-        // background-color: yellow; para que veas que el selector esta bienç
+        padding-bottom: .3rem;
+        padding-left: .2rem;
+        padding-right: .2rem;
     }
 }
 

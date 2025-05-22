@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const BASE_URL = "https://molamazogames-ctup.onrender.com/asset"
+const BASE_URL = "https://molamazogames-ctup.onrender.com/comment"
 
 /**
  * GET ALL CATEGORIES 
@@ -12,12 +12,12 @@ const BASE_URL = "https://molamazogames-ctup.onrender.com/asset"
     - categories: Vector con todas las categorias obtenidas
  */
 
-const getAssets = async (data, headers = {}) => {
+const getCommentByAssetID = async (data, headers = {}) => {
     try {
 
         console.log("stringified data", JSON.stringify(data));
 
-        const response = await axios.get(`${BASE_URL}/getAssets`, {
+        const response = await axios.get(`${BASE_URL}/getCommentByAssetID`, {
             params: data,
             headers: {
                 'Content-type': 'application/json'
@@ -36,18 +36,17 @@ const getAssets = async (data, headers = {}) => {
     }
 }
 
-
-const getAssetById = async (data, headers = {}) => {
+const postComment = async (data, headers = {}) => {
     try {
 
-        console.log("stringified data", JSON.stringify(data));
-
-        const response = await axios.get(`${BASE_URL}/getAssetByID`, {
-            params: data,
+        const config = {
             headers: {
+                "authorization": `Bearer ${localStorage.getItem('token')}`,
                 'Content-type': 'application/json'
-            },
-        })
+            }
+        };
+
+        const response = await axios.post(`${BASE_URL}/post`, data, config)
 
         if (response.status != 200) {
             const errorData = await response.json();
@@ -61,35 +60,8 @@ const getAssetById = async (data, headers = {}) => {
     }
 }
 
-
-const postAsset = async (data, headers = {}) => {
+const deleteComment = async (data, headers = {}) => {
     try {
-
-        const config = {
-            headers: {
-                "authorization": `Bearer ${localStorage.getItem('token')}`,
-                'Content-type': 'application/json'
-            }
-        };
-
-        const response = await axios.post(`${BASE_URL}`, data, config)
-
-        if (response.status != 200) {
-            const errorData = await response.json();
-            throw new Error(errorData.msg || 'Algo ha ido mal');
-        }
-
-        return response.data;
-
-    } catch (error) {
-        throw new Error(error.message || 'Algo ha ido mal');
-    }
-}
-
-const deleteAsset = async (data, headers = {}) => {
-    try {
-
-        console.log("DATA: ", data)
 
         const config = {
             params: data,
@@ -98,6 +70,8 @@ const deleteAsset = async (data, headers = {}) => {
                 'Content-type': 'application/json'
             }
         };
+
+        console.log("config", config)
 
         const response = await axios.delete(`${BASE_URL}`, config)
 
@@ -113,37 +87,8 @@ const deleteAsset = async (data, headers = {}) => {
     }
 }
 
-
-const putAsset = async (data, headers = {}) => {
-    try {
-
-        const config = {
-            params: data,
-            headers: {
-                "authorization": `Bearer ${localStorage.getItem('token')}`,
-                'Content-type': 'application/json'
-            }
-        };
-
-        const response = await axios.put(`${BASE_URL}`, config)
-
-        if (response.status != 200) {
-            const errorData = await response.json();
-            throw new Error(errorData.msg || 'Algo ha ido mal');
-        }
-
-        return response.data;
-
-    } catch (error) {
-        throw new Error(error.message || 'Algo ha ido mal');
-    }
-}
-
-
 export {
-    getAssetById,
-    getAssets,
-    postAsset,
-    putAsset,
-    deleteAsset
+    getCommentByAssetID,
+    postComment,
+    deleteComment
 }

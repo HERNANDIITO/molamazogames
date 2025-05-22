@@ -1,20 +1,20 @@
 import axios from 'axios'
 
-const BASE_URL = "https://molamazogames-ctup.onrender.com/user"
-// const BASE_URL = "http://localhost:5000/user"
+const BASE_URL = "https://molamazogames-ctup.onrender.com/history"
 
-const updateUser = async (data, headers = {}) => {
-    console.log("DATA: ", data);
+const postNewHistoryEntry = async (data, headers = {}) => {
     try {
+
+        console.log("data:", data);
 
         const config = {
             headers: {
+                'Content-type': 'application/json',
                 "authorization": `Bearer ${localStorage.getItem('token')}`,
-                'Content-type': 'application/json'
             }
         };
 
-        const response = await axios.put(`${BASE_URL}`, data, config)
+        const response = await axios.post(`${BASE_URL}`, data, config)
 
         if (response.status != 200) {
             const errorData = await response.json();
@@ -28,20 +28,19 @@ const updateUser = async (data, headers = {}) => {
     }
 }
 
-const deleteUser = async (data, headers = {}) => {
+const getHistoryByUser = async (data, headers = {}) => {
     try {
 
-        console.log("DATA: ", data)
+        console.log("data:", data);
 
         const config = {
-            params: data,
             headers: {
                 'Content-type': 'application/json',
-                "Authorization": `Bearer ${data}`
+                "authorization": `Bearer ${localStorage.getItem('token')}`,
             }
         };
-        
-        const response = await axios.delete(`${BASE_URL}`, config)
+
+        const response = await axios.get(`${BASE_URL}`, config)
 
         if (response.status != 200) {
             const errorData = await response.json();
@@ -56,6 +55,6 @@ const deleteUser = async (data, headers = {}) => {
 }
 
 export {
-    updateUser,
-    deleteUser
+    postNewHistoryEntry,
+    getHistoryByUser
 }

@@ -1,7 +1,7 @@
-import './SubirAsset.scss';
+import './EditarAssets.scss';
 
 import { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { FaPlusCircle, FaCheck, FaTimes, FaUpload, FaTag } from "react-icons/fa";
 
 import Input from "../../components/Input/Input";
@@ -11,16 +11,21 @@ import Modal from "../../components/Modal/Modal";
 import Select from "../../components/Select/Select";
 import UploadedFile from "../../components/UploadedFile/UploadedFile";
 
+import { updateFile } from '../../services/fileService';
 import { uploadFile } from '../../services/fileService';
-import { postAsset } from '../../services/assetService';
+import { putAsset } from '../../services/assetService';
+import { getAssetById } from '../../services/assetService';
 import { getAllMeta } from "../../services/metaServices";
 import { getAllCategories } from "../../services/categoriesServices";
 import { getUserByToken } from "../../services/authServices";
 
-function SubirAssetContent() {
+function EditarAssetContent() {
     const navigate = useNavigate();
 
+    const { id } = useParams();
+
     const [imagen, setImagen] = useState(null);
+
     const [imagenURL, setImagenURL] = useState(null);
     const [imagenNombre, setImagenNombre] = useState('');
     const [imagenAlt, setImagenAlt] = useState('');
@@ -49,7 +54,7 @@ function SubirAssetContent() {
     };
 
     const abrirModalFoto = () => {
-        setModalType(imagen ? 'edit' : 'add');
+        setModalType('edit');
         setShowModal(true);
     };
 
@@ -60,68 +65,131 @@ function SubirAssetContent() {
     const handleModalUpload = (file, nombre, alt) => {
         if (modalType === 'subir') {
             if (file) {
-                setArchivosSubidos(prev => [...prev, {
-                    file,
-                    name: nombre || file.name,
-                    desc: alt,
-                    isPreview: false
-                }]);
+                setArchivosSubidos(prev => [
+                    ...prev,
+                    {
+                        file,
+                        name: nombre || file.name,
+                        desc: alt,
+                        isPreview: false
+                    }
+                ]);
             }
         } else if (file && file.type.startsWith('image/')) {
             const reader = new FileReader();
+
             setImagen(file);
-            setImagenNombre(nombre);
+            setImagenNombre(nombre || file.name);
             setImagenAlt(alt);
+
             reader.onloadend = function () {
-                setImagenURL(reader.result);
+                setImagenURL(reader.result); // base64 preview
             };
+
             reader.readAsDataURL(file);
         }
+
         cerrarModal();
     };
 
+
+
     useEffect(() => {
-    const cargarDatosIniciales = async () => {
-        try {
-            const token = localStorage.getItem("token");
+        const cargarDatosIniciales = async () => {
+            try {
+                const token = localStorage.getItem("token");
 
-            if (!token) {
+                if (!token) {
+                    navigate("/login");
+                    return;
+                }
+
+                const userData = await getUserByToken(token);
+                console.log("Usuario autenticado:", userData);
+
+                const resMeta = await getAllMeta();
+                const metas = resMeta || [];
+
+                const grupos = await Promise.all(
+                    metas.map(async (meta) => {
+                        const resCat = await getAllCategories({ meta: meta.meta });
+                        const categorias = resCat.categories || [];
+
+                        return {
+                            label: meta.meta,
+                            options: categorias.map(cat => ({
+                                value: cat._id,
+                                label: cat.name,
+                                key: cat._id
+                            }))
+                        };
+                    })
+                );
+
+                grupos.sort((a, b) => a.label.localeCompare(b.label));
+                setCategorias(grupos);
+            } catch (error) {
+                console.error("Error cargando datos:", error);
                 navigate("/login");
-                return;
             }
+        };
 
-            const userData = await getUserByToken(token);
-            console.log("Usuario autenticado:", userData);
+        cargarDatosIniciales();
+    }, []);
 
-            const resMeta = await getAllMeta();
-            const metas = resMeta || [];
+    useEffect(() => {
+        const cargarAsset = async () => {
+            if (!id || categorias.length === 0)
+                return;
 
-            const grupos = await Promise.all(
-                metas.map(async (meta) => {
-                    const resCat = await getAllCategories({ meta: meta.meta });
-                    const categorias = resCat.categories || [];
+            try {
 
-                    return {
-                        label: meta.meta,
-                        options: categorias.map(cat => ({
-                            value: cat._id,
-                            label: cat.name,
-                            key: cat._id
+                const asset = await getAssetById({ assetID: id });
+                console.log("ASSET CARGADO: ", asset);
+
+
+                setNombreAsset(asset.asset.name || '');
+                setDescripcionAsset(asset.asset.description || '');
+                setEtiquetasAnadidas(asset.asset.tags.map(tag => tag.name));
+
+                setCategoriasAnadidas(
+                    Array.isArray(asset.asset.categories)
+                        ? asset.asset.categories.map(cate => {
+                            return categorias
+                                .flatMap(group => group.options)
+                                .find(cat => cat.value === cate._id) || { value: cate._id, label: 'Categoría desconocida' };
+
+                        })
+                        : []
+                );
+
+                await setImagenURL(asset.asset.image.path);
+                await setImagenNombre(asset.asset.image.name);
+                await setImagenAlt(asset.asset.image.description);
+
+
+
+                if (Array.isArray(asset.asset.files)) {
+                    setArchivosSubidos(
+                        asset.asset.files.map(file => ({
+                            name: file.name || '',
+                            desc: file.description || '',
+                            isPreview: file.isPreview || false,
+                            _id: file._id
                         }))
-                    };
-                })
-            );
+                    );
+                }
+            } catch (error) {
+                console.error("Error al cargar el asset:", error);
+            }
+        };
 
-            grupos.sort((a, b) => a.label.localeCompare(b.label));
-            setCategorias(grupos);
-        } catch (error) {
-            console.error("Error cargando datos:", error);
-            navigate("/login");
-        }
-    };
+        cargarAsset();
+    }, [id, categorias]);
 
-    cargarDatosIniciales();
-}, []);
+    useEffect(() => {
+        console.log("CATEGORIAS AÑADIDAS ACTUALIZADAS:", categoriasAnadidas);
+    }, [categoriasAnadidas]);
 
 
     const anadirCategoria = () => {
@@ -167,9 +235,10 @@ function SubirAssetContent() {
 
         try {
             for (const archivo of archivosSubidos) {
+                
                 const formData = new FormData();
-                formData.append('file', archivo.file);
-                console.log('FILE:', archivo.file)
+                formData.append('file', archivo);
+                console.log('FILE:', archivo)
                 formData.append('name', archivo.name || "Sin nombre");
                 console.log('NAME:', archivo.name)
                 formData.append('description', archivo.desc || "Sin descripcion");
@@ -177,7 +246,7 @@ function SubirAssetContent() {
                 formData.append('isPreview', archivo.isPreview);
                 console.log('PREVIEW:', archivo.isPreview)
 
-                const result = await uploadFile(formData);
+                const result = await updateFile(formData);
                 asset.files.push(result.file._id);
             }
         } catch (error) {
@@ -202,7 +271,7 @@ function SubirAssetContent() {
         }
 
         try {
-            const response = await postAsset(asset);
+            const response = await putAsset();
 
             setAssetId(response._id);
             setModalType('exito');
@@ -231,7 +300,7 @@ function SubirAssetContent() {
 
     return (
         <main className="App-content">
-            <h2 className="titulo linea">Subir asset</h2>
+            <h2 className="titulo linea">Editar asset</h2>
             <p className="informacionUpAsset">Los campos marcados con (*) son obligatorios. Además se debe subir un archivo y añadir una categoría como mínimo.</p>
 
             <div className="bloque nombre">
@@ -257,11 +326,19 @@ function SubirAssetContent() {
                     <Button label="Añadir categoría" icon={<FaPlusCircle />} iconPosition="left" className="tag" onClick={anadirCategoria} />
                     <div className="categoriasAdds">
                         {categoriasAnadidas.map(cat => (
-                            <Button key={cat.value} className="tag tag-delete cats" label={cat.label} onClick={() => {
-                                setCategoriasAnadidas(categoriasAnadidas.filter(c => c.value !== cat.value));
-                            }} />
+                            <Button
+                                key={cat.value}
+                                className="tag tag-delete cats"
+                                label={cat.label}
+                                onClick={() => {
+                                    setCategoriasAnadidas(categoriasAnadidas.filter(c => c.value !== cat.value));
+                                }}
+                            />
                         ))}
+
                     </div>
+
+
                 </div>
                 <div className="categoriaEtiqueta eti">
                     <h3 className="encabezado lineaBloque">Etiquetas:</h3>
@@ -277,20 +354,29 @@ function SubirAssetContent() {
 
             <div className="bloque imagen">
                 <h3 className="encabezado lineaBloque">Imagen de portada:</h3>
-                {imagen && (
-                    <>
-                        <img src={imagenURL} alt={imagenAlt} className="preview-imagen" />
-                        <p><strong>Nombre:</strong> {imagenNombre}</p>
-                        <p><strong>Texto alternativo:</strong> {imagenAlt}</p>
-                    </>
-                )}
-                <Button label={imagen ? "Cambiar imagen" : "Subir imagen"} icon={<FaUpload />} className="mediano-btn" onClick={abrirModalFoto} />
+
+
+                {
+                    imagenURL && (
+                        <img
+                            src={imagenURL.startsWith('data:') ? imagenURL : `https://molamazogames-ctup.onrender.com/${imagenURL}`}
+                            alt="portada"
+                            className="preview-imagen"
+                        />
+                    )
+                }
+                <p><strong>Nombre:</strong> {imagenNombre}</p>
+                <p><strong>Texto alternativo:</strong> {imagenAlt}</p>
+
+
+                <Button label="Cambiar imagen" icon={<FaUpload />} className="mediano-btn" onClick={abrirModalFoto} />
             </div>
 
             <div className="bloque imagen">
                 <h3 className="encabezado lineaBloque">Archivos*:</h3>
                 <div className="archivos-subidos">
                     {archivosSubidos.map((archivo, index) => (
+                        console.log("ARCHIVO DEL CHIVO: ", archivo),
                         <UploadedFile
                             key={index}
                             name={archivo.name}
@@ -312,7 +398,7 @@ function SubirAssetContent() {
             </div>
 
             <div className="botones">
-                <Button onClick={uploadAsset} label="Subir asset" icon={<FaCheck />} className="botonesFinales ocultar-label" />
+                <Button onClick={uploadAsset} label="Guardar cambios" icon={<FaCheck />} className="botonesFinales ocultar-label" />
                 <Button onClick={descartarAsset} label="Descartar asset" icon={<FaTimes />} className="danger-btn botonesFinales ocultar-label" />
             </div>
 
@@ -336,8 +422,8 @@ function SubirAssetContent() {
     );
 }
 
-function SubirAsset() {
-    return <SubirAssetContent />;
+function EditarAsset() {
+    return <EditarAssetContent />;
 }
 
-export default SubirAsset;
+export default EditarAsset;

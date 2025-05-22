@@ -8,11 +8,13 @@ import { FaCheck } from "react-icons/fa";
 import { deleteUser } from "../../services/userServices";
 import { getUserByToken } from "../../services/authServices";
 import { FaXmark } from "react-icons/fa6";
+import { checkPassword } from "../../utils/pass";
 
 const EliminarCuenta = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [storedPassword, setStoredPassword] = useState("");
+  const [userId, setUserId] = useState("");
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -20,7 +22,9 @@ const EliminarCuenta = () => {
       if (token) {
         try {
           const user = await getUserByToken(token);
+          console.log(user);
           setStoredPassword(user.password);
+          setUserId(user._id);
         } catch (error) {
           console.error("Error obteniendo usuario:", error);
         }
@@ -29,14 +33,22 @@ const EliminarCuenta = () => {
     fetchUserData();
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (password !== storedPassword) {
+    if (await checkPassword(password, storedPassword)) {
       setError("La contraseña actual no es correcta.");
     } else {
       setError("");
-      console.log("Contraseña correcta.");
-      setPassword("");
+      try {
+        const result = await deleteUser({id: userId});
+        console.log("result", result)
+        localStorage.removeItem("token");
+        alert("Tu cuenta ha sido eliminada.");
+        window.location.href = "/";
+      } catch (err) {
+        console.error("Error al eliminar la cuenta:", err);
+        setError("Hubo un problema al eliminar tu cuenta.");
+      }
     }
   };
 

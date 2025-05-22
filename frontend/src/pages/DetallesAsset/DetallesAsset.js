@@ -1,7 +1,7 @@
 import './DetallesAsset.scss'
 import { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCode, faDownload, faFilm, faFolder, faHeart, faImage, faListOl, faMusic } from '@fortawesome/free-solid-svg-icons';
+import { faCode, faDownload, faFilm, faFolder, faHeart, faImage, faComment, faMusic, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faRegularHeart } from '@fortawesome/free-regular-svg-icons';
 import { faBookmark, faFileCode } from '@fortawesome/free-regular-svg-icons';
 import Button from '../../components/Button/Button.js';
@@ -10,12 +10,14 @@ import { LuTag } from "react-icons/lu";
 import { getAssetById } from '../../services/assetService.js';
 import CarousselController from '../../components/CarousselController/CarousselController.js';
 import { getUserByToken } from '../../services/authServices';
-
-
+import Textarea from '../../components/Textarea/Textarea.js';
+import perfil from '../../assets/images/perfil.png';
 import { CarousselImage } from '../../components/carousselEntry/carousselImage/CarousselImage.js'
 import { Caroussel3D } from '../../components/carousselEntry/caroussel3D/Caroussel3D.js';
 import { getAssetFavs, getUserFavs } from '../../services/favService.js';
 import { postFav } from "../../services/favService.js"
+import { postNewHistoryEntry } from '../../services/historyServices.js';
+import { getCommentByAssetID, postComment, deleteComment } from '../../services/commentService.js';
 
 
 const DetallesAsset = () => {
@@ -34,6 +36,8 @@ const DetallesAsset = () => {
 
     const [ pageLoaded, setPageLoaded ] = useState(false);
     const [ userID, setUserID ] = useState("");
+    const [ comments, setComments ] = useState([]);
+    const [ comment, setComment ] = useState("");
 
     const carousselRef = useRef(null);
 
@@ -57,6 +61,9 @@ const DetallesAsset = () => {
                 const resultAssetFavs = await getAssetFavs({ assetID: assetID });
                 setUserLikes(resultAssetFavs.users.some(item => item._id === user._id));
 
+                const resultComments = await getCommentByAssetID({assetID: assetID});
+                setComments(resultComments.comments)
+
             } catch (error) {
                 console.error(error);
             }
@@ -65,6 +72,20 @@ const DetallesAsset = () => {
 
         fetchAsset();
     }, [assetID]); // Este `useEffect` solo se ejecuta al cargar el asset
+
+
+    const registrarHistorial = async () => {
+        const lastVisited = localStorage.getItem("lastVisitedAsset");
+
+        if (assetID && lastVisited !== assetID) {
+            try {
+                localStorage.setItem("lastVisitedAsset", assetID);
+                await postNewHistoryEntry({"assetID": assetID });
+            } catch (error) {
+                console.error("Error registrando historial:", error);
+            }
+        }
+    };
 
     const renderPreviewImages = () => {
         if (!previewFiles || previewFiles.length === 0) {
@@ -204,7 +225,7 @@ const DetallesAsset = () => {
                             case "application":
                                 return <FontAwesomeIcon icon={faFolder} />;
                             default:
-                                return "Unsupported file type"; // Puedes mostrar un mensaje por defecto
+                                return "Unsupported file type"; 
                         }
                     })()}
                 </span>
@@ -216,10 +237,59 @@ const DetallesAsset = () => {
                     iconPosition="alone"
                     className="round-btn secondary-btn enano-btn fileDownload"
                     href={`https://molamazogames-ctup.onrender.com/file/download?fileID=${file._id}`}
+                    onClick={registrarHistorial}
                 />
             </div>
         ))
     }
+
+    function getDate(dateStr) {
+        const dateObj = new Date(dateStr);
+
+        const day = String(dateObj.getDate()).padStart(2, '0');       
+        const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+        const year = dateObj.getFullYear();
+
+        const formattedDate = `${day}/${month}/${year}`;
+
+        return formattedDate;
+    }
+
+    const deleteCommentHandler = async (id) => {
+        await deleteComment({commentID: id});
+        const newComments = await getCommentByAssetID({assetID: assetID});
+        setComments(newComments.comments);
+    }
+
+    const renderComments = () => {
+        if ( !comments ) { return; }
+
+        return comments.map( (comment) => (
+            <div class="comment" key={comment._id}>
+                <div class="userInfo">
+                    <img class="userPfp" src={perfil}></img>
+                    <p class="userName">{comment.author.name}</p>
+                </div>
+
+                <p class="commentContent">{comment.content}</p>
+                <p class="commentDate">{getDate(comment.publicationDate)}</p>
+
+                {
+                    comment.author._id === userID && (
+                        <Button
+                            label={""}
+                            icon={<FontAwesomeIcon icon={faTrash} />}
+                            iconPosition="alone"
+                            className="danger-btn enano-btn borrar-comment-btn"
+                            href="#"
+                            onClick={() => deleteCommentHandler(comment._id)}
+                        />
+                    )
+                }
+            </div>
+        ))
+    }
+
 
     const renderTags = () => {
         if (!asset.tags) { return; }
@@ -280,6 +350,16 @@ const DetallesAsset = () => {
 
     };
 
+    const handleCommentPost = async (e) => {
+        const result = await postComment({
+            assetID: assetID,
+            content: comment
+        });
+
+        const resultComments = await getCommentByAssetID({assetID: assetID});
+        setComments(resultComments.comments)
+    };
+
     return (
 
         <main>
@@ -317,6 +397,7 @@ const DetallesAsset = () => {
                                     label={"Descarga"}
                                     icon={<FontAwesomeIcon icon={faDownload} />}
                                     href={`https://molamazogames-ctup.onrender.com/asset/download?assetID=${assetID}`}
+                                    onClick={registrarHistorial}
                                     className={'assetDetails-button assetDetails-downloadButton'}
                                 ></Button>
                                 <Button
@@ -348,6 +429,30 @@ const DetallesAsset = () => {
                     <div class="assetDownloads assetDetailsCard">
                         <h3 class="decorator">Descargas</h3>
                         <p class="downloadableFileList">{renderDownloadableFiles()}</p>
+                    </div>
+                    <div class="assetComments assetDetailsCard">
+                        <h3 class="decorator">Comentarios</h3>
+                        <form>
+                            <Textarea
+                                type="text"
+                                name="content"
+                                id="content"
+                                label="Escribe aquí lo que piensas:"
+                                autoFocus
+                                placeholder="Escribe aquí tu comentario"
+                                className="texto"
+                                onChange={(e) => setComment(e.target.value)}
+                                value={comment}
+                            />
+                            <Button
+                                label={"Comentar"}
+                                icon={<FontAwesomeIcon icon={faComment} />}
+                                className={'comment-button'}
+                                onClick={handleCommentPost}
+                            ></Button>
+                        </form>
+                        <div class="decorator"></div>
+                        <div class="comments">{renderComments()}</div>
                     </div>
                 </div>
             </div>

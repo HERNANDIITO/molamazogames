@@ -8,6 +8,7 @@ import { FaCheck } from "react-icons/fa";
 import { getUserByToken } from "../../services/authServices";
 import { updateUser } from "../../services/userServices";
 import { FaXmark } from "react-icons/fa6";
+import { encryptPassword } from "../../utils/pass";
 
 const CambiarPass = () => {
   const [formData, setFormData] = useState({
@@ -39,11 +40,16 @@ const CambiarPass = () => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const validate = () => {
+  const validate = async () => {
     const newErrors = {};
     const { actualPassword, newPassword, newPassword2 } = formData;
 
-    if (storedPassword && actualPassword !== storedPassword) {
+    const hashedPass = await encryptPassword(actualPassword);
+
+    console.log(hashedPass, "hashedPass")
+    console.log(storedPassword, "storedPassword")
+
+    if (storedPassword && hashedPass !== storedPassword) {
       newErrors.actualPassword = "La contraseña actual no es correcta.";
     }
 
@@ -63,12 +69,11 @@ const CambiarPass = () => {
     e.preventDefault();
     if (validate()) {
       try {
-        const token = localStorage.getItem("token");
-        await updateUser({ oldPassword: formData.actualPassword, newPassword: formData.newPassword }, token);
-        console.log("Contraseña actualizada correctamente.");
+        const pass = await updateUser({ pass: formData.newPassword });
+        console.log(pass);
         setFormData({ actualPassword: "", newPassword: "", newPassword2: "" });
       } catch (err) {
-        console.err("Error actualizando contraseña:", err);
+        console.error("Error actualizando contraseña:", err);
       }
     }
   };

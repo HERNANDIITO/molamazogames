@@ -42,6 +42,15 @@
   text-align: left;
 }
 
+.tagsYbotones{
+  display: flex;
+  flex-direction: row;
+}
+
+.contDeBotones {
+  margin-left: auto;
+}
+
 .tituloCard {
   font-size: $tamano-h4;
   font-weight: bold;

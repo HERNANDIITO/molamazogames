@@ -90,7 +90,6 @@ const deleteComment = asyncHandler( async (req, res, next) => {
             msg: `Faltan campos obligatorios: ${!commentID ? 'commentID ' : ''}${!userID ? 'userID ' : ''}`
         });
     }
-
     try {
 
         const user      = await User.findOne({_id: userID});

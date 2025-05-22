@@ -28,19 +28,20 @@ $assetPhotoHeigh: $assetCarruselHeight - 150px;
             position: absolute;
             display: flex;
             justify-content: space-between;
-            top: 50%; left: 50%;
+            top: 50%;
+            left: 50%;
             transform: translate(-50%, -50%);
             width: 80%;
         }
 
         .carousselDetalles {
-    
+
             display: flex;
             flex-flow: row;
             height: $assetCarruselHeight;
             overflow: hidden;
             scroll-behavior: smooth;
-            
+
             .carousselEntry {
                 flex-shrink: 0;
                 width: 100%;
@@ -49,34 +50,38 @@ $assetPhotoHeigh: $assetCarruselHeight - 150px;
                 flex-flow: column;
                 align-items: center;
                 margin: $assetDetailsPadding 0;
-    
+
                 &.notSelected {}
+
                 &.carousselSelectedPhoto {}
+
                 &.carousselLeft {}
+
                 &.carousselRight {}
+
                 &.carousselBlurredPhoto {}
-    
+
                 .carousselImage {
                     flex-grow: 1;
                     height: $assetPhotoHeigh;
                     padding: 0 130px;
-    
+
                     img {
                         border-radius: 12px;
                         height: 100%;
                     }
                 }
-    
+
                 .carousselImageInfo {
                     gap: $assetDetailsGap;
                     display: flex;
                     flex-flow: column;
-    
+
                     >* {
                         margin: 0
                     }
                 }
-    
+
             }
         }
     }
@@ -99,7 +104,7 @@ $assetPhotoHeigh: $assetCarruselHeight - 150px;
             background-color: $color-fondo2;
             border-radius: $assetDetailsBorderRadius;
         }
-        
+
 
         .detailsRow {
             display: flex;
@@ -115,7 +120,7 @@ $assetPhotoHeigh: $assetCarruselHeight - 150px;
                     display: flex;
                     flex-flow: column;
                     flex-grow: 1;
-    
+
                     .detailsEntry {
                         &>* {
                             margin: 0;
@@ -123,7 +128,7 @@ $assetPhotoHeigh: $assetCarruselHeight - 150px;
                         }
                     }
                 }
-            
+
             }
 
             .tags-col {
@@ -140,6 +145,10 @@ $assetPhotoHeigh: $assetCarruselHeight - 150px;
                     justify-content: space-between;
                     gap: $assetDetailsGap;
 
+                    button {
+                        height: $alto-boton-mediano;
+                    }
+
                     .assetDetails-button {
                         width: fit-content;
                         padding: 0 $assetDetailsPadding;
@@ -151,7 +160,7 @@ $assetPhotoHeigh: $assetCarruselHeight - 150px;
         }
 
         .assetDownloads {
-            .downloadableFileList{
+            .downloadableFileList {
                 display: flex;
                 flex-flow: column;
                 gap: $assetDetailsGap;
@@ -165,7 +174,7 @@ $assetPhotoHeigh: $assetCarruselHeight - 150px;
                     border: solid 3px $color-secundario;
                     padding: 5px 32px;
                     border-radius: 32px;
-                    
+
                     span {
                         margin: auto 0;
                     }
@@ -195,13 +204,72 @@ $assetPhotoHeigh: $assetCarruselHeight - 150px;
                 }
             }
         }
+
+        .assetComments {
+            form {
+                display: flex;
+                flex-flow: column;
+
+                .comment-button {
+                    padding: 0 60px;
+                }
+            }
+
+            .comment {
+                display: flex;
+                flex-flow: column;
+                margin: 15px 20px;
+                border: 2px solid $color-secundario;
+                border-radius: 30px;
+                position: relative;
+
+                .borrar-comment-btn {
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    border-radius: 100%;
+                }
+
+                .userInfo {
+                    display: flex;
+                    flex-flow: row;
+                    padding: 10px;
+
+
+                    img {
+                        width: 64px;
+                        height: auto;
+                    }
+
+                    .userName {
+                        height: fit-content;
+                        margin: auto 0;
+                        margin-left: 1rem;
+                        font-size: larger;
+                    }
+                }
+
+                .commentDate {
+                    text-align: left;
+                    padding-left: 20px;
+                }
+
+                .commentContent {
+                    margin: 0;
+                    text-align: left;
+                    padding: 15px;
+                }
+
+
+            }
+        }
     }
 }
 
 @media all and (width < 1070px) {
     .detailsPage {
 
-        .carousselWrapper{
+        .carousselWrapper {
             margin-bottom: 95px;
 
             .carousselDetallesButtons {
@@ -209,10 +277,11 @@ $assetPhotoHeigh: $assetCarruselHeight - 150px;
                 transform: translateX(-50%);
                 width: fit-content;
             }
+
             .carousselDetalles {
                 height: auto;
                 width: 100%;
-                
+
                 .carousselEntry {
                     height: auto;
                     width: 100%;
@@ -221,14 +290,14 @@ $assetPhotoHeigh: $assetCarruselHeight - 150px;
                         height: auto;
                         width: calc(100% - 50px);
                         padding: 0 25px;
-                        
+
                         img {
                             height: auto;
                             width: 100%;
 
                         }
                     }
-                    
+
                 }
             }
         }
@@ -236,8 +305,9 @@ $assetPhotoHeigh: $assetCarruselHeight - 150px;
         .assetDetails {
             .detailsRow {
                 flex-flow: column-reverse;
-                
-                > .info-col, >.tags-col{
+
+                >.info-col,
+                >.tags-col {
                     width: 100%;
                 }
             }

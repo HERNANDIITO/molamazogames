@@ -23,11 +23,13 @@ import Login from "./pages/Login/Login";
 import Perfil from "./pages/Perfil/Perfil";
 import UserOpt from "./pages/UserOpt/UserOpt";
 import SubirAsset from "./pages/SubirAsset/SubirAsset";
+import EditarAssets from "./pages/EditarAssets/EditarAssets";
 import Home from "./pages/Home/Home";
 import BuscarAssets from "./pages/BuscarAssets/BuscarAssets";
 import DetallesAsset from './pages/DetallesAsset/DetallesAsset';
 import CambiarPass from './pages/CambiarPass/CambiarPass';
 import EliminarCuenta from './pages/EliminarCuenta/EliminarCuenta';
+import HistorialAssets from './pages/HistorialAssets/HistorialAssets';
 
 import SearchBar from './components/SearchBar/SearchBar';
 import Profile from './components/Profile/Profile';
@@ -83,6 +85,7 @@ function AppContent() {
         <Route path="/registrar" element={<Registrar />} />
         <Route path="/login" element={<Login />} />
         <Route path="/upAsset" element={<SubirAsset />} />
+        <Route path="/editAsset/:id" element={<EditarAssets />} />
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/buscarAssets/" element={<BuscarAssets />} />
@@ -92,6 +95,7 @@ function AppContent() {
         <Route path="/useropt" element={<UserOpt />} />
         <Route path="/cambiarPass" element={<CambiarPass />} />
         <Route path="/eliminarCuenta" element={<EliminarCuenta />} />
+        <Route path="/historialAssets" element={<HistorialAssets />} />
       </Routes>
 
       {location.pathname !== "/registrar" && location.pathname !== "/login" && location.pathname !== "/upAsset" && (

@@ -1,6 +1,10 @@
 @import '../../styles/global.scss';
 
-.contAssets{
+.App-content {
+    min-width: $tamano-telefono;
+}
+
+.contAssets {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -13,20 +17,31 @@
     margin-bottom: 5rem;
     position: relative;
     overflow: hidden;
-      
+
 
     .flechas {
         position: relative;
-        
+
         &.izq {
             left: 0;
             transform: translateX(50%);
         }
-        
+
         &.drch {
             right: 0;
             transform: translateX(-50%);
         }
     }
-}
 
+    .cardsRow {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+
+        >* {
+            flex: 1 1 calc(33.33% - 1rem);
+            width: 15rem;
+        }
+    }
+}
