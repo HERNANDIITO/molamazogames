@@ -14,7 +14,7 @@ const HistorialAssets = () => {
     useEffect(() => {
         const fetchHistory = async () => {
             try {
-                const result = await getHistoryByUser({});
+                const result = await getHistoryByUser();
                 setHistory(result.responseFormats);
                 console.log("history:", history);
             } catch (error) {

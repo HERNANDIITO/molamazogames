@@ -40,7 +40,7 @@ const getHistoryByUser = async (data, headers = {}) => {
             }
         };
 
-        const response = await axios.get(`${BASE_URL}`, data, config)
+        const response = await axios.get(`${BASE_URL}`, config)
 
         if (response.status != 200) {
             const errorData = await response.json();
