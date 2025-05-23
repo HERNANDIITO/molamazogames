@@ -8,7 +8,7 @@ import Button from '../Button/Button';
 import { getAllMeta } from '../../services/metaServices';
 
 import { useNavigate } from 'react-router-dom';
-import { deleteAsset } from '../../services/assetService';
+import Modal from "../../components/Modal/Modal";
 
 
 const Card = ({
@@ -21,7 +21,12 @@ const Card = ({
   onClick,
 }) => {
   const [metaMap, setMetaMap] = useState({});
+
   const [deleted, setDeleted] = useState(false);
+
+  const [showModal, setShowModal] = useState(false);
+  const [modalType, setModalType] = useState('eliminar');
+
   const navigate = useNavigate();
 
 
@@ -41,6 +46,10 @@ const Card = ({
 
     fetchMeta();
   }, []);
+
+  const cerrarModal = () => {
+    setShowModal(false);
+  };
 
 
   const getDefaultImage = (typeId) => {
@@ -76,131 +85,154 @@ const Card = ({
   const renderTags = () => {
     if (!tagsAsset || tagsAsset.length === 0) return null;
 
-    const maxVisibleTags = 2;
+    const maxVisibleTags = 1;
     const visibleTags = tagsAsset.slice(0, maxVisibleTags);
     const remainingCount = tagsAsset.length - maxVisibleTags;
 
     return (
       <div className="tagsVisibles">
-        {visibleTags.map((tag, index) => (
-          <Button
-            key={index}
-            label={tag}
-            icon={<FiTag />}
-            iconPosition="left"
-            className="tag"
-          />
-        ))}
-        {remainingCount > 0 && (
-          <span className="tagRestante">({remainingCount} +)</span>
-        )}
+        {visibleTags.map((tag, index) => {
+          const truncated = tag.length > 9 ? tag.slice(0, 9) + '…' : tag;
+          return (
+            <Button
+              key={index}
+              label={truncated}
+              icon={<FiTag />}
+              iconPosition="left"
+              className="tag"
+              title={tag}
+            />
+          );
+        })}
+
       </div>
     );
   };
 
-  const deleteAssetHandler = async () => {
-    const result = await deleteAsset({assetID: idAsset});
+  const abrirModalEliminar = () => {
+    setModalType('eliminar');
+    setShowModal(true);
+  };
+
+  const eliminarCard = () => {
     setDeleted(true);
   }
 
   return (
 
     <>
-    {
-      deleted ? (<div></div>) : (
-      <div className={classNames("contorno")}>
-        {imageToShow && (
-          <img
-            src={imageToShow}
-            alt={`${type} preview`}
-            className="imagenAsset"
-            onClick={onClick}
-            onError={() => setValidImage(false)}
-            style={{ cursor: 'pointer' }}
-          />
-        )}
-
-
-        <section
-          className={classNames('bottag', {
-            'centrado': ['boton', 'subir'].includes(botonTag),
-            'izquierda': botonTag === 'tag',
-          })}
-        >
-          {botonTag === 'boton' && (
-            <>
-              <Button
-                label="Modificar"
-                icon={<FiEdit />}
-                iconPosition="left"
-                className="warning-btn mediano-btn"
-              />
-              <Button
-                label="Eliminar"
-                icon={<FiTrash2 />}
-                iconPosition="left"
-                className="danger-btn mediano-btn"
-              />
-            </>
-          )}
-
-          {botonTag === 'tag' && (
-            <div className='divTag'>
-              <p
-                className='tituloCard'
+      {
+        deleted ? (<div></div>) : (
+          <div className={classNames("contorno")}>
+            {imageToShow && (
+              <img
+                src={imageToShow}
+                alt={`${type} preview`}
+                className="imagenAsset"
                 onClick={onClick}
+                onError={() => setValidImage(false)}
                 style={{ cursor: 'pointer' }}
-              >
-                {tituloAsset}
-              </p>
-              {renderTags()}
-            </div>
-          )}
-
-          {botonTag === 'botonYtags' && (
-            <>
-              <div className='divTag'>
-                <p
-                  className='tituloCard'
-                  onClick={onClick}
-                  style={{ cursor: 'pointer' }}
-                >
-                  {tituloAsset}
-                </p>
-                <div className='tagsYbotones'>
-                  {renderTags()}
-                  <div className='contDeBotones'>
-                    <Button
-                      icon={<FiEdit />}
-                      iconPosition="left"
-                      className="warning-btn enano-btn"
-                      onClick={() => navigate(`/editAsset/${idAsset}`)}
-                    />
-                    <Button
-                      icon={<FiTrash2 />}
-                      iconPosition="left"
-                      className="danger-btn enano-btn"
-                      onClick={() => deleteAssetHandler()}
-                    />
-                  </div>
-                </div>
-              </div>
-            </>
-          )}
-
-          {botonTag === 'subir' && (
-              <Button
-              label="Subir foto"
-              icon={<FiUpload />}
-              iconPosition="left"
-              className="mediano-btn"
               />
             )}
-        </section>
-      </div>
-      )
-    }
-  </>
+
+
+            <section
+              className={classNames('bottag', {
+                'centrado': ['boton', 'subir'].includes(botonTag),
+                'izquierda': botonTag === 'tag',
+              })}
+            >
+              {botonTag === 'boton' && (
+                <>
+                  <Button
+                    label="Modificar"
+                    icon={<FiEdit />}
+                    iconPosition="left"
+                    className="warning-btn mediano-btn"
+                  />
+                  <Button
+                    label="Eliminar"
+                    icon={<FiTrash2 />}
+                    iconPosition="left"
+                    className="danger-btn mediano-btn"
+                  />
+                </>
+              )}
+
+              {botonTag === 'tag' && (
+                <div className='divTag'>
+                  <p
+                    className='tituloCard'
+                    onClick={onClick}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    {tituloAsset}
+                  </p>
+                  {renderTags()}
+                </div>
+              )}
+
+              {botonTag === 'botonYtags' && (
+                <>
+                  <div className='divTag'>
+                    <p
+                      className='tituloCard'
+                      onClick={onClick}
+                      style={{ cursor: 'pointer' }}
+                    >
+                      {tituloAsset}
+                    </p>
+                    <div className='tagsYbotones'>
+                      {renderTags()}
+                      <div className='contDeBotones'>
+                        <Button
+                          icon={<FiEdit />}
+                          iconPosition="left"
+                          className="warning-btn enano-btn"
+                          onClick={() => navigate(`/editAsset/${idAsset}`)}
+                        />
+                        <Button
+                          icon={<FiTrash2 />}
+                          iconPosition="left"
+                          className="danger-btn enano-btn"
+                          onClick={() => abrirModalEliminar()}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {botonTag === 'subir' && (
+                <Button
+                  label="Subir foto"
+                  icon={<FiUpload />}
+                  iconPosition="left"
+                  className="mediano-btn"
+                />
+              )}
+            </section>
+
+            {showModal && (
+              <Modal
+                idAsset={idAsset}
+                type={modalType}
+                onClose={cerrarModal}
+                onGoHome={() => navigate('/home')}
+                onGoUpload={() => {
+                  cerrarModal();
+                }}
+                onGoDelete={() => {
+                  eliminarCard();
+                }}
+              />
+            )}
+          </div>
+
+
+        )
+      }
+    </>
 
 
   );

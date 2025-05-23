@@ -35,7 +35,7 @@ const InputField = ({
         type="text"
         name="inpt"
         id="inpt"
-        label="Nombre"
+        label="Nombre (opcional)"
         placeholder="Escribe aquí el nombre"
         className="input"
         onChange={(e) => onNombreChange?.(e.target.value)}
@@ -44,7 +44,7 @@ const InputField = ({
       <Textarea
         name="txtA"
         id="txtA"
-        label={type === "foto" ? "Texto alternativo" : "Descripción"}
+        label={type === "foto" ? "Texto alternativo" : "Descripción (opcional)"}
         placeholder="Escribe aquí el texto"
         className="texta"
         onChange={(e) => onAltChange?.(e.target.value)}

@@ -7,7 +7,6 @@ import { FaPlus, FaClock, FaCog } from "react-icons/fa";
 
 import Button from "../../components/Button/Button";
 import SearchBar from "../../components/SearchBar/SearchBar";
-import DatePicker from "../../components/DatePicker/DatePicker";
 import Checkbox from "../../components/Checkbox/Checkbox";
 import Card from "../../components/Card/Card";
 
