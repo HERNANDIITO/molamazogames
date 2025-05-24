@@ -1,6 +1,6 @@
 import './EditarAssets.scss';
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { FaPlusCircle, FaCheck, FaTimes, FaUpload, FaTag } from "react-icons/fa";
 
