@@ -7,7 +7,6 @@ import { FaPlus, FaClock, FaCog } from "react-icons/fa";
 
 import Button from "../../components/Button/Button";
 import SearchBar from "../../components/SearchBar/SearchBar";
-import DatePicker from "../../components/DatePicker/DatePicker";
 import Checkbox from "../../components/Checkbox/Checkbox";
 import Card from "../../components/Card/Card";
 
@@ -70,6 +69,7 @@ function PerfilContent() {
     const getFilteredAssets = () => {
 
         return userAssets.filter(asset => {
+            console.log("te he llamado");
             const matchesText = asset.name.toLowerCase().includes(nameInput.toLowerCase());
             console.log("ASSET: ", asset);
 
@@ -185,6 +185,7 @@ function PerfilContent() {
                         <Card
                             key={asset._id}
                             idAsset={asset._id}
+                            alt={asset.image.description ? asset.image.description : ""}
                             type={asset.categories[0]?.meta._id}
                             botonTag="botonYtags"
                             image={asset.image ? "https://molamazogames-ctup.onrender.com/" + asset.image.path : null}

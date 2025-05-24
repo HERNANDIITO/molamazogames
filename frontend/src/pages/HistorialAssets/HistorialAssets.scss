@@ -1,28 +1,5 @@
 @import '../../styles/global.scss';
 
-// .decoratorTituloHitorial {
-//     &::after {
-//         content: "";
-//         display: block;
-//         width: 80%; 
-//         height: 2px;  
-//         background-color: $color-secundario; 
-//         margin: 10px 0; 
-//     }
-// }
-
-// .decoratorTituloHitorial {
-//   position: relative; /* Opcional: para posicionamiento relativo si lo necesitas */
-
-//   &::after {
-//     content: "";
-//     display: block;
-//     width: 100%;      /* Ocupa todo el ancho del h2 */
-//     height: 2px;
-//     background-color: $color-secundario;
-//     margin: 10px 0 0 0;  /* margen arriba y abajo ajustable */
-//   }
-// }
 
 .decoratorTituloHitorial {
   display: inline-block; 
@@ -46,4 +23,48 @@
 .volver-perfil-btn-historial-assets {
     margin-left: 2rem;
     margin-top: 1.5rem;
+}
+
+.aside-filtros-historial-assets {
+  background-color: $color-fondo2;
+  border-radius: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 2rem;
+}
+
+.historial-assets-content {
+  display: flex;
+  gap: 20px; 
+  margin-bottom: 2rem;
+}
+
+.historial-assets-content > main {
+  flex: 0 0 65%;
+}
+
+.historial-assets-content > aside {
+  flex: 0 0 25%;
+}
+
+// .datePickers > .contenedor {
+//   display: flex;
+//   flex-direction: column;
+// }
+
+.calendario {
+  display: block;
+}
+
+
+@media (max-width: 1300px) {
+  .historial-assets-content {
+    flex-direction: column-reverse;
+  }
+
+  .historial-assets-content > aside {
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
 }
