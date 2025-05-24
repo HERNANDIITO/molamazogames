@@ -384,6 +384,7 @@ const anadirAutor = () => {
                         image={asset.image ? "https://molamazogames-ctup.onrender.com/" + asset.image.path : null}
                         tagsAsset={Array.isArray(asset.tags) ? asset.tags.map(tag => tag.name) : []}
                         tituloAsset={asset.name}
+                        alt={asset.image.description ? asset.image.description : ""}
                         onClick={() => handleCardClick(asset._id)}
                     />
                 ))}

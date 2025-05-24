@@ -99,6 +99,7 @@ function HomeContent() {
     const renderAssets = (category) => {
         const paginated = getPaginatedAssets(category);
         const isNext = slideDirection === "next";
+        console.log(paginated)
 
         return (
             <AnimatePresence mode="wait">
@@ -115,6 +116,7 @@ function HomeContent() {
                             key={asset._id}
                             type={asset.categories[0]?.meta._id}
                             botonTag="tag"
+                            alt={asset.image.description ? asset.image.description : ""}
                             image={asset.image ? "https://molamazogames-ctup.onrender.com/" + asset.image.path : null}
                             tagsAsset={asset.tags.map(tag => tag.name)}
                             tituloAsset={asset.name}

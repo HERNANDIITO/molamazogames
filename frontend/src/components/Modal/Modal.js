@@ -4,17 +4,22 @@ import './Modal.scss';
 import InputField from '../InputField/InputField';
 import Button from '../Button/Button';
 
-import { FaCheck, FaTimes } from "react-icons/fa";
+import { FaCheck, FaTimes, FaTrash,  } from "react-icons/fa";
 
-const Modal = ({ type = "subir", onClose, onImageUpload, onGoDetails, onGoUpload, onGoHome }) => {
+import { deleteAsset } from '../../services/assetService';
+
+
+const Modal = ({ type = "subir", onClose, onImageUpload, onGoDetails, onGoUpload, onGoDelete, onGoHome, idAsset }) => {
   const [file, setFile] = useState(null);
   const [nombre, setNombre] = useState("");
   const [alt, setAlt] = useState("");
 
+  const [deleted, setDeleted] = useState(false);
+
   const getTitle = () => {
     switch (type) {
-      case "add":
-        return "Añadir foto";
+      case "eliminar":
+        return "Confirmar eliminación";
       case "edit":
         return "Modificar foto";
       case "exito":
@@ -26,13 +31,18 @@ const Modal = ({ type = "subir", onClose, onImageUpload, onGoDetails, onGoUpload
     }
   };
 
-  const inputFieldType = type === "add" || type === "edit" ? "foto" : "file";
+  const inputFieldType = type === "edit" ? "foto" : "file";
 
   const handleAceptar = () => {
     if (onImageUpload && file) {
       onImageUpload(file, nombre, alt);
     }
   };
+
+  const deleteAssetHandler = async () => {
+    const result = await deleteAsset({ assetID: idAsset });
+    setDeleted(true);
+  }
 
   return (
     <div className="modalOverlay" onClick={onClose}>
@@ -78,7 +88,25 @@ const Modal = ({ type = "subir", onClose, onImageUpload, onGoDetails, onGoUpload
             />
           </div>
         </div>
-      ) : (
+      ) : type === "eliminar" ? (
+        <div className="modalContornoToken" onClick={(e) => e.stopPropagation()}>
+          <p className="titModal">{getTitle()}</p>
+          <div className="contbotonesModal">
+            <Button
+              label="Cancelar"
+              className=" botonesModal"
+              onClick={onClose}
+              icon={<FaTimes />}
+            />
+            <Button
+              label="Eliminar"
+              className="danger-btn botonesModal"
+              onClick={onGoDelete}
+              icon={<FaTrash />}
+            />
+          </div>
+        </div> 
+        ) : (
         <div className="modalContorno" onClick={(e) => e.stopPropagation()}>
           <p className="titModal">{getTitle()}</p>
           <InputField

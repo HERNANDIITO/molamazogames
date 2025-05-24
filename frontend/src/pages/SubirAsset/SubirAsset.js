@@ -43,13 +43,18 @@ function SubirAssetContent() {
     const [mensaje, setMensaje] = useState('');
     const [assetId, setAssetId] = useState(null);
 
-    const abrirModalArchivo = () => {
-        setModalType('subir');
-        setShowModal(true);
-    };
+    const fileInputRef = useRef(null);
 
     const abrirModalFoto = () => {
-        setModalType(imagen ? 'edit' : 'add');
+        if (fileInputRef.current) {
+            fileInputRef.current.click();
+        }
+    };
+
+
+
+    const abrirModalArchivo = () => {
+        setModalType('subir');
         setShowModal(true);
     };
 
@@ -81,47 +86,47 @@ function SubirAssetContent() {
     };
 
     useEffect(() => {
-    const cargarDatosIniciales = async () => {
-        try {
-            const token = localStorage.getItem("token");
+        const cargarDatosIniciales = async () => {
+            try {
+                const token = localStorage.getItem("token");
 
-            if (!token) {
+                if (!token) {
+                    navigate("/login");
+                    return;
+                }
+
+                const userData = await getUserByToken(token);
+                console.log("Usuario autenticado:", userData);
+
+                const resMeta = await getAllMeta();
+                const metas = resMeta || [];
+
+                const grupos = await Promise.all(
+                    metas.map(async (meta) => {
+                        const resCat = await getAllCategories({ meta: meta.meta });
+                        const categorias = resCat.categories || [];
+
+                        return {
+                            label: meta.meta,
+                            options: categorias.map(cat => ({
+                                value: cat._id,
+                                label: cat.name,
+                                key: cat._id
+                            }))
+                        };
+                    })
+                );
+
+                grupos.sort((a, b) => a.label.localeCompare(b.label));
+                setCategorias(grupos);
+            } catch (error) {
+                console.error("Error cargando datos:", error);
                 navigate("/login");
-                return;
             }
+        };
 
-            const userData = await getUserByToken(token);
-            console.log("Usuario autenticado:", userData);
-
-            const resMeta = await getAllMeta();
-            const metas = resMeta || [];
-
-            const grupos = await Promise.all(
-                metas.map(async (meta) => {
-                    const resCat = await getAllCategories({ meta: meta.meta });
-                    const categorias = resCat.categories || [];
-
-                    return {
-                        label: meta.meta,
-                        options: categorias.map(cat => ({
-                            value: cat._id,
-                            label: cat.name,
-                            key: cat._id
-                        }))
-                    };
-                })
-            );
-
-            grupos.sort((a, b) => a.label.localeCompare(b.label));
-            setCategorias(grupos);
-        } catch (error) {
-            console.error("Error cargando datos:", error);
-            navigate("/login");
-        }
-    };
-
-    cargarDatosIniciales();
-}, []);
+        cargarDatosIniciales();
+    }, []);
 
 
     const anadirCategoria = () => {
@@ -280,12 +285,36 @@ function SubirAssetContent() {
                 {imagen && (
                     <>
                         <img src={imagenURL} alt={imagenAlt} className="preview-imagen" />
-                        <p><strong>Nombre:</strong> {imagenNombre}</p>
-                        <p><strong>Texto alternativo:</strong> {imagenAlt}</p>
                     </>
                 )}
-                <Button label={imagen ? "Cambiar imagen" : "Subir imagen"} icon={<FaUpload />} className="mediano-btn" onClick={abrirModalFoto} />
+                <Button
+                    label={imagen ? "Cambiar imagen" : "Subir imagen"}
+                    icon={<FaUpload />}
+                    className="mediano-btn"
+                    onClick={abrirModalFoto}
+                />
+
+                <input
+                    type="file"
+                    ref={fileInputRef}
+                    style={{ display: 'none' }}
+                    accept="image/*"
+                    onChange={(e) => {
+                        const file = e.target.files[0];
+                        if (file && file.type.startsWith('image/')) {
+                            const reader = new FileReader();
+                            setImagen(file);
+                            setImagenNombre('');
+                            setImagenAlt('');
+                            reader.onloadend = function () {
+                                setImagenURL(reader.result);
+                            };
+                            reader.readAsDataURL(file);
+                        }
+                    }}
+                />
             </div>
+
 
             <div className="bloque imagen">
                 <h3 className="encabezado lineaBloque">Archivos*:</h3>
