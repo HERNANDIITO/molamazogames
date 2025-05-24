@@ -6,6 +6,7 @@ import { FiEdit, FiTrash2, FiTag, FiUpload } from 'react-icons/fi';
 
 import Button from '../Button/Button';
 import { getAllMeta } from '../../services/metaServices';
+import { deleteAsset } from '../../services/assetService';
 
 import { useNavigate } from 'react-router-dom';
 import Modal from "../../components/Modal/Modal";
@@ -115,113 +116,122 @@ const Card = ({
     setShowModal(true);
   };
 
-  const eliminarCard = () => {
+  const eliminarCard = async () => {
     setDeleted(true);
+
+    try {
+      const result = await deleteAsset({ assetID: idAsset });
+      console.log("result", result)
+    }
+    catch(error) {
+      console.error("Error eliminando el asset:", error.error);
+    }
+
   }
 
   return (
-          <div className={classNames("contorno", deleted ? "deleted" : "")}>
-            <img
-              src={imageToShow}
-              alt={`${alt}`}
-              className="imagenAsset"
-              onClick={onClick}
-              onError={() => setValidImage(false)}
-              style={{ cursor: 'pointer' }}
-            />
+    <div className={classNames("contorno", deleted ? "deleted" : "")}>
+      <img
+        src={imageToShow}
+        alt={`${alt}`}
+        className="imagenAsset"
+        onClick={onClick}
+        onError={() => setValidImage(false)}
+        style={{ cursor: 'pointer' }}
+      />
 
-            <section
-              className={classNames('bottag', {
-                'centrado': ['boton', 'subir'].includes(botonTag),
-                'izquierda': botonTag === 'tag',
-              })}
+      <section
+        className={classNames('bottag', {
+          'centrado': ['boton', 'subir'].includes(botonTag),
+          'izquierda': botonTag === 'tag',
+        })}
+      >
+        {botonTag === 'boton' && (
+          <>
+            <Button
+              label="Modificar"
+              icon={<FiEdit />}
+              iconPosition="left"
+              className="warning-btn mediano-btn"
+            />
+            <Button
+              label="Eliminar"
+              icon={<FiTrash2 />}
+              iconPosition="left"
+              className="danger-btn mediano-btn"
+            />
+          </>
+        )}
+
+        {botonTag === 'tag' && (
+          <div className='divTag'>
+            <p
+              className='tituloCard'
+              onClick={onClick}
+              style={{ cursor: 'pointer' }}
             >
-              {botonTag === 'boton' && (
-                <>
+              {tituloAsset}
+            </p>
+            {renderTags()}
+          </div>
+        )}
+
+        {botonTag === 'botonYtags' && (
+          <>
+            <div className='divTag'>
+              <p
+                className='tituloCard'
+                onClick={onClick}
+                style={{ cursor: 'pointer' }}
+              >
+                {tituloAsset}
+              </p>
+              <div className='tagsYbotones'>
+                {renderTags()}
+                <div className='contDeBotones'>
                   <Button
-                    label="Modificar"
                     icon={<FiEdit />}
                     iconPosition="left"
-                    className="warning-btn mediano-btn"
+                    className="warning-btn enano-btn"
+                    onClick={() => navigate(`/editAsset/${idAsset}`)}
                   />
                   <Button
-                    label="Eliminar"
                     icon={<FiTrash2 />}
                     iconPosition="left"
-                    className="danger-btn mediano-btn"
+                    className="danger-btn enano-btn"
+                    onClick={() => abrirModalEliminar()}
                   />
-                </>
-              )}
-
-              {botonTag === 'tag' && (
-                <div className='divTag'>
-                  <p
-                    className='tituloCard'
-                    onClick={onClick}
-                    style={{ cursor: 'pointer' }}
-                  >
-                    {tituloAsset}
-                  </p>
-                  {renderTags()}
                 </div>
-              )}
+              </div>
+            </div>
+          </>
+        )}
 
-              {botonTag === 'botonYtags' && (
-                <>
-                  <div className='divTag'>
-                    <p
-                      className='tituloCard'
-                      onClick={onClick}
-                      style={{ cursor: 'pointer' }}
-                    >
-                      {tituloAsset}
-                    </p>
-                    <div className='tagsYbotones'>
-                      {renderTags()}
-                      <div className='contDeBotones'>
-                        <Button
-                          icon={<FiEdit />}
-                          iconPosition="left"
-                          className="warning-btn enano-btn"
-                          onClick={() => navigate(`/editAsset/${idAsset}`)}
-                        />
-                        <Button
-                          icon={<FiTrash2 />}
-                          iconPosition="left"
-                          className="danger-btn enano-btn"
-                          onClick={() => abrirModalEliminar()}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </>
-              )}
+        {botonTag === 'subir' && (
+          <Button
+            label="Subir foto"
+            icon={<FiUpload />}
+            iconPosition="left"
+            className="mediano-btn"
+          />
+        )}
+      </section>
 
-              {botonTag === 'subir' && (
-                <Button
-                  label="Subir foto"
-                  icon={<FiUpload />}
-                  iconPosition="left"
-                  className="mediano-btn"
-                />
-              )}
-            </section>
-
-            {showModal && (
-              <Modal
-                idAsset={idAsset}
-                type={modalType}
-                onClose={cerrarModal}
-                onGoHome={() => navigate('/home')}
-                onGoUpload={() => {
-                  cerrarModal();
-                }}
-                onGoDelete={() => {
-                  eliminarCard();
-                }}
-              />
-            )}
-          </div>
+      {showModal && (
+        <Modal
+          idAsset={idAsset}
+          type={modalType}
+          onClose={cerrarModal}
+          onGoHome={() => navigate('/home')}
+          onGoUpload={() => {
+            cerrarModal();
+          }}
+          onGoDelete={() => {
+            eliminarCard();
+          }}
+        />
+      )}
+    </div>
   );
 };
 
