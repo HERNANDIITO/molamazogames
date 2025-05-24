@@ -12,7 +12,9 @@ const HistoryElement = ({
   value,
   time,
   imgAsset,
-  href
+  href,
+  checked,
+  onChange
 }) => {
   const contClasses = classNames('contain');
   const timeClasses = classNames('time');
@@ -35,14 +37,14 @@ const HistoryElement = ({
     <div className={contClasses}>
       <span className={timeClasses}>{time}</span>
       <section className={sectionClasses}>
-        {/* <Checkbox
+        <Checkbox
           label="Check"
           size="normal"
-          checked={!!checkedChecks[id]}
-          onChange={handleCheckboxChange}
+          checked={checked}
+          onChange={onChange}
           showLabel={false}
           id={`chk-${id}`}
-        /> */}
+        />
 
         {imgAsset && <img src={imgAsset} alt={`${name}`} className={imageClasses} />}
         <span className={assetnameClasses}>{name}</span>

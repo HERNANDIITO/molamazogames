@@ -70,6 +70,7 @@ function PerfilContent() {
     const getFilteredAssets = () => {
 
         return userAssets.filter(asset => {
+            console.log("te he llamado");
             const matchesText = asset.name.toLowerCase().includes(nameInput.toLowerCase());
             console.log("ASSET: ", asset);
 
