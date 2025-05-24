@@ -5,19 +5,25 @@
   background-color: $color-fondo2;
   border-radius: 5px;
   min-width: 15rem;
+  height: 100%;
+  
+  .imagenAsset {
+    width: 90%;
+    height: 12rem;
+    min-height: 12rem;
+    border-radius: 5px;
+    margin: 1rem 0 .25rem 0;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  
+    &:hover{
+      transform: scale(1.05);
+    }
+  }
 }
 
-.imagenAsset {
-  width: 90%;
-  height: 12rem;
-  border-radius: 5px;
-  margin: 1rem 0 .25rem 0;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-
-  &:hover{
-    transform: scale(1.05);
-  }
+.deleted {
+  display: none;
 }
 
 .bottag {

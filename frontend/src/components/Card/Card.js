@@ -120,22 +120,15 @@ const Card = ({
   }
 
   return (
-
-    <>
-      {
-        deleted ? (<div></div>) : (
-          <div className={classNames("contorno")}>
-            {imageToShow && (
-              <img
-                src={imageToShow}
-                alt={`${alt}`}
-                className="imagenAsset"
-                onClick={onClick}
-                onError={() => setValidImage(false)}
-                style={{ cursor: 'pointer' }}
-              />
-            )}
-
+          <div className={classNames("contorno", deleted ? "deleted" : "")}>
+            <img
+              src={imageToShow}
+              alt={`${alt}`}
+              className="imagenAsset"
+              onClick={onClick}
+              onError={() => setValidImage(false)}
+              style={{ cursor: 'pointer' }}
+            />
 
             <section
               className={classNames('bottag', {
@@ -229,13 +222,6 @@ const Card = ({
               />
             )}
           </div>
-
-
-        )
-      }
-    </>
-
-
   );
 };
 
