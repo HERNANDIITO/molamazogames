@@ -184,6 +184,7 @@ function PerfilContent() {
                         <Card
                             key={asset._id}
                             idAsset={asset._id}
+                            alt={asset.image.description ? asset.image.description : ""}
                             type={asset.categories[0]?.meta._id}
                             botonTag="botonYtags"
                             image={asset.image ? "https://molamazogames-ctup.onrender.com/" + asset.image.path : null}

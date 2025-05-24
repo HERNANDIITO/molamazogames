@@ -17,6 +17,7 @@ const Card = ({
   tagsAsset,
   image,
   type,
+  alt,
   botonTag,
   onClick,
 }) => {
@@ -127,7 +128,7 @@ const Card = ({
             {imageToShow && (
               <img
                 src={imageToShow}
-                alt={`${type} preview`}
+                alt={`${alt}`}
                 className="imagenAsset"
                 onClick={onClick}
                 onError={() => setValidImage(false)}
