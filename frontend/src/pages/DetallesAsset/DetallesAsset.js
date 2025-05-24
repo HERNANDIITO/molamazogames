@@ -3,7 +3,6 @@ import { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCode, faDownload, faFilm, faFolder, faHeart, faImage, faComment, faMusic, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faRegularHeart } from '@fortawesome/free-regular-svg-icons';
-import { faBookmark, faFileCode } from '@fortawesome/free-regular-svg-icons';
 import Button from '../../components/Button/Button.js';
 import { useParams } from 'react-router-dom';
 import { LuTag } from "react-icons/lu";
@@ -14,7 +13,7 @@ import Textarea from '../../components/Textarea/Textarea.js';
 import perfil from '../../assets/images/perfil.png';
 import { CarousselImage } from '../../components/carousselEntry/carousselImage/CarousselImage.js'
 import { Caroussel3D } from '../../components/carousselEntry/caroussel3D/Caroussel3D.js';
-import { getAssetFavs, getUserFavs } from '../../services/favService.js';
+import { getAssetFavs } from '../../services/favService.js';
 import { postFav } from "../../services/favService.js"
 import { postNewHistoryEntry } from '../../services/historyServices.js';
 import { getCommentByAssetID, postComment, deleteComment } from '../../services/commentService.js';
