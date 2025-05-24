@@ -159,7 +159,7 @@ function SubirAssetContent() {
     const uploadAsset = async () => {
         const asset = {
             name: nombreAsset,
-            description: descripcionAsset ? descripcionAsset : "Sin descripcion",
+            description: descripcionAsset ? descripcionAsset : "",
             categories: [],
             tags: etiquetasAnadidas,
             files: [],
@@ -177,7 +177,7 @@ function SubirAssetContent() {
                 console.log('FILE:', archivo.file)
                 formData.append('name', archivo.name || "Sin nombre");
                 console.log('NAME:', archivo.name)
-                formData.append('description', archivo.desc || "Sin descripcion");
+                formData.append('description', archivo.desc || "");
                 console.log('DESCRIPTION:', archivo.desc)
                 formData.append('isPreview', archivo.isPreview);
                 console.log('PREVIEW:', archivo.isPreview)
@@ -195,7 +195,7 @@ function SubirAssetContent() {
             const imgFormData = new FormData();
             imgFormData.append('file', imagen);
             imgFormData.append('name', imagenNombre || "Sin nombre");
-            imgFormData.append('description', imagenAlt || "Sin descripcion");
+            imgFormData.append('description', imagenAlt || "");
             imgFormData.append('isPreview', true);
 
             const result = await uploadFile(imgFormData);
