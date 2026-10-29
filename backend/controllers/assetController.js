@@ -269,7 +269,7 @@ const createAsset = asyncHandler(async (req, res, next) => {
         const categoryIDs       = req.body.categories;
         const tagIDs            = req.body.tags;
         const files             = req.body.files;
-        const image             = req.body.image;
+        const image             = req.body.image || undefined;
         const publicationDate   = moment();
         const updateDate        = moment();
 
