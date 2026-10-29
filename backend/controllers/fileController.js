@@ -273,6 +273,12 @@ const getFormatByMimeType = async (mimeType) => {
 
 const uploadFile = asyncHandler(async (req, res, next) => {
     try{
+        if (!req.file) {
+            return res.status(400).json({
+                result: "Solicitud errónea.",
+                msg: "Falta el archivo. Envíalo como campo 'file' en multipart/form-data."
+            });
+        }
         
         const author        = req.user.id;
         
