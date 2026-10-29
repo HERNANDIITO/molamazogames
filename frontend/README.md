@@ -2,6 +2,17 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Run with Docker
+
+From the `frontend` directory, build and start the production image:
+
+```sh
+docker build -t molamazogames-frontend .
+docker run --rm -p 3000:80 molamazogames-frontend
+```
+
+Then open [http://localhost:3000](http://localhost:3000). The image builds the app with Node.js and serves it with Nginx; Nginx also falls back to `index.html` for client-side routes.
+
 ## Available Scripts
 
 In the project directory, you can run:
