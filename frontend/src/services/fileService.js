@@ -7,7 +7,6 @@ const uploadFile = async (data, headers = {}) => {
 
         const config = {
             headers: {
-                'Content-type': 'multipart/form-data',
                 "authorization": `Bearer ${localStorage.getItem('token')}`,
             }
         };

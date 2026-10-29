@@ -191,19 +191,21 @@ function SubirAssetContent() {
             return;
         }
 
-        try {
-            const imgFormData = new FormData();
-            imgFormData.append('file', imagen);
-            imgFormData.append('name', imagenNombre || "Sin nombre");
-            imgFormData.append('description', imagenAlt || " ");
-            imgFormData.append('isPreview', true);
+        if (imagen) {
+            try {
+                const imgFormData = new FormData();
+                imgFormData.append('file', imagen);
+                imgFormData.append('name', imagenNombre || "Sin nombre");
+                imgFormData.append('description', imagenAlt || " ");
+                imgFormData.append('isPreview', true);
 
-            const result = await uploadFile(imgFormData);
-            asset.image = result.file._id;
-        } catch (error) {
-            console.error(error);
-            setMensaje("Error al subir la imagen de portada.");
-            return;
+                const result = await uploadFile(imgFormData);
+                asset.image = result.file._id;
+            } catch (error) {
+                console.error(error);
+                setMensaje("Error al subir la imagen de portada.");
+                return;
+            }
         }
 
         try {
