@@ -188,7 +188,7 @@ function PerfilContent() {
                             alt={asset.image.description ? asset.image.description : ""}
                             type={asset.categories[0]?.meta._id}
                             botonTag="botonYtags"
-                            image={asset.image ? "https://molamazogames-ctup.onrender.com/" + asset.image.path : null}
+                            image={asset.image ? "https://mmg.phg.es/" + asset.image.path : null}
                             tagsAsset={asset.tags.map(tag => tag.name)}
                             tituloAsset={asset.name}
                             onClick={() => handleCardClick(asset._id)}

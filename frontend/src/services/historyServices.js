@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const BASE_URL = "https://molamazogames-ctup.onrender.com/history"
+const BASE_URL = "https://mmg.phg.es/history"
 
 const postNewHistoryEntry = async (data, headers = {}) => {
     try {

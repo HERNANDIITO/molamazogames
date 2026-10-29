@@ -235,7 +235,7 @@ const DetallesAsset = () => {
                     icon={<FontAwesomeIcon icon={faDownload} />}
                     iconPosition="alone"
                     className="round-btn secondary-btn enano-btn fileDownload"
-                    href={`https://molamazogames-ctup.onrender.com/file/download?fileID=${file._id}`}
+                    href={`https://mmg.phg.es/file/download?fileID=${file._id}`}
                     onClick={registrarHistorial}
                 />
             </div>
@@ -395,7 +395,7 @@ const DetallesAsset = () => {
                                 <Button
                                     label={"Descarga"}
                                     icon={<FontAwesomeIcon icon={faDownload} />}
-                                    href={`https://molamazogames-ctup.onrender.com/asset/download?assetID=${assetID}`}
+                                    href={`https://mmg.phg.es/asset/download?assetID=${assetID}`}
                                     onClick={registrarHistorial}
                                     className={'assetDetails-button assetDetails-downloadButton'}
                                 ></Button>

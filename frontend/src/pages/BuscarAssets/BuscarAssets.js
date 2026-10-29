@@ -381,7 +381,7 @@ const anadirAutor = () => {
                         key={asset._id}
                         type={Array.isArray(asset.categories) && asset.categories.length > 0 ? asset.categories[0].meta : ""}
                         botonTag="tag"
-                        image={asset.image ? "https://molamazogames-ctup.onrender.com/" + asset.image.path : null}
+                        image={asset.image ? "https://mmg.phg.es/" + asset.image.path : null}
                         tagsAsset={Array.isArray(asset.tags) ? asset.tags.map(tag => tag.name) : []}
                         tituloAsset={asset.name}
                         alt={asset.image.description ? asset.image.description : ""}

@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const BASE_URL = "https://molamazogames-ctup.onrender.com/category"
+const BASE_URL = "https://mmg.phg.es/category"
 
 /**
  * GET ALL CATEGORIES 

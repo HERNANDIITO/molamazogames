@@ -359,7 +359,7 @@ function EditarAssetContent() {
                 {
                     imagenURL && (
                         <img
-                            src={imagenURL.startsWith('data:') ? imagenURL : `https://molamazogames-ctup.onrender.com/${imagenURL}`}
+                            src={imagenURL.startsWith('data:') ? imagenURL : `https://mmg.phg.es/${imagenURL}`}
                             alt="portada"
                             className="preview-imagen"
                         />

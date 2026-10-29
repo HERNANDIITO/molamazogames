@@ -46,7 +46,7 @@ const HistorialAssets = () => {
             return;
         }
         selectedAssets.forEach(assetID => {
-            const url = `https://molamazogames-ctup.onrender.com/asset/download?assetID=${assetID}`;
+            const url = `https://mmg.phg.es/asset/download?assetID=${assetID}`;
             const link = document.createElement('a');
             link.href = url;
             // Esto fuerza descarga en navegadores que lo permiten
@@ -251,8 +251,8 @@ const HistorialAssets = () => {
                                                 name={asset.name}
                                                 value={bytesToBigUnit(asset.size)}
                                                 time={getEuropeanTime(asset.historyDate)}
-                                                imgAsset={asset.image ? "https://molamazogames-ctup.onrender.com/" + asset.image.path : null}
-                                                href={`https://molamazogames-ctup.onrender.com/asset/download?assetID=${asset._id}`}
+                                                imgAsset={asset.image ? "https://mmg.phg.es/" + asset.image.path : null}
+                                                href={`https://mmg.phg.es/asset/download?assetID=${asset._id}`}
                                                 checked={selectedAssets.has(asset._id)}
                                                 onChange={() => toggleSelectAsset(asset._id)}
                                             />

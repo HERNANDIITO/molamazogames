@@ -10,7 +10,7 @@ const CarousselImage = ({
   return (
     <div class={`carousselEntry`}>
       <div class="carousselImage">
-        <img alt=" " src={`https://molamazogames-ctup.onrender.com\\${path}`}></img>
+        <img alt=" " src={`https://mmg.phg.es\\${path}`}></img>
       </div>
       <div class="carousselImageInfo">
         <h3>{name}</h3>

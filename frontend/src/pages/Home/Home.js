@@ -117,7 +117,7 @@ function HomeContent() {
                             type={asset.categories[0]?.meta._id}
                             botonTag="tag"
                             alt={asset.image.description ? asset.image.description : ""}
-                            image={asset.image ? "https://molamazogames-ctup.onrender.com/" + asset.image.path : null}
+                            image={asset.image ? "https://mmg.phg.es/" + asset.image.path : null}
                             tagsAsset={asset.tags.map(tag => tag.name)}
                             tituloAsset={asset.name}
                             onClick={() => handleCardClick(asset._id)}
