@@ -30,7 +30,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/asset/getAssets?author=[\"Manolo\", \"Paula\"]",
+							"raw": "https://mmg.phg21.es/asset/getAssets?author=[\"Manolo\", \"Paula\"]",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -120,7 +120,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/asset/getAssetByID?assetID=6817385cccaeb9777441423f",
+							"raw": "https://mmg.phg21.es/asset/getAssetByID?assetID=6817385cccaeb9777441423f",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -146,7 +146,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/asset/download?assetID=681b24ee52dd56aa852183fb",
+							"raw": "https://mmg.phg21.es/asset/download?assetID=681b24ee52dd56aa852183fb",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -181,7 +181,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/asset",
+							"raw": "https://mmg.phg21.es/asset",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -209,7 +209,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/asset",
+							"raw": "https://mmg.phg21.es/asset",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -237,7 +237,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/asset/deleteFileFromAsset",
+							"raw": "https://mmg.phg21.es/asset/deleteFileFromAsset",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -266,7 +266,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/asset",
+							"raw": "https://mmg.phg21.es/asset",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -305,7 +305,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/category",
+							"raw": "https://mmg.phg21.es/category",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -340,7 +340,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/category/setup",
+							"raw": "https://mmg.phg21.es/category/setup",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -381,7 +381,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/comment/getCommentByAssetID?assetID=68136f552d85d4cf732b4a47",
+							"raw": "https://mmg.phg21.es/comment/getCommentByAssetID?assetID=68136f552d85d4cf732b4a47",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -416,7 +416,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/comment/post",
+							"raw": "https://mmg.phg21.es/comment/post",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -445,7 +445,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/comment",
+							"raw": "https://mmg.phg21.es/comment",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -481,7 +481,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/fav/userFavs?userID=680cf321b4b3a68e46046c47",
+							"raw": "https://mmg.phg21.es/fav/userFavs?userID=680cf321b4b3a68e46046c47",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -522,7 +522,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/fav/assetFavs?assetID=680d15a2c4ea4f3d6f262dd9",
+							"raw": "https://mmg.phg21.es/fav/assetFavs?assetID=680d15a2c4ea4f3d6f262dd9",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -557,7 +557,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/fav/postFav",
+							"raw": "https://mmg.phg21.es/fav/postFav",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -594,7 +594,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/file/getFilesByAssetID?assetID=681480f1f2be453274a3acdd",
+							"raw": "https://mmg.phg21.es/file/getFilesByAssetID?assetID=681480f1f2be453274a3acdd",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -632,7 +632,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/file/getPreviewFilesByAssetID?assetID=681480f1f2be453274a3acdd",
+							"raw": "https://mmg.phg21.es/file/getPreviewFilesByAssetID?assetID=681480f1f2be453274a3acdd",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -670,7 +670,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/file/getAllFiles",
+							"raw": "https://mmg.phg21.es/file/getAllFiles",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -702,7 +702,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/file/download?fileID=681b24ee52dd56aa852183d8",
+							"raw": "https://mmg.phg21.es/file/download?fileID=681b24ee52dd56aa852183d8",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -753,7 +753,7 @@
 							]
 						},
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/file",
+							"raw": "https://mmg.phg21.es/file",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -781,7 +781,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/file",
+							"raw": "https://mmg.phg21.es/file",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -817,7 +817,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/format",
+							"raw": "https://mmg.phg21.es/format",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -843,7 +843,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/format/setup",
+							"raw": "https://mmg.phg21.es/format/setup",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -900,7 +900,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/history",
+							"raw": "https://mmg.phg21.es/history",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -936,7 +936,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/history",
+							"raw": "https://mmg.phg21.es/history",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -955,7 +955,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/history",
+							"raw": "https://mmg.phg21.es/history",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -994,7 +994,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/like/commentLikes?commentID=680d15a2c4ea4f3d6f262dd9",
+							"raw": "https://mmg.phg21.es/like/commentLikes?commentID=680d15a2c4ea4f3d6f262dd9",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1032,7 +1032,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/like/userLikes?userID=680d15a2c4ea4f3d6f262dd9",
+							"raw": "https://mmg.phg21.es/like/userLikes?userID=680d15a2c4ea4f3d6f262dd9",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1067,7 +1067,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/like/postLike",
+							"raw": "https://mmg.phg21.es/like/postLike",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1095,7 +1095,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/meta",
+							"raw": "https://mmg.phg21.es/meta",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1114,7 +1114,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/meta/setup",
+							"raw": "https://mmg.phg21.es/meta/setup",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1142,7 +1142,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/tag",
+							"raw": "https://mmg.phg21.es/tag",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1170,7 +1170,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/tag",
+							"raw": "https://mmg.phg21.es/tag",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1198,7 +1198,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/tag/bulkTags",
+							"raw": "https://mmg.phg21.es/tag/bulkTags",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1230,7 +1230,7 @@
 							}
 						],
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/user",
+							"raw": "https://mmg.phg21.es/user",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1256,7 +1256,7 @@
 							}
 						],
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/auth",
+							"raw": "https://mmg.phg21.es/auth",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1294,7 +1294,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/auth/me",
+							"raw": "https://mmg.phg21.es/auth/me",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1321,7 +1321,7 @@
 							}
 						],
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/user?userID=6815cc3e3eb90ba25ea13064",
+							"raw": "https://mmg.phg21.es/user?userID=6815cc3e3eb90ba25ea13064",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1362,7 +1362,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/user",
+							"raw": "https://mmg.phg21.es/user",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1390,7 +1390,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/auth/reg",
+							"raw": "https://mmg.phg21.es/auth/reg",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1426,7 +1426,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/auth",
+							"raw": "https://mmg.phg21.es/auth",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1461,7 +1461,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/user",
+							"raw": "https://mmg.phg21.es/user",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1496,7 +1496,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://molamazogames-ctup.onrender.com/user/:id",
+							"raw": "https://mmg.phg21.es/user/:id",
 							"protocol": "http",
 							"host": [
 								"localhost"

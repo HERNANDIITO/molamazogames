@@ -9,6 +9,8 @@ const Model = ({ url }) => {
 };
 
 const Caroussel3D = ({ path, name, description }) => {
+  const modelUrl = `https://api.mmg.phg21.es/${path.replace(/\\/g, '/')}`;
+
   return (
     <div className="carousselEntry">
       <div className="carousselModel3D">
@@ -16,7 +18,7 @@ const Caroussel3D = ({ path, name, description }) => {
           <ambientLight />
           <directionalLight position={[2, 2, 2]} />
           <Suspense fallback={null}>
-            <Model url={`https://mmg.phg21.es/${path}`} />
+            <Model url={modelUrl} />
             <Environment preset="sunset" />
           </Suspense>
           <OrbitControls />

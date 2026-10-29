@@ -185,7 +185,7 @@ function PerfilContent() {
                         <Card
                             key={asset._id}
                             idAsset={asset._id}
-                            alt={asset.image.description ? asset.image.description : ""}
+                            alt={asset.image?.description || ""}
                             type={asset.categories[0]?.meta._id}
                             botonTag="botonYtags"
                             image={asset.image ? "https://mmg.phg21.es/" + asset.image.path : null}

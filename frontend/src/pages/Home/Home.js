@@ -116,7 +116,7 @@ function HomeContent() {
                             key={asset._id}
                             type={asset.categories[0]?.meta._id}
                             botonTag="tag"
-                            alt={asset.image.description ? asset.image.description : ""}
+                            alt={asset.image?.description || ""}
                             image={asset.image ? "https://mmg.phg21.es/" + asset.image.path : null}
                             tagsAsset={asset.tags.map(tag => tag.name)}
                             tituloAsset={asset.name}

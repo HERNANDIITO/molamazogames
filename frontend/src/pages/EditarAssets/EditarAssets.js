@@ -163,9 +163,15 @@ function EditarAssetContent() {
                         : []
                 );
 
-                await setImagenURL(asset.asset.image.path);
-                await setImagenNombre(asset.asset.image.name);
-                await setImagenAlt(asset.asset.image.description);
+                if (asset.asset.image) {
+                    setImagenURL(asset.asset.image.path);
+                    setImagenNombre(asset.asset.image.name);
+                    setImagenAlt(asset.asset.image.description);
+                } else {
+                    setImagenURL(null);
+                    setImagenNombre('');
+                    setImagenAlt('');
+                }
 
 
 

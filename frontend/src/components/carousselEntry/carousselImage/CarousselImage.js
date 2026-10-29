@@ -6,13 +6,14 @@ const CarousselImage = ({
   name,
   description
 }) => {
+  const imageUrl = `https://api.mmg.phg21.es/${path.replace(/\\/g, '/')}`;
 
   return (
-    <div class={`carousselEntry`}>
-      <div class="carousselImage">
-        <img alt=" " src={`https://mmg.phg21.es\\${path}`}></img>
+    <div className="carousselEntry">
+      <div className="carousselImage">
+        <img alt={description || name || ''} src={imageUrl} />
       </div>
-      <div class="carousselImageInfo">
+      <div className="carousselImageInfo">
         <h3>{name}</h3>
         <p>{description}</p>
       </div>
