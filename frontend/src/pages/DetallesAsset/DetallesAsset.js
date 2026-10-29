@@ -235,7 +235,7 @@ const DetallesAsset = () => {
                     icon={<FontAwesomeIcon icon={faDownload} />}
                     iconPosition="alone"
                     className="round-btn secondary-btn enano-btn fileDownload"
-                    href={`https://mmg.phg.es/file/download?fileID=${file._id}`}
+                    href={`https://api.mmg.phg21.es/file/download?fileID=${file._id}`}
                     onClick={registrarHistorial}
                 />
             </div>
@@ -395,7 +395,7 @@ const DetallesAsset = () => {
                                 <Button
                                     label={"Descarga"}
                                     icon={<FontAwesomeIcon icon={faDownload} />}
-                                    href={`https://mmg.phg.es/asset/download?assetID=${assetID}`}
+                                    href={`https://api.mmg.phg21.es/asset/download?assetID=${assetID}`}
                                     onClick={registrarHistorial}
                                     className={'assetDetails-button assetDetails-downloadButton'}
                                 ></Button>

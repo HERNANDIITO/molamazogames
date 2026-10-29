@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const BASE_URL = "https://mmg.phg.es/history"
+const BASE_URL = "https://api.mmg.phg21.es/history"
 
 const postNewHistoryEntry = async (data, headers = {}) => {
     try {
