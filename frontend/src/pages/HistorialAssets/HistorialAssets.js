@@ -46,7 +46,7 @@ const HistorialAssets = () => {
             return;
         }
         selectedAssets.forEach(assetID => {
-            const url = `https://api.mmg.phg21.es/asset/download?assetID=${assetID}`;
+            const url = `https://mmg.phg21.es/asset/download?assetID=${assetID}`;
             const link = document.createElement('a');
             link.href = url;
             // Esto fuerza descarga en navegadores que lo permiten
@@ -252,7 +252,7 @@ const HistorialAssets = () => {
                                                 value={bytesToBigUnit(asset.size)}
                                                 time={getEuropeanTime(asset.historyDate)}
                                                 imgAsset={asset.image ? "https://mmg.phg21.es/" + asset.image.path : null}
-                                                href={`https://api.mmg.phg21.es/asset/download?assetID=${asset._id}`}
+                                                href={`https://mmg.phg21.es/asset/download?assetID=${asset._id}`}
                                                 checked={selectedAssets.has(asset._id)}
                                                 onChange={() => toggleSelectAsset(asset._id)}
                                             />

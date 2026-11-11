@@ -9,7 +9,7 @@ const Model = ({ url }) => {
 };
 
 const Caroussel3D = ({ path, name, description }) => {
-  const modelUrl = `https://api.mmg.phg21.es/${path.replace(/\\/g, '/')}`;
+  const modelUrl = `https://mmg.phg21.es/${path.replace(/\\/g, '/')}`;
 
   return (
     <div className="carousselEntry">
