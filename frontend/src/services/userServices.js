@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const BASE_URL = "https://mmg.phg21.es/user"
+const BASE_URL = "https://mmg.phg21.es/api/user"
 
 const updateUser = async (data, headers = {}) => {
     console.log("DATA: ", data);

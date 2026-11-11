@@ -1,4 +1,4 @@
-const BASE_URL = "https://mmg.phg21.es/auth"
+const BASE_URL = "https://mmg.phg21.es/api/auth"
 
 /**
  * REGISTER

@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const BASE_URL = "https://mmg.phg21.es/file"
+const BASE_URL = "https://mmg.phg21.es/api/file"
 
 const uploadFile = async (data, headers = {}) => {
     try {

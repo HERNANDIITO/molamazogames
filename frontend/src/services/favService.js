@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const BASE_URL = "https://mmg.phg21.es/fav"
+const BASE_URL = "https://mmg.phg21.es/api/fav"
 
 /**
  * GET ALL CATEGORIES 
