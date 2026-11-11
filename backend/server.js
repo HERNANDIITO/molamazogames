@@ -52,18 +52,22 @@ app.use((req, res, next) => {
 app.use(errorMiddleware);
 
 // Routers -----------------------------
-app.use('/user',     userRouter     );
-app.use('/auth',     authRouter     );
-app.use('/asset',    assetRouter    );
-app.use('/category', categoryRouter );
-app.use('/comment',  commentRouter  );
-app.use('/fav',      favRouter      );
-app.use('/format',   formatRouter   );
-app.use('/history',  historyRouter  );
-app.use('/like',     likeRouter     );
-app.use('/meta',     metaRouter     );
-app.use('/tag',      tagRouter      );
-app.use('/file',     fileRouter     );
+const api = express.Router();
+
+api.use('/user',     userRouter     );
+api.use('/auth',     authRouter     );
+api.use('/asset',    assetRouter    );
+api.use('/category', categoryRouter );
+api.use('/comment',  commentRouter  );
+api.use('/fav',      favRouter      );
+api.use('/format',   formatRouter   );
+api.use('/history',  historyRouter  );
+api.use('/like',     likeRouter     );
+api.use('/meta',     metaRouter     );
+api.use('/tag',      tagRouter      );
+api.use('/file',     fileRouter     );
+
+app.use('/api', api);
 
 // Servidor ----------------------------
 app.listen(PORT, () => {
